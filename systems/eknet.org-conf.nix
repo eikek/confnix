@@ -32,26 +32,6 @@
   services.exim.enable = true;
   services.exim.primaryHostname = config.networking.hostName;
 
-  services.ntp.enable = true;
-
-  programs = {
-    ssh.startAgent = false;
-    bash.enableCompletion = true;
-    zsh.enable = true;
-  };
-
-
-  users.extraUsers.eike = {
-    isNormalUser = true;  # unstable
-    name = "eike";
-    group = "users";
-    uid = 1000;
-    createHome = true;
-    home = "/home/eike";
-    shell = "/run/current-system/sw/bin/zsh";
-    extraGroups = [ "wheel" "audio" "messagebus" "systemd-journal" ];
-  };
-
   hardware = {
     #cpu.intel.updateMicrocode = true;  #needs unfree
   };

@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+pkgs:
 let
   callPackage = pkgs.lib.callPackageWith(pkgs // custom);
 
@@ -8,4 +8,4 @@ let
     exim = callPackage ./exim {};
   };
 
-in { custom = custom; }
+in custom

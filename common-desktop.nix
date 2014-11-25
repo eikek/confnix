@@ -119,7 +119,6 @@
     leiningen
     jdk
     maven
-    sqlite
     idea.idea-community
     nodejs
     mozart
@@ -142,7 +141,6 @@
   # other tools
     html2text
     gitg
-    linuxPackages.virtualbox
     zathura
     xpdf
     ghostscript

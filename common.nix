@@ -31,7 +31,7 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      packageOverrides = pkgs: (import ./pkgs { pkgs = pkgs; }).custom;
+      packageOverrides = import ./pkgs;
     };
   };
 
@@ -68,6 +68,7 @@
     mr
     vcsh
     rlwrap
+    sqlite
   ];
 
   users.extraUsers.eike = {
