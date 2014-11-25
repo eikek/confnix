@@ -7,6 +7,7 @@ let
     gitblit = callPackage ./gitblit {};
     exim = callPackage ./exim {};
     sqliteman = callPackage ./sqliteman {};
+    shelter = callPackage ./shelter {};
   };
 
 in custom

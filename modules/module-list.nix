@@ -3,4 +3,5 @@
  ./exim
  ./gitblit
  ./sitebag
+ ./shelter
 ]

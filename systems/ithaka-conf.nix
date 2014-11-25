@@ -39,6 +39,7 @@
   services.gitblit.enable = true;
   services.exim.enable = true;
   services.exim.primaryHostname = "ithaka";
+  services.shelter.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
