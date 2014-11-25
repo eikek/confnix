@@ -150,5 +150,6 @@
     libav
     libtheora
     libreoffice
+    sqliteman
   ];
 }

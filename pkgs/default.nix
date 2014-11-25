@@ -6,6 +6,7 @@ let
     sitebag = callPackage ./sitebag {};
     gitblit = callPackage ./gitblit {};
     exim = callPackage ./exim {};
+    sqliteman = callPackage ./sqliteman {};
   };
 
 in custom
