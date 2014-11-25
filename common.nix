@@ -69,6 +69,7 @@
     vcsh
     rlwrap
     sqlite
+    fdupes
   ];
 
   users.extraUsers.eike = {
