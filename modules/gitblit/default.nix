@@ -80,10 +80,11 @@ in {
       daemonType = "daemon";
 
       preStart = ''
+        mkdir -p ${cfg.baseDir}
         cd ${cfg.baseDir}
         if [ ! -d ${cfg.dataDir} ]; then
            mkdir -p ${cfg.dataDir}
-           cp -R ${pkgs.gitblit}/data ${cfg.dataDir}/
+           cp -R ${pkgs.gitblit}/data/* ${cfg.dataDir}/
            chown -R ${gitblitUser}:gitblit ${cfg.dataDir}/
            find ${cfg.dataDir}/ -type d -exec chmod 755 {} \;
         fi

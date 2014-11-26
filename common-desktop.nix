@@ -102,10 +102,6 @@
     firefox
     conkerorWrapper
     surf
-    elinks
-    w3m
-    lynx
-    emacs
     mu
     offlineimap
 

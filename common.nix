@@ -70,6 +70,10 @@
     rlwrap
     sqlite
     fdupes
+    emacs
+    elinks
+    w3m
+    lynx
   ];
 
   users.extraUsers.eike = {

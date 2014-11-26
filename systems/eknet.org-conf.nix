@@ -2,9 +2,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      #./hardware-configuration.nix
+      ./hw-eknet.nix
       ../common.nix
-    ]
+    ];
 
   boot.loader.grub.devices = [ "/dev/sda" ];
 
@@ -31,6 +31,7 @@
   services.gitblit.enable = true;
   services.exim.enable = true;
   services.exim.primaryHostname = config.networking.hostName;
+  services.shelter.enable = true;
 
   hardware = {
     #cpu.intel.updateMicrocode = true;  #needs unfree
