@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ pcre db libiconv gnutls pkgconfig sqlite perl which ];
 
   configurePhase = ''
-    cat >> Local/Makefile << EOF
+    cat > Local/Makefile << EOF
     USE_DB=yes
     DBMLIB = -ldb
     CONFIGURE_FILE=$out/etc/exim.conf
@@ -70,10 +70,9 @@ stdenv.mkDerivation rec {
     WITH_CONTENT_SCAN=yes
     AUTH_PLAINTEXT=yes
     EXTRALIBS_EXIM=-L${libiconv}/lib -liconv
+    EXIM_PERL = perl.o
     EOF
   '';
-
-  buildPhase = "make";
 
   installPhase = ''
    mkdir -p $out/
@@ -82,16 +81,16 @@ stdenv.mkDerivation rec {
    sed -i 's,version=exim-.*exim -bV -C /dev/null.*,version=exim-${version},' scripts/exim_install
    sed -i 's,awk ./Exim version/ { OFS="".*,,' scripts/exim_install
    make INST_BIN_DIRECTORY=$out/bin INSTALL_ARG=-no_chown install
-   cat > $out/etc/trusted-configs << EOF
+   cat > $out/etc/trusted-configs <<-"EOF"
    /var/exim-${version}/etc/exim.conf
    /var/exim/etc/exim.conf
    EOF
   '';
 
-  meta = {
+  meta = with stdenv.lib; {
     description = "Exim is a message transfer agent (MTA) developed at the University of Cambridge for use on Unix systems connected to the Internet.";
-    homepage = http://exim.org/index.html;
-    license = stdenv.lib.licenses.gpl3;
-    maintainers = [ stdenv.lib.maintainers.eikek ];
+    homepage = http://exim.org;
+    license = licenses.gpl3;
+    maintainers = [ maintainers.eikek ];
   };
 }

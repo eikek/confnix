@@ -14,7 +14,12 @@ let
     domainlist relay_to_domains =
     hostlist   relay_from_hosts = ${cfg.relayFromHosts}
 
-    MY_USERS = eike:john
+    LOCAL_USERS = ${cfg.localUsers}
+    MAIL_ALIASES = ${cfg.mailAliases}
+
+    ${if (cfg.perlScript == null) then "" else ''
+      perl_startup = do '${cfg.stateDir}/etc/exim.pl'
+    ''}
 
     acl_smtp_rcpt = acl_check_rcpt
     acl_smtp_data = acl_check_data
@@ -29,11 +34,11 @@ let
     ignore_bounce_errors_after = 2d
     timeout_frozen_after = 7d
 
-    spool_directory = /var/exim-${version}/spool
+    spool_directory = ${cfg.stateDir}/spool
     split_spool_directory = true
     check_rfc2047_length = false
 
-    message_size_limit = 30m
+    message_size_limit = ${cfg.messageSizeLimit}
 
     begin acl
     acl_check_rcpt:
@@ -49,6 +54,10 @@ let
 
       accept local_parts   = postmaster
              domains       = +local_domains
+
+      deny   message       = Unknown user
+             domains       = +local_domains
+             local_parts   = ! LOCAL_USERS : MAIL_ALIASES
 
       require verify        = sender
 
@@ -83,7 +92,7 @@ let
       driver = redirect
       allow_fail
       allow_defer
-      data = ''${lookup{$local_part}lsearch{/var/exim-${version}/etc/aliases}}
+      data = MAIL_ALIASES
       user = exim
       file_transport = address_file
       pipe_transport = address_pipe
@@ -92,10 +101,10 @@ let
       driver = redirect
       user = ${user}
       group = ${group}
-      local_parts = MY_USERS
+      local_parts = LOCAL_USERS
       local_part_suffix = +* : -*
       local_part_suffix_optional
-      file = /var/exim-${version}/mail/$local_part/.forward
+      file = ${cfg.stateDir}/mail/$local_part/.forward
       allow_filter
       no_verify
       no_expn
@@ -107,11 +116,11 @@ let
     postmaster:
       driver = redirect
       local_parts = root:postmaster
-      data = eike@$primary_hostname
+      data = ${cfg.postmaster}@$primary_hostname
 
     localuser:
       driver = accept
-      local_parts = MY_USERS
+      local_parts = LOCAL_USERS
       local_part_suffix = +* : -*
       local_part_suffix_optional
       transport = local_delivery
@@ -124,13 +133,12 @@ let
 
     local_delivery:
       driver = appendfile
-      current_directory = /var/exim-${version}/mail/$local_part
+      current_directory = ${cfg.stateDir}/mail/$local_part
       maildir_format = true
-      directory = /var/exim-${version}/mail/$local_part\
+      directory = ${cfg.stateDir}/mail/$local_part\
         ''${if eq{$local_part_suffix}{}{}\
         {/.''${substr_1:$local_part_suffix}}}
       maildirfolder_create_regex = /\.[^/]+$
-      #file = /var/mail/$local_part
       delivery_date_add
       envelope_to_add
       return_path_add
@@ -165,14 +173,14 @@ let
       driver                     = plaintext
       server_set_id              = $auth2
       server_prompts             = :
-      server_condition           = Authentication is not yet configured
+      server_condition           = ${cfg.plainAuthCondition}
       server_advertise_condition = ''${if def:tls_in_cipher}
 
     LOGIN:
       driver                     = plaintext
       server_set_id              = $auth1
       server_prompts             = <| Username: | Password:
-      server_condition           = Authentication is not yet configured
+      server_condition           = ${cfg.loginAuthCondition}
       server_advertise_condition = ''${if def:tls_in_cipher}
   '';
 
@@ -185,6 +193,16 @@ in {
       enable = mkOption {
         default = false;
         description = "Whether to enable the exim mail server.";
+      };
+
+      postmaster = mkOption {
+        default = "root";
+        description = "The user that receives postmaster mail.";
+      };
+
+      stateDir = mkOption {
+        default = "/var/exim";
+        description = "The directory exim uses for work and to store mail.";
       };
 
       configFile = mkOption {
@@ -207,6 +225,19 @@ in {
         description = "A list of the local domains.";
       };
 
+      localUsers = mkOption {
+        default = "";
+        description = ''
+          A exim list of local users. It is inserted verbatim
+          in exim config, so it can be an exim expression or a simple list.
+         '';
+      };
+
+      mailAliases = mkOption {
+        default = ''''${lookup{$local_part}lsearch{${cfg.stateDir}/etc/aliases}}'';
+        description = "Exim expression for looking up mail aliases.";
+      };
+
       relayFromHosts = mkOption {
         default = "localhost : 127.0.0.1";
         description = "A list of hosts that are allowed to use exim as a relay.";
@@ -225,6 +256,26 @@ in {
       smtpPorts = mkOption {
         default = "25 : 587";
         description = "The ports to listen for smtp connections.";
+      };
+
+      plainAuthCondition = mkOption {
+        default = "false";
+        description = "Exim config value used for <literal>server_condition</literal> in the plain authenticator.";
+      };
+
+      loginAuthCondition = mkOption {
+        default = "false";
+        description = "Exim config value used in <literal>server_condition</literal> in the login authenticator.";
+      };
+
+      perlScript = mkOption {
+        default = null;
+        description = "An optional perl script to be included in exim config.";
+      };
+
+      messageSizeLimit = mkOption {
+        default = "30m";
+        description = "The message size limit.";
       };
     };
   };
@@ -256,26 +307,31 @@ in {
       setuid = "root";
 
       preStart = ''
-        if ! [ -d /var/exim-${version}/etc ]; then
-          mkdir -p /var/exim-${version}/etc
+        if ! [ -d ${cfg.stateDir}/etc ]; then
+          mkdir -p ${cfg.stateDir}/etc
           # todo
-          cp ${pkgs.exim}/etc/aliases /var/exim-${version}/etc/
+          cp ${pkgs.exim}/etc/aliases ${cfg.stateDir}/etc/
         fi
-        if ! [ -d /var/exim-${version}/mail ]; then
-           mkdir -p /var/exim-${version}/mail/eike
-           chown -R ${user}:${group} /var/exim-${version}/mail
+        if ! [ -d ${cfg.stateDir}/mail ]; then
+           mkdir -p ${cfg.stateDir}/mail
+           chown -R ${user}:${group} ${cfg.stateDir}/mail
         fi
-        if ! [ -d /var/exim-${version}/spool ]; then
-          mkdir -p /var/exim-${version}/spool
-          chown -R ${user}:${group} /var/exim-${version}/spool
+        if ! [ -d ${cfg.stateDir}/spool ]; then
+          mkdir -p ${cfg.stateDir}/spool
+          chown -R ${user}:${group} ${cfg.stateDir}/spool
         fi
+        ${if (cfg.perlScript == null) then "" else ''
+        cat > ${cfg.stateDir}/etc/exim.pl <<- "EOF"
+        ${cfg.perlScript}
+        EOF
+        ''}
 
-        cat > /var/exim-${version}/etc/exim.conf <<- "EOF"
+        cat > ${cfg.stateDir}/etc/exim.conf <<- "EOF"
         ${eximConfig}
         EOF
       '';
 
-      exec="/var/setuid-wrappers/exim-${version} -bd -q1h ${if cfg.debug then "-v -d" else ""} -C /var/exim-${version}/etc/exim.conf";
+      exec="/var/setuid-wrappers/exim-${version} -bd -q1h ${if cfg.debug then "-v -d" else ""} -C ${cfg.stateDir}/etc/exim.conf";
     };
   };
 }

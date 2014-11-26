@@ -12,11 +12,10 @@ These are the configuration file for some of my
 
 
 
-
 ## Credits
 
-Aside from the nix/nixpgs manuals, I looked at some other
-configuration setups and stole from them:
+Aside from the nix/nixpgs manuals, I got inspired by other
+configuration setups:
 
 - https://github.com/aszlig/vuizvui
 - https://github.com/chaoflow/nixos-configurations

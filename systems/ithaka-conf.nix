@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -37,9 +36,6 @@
 
   services.sitebag.enable = true;
   services.gitblit.enable = true;
-  services.exim.enable = true;
-  services.exim.primaryHostname = "ithaka";
-  services.shelter.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

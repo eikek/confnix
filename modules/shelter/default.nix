@@ -33,6 +33,11 @@ in {
         description = "Path to the file containing the sqlite database.";
       };
 
+      autoLoad = mkOption {
+        default = null;
+        description = "Clojure code to automatically load on startup.";
+      };
+
       loadFiles = mkOption {
         default = [];
         description = "A list of paths to clojure files that are loaded by shelter on start.";
@@ -73,11 +78,16 @@ in {
         if ! [ -r ${cfg.databaseFile} ]; then
           touch ${cfg.databaseFile}
         fi
+        ${if (cfg.autoLoad == null) then "" else ''
+        cat > ${cfg.baseDir}/autoload.clj <<- "EOF"
+        ${cfg.autoLoad}
+        EOF
+        ''}
         chown shelter:shelter ${cfg.databaseFile}
-        chmod 640 ${cfg.databaseFile}
+        chmod 644 ${cfg.databaseFile}
       '';
 
-      exec = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh shelter -c \"${pkgs.shelter}/bin/shelter ${cfg.baseDir}/db.clj ${builtins.toString cfg.loadFiles} \"";
+      exec = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh shelter -c \"${pkgs.shelter}/bin/shelter ${cfg.baseDir}/db.clj ${if (cfg.autoLoad == null) then "" else "${cfg.baseDir}/autoload.clj"} ${builtins.toString cfg.loadFiles} \"";
     };
   };
 }

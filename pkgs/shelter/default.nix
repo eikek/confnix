@@ -1,4 +1,4 @@
-{stdenv, fetchgit, leiningen, jre, makeWrapper}:
+{stdenv, fetchgit, leiningen, jre, makeWrapper, bash, curl}:
 
 stdenv.mkDerivation rec {
   version = "0.1.0";
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     url = https://github.com/eikek/shelter;
     rev = "refs/heads/master";
     name = "shelter-${version}-git";
-    sha256 = "18rcgdjk1ghi8lfmg5iwm2mf4sxg6gadcbcnr6xgfc2lsqcdcd5w";
+    sha256 = "0avgs74xb3xmqb6ws9n1zwr8pb5mbmvhb6dplnmb34q4kpgg2ls6";
   };
 
   buildInputs = [ leiningen jre makeWrapper ];
@@ -30,6 +30,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/{bin,lib}
     cp target/uberjar/shelter-0.1.0-SNAPSHOT-standalone.jar $out/lib/
     makeWrapper ${jre}/bin/java $out/bin/shelter --add-flags "-jar $out/lib/shelter-0.1.0-SNAPSHOT-standalone.jar"
+    cp $src/scripts/shelter_auth $out/bin/
   '';
 
   meta = {
