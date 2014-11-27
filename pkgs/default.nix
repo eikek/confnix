@@ -3,11 +3,12 @@ let
   callPackage = pkgs.lib.callPackageWith(pkgs // custom);
 
   custom = {
-    sitebag = callPackage ./sitebag {};
-    gitblit = callPackage ./gitblit {};
     exim = callPackage ./exim {};
-    sqliteman = callPackage ./sqliteman {};
+    gitblit = callPackage ./gitblit {};
+    html2textpy = callPackage ./html2textpy {};
     shelter = callPackage ./shelter {};
+    sitebag = callPackage ./sitebag {};
+    sqliteman = callPackage ./sqliteman {};
   };
 
 in custom

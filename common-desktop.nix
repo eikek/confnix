@@ -136,6 +136,7 @@
 
   # other tools
     html2text
+    html2textpy
     gitg
     zathura
     xpdf
