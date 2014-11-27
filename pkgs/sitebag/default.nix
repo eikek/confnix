@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     # buildinfo plugin reads the current commit on build
     # thus, need to build from git sources
     leaveDotGit = true;
-    name = "sitebag-${version}";
+    name = "sitebag-${version}-git";
     sha256 = "035400fhjnfkpspaiwzm96g79wf0daqbybnahp4r5b8gx2i6cbbl";
   };
 

@@ -4,8 +4,6 @@ stdenv.mkDerivation rec {
   version = "1.6.2";
   name = "gitblit-${version}";
 
-  # buildinfo plugin reads the current commit on build
-  # thus, need to build from git sources
   src = fetchurl {
     url = "http://dl.bintray.com/gitblit/releases/gitblit-${version}.tar.gz";
     sha256 = "02blfjalv5fhbbrl736r9lr3wg4sq19xyrhyv337fl13sqam377b";
