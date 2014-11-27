@@ -23,7 +23,7 @@ in
     useDHCP = true;
     wicd.enable = false;
     firewall = {
-      allowedTCPPorts = [ 22 25 80 443 29418 ];
+      allowedTCPPorts = [ 22 25 143 80 443 29418 ];
     };
   };
 
@@ -72,6 +72,13 @@ in
     loginAuthCondition = ''
       ''${run{${shelterAuth} localhost:${shelterHttpPort} $auth1 $auth2 mail}{true}{false}}
     '';
+  };
+
+  services.dovecot2imap = {
+    enable = true;
+    extraConfig = "mail_debug = yes";
+    enableImap = true;
+    enablePop3 = false;
   };
 
   hardware = {

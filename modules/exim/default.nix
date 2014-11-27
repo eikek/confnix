@@ -104,7 +104,7 @@ let
       local_parts = LOCAL_USERS
       local_part_suffix = +* : -*
       local_part_suffix_optional
-      file = ${cfg.stateDir}/mail/$local_part/.forward
+      file = ${cfg.usersDir}/''${lc:$local_part}/.forward
       allow_filter
       no_verify
       no_expn
@@ -135,7 +135,7 @@ let
       driver = appendfile
       current_directory = ${cfg.stateDir}/mail/$local_part
       maildir_format = true
-      directory = ${cfg.stateDir}/mail/$local_part\
+      directory = ${cfg.usersDir}/''${lc:$local_part}/Maildir\
         ''${if eq{$local_part_suffix}{}{}\
         {/.''${substr_1:$local_part_suffix}}}
       maildirfolder_create_regex = /\.[^/]+$
@@ -203,6 +203,11 @@ in {
       stateDir = mkOption {
         default = "/var/exim";
         description = "The directory exim uses for work and to store mail.";
+      };
+
+      usersDir = mkOption {
+        default = "/var/exim/users";
+        description = "The directory containing home directories of users.";
       };
 
       configFile = mkOption {
@@ -313,8 +318,12 @@ in {
           cp ${pkgs.exim}/etc/aliases ${cfg.stateDir}/etc/
         fi
         if ! [ -d ${cfg.stateDir}/mail ]; then
-           mkdir -p ${cfg.stateDir}/mail
-           chown -R ${user}:${group} ${cfg.stateDir}/mail
+           mkdir -p ${cfg.stateDir}
+           chown -R ${user}:${group} ${cfg.stateDir}
+        fi
+        if ! [ -d ${cfg.usersDir} ]; then
+           mkdir -p ${cfg.usersDir}
+           chown -R ${user}:${group} ${cfg.usersDir}
         fi
         if ! [ -d ${cfg.stateDir}/spool ]; then
           mkdir -p ${cfg.stateDir}/spool
