@@ -281,8 +281,8 @@ in {
         mkdir -p ${cfg.baseDir}
         ln -sfn ${pkgs.sitebag}/lib ${cfg.baseDir}/lib
 
-        mkdir -p ${cfg.baseDir}/{bin,log,etc}
-        chown ${sitebagUser}:sitebag ${cfg.baseDir}/log
+        mkdir -p ${cfg.baseDir}/{bin,log,etc,var}
+        chown ${sitebagUser}:sitebag ${cfg.baseDir}/{log,var}
 
         touch ${cfg.baseDir}/etc/{sitebag.conf,logback.xml}
         cat > ${cfg.baseDir}/etc/sitebag.conf << EOF

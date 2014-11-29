@@ -29,6 +29,7 @@
 
   services.acpid.enable = true;
   services.mongodb.enable = true;
+  services.sitebag.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
