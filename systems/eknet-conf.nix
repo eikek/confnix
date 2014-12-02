@@ -62,7 +62,10 @@ in
 
 
   services.sitebag.enable = true;
-  services.gitblit.enable = true;
+  services.gitblit = {
+    enable = true;
+    httpurlRealm = ''http://localhost:${shelterHttpPort}/verify?name=%[username]&password=%[password]&app=gitblit'';
+  };
 
   services.shelter = {
     enable = true;
@@ -77,6 +80,7 @@ in
 
     (app-add "mail"     "SMTP and IMAP services.")
     (app-add "sitebag"  "Sitebag read-it-later")
+    (app-add "gitblit"  "Gitblit git solution")
 
     (if (not (account/resolve-alias "eike"))
       (account/register "eike")

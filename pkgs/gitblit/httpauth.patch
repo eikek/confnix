@@ -1,0 +1,152 @@
+diff --git a/src/main/distrib/data/gitblit.properties b/src/main/distrib/data/gitblit.properties
+index f53cc11..83d6fd9 100644
+--- a/src/main/distrib/data/gitblit.properties
++++ b/src/main/distrib/data/gitblit.properties
+@@ -1772,6 +1772,12 @@ realm.ldap.removeDeletedUsers = true
+ # SINCE 1.2.0
+ realm.redmine.url = http://example.com/redmine
+ 
++# A url to authenticate against. On successful http status code, authentication
++# is successful, otherwise it is not.
++#
++# Example: http://my.authserver.com/?username=%[username]&password=%[password]
++realm.httpurl.urlPattern =
++
+ #
+ # Gitblit GO Server Settings
+ # The following settings only affect the integrated GO variant.
+diff --git a/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
+new file mode 100644
+index 0000000..f27742a
+--- /dev/null
++++ b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
+@@ -0,0 +1,94 @@
++package com.gitblit.auth;
++
++import com.gitblit.Constants;
++import com.gitblit.Keys;
++import com.gitblit.models.UserModel;
++import com.gitblit.utils.StringUtils;
++
++import java.net.HttpURLConnection;
++import java.net.URL;
++
++public class HttpUrlAuthProvider extends AuthenticationProvider.UsernamePasswordAuthenticationProvider {
++
++    public HttpUrlAuthProvider() {
++        super("httpurl");
++    }
++
++    @Override
++    public void setup() {
++    }
++
++    @Override
++    public UserModel authenticate(String username, char[] password) {
++        final String urlPattern = settings.getRequiredString(Keys.realm.httpurl.urlPattern);
++        try {
++            final URL url = new URL(urlPattern
++                    .replace("%[username]", StringUtils.encodeUsername(username))
++                    .replace("%[password]", StringUtils.encodeURL(String.valueOf(password))));
++
++            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
++            try {
++                conn.setRequestMethod("GET");
++                conn.connect();
++                int rc = conn.getResponseCode();
++                if (rc != 200) {
++                    logger.error(String.format("Authentication failed (%d) for: %s", rc,
++                            urlPattern.replace("%[username]", username).replace("%[password]", "***")));
++                    return null;
++                }
++            } finally {
++                conn.disconnect();
++            }
++        } catch (Exception e) {
++            logger.error(e.getMessage());
++            return null;
++        }
++
++
++        UserModel user = userManager.getUserModel(username);
++        if (user == null) {
++            // create user object for new authenticated user
++            user = new UserModel(username.toLowerCase());
++            user.canAdmin = false;
++            user.canCreate = true;
++            user.canFork = true;
++        }
++
++        // create a user cookie
++        setCookie(user, password);
++
++        // update user attributes from UnixUser
++        user.accountType = getAccountType();
++        user.password = Constants.EXTERNAL_ACCOUNT;
++
++        // push the changes to the backing user service
++        updateUser(user);
++
++        return user;
++    }
++
++    @Override
++    public Constants.AccountType getAccountType() {
++        return Constants.AccountType.EXTERNAL;
++    }
++
++    @Override
++    public boolean supportsCredentialChanges() {
++        return false;
++    }
++
++    @Override
++    public boolean supportsDisplayNameChanges() {
++        return true;
++    }
++
++    @Override
++    public boolean supportsEmailAddressChanges() {
++        return true;
++    }
++
++    @Override
++    public boolean supportsTeamMembershipChanges() {
++        return true;
++    }
++}
+diff --git a/src/main/java/com/gitblit/manager/AuthenticationManager.java b/src/main/java/com/gitblit/manager/AuthenticationManager.java
+index f98f7b6..f403552 100644
+--- a/src/main/java/com/gitblit/manager/AuthenticationManager.java
++++ b/src/main/java/com/gitblit/manager/AuthenticationManager.java
+@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.HttpServletResponse;
+ import javax.servlet.http.HttpSession;
+ 
++import com.gitblit.auth.*;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
+@@ -37,14 +38,7 @@ import com.gitblit.Constants.AccountType;
+ import com.gitblit.Constants.AuthenticationType;
+ import com.gitblit.IStoredSettings;
+ import com.gitblit.Keys;
+-import com.gitblit.auth.AuthenticationProvider;
+ import com.gitblit.auth.AuthenticationProvider.UsernamePasswordAuthenticationProvider;
+-import com.gitblit.auth.HtpasswdAuthProvider;
+-import com.gitblit.auth.LdapAuthProvider;
+-import com.gitblit.auth.PAMAuthProvider;
+-import com.gitblit.auth.RedmineAuthProvider;
+-import com.gitblit.auth.SalesforceAuthProvider;
+-import com.gitblit.auth.WindowsAuthProvider;
+ import com.gitblit.models.TeamModel;
+ import com.gitblit.models.UserModel;
+ import com.gitblit.transport.ssh.SshKey;
+@@ -92,6 +86,7 @@ public class AuthenticationManager implements IAuthenticationManager {
+ 		providerNames.put("redmine", RedmineAuthProvider.class);
+ 		providerNames.put("salesforce", SalesforceAuthProvider.class);
+ 		providerNames.put("windows", WindowsAuthProvider.class);
++		providerNames.put("httpurl", HttpUrlAuthProvider.class);
+ 
+ 		// map of legacy external user services
+ 		legacyRedirects = new HashMap<String, String>();

@@ -53,7 +53,20 @@ in {
 
       ticketBackend = mkOption {
         default = "com.gitblit.tickets.FileTicketService";
-        description = "The ticket storage backend to use. See http://gitblit.org/tickets_setup.html for other options. Set empty string to disable the ticket feature.";
+        description = ''
+          The ticket storage backend to use. See http://gitblit.org/tickets_setup.html for
+          other options. An empty string disables the ticket feature.
+        '';
+      };
+
+      httpurlRealm = mkOption {
+        default = null;
+        description = "The url pattern used with <literal>realm.httpurl.urlPattern</literal>.";
+      };
+
+      canonicalUrl = mkOption {
+        default = "";
+        description = "The canonical url of running gitblit instance.";
       };
     };
   };
@@ -85,13 +98,18 @@ in {
         if [ ! -d ${cfg.dataDir} ]; then
            mkdir -p ${cfg.dataDir}
            cp -R ${pkgs.gitblit}/data/* ${cfg.dataDir}/
+           # /**/
            chown -R ${gitblitUser}:gitblit ${cfg.dataDir}/
            find ${cfg.dataDir}/ -type d -exec chmod 755 {} \;
         fi
-        sed -i 's/^tickets.service.*/tickets.service=${cfg.ticketBackend}/' ${cfg.dataDir}/gitblit.properties
+        sed -i 's,^tickets.service.*,tickets.service=${cfg.ticketBackend},' ${cfg.dataDir}/gitblit.properties
+        sed -i 's,^realm.authenticationProviders.*,realm.authenticationProviders = httpurl,' ${cfg.dataDir}/gitblit.properties
+        sed -i 's,^web.canonicalUrl.*,web.canonicalUrl = ${cfg.canonicalUrl},' ${cfg.dataDir}/gitblit.properties
+        sed -i 's,^realm.httpurl.*,,' ${cfg.dataDir}/gitblit.properties
+        echo "realm.httpurl.urlPattern = ${cfg.httpurlRealm}" >> ${cfg.dataDir}/gitblit.properties
         ln -snf ${pkgs.gitblit}/ext ${cfg.baseDir}/ext
         ln -snf ${pkgs.gitblit}/docs ${cfg.baseDir}/docs
-        cp ${pkgs.gitblit}/{env-vars,gitblit.jar} ${cfg.baseDir}/
+        cp ${pkgs.gitblit}/gitblit.jar ${cfg.baseDir}/
       '';
 
       exec = ''

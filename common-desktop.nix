@@ -115,6 +115,7 @@
     leiningen
     jdk
     maven
+    ant
     idea.idea-community
     nodejs
     mozart
