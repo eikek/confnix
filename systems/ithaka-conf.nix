@@ -34,9 +34,6 @@
   };
 
 
-  services.sitebag.enable = true;
-  services.gitblit.enable = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.gutenprint pkgs.splix pkgs.foomatic_filters ];

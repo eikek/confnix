@@ -105,8 +105,10 @@ in {
         sed -i 's,^tickets.service.*,tickets.service=${cfg.ticketBackend},' ${cfg.dataDir}/gitblit.properties
         sed -i 's,^realm.authenticationProviders.*,realm.authenticationProviders = httpurl,' ${cfg.dataDir}/gitblit.properties
         sed -i 's,^web.canonicalUrl.*,web.canonicalUrl = ${cfg.canonicalUrl},' ${cfg.dataDir}/gitblit.properties
+        ${if (cfg.httpurlRealm != null) then ''
         sed -i 's,^realm.httpurl.*,,' ${cfg.dataDir}/gitblit.properties
         echo "realm.httpurl.urlPattern = ${cfg.httpurlRealm}" >> ${cfg.dataDir}/gitblit.properties
+        '' else ""}
         ln -snf ${pkgs.gitblit}/ext ${cfg.baseDir}/ext
         ln -snf ${pkgs.gitblit}/docs ${cfg.baseDir}/docs
         cp ${pkgs.gitblit}/gitblit.jar ${cfg.baseDir}/
