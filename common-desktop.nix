@@ -149,5 +149,6 @@
     libtheora
     libreoffice
     sqliteman
+    unison
   ];
 }

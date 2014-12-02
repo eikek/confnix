@@ -75,6 +75,7 @@
     w3m
     lynx
     storeBackup
+    bind
   ];
 
   users.extraUsers.eike = {

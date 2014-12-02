@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   shelterHttpPort = builtins.toString config.services.shelter.httpPort;
   shelterDb = config.services.shelter.databaseFile;
@@ -31,6 +31,10 @@ let
     '';
   checkpasswordScript = pkgs.writeScript "checkpassword-dovecot.sh" checkPassword;
   fastCgiBinding = "127.0.0.1:9000";
+  primaryDomain = "eknet.org";
+  primaryIp = "192.168.1.59";
+  primaryNameServer = "ns.eknet.org";
+  forwardNameServers = [ "192.168.1.1" ];
 in
 {
   imports =
@@ -43,6 +47,7 @@ in
 
   networking = {
     hostName = "eknet.org";
+    nameservers = forwardNameServers;
     wireless = {
       enable = false;
     };
@@ -56,16 +61,75 @@ in
 
   time.timeZone = "UTC";
 
+  services.bind = {
+    enable = true;
+    ipv4Only = true;
+    zones = [
+      { name = primaryDomain;
+        master = true;
+        file = import ./simple-zone.nix {
+          inherit pkgs lib;
+          domain = primaryDomain;
+          ip = primaryIp;
+          nameserver = [ primaryNameServer ];
+          cnames = ["www" "webmail" "dev"];
+          arecords = [ "ns" "mail" ];
+          mx = [{ domain = "mail"; priority = "10"; }];
+        };
+      }
+      { name = "myperception.de";
+        master = true;
+        file = import ./simple-zone.nix {
+          inherit pkgs lib;
+          domain = "myperception.de";
+          ip = primaryIp;
+          cnames = [ "www" ];
+          nameserver = [ primaryNameServer ];
+          mx = [{domain = ("mail."+ primaryDomain); priority = "10";}];
+        };
+      }
+    ];
+  };
+
+  services.nginx =  {
+    enable = true;
+    httpConfig = ''
+      include       ${pkgs.nginx}/conf/mime.types;
+      default_type  application/octet-stream;
+      sendfile        on;
+      keepalive_timeout  65;
+
+      server {
+        listen ${primaryIp}:80;
+        server_name www.${primaryDomain} ${primaryDomain};
+        root /var/www;
+        index index.html index.php;
+        location / {
+          try_files $uri $uri/ /index.php;
+        }
+        location ~ \.php$ {
+          fastcgi_pass ${fastCgiBinding};
+          fastcgi_index index.php;
+          include ${pkgs.nginx}/conf/fastcgi_params;
+          include ${pkgs.nginx}/conf/fastcgi.conf;
+        }
+      }
+    '';
+  };
+
   services.mongodb = {
     enable = true;
   };
 
 
   services.sitebag.enable = true;
+
+
   services.gitblit = {
     enable = true;
     httpurlRealm = ''http://localhost:${shelterHttpPort}/verify?name=%[username]&password=%[password]&app=gitblit'';
   };
+
 
   services.shelter = {
     enable = true;
@@ -92,6 +156,7 @@ in
   services.exim = {
     enable = true;
     primaryHostname = "ithaka";
+    localDomains = "myperception.de : eknet.org : @";
     postmaster = "eike";
     localUsers = ''
      ''${lookup sqlite {${shelterDb} \
@@ -144,20 +209,11 @@ in
     # '';
   };
 
-  services.nginx =  {
-    enable = true;
-    httpConfig = ''
-      include       ${pkgs.nginx}/conf/mime.types;
-      default_type  application/octet-stream;
-      sendfile        on;
-      keepalive_timeout  65;
-    '';
-  };
-
   services.roundcube = {
     enable = true;
     nginxEnable = true;
-    nginxFastCgiPass = "${fastCgiBinding}";
+    nginxServerName = ("webmail." + primaryDomain);
+    nginxFastCgiPass = fastCgiBinding;
   };
 
   hardware = {
