@@ -3,6 +3,7 @@
  ./dovecot2imap
  ./exim
  ./gitblit
+ ./roundcube
  ./sitebag
  ./shelter
 ]

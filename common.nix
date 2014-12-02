@@ -74,6 +74,7 @@
     elinks
     w3m
     lynx
+    storeBackup
   ];
 
   users.extraUsers.eike = {

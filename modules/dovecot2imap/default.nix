@@ -3,12 +3,10 @@
 with lib;
 
 let
-
   cfg = config.services.dovecot2imap;
-
   dovecotConf =
     ''
-      base_dir = /var/run/dovecot2/
+      base_dir = ${cfg.baseDir}
 
       protocols = ${optionalString cfg.enableImap "imap"} ${optionalString cfg.enablePop3 "pop3"}
     ''
@@ -35,12 +33,10 @@ let
         user = root
       }
       userdb {
-        driver = static
-        args = uid=exim gid=exim home=/var/users/%u
+        ${cfg.userDb}
       }
       passdb {
-        driver = checkpassword
-        args = ${checkpasswordScript}
+        ${cfg.passDb}
       }
 
       first_valid_uid = 399
@@ -48,37 +44,7 @@ let
     '' + cfg.extraConfig;
 
   confFile = pkgs.writeText "dovecot2.conf" dovecotConf;
-  checkpassword = ''
-  #!/bin/sh
-
-  REPLY="$1"
-  INPUT_FD=3
-  ERR_FAIL=1
-  ERR_NOUSER=3
-  ERR_TEMP=111
-
-  read -d ''$'\x0' -r -u $INPUT_FD USER
-  read -d ''$'\x0' -r -u $INPUT_FD PASS
-
-  echo "Not an error ;-) Dovecot checkpassword: $USER : $PASS > $REPLY" >> /dev/stderr
-
-  [ "$AUTHORIZED" != 1 ] || export AUHORIZED=2
-
-  if [ "$CREDENTIALS_LOOKUP" = 1 ]; then
-    exit $ERR_FAIL
-  else
-    if ${pkgs.shelter}/bin/shelter_auth localhost:7910 $USER $PASS mail; then
-        exec $REPLY
-    else
-        exit $ERR_FAIL
-    fi
-  fi
-  '';
-
-  checkpasswordScript = pkgs.writeScript "checkpassword-dovecot.sh" checkpassword;
-
 in
-
 {
 
   ###### interface
@@ -86,6 +52,11 @@ in
   options = {
 
     services.dovecot2imap = {
+
+      baseDir = mkOption {
+        default = "/var/run/dovecot2";
+        description = "Dovcot working directory.";
+      };
 
       enable = mkOption {
         default = false;
@@ -119,7 +90,7 @@ in
       };
 
       mailLocation = mkOption {
-        default = "maildir:/var/exim/mail/%u";
+        default = "maildir:/var/spool/mail/%u"; /* Same as inbox, as postfix */
         description = ''
           Location that dovecot will use for mail folders. Dovecot mail_location option.
         '';
@@ -138,6 +109,16 @@ in
       sslServerKey = mkOption {
         default = "";
         description = "Server key.";
+      };
+
+      userDb = mkOption {
+        default = "driver = passwd";
+        description = "Lines added to the <literal>userDb</literal> block.";
+      };
+
+      passDb = mkOption {
+        default = "driver = pam";
+        description = "Lines added to the <literal>passDb</literal> block.";
       };
 
     };
@@ -172,8 +153,8 @@ in
       startOn = "started networking";
       preStart =
         ''
-          ${pkgs.coreutils}/bin/mkdir -p /var/run/dovecot2 /var/run/dovecot2/login
-          ${pkgs.coreutils}/bin/chown -R ${cfg.user}:${cfg.group} /var/run/dovecot2
+          ${pkgs.coreutils}/bin/mkdir -p ${cfg.baseDir}/login
+          ${pkgs.coreutils}/bin/chown -R ${cfg.user}:${cfg.group} ${cfg.baseDir}
         '';
       exec = "${pkgs.dovecot}/sbin/dovecot -F -c ${confFile}";
     };

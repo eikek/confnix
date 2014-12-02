@@ -133,7 +133,7 @@ let
 
     local_delivery:
       driver = appendfile
-      current_directory = ${cfg.stateDir}/mail/$local_part
+      current_directory = ${cfg.usersDir}/''${lc:$local_part}
       maildir_format = true
       directory = ${cfg.usersDir}/''${lc:$local_part}/Maildir\
         ''${if eq{$local_part_suffix}{}{}\
@@ -206,7 +206,7 @@ in {
       };
 
       usersDir = mkOption {
-        default = "/var/exim/users";
+        default = "/var/users";
         description = "The directory containing home directories of users.";
       };
 
