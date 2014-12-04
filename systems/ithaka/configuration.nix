@@ -7,7 +7,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hw-ithaka.nix
-      ../common-desktop.nix
+      ../../common-desktop.nix
     ];
 
   boot.loader.grub.devices = [ "/dev/sda" ];

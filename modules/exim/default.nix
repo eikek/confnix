@@ -3,14 +3,13 @@
 with lib;
 
 let
-
   cfg = config.services.exim;
   user = "exim";
   group = "exim";
   version = "4.84";
   eximConfig = ''
     primary_hostname = ${cfg.primaryHostname}
-    domainlist local_domains = ${cfg.localDomains}
+    domainlist local_domains = ${concatStringsSep ":" cfg.localDomains}
     domainlist relay_to_domains =
     hostlist   relay_from_hosts = ${cfg.relayFromHosts}
 
@@ -226,7 +225,7 @@ in {
       };
 
       localDomains = mkOption {
-        default = "@";
+        default = [ "@" ];
         description = "A list of the local domains.";
       };
 

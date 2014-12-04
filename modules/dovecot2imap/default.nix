@@ -12,6 +12,7 @@ let
     ''
     + (if cfg.sslServerCert!="" then
     ''
+      ssl = yes
       ssl_cert = <${cfg.sslServerCert}
       ssl_key = <${cfg.sslServerKey}
       ssl_ca = <${cfg.sslCACert}

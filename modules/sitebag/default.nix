@@ -272,6 +272,8 @@ in {
 
     environment.systemPackages = [ pkgs.sitebag ];
 
+    services.mongodb.enable = true;
+
     jobs.sitebag = {
       description = "Sitebag server";
       startOn = "started networking";
