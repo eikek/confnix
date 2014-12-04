@@ -76,6 +76,7 @@
     lynx
     storeBackup
     bind
+    nix-prefetch-scripts
   ];
 
   users.extraUsers.eike = {

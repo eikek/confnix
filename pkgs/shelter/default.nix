@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     url = https://github.com/eikek/shelter;
     rev = "refs/heads/master";
     name = "shelter-${version}-git";
-    sha256 = "0avgs74xb3xmqb6ws9n1zwr8pb5mbmvhb6dplnmb34q4kpgg2ls6";
+    sha256 = "df497214f7cb773a67bdf6176095c14729a04b524450f22b41538fa7e98454b3";
   };
 
   buildInputs = [ leiningen jre makeWrapper ];
@@ -33,10 +33,10 @@ stdenv.mkDerivation rec {
     cp $src/scripts/shelter_auth $out/bin/
   '';
 
-  meta = {
+  meta = with stdenv.lib; {
     description = "Utility for managing virtual user accounts.";
     homepage = https://github.com/eikek/shelter;
-    license = stdenv.lib.licenses.gplv3;
-    maintainers = [ stdenv.lib.maintainers.eikek ];
+    license = licenses.gplv3;
+    maintainers = [ maintainers.eikek ];
   };
 }

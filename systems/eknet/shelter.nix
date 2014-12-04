@@ -24,7 +24,8 @@ in
       enable = true;
       autoLoad = ''
       (in-ns 'shelter.core)
-      (add-rest-verify-route)
+      (rest-add-verify-route)
+      (rest-add-set-password-route)
       (rest/apply-routes)
 
       (defn- shelter--app-add [id name]
