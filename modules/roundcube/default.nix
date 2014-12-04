@@ -33,6 +33,11 @@ in {
         description = "A short string displayed on the login page.";
       };
 
+      supportUrl = mkOption {
+        default = "/";
+        description = "Where a user can get support for this roundcube installation";
+      };
+
       nginxEnable = mkOption {
         default = false;
         description = ''
@@ -128,7 +133,7 @@ in {
         \$config['debug_level'] = 1;
         \$config['log_driver'] = 'syslog';
         \$config['enable_installer'] = false;
-        \$config['support_url'] = 'https://eknet.org';
+        \$config['support_url'] = '${cfg.supportUrl}';
         \$config['language'] = 'de_DE';
         \$config['timezone'] = "Europe/Berlin";
         \$config['prefer_html'] = false;

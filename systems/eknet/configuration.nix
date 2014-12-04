@@ -17,7 +17,7 @@ with config;
   boot.loader.grub.devices = [ "/dev/sda" ];
 
   networking = {
-    hostName = "eknet.org";
+    hostName = "myserver";
     nameservers =  settings.forwardNameServers;
     wireless = {
       enable = false;

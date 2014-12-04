@@ -79,6 +79,8 @@ in
 
   services.roundcube = {
     enable = with settings; enableWebServer && enableMailServer && enableWebmail;
+    productName = "eknet webmail";
+    supportUrl = (if (settings.useCertificate) then "https://" else "http://") + settings.primaryDomain;
     nginxEnable = true;
     nginxListen = settings.primaryIp + ":" + (if (settings.useCertificate) then "443 ssl" else "80");
     nginxServerName = (subdomain+ "." + settings.primaryDomain);
