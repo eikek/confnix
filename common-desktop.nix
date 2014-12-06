@@ -3,7 +3,6 @@
 {
   imports = [
     ./common.nix
-    <nixpkgs/nixos/modules/programs/virtualbox.nix>
   ];
 
   users.extraUsers.eike.extraGroups = [ "vboxusers" ];
@@ -25,6 +24,7 @@
       };
     }) ["backups" "dokumente" "downloads" "home" "music" "photo" "safe" "video"]);
 
+  services.virtualboxHost.enable = true;
 
   services.xserver = {
     enable = true;

@@ -1,4 +1,4 @@
-{stdenv, fetchurl, pcre, db, gnutls, libiconv, pkgconfig, sqlite, perl, which, exim_user ? "exim" }:
+{stdenv, fetchurl, pcre, db, gnutls, pkgconfig, sqlite, perl, which, exim_user ? "exim" }:
 
 stdenv.mkDerivation rec {
   version = "4.84";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "174yifry1ji6i87xbvcx1k5cxxlyxhxjyj7xwy0ghvgvhyz25skq";
   };
 
-  buildInputs = [ pcre db libiconv gnutls pkgconfig sqlite perl which ];
+  buildInputs = [ pcre db gnutls pkgconfig sqlite perl which ];
 
   configurePhase = ''
     cat > Local/Makefile << EOF
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     EXIM_USER=ref:${exim_user}
     WITH_CONTENT_SCAN=yes
     HAVE_ICONV=yes
-    CFLAGS=-O -I${libiconv}/include
+
 
     SUPPORT_TLS=yes
     USE_GNUTLS=yes
@@ -69,7 +69,6 @@ stdenv.mkDerivation rec {
 
     WITH_CONTENT_SCAN=yes
     AUTH_PLAINTEXT=yes
-    EXTRALIBS_EXIM=-L${libiconv}/lib -liconv
     EXIM_PERL = perl.o
     EOF
   '';

@@ -200,12 +200,12 @@ in {
       };
 
       stateDir = mkOption {
-        default = "/var/exim";
+        default = "/var/run/exim";
         description = "The directory exim uses for work and to store mail.";
       };
 
       usersDir = mkOption {
-        default = "/var/users";
+        default = "/var/data/users";
         description = "The directory containing home directories of users.";
       };
 

@@ -3,6 +3,11 @@ with lib;
 {
   options = {
     settings = {
+      hostName = mkOption {
+        default = null;
+        description = "The hostname of this machine.";
+      };
+
       primaryDomain = mkOption {
         default = "eknet.org";
         description = ''The primary domain. Services are configured to this domain.'';

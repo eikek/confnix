@@ -17,7 +17,7 @@ with config;
   boot.loader.grub.devices = [ "/dev/sda" ];
 
   networking = {
-    hostName = "myserver";
+    hostName = settings.hostName;
     nameservers =  settings.forwardNameServers;
     wireless = {
       enable = false;

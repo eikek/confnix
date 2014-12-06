@@ -17,12 +17,12 @@ in {
       };
 
       baseDir = mkOption {
-        default = "/var/gitblit";
+        default = "/var/run/gitblit";
         description = "The base directory for running gitblit.";
       };
 
       dataDir = mkOption {
-        default = "data";
+        default = "/var/data/gitblit";
         description = "The data directory for gitblit. If relative, it is relative to <literal>baseDir</literal>.";
       };
 

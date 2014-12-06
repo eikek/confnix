@@ -112,7 +112,7 @@ in {
       };
 
       baseDir = mkOption {
-        default = "/var/sitebag";
+        default = "/var/run/sitebag";
         description = "Location where Sitebag stores configuration and logfiles";
       };
 

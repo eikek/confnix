@@ -9,6 +9,8 @@ in
   services.gitblit = {
     enable = true;
     httpurlRealm = ''http://localhost:${shelterHttpPort}/verify?name=%[username]&password=%[password]&app=gitblit'';
+    canonicalUrl = (if (settings.useCertificate) then "https://" else "http://") +
+                   subdomain + "." + settings.primaryDomain;
   };
 
   services.shelter.apps = [{ id = "gitblit"; name = "Gitblit git solution"; }];

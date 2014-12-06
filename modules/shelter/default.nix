@@ -24,7 +24,7 @@ in {
       };
 
       baseDir = mkOption {
-        default = "/var/shelter";
+        default = "/var/data/shelter";
         description = "Location where shelter puts the database.";
       };
 
