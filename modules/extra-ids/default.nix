@@ -7,6 +7,7 @@
       sitebag = 398;
       gitblit = 397;
       shelter = 396;
+      publet = 395;
     };
 
     ids.gids = {
@@ -14,6 +15,7 @@
       sitebag = 398;
       gitblit = 397;
       shelter = 396;
+      publet = 395;
     };
   };
 }

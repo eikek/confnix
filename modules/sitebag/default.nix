@@ -147,7 +147,7 @@ in {
       };
 
       bindHost = mkOption {
-        default = "0.0.0.0";
+        default = "127.0.0.1";
         description = "The host or ip where sitebag http can bind to.";
       };
 

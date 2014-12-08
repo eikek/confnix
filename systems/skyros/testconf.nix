@@ -8,8 +8,11 @@ with config;
       ./settings.nix
       ./bind.nix
       ./nginx.nix
-      ./gitblit.nix
       ./email.nix
+      ./gitblit.nix
+      ./sitebag.nix
+      ./myperception.nix
+      ./fotojahn.nix
       ./shelter.nix
     ];
 
@@ -35,6 +38,25 @@ with config;
   time.timeZone = "UTC";
 
   services.sitebag.enable = true;
+
+  users.extraGroups = lib.singleton {
+    name = "publet";
+    gid = config.ids.gids.publet;
+  };
+  users.extraUsers = lib.singleton {
+    name = "publet";
+    uid = config.ids.uids.publet;
+    extraGroups = ["publet"];
+    description = "Publet daemon user.";
+  };
+  services.myperception = {
+    enable = true;
+    bindPort = 10100;
+  };
+  services.fotojahn = {
+    enable = true;
+    bindPort = 10200;
+  };
 
   hardware = {
     #cpu.intel.updateMicrocode = true;  #needs unfree

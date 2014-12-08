@@ -12,6 +12,7 @@ let
    ${concatMapStringsSep "\n" (s: "      IN NS " + s + ".") nameserver}
    ${concatMapStringsSep "\n" (s: "      IN MX " + s.priority + " " + s.domain) mx}
    ${concatMapStringsSep "\n" (cn: cn + " IN CNAME " + domain +".") cnames}
+         IN A ${ip}
    ${concatMapStringsSep "\n" (cn: cn + " IN A " + ip) arecords}
    '';
 

@@ -7,9 +7,9 @@ let
     gitblit = callPackage ./gitblit {};
     html2textpy = callPackage ./html2textpy {};
     roundcube = callPackage ./roundcube {};
+    publet = callPackage ./publet {};
     shelter = callPackage ./shelter {};
     sitebag = callPackage ./sitebag {};
-    sqliteman = callPackage ./sqliteman {};
   };
 
 in custom
