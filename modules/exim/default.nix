@@ -337,6 +337,8 @@ in {
         cat > ${cfg.stateDir}/etc/exim.conf <<- "EOF"
         ${eximConfig}
         EOF
+        chown -R root:root ${cfg.stateDir}/etc/
+        chmod 644 ${cfg.stateDir}/etc/{exim.conf,aliases}
       '';
 
       exec="/var/setuid-wrappers/exim-${version} -bd -q1h ${if cfg.debug then "-v -d" else ""} -C ${cfg.stateDir}/etc/exim.conf";

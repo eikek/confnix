@@ -2,8 +2,7 @@
 with config;
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hw-eknet.nix
+    [ ./hw-eknet.nix
       ../../common.nix
 
       ./settings.nix
@@ -17,14 +16,15 @@ with config;
   boot.loader.grub.devices = [ "/dev/sda" ];
 
   networking = {
-    hostName = settings.hostName;
-    nameservers =  settings.forwardNameServers;
-    wireless = {
-      enable = false;
+    hostName = "skyros";
+
+    defaultMailServer = {
+      domain = settings.primaryDomain;
+      hostName = "localhost";
+      root = "root@" + settings.primaryDomain;
     };
 
     useDHCP = true;
-    wicd.enable = false;
     firewall = {
       allowedTCPPorts = [ 22 25 587 143 80 443 29418 ];
     };
@@ -35,7 +35,10 @@ with config;
   services.sitebag.enable = true;
 
   hardware = {
-    #cpu.intel.updateMicrocode = true;  #needs unfree
+    cpu.intel.updateMicrocode = true;  #needs unfree
   };
 
+  environment.systemPackages = with pkgs; [
+    goaccess
+  ];
 }

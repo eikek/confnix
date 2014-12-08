@@ -37,7 +37,7 @@ in
   services.exim = {
     enable = settings.enableMailServer;
     primaryHostname = settings.primaryDomain;
-    localDomains = [ "@" ];
+    localDomains = [ "@" "localhost" ];
     postmaster = "eike";
     localUsers = ''
      ''${lookup sqlite {${shelterDb} \
