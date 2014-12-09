@@ -54,6 +54,8 @@ let
       accept local_parts   = postmaster
              domains       = +local_domains
 
+      ${cfg.moreRecipientAcl}
+
       deny   message       = Unknown user
              domains       = +local_domains
              local_parts   = ! LOCAL_USERS : MAIL_ALIASES
@@ -117,10 +119,12 @@ let
       local_parts = root:postmaster
       data = ${cfg.postmaster}@$primary_hostname
 
+    ${cfg.moreRouters}
+
     localuser:
       driver = accept
       local_parts = LOCAL_USERS
-      local_part_suffix = +* : -*
+      local_part_suffix = +*
       local_part_suffix_optional
       transport = local_delivery
       router_home_directory =
@@ -270,6 +274,16 @@ in {
       loginAuthCondition = mkOption {
         default = "false";
         description = "Exim config value used in <literal>server_condition</literal> in the login authenticator.";
+      };
+
+      moreRouters = mkOption {
+        default = "";
+        description = "Additional router config that is put before local-user router.";
+      };
+
+      moreRecipientAcl = mkOption {
+        default = "";
+        description = "Additional config lines placed before the last deny acl block verifying recipients";
       };
 
       perlScript = mkOption {

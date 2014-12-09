@@ -37,8 +37,35 @@ in
   services.exim = {
     enable = settings.enableMailServer;
     primaryHostname = settings.primaryDomain;
-    localDomains = [ "@" "localhost" ];
+    localDomains = [ "@" "localhost" ("lists."+settings.primaryDomain) ];
     postmaster = "eike";
+    moreRecipientAcl = ''
+    accept  local_parts = ''${lookup sqlite {${shelterDb} \
+                     select login from shelter_account_app where login = '$local_part' and appid = 'mailinglist';}}
+                domains = ${"lists."+settings.primaryDomain}
+    '';
+    moreRouters = ''
+    allusers:
+      driver = redirect
+      local_parts = all-users
+      domains = lists.${settings.primaryDomain}
+      data = ''${lookup sqlite {${shelterDb} \
+                    select distinct login from shelter_account_app where appid = 'mail';}}
+      forbid_pipe
+      forbid_file
+      errors_to = ${eximCfg.postmaster}@${settings.primaryDomain}
+      no_more
+
+    lists:
+      driver = redirect
+      domains = lists.${settings.primaryDomain}
+      file = /var/data/mailinglists/$local_part
+      forbid_pipe
+      forbid_file
+      errors_to = ${eximCfg.postmaster}@${settings.primaryDomain}
+      no_more
+
+    '';
     localUsers = ''
      ''${lookup sqlite {${shelterDb} \
          select login from shelter_account_app where login = '$local_part' and appid = 'mail';}}
@@ -95,6 +122,9 @@ in
     }
   '' else "";
 
-  services.bindExtra.subdomains = if (settings.enableWebmail) then [ subdomain ] else [];
-  services.shelter.apps = [{ id = "mail"; name = "SMTP and IMAP services."; }];
+  services.bindExtra.subdomains = if (settings.enableWebmail) then [ subdomain "lists" ] else [];
+  services.shelter.apps = [
+    { id = "mail"; name = "SMTP and IMAP services."; }
+    { id = "mailinglist"; name = "Grouping for virtual accounts denoting mailinglists."; }
+  ];
 }
