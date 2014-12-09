@@ -24,13 +24,14 @@ with config;
   boot.loader.grub.devices = [ "/dev/sda" ];
 
   networking = {
+    hostName = "skyros";
+
     defaultMailServer = {
       domain = settings.primaryDomain;
       hostName = "localhost";
       root = "root@" + settings.primaryDomain;
     };
 
-    useDHCP = true;
     firewall = {
       allowedTCPPorts = [ 22 25 587 143 80 443 29418 ];
     };

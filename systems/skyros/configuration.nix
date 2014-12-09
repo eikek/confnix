@@ -28,7 +28,6 @@ with config;
       root = "root@" + settings.primaryDomain;
     };
 
-    useDHCP = true;
     firewall = {
       allowedTCPPorts = [ 22 25 587 143 80 443 29418 ];
     };
