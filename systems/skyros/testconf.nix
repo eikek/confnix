@@ -13,6 +13,7 @@ with config;
       ./sitebag.nix
       ./myperception.nix
       ./fotojahn.nix
+      ./fetchmail.nix
       ./shelter.nix
     ];
 
@@ -58,12 +59,17 @@ with config;
     bindPort = 10200;
   };
 
+  services.fetchmail = {
+    enable = true;
+  };
+
   hardware = {
     #cpu.intel.updateMicrocode = true;  #needs unfree
   };
 
   environment.systemPackages = with pkgs; [
     goaccess
+    fetchmail
   ];
 
 }
