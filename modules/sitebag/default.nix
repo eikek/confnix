@@ -274,10 +274,9 @@ in {
 
     services.mongodb.enable = true;
 
-    jobs.sitebag = {
+    systemd.services.sitebag = {
       description = "Sitebag server";
-      startOn = "started networking";
-      daemonType = "daemon";
+      after = [ "networking.target" ];
 
       preStart = ''
         mkdir -p ${cfg.baseDir}
@@ -297,7 +296,7 @@ in {
         cp ${pkgs.sitebag}/bin/start-sitebag.sh ${cfg.baseDir}/bin
       '';
 
-      exec = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${sitebagUser} -c \"JAVA_HOME=${pkgs.jdk} ${cfg.baseDir}/bin/start-sitebag.sh -c ${cfg.baseDir}/etc/sitebag.conf -l ${cfg.baseDir}/etc/logback.xml ${if cfg.makeAdmin then "-a" else ""}\" &";
+      script = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${sitebagUser} -c \"JAVA_HOME=${pkgs.jdk} ${cfg.baseDir}/bin/start-sitebag.sh -c ${cfg.baseDir}/etc/sitebag.conf -l ${cfg.baseDir}/etc/logback.xml ${if cfg.makeAdmin then "-a" else ""}\" ";
     };
   };
 }

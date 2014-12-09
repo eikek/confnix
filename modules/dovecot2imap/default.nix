@@ -149,15 +149,15 @@ in
         gid = config.ids.gids.dovecot2;
       };
 
-    jobs.dovecot2imap = {
+    systemd.services.dovecot2imap = {
       description = "Dovecot IMAP/POP3 server";
-      startOn = "started networking";
+      after = [ "networking.target" ];
       preStart =
         ''
           ${pkgs.coreutils}/bin/mkdir -p ${cfg.baseDir}/login
           ${pkgs.coreutils}/bin/chown -R ${cfg.user}:${cfg.group} ${cfg.baseDir}
         '';
-      exec = "${pkgs.dovecot}/sbin/dovecot -F -c ${confFile}";
+      script = "${pkgs.dovecot}/sbin/dovecot -F -c ${confFile}";
     };
 
     environment.systemPackages = [ pkgs.dovecot ];

@@ -87,10 +87,9 @@ in {
 
     environment.systemPackages = [ pkgs.gitblit ];
 
-    jobs.gitblit = {
+    systemd.services.gitblit = {
       description = "Gitblit";
-      startOn = "started networking";
-      daemonType = "daemon";
+      after = [ "networking.target" ];
 
       preStart = ''
         mkdir -p ${cfg.baseDir}
@@ -114,8 +113,8 @@ in {
         cp ${pkgs.gitblit}/gitblit.jar ${cfg.baseDir}/
       '';
 
-      exec = ''
-        ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${gitblitUser} -c "cd ${cfg.baseDir} && ${pkgs.jdk}/bin/java -jar gitblit.jar --baseFolder ${cfg.dataDir} --dailyLogFile --httpPort ${str cfg.httpPort} --httpsPort ${str cfg.httpsPort} --sshPort ${str cfg.sshPort} --gitPort ${str cfg.gitPort} --repositoriesFolder ${cfg.repositoriesDir} &"
+      script = ''
+        ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${gitblitUser} -c "cd ${cfg.baseDir} && ${pkgs.jdk}/bin/java -jar gitblit.jar --baseFolder ${cfg.dataDir} --dailyLogFile --httpPort ${str cfg.httpPort} --httpsPort ${str cfg.httpsPort} --sshPort ${str cfg.sshPort} --gitPort ${str cfg.gitPort} --repositoriesFolder ${cfg.repositoriesDir} "
       '';
     };
   };

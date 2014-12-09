@@ -318,11 +318,10 @@ in {
       group = group;
     };
 
-    jobs.exim = {
+    systemd.services.exim = {
       description = "The Exim mail server.";
       wantedBy = [ "multi-user.target" ];
       after = [ "networking.target" ];
-      setuid = "root";
 
       preStart = ''
         if ! [ -d ${cfg.stateDir}/etc ]; then
@@ -355,7 +354,7 @@ in {
         chmod 644 ${cfg.stateDir}/etc/{exim.conf,aliases}
       '';
 
-      exec="/var/setuid-wrappers/exim-${version} -bd -q1h ${if cfg.debug then "-v -d" else ""} -C ${cfg.stateDir}/etc/exim.conf";
+      script="/var/setuid-wrappers/exim-${version} -bd -q1h ${if cfg.debug then "-v -d" else ""} -C ${cfg.stateDir}/etc/exim.conf";
     };
   };
 }

@@ -61,10 +61,9 @@ in {
 
     environment.systemPackages = [ pkgs.shelter ];
 
-    jobs.shelter = {
+    systemd.services.shelter = {
       description = "Shelter server";
-      startOn = "ip-up";
-      daemonType = "none";
+      after = [ "networking.target" ];
 
       preStart = ''
         mkdir -p ${cfg.baseDir}
@@ -87,7 +86,7 @@ in {
         chmod 644 ${cfg.databaseFile}
       '';
 
-      exec = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh shelter -c \"${pkgs.shelter}/bin/shelter ${cfg.baseDir}/db.clj ${if (cfg.autoLoad == null) then "" else "${cfg.baseDir}/autoload.clj"} ${builtins.toString cfg.loadFiles} \"";
+      script = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh shelter -c \"${pkgs.shelter}/bin/shelter ${cfg.baseDir}/db.clj ${if (cfg.autoLoad == null) then "" else "${cfg.baseDir}/autoload.clj"} ${builtins.toString cfg.loadFiles} \"";
     };
   };
 }
