@@ -45,7 +45,7 @@
   };
 
   fonts = {
-    enableFontConfig = true;
+    fontconfig.enable = true;
     enableFontDir = true;
     fonts = with pkgs; [
       inconsolata
@@ -144,7 +144,7 @@
     ghostscript
     wireshark
     lxdvdrip
-    dvdauthor
+    #dvdauthor
     libav
     libtheora
     libreoffice
