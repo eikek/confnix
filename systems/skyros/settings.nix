@@ -36,17 +36,17 @@ with lib;
       };
 
       certificate = mkOption {
-        default = ./certs/certificate.crt;
+        default = "./certs/certificate.crt";
         description = "Path to the ssl certificate.";
       };
 
       certificateKey = mkOption {
-        default = ./certs/certificate_key.key;
+        default = "./certs/certificate_key.key";
         description = "The key to the certificate.";
       };
 
       caCertificate = mkOption {
-        default = ./certs/ca_cert.crt;
+        default = "./certs/ca_cert.crt";
         description = "The certificate of the CA.";
       };
 

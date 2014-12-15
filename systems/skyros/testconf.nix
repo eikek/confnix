@@ -68,6 +68,13 @@ with config;
     #cpu.intel.updateMicrocode = true;  #needs unfree
   };
 
+  system.activationScripts = {
+    datachmod = ''
+      mkdir -p /var/data
+      chmod 755 /var/data
+    '';
+  };
+
   environment.systemPackages = with pkgs; [
     goaccess
     fetchmail

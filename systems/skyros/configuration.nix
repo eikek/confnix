@@ -17,7 +17,7 @@ with config;
       ./shelter.nix
     ];
 
-  boot.loader.grub.devices = [ "/dev/sda" ];
+  boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" "/dev/sdc" ];
 
   networking = {
     hostName = "skyros";
@@ -33,15 +33,26 @@ with config;
     };
   };
 
+  settings.primaryIp = "188.40.107.134";
+  settings.forwardNameServers = [
+   "213.133.98.98"
+   "213.133.99.99"
+   "213.133.100.100"
+  ];
+  settings.useCertificate = true;
+  settings.certificate = "/etc/nixos/certs/certificate.crt";
+  settings.certificateKey = "/etc/nixos/certs/certificate_key.key";
+  settings.caCertificate = "/etc/nixos/certs/ca_cert.crt";
+
   time.timeZone = "UTC";
 
   services.sitebag.enable = true;
 
-  users.extraGroups = singleton {
+  users.extraGroups = lib.singleton {
     name = "publet";
     gid = config.ids.gids.publet;
   };
-  users.extraUsers = singleton {
+  users.extraUsers = lib.singleton {
     name = "publet";
     uid = config.ids.uids.publet;
     extraGroups = ["publet"];
@@ -62,6 +73,13 @@ with config;
 
   hardware = {
     cpu.intel.updateMicrocode = true;  #needs unfree
+  };
+
+  system.activationScripts = {
+    datachmod = ''
+      mkdir -p /var/data
+      chmod 755 /var/data
+    '';
   };
 
   environment.systemPackages = with pkgs; [

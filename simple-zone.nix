@@ -11,9 +11,9 @@ let
          86400)
    ${concatMapStringsSep "\n" (s: "      IN NS " + s + ".") nameserver}
    ${concatMapStringsSep "\n" (s: "      IN MX " + s.priority + " " + s.domain) mx}
-   ${concatMapStringsSep "\n" (cn: cn + " IN CNAME " + domain +".") cnames}
-         IN A ${ip}
+            IN A ${ip}
    ${concatMapStringsSep "\n" (cn: cn + " IN A " + ip) arecords}
+   ${concatMapStringsSep "\n" (cn: cn + " IN CNAME " + domain +".") cnames}
    '';
 
    zoneFile = pkgs.writeText (domain+".zone") zone;

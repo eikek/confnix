@@ -30,7 +30,7 @@ let
   '';
 
   startScript = ''
-  #!/bin/sh
+  #!${pkgs.bash}/bin/bash -e
   LOC=`locale -a | grep -i utf8 | head -n1`
   if [ -n "$LOC" ]; then
     export LC_ALL=$LOC
@@ -99,9 +99,9 @@ in {
 
     environment.systemPackages = [ pkgs.publet ];
 
-    jobs.myperception = {
+    systemd.services.myperception = {
       description = "Publet server for myperception.de";
-      startOn = "started networking";
+      after = ["networking.target"];
 
       preStart = ''
         mkdir -p ${cfg.baseDir}
@@ -132,7 +132,9 @@ in {
         chmod a+x ${cfg.baseDir}/bin/start-publet.sh
       '';
 
-      exec = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh publet -c \"${cfg.baseDir}/bin/start-publet.sh\"";
+      script = ''
+        ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh publet -c "${cfg.baseDir}/bin/start-publet.sh"
+      '';
     };
 
     services.nginx.httpConfig = ''

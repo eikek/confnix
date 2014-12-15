@@ -3,15 +3,7 @@ with config;
 with lib;
 let
   shelterVar = config.services.shelter.baseDir;
-  htmlManager = pkgs.stdenv.mkDerivation rec {
-    name = "sheltermanager";
-    version = "0.1.0";
-    src = ./shelterman;
-    installPhase = ''
-      mkdir -p $out
-      cp -R * $out/
-    '';
-  };
+  htmlManager = ./shelterman;
 in
 {
   options = {
@@ -23,9 +15,9 @@ in
            properties that denote an application. These are added to shelter.
          '';
          example = [{id = "mail";
-                     name = "SMTP and IMAP services.";
+                     name = "Email";
                      url = "http://the.url.com";
-                     description = "A sentence or more.";}];
+                     description = "SMTP and IMAP Services.";}];
        };
     };
   };
@@ -63,7 +55,7 @@ in
           try_files $uri $uri/ /index.html;
         }
         location /api {
-          proxy_pass http://localhost:${builtins.toString config.services.shelter.httpPort};
+          proxy_pass http://127.0.0.1:${builtins.toString config.services.shelter.httpPort};
           proxy_set_header X-Forwarded-For $remote_addr;
         }
       }
