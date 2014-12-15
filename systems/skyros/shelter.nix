@@ -13,7 +13,10 @@ in
            A list of maps with <literal>id</literal> and <literal>name</literal>
            properties that denote an application. These are added to shelter.
          '';
-         example = [{ id = "mail"; name = "SMTP and IMAP services."; }];
+         example = [{id = "mail";
+                     name = "SMTP and IMAP services.";
+                     url = "http://the.url.com";
+                     description = "A sentence or more.";}];
        };
     };
   };
@@ -24,17 +27,37 @@ in
       enable = true;
       autoLoad = ''
       (in-ns 'shelter.core)
-      (rest-add-verify-route)
-      (rest-add-set-password-route)
+      (add-setpassword-routes)
+      (add-verify-routes)
+      (add-listapps-route)
       (rest/apply-routes)
 
-      (defn- shelter--app-add [id name]
-        (if (not (account/app-exists? id))
-          (account/add-application id name)))
+      (defn- shelter--app-add [id name & [url description]]
+        (store/with-conn conn
+          (if (not (account/app-exists? conn id))
+            (account/add-application conn id name url descripton))))
 
-      ${concatMapStringsSep "\n" (app: ''(shelter--app-add "${app.id}" "${app.name}")'') services.shelter.apps}
+      ${concatMapStringsSep "\n" (app: ''(shelter--app-add "${app.id}" "${app.name}" "${app.url}" "${app.description}")'') services.shelter.apps}
       '';
       loadFiles = [ "${shelterVar}/shelterrc.clj" ];
     };
+
+    services.nginx.httpConfig = ''
+      server {
+        listen ${settings.primaryIp}:${if (settings.useCertificate) then "443 ssl" else "80"};
+        server_name id.${settings.primaryDomain};
+        root /var/data/www/id.${settings.primaryDomain};
+        index index.html index.php;
+        location / {
+          try_files $uri $uri/ /index.html;
+        }
+        location /api {
+          proxy_pass http://localhost:${config.services.shelter.httpPort};
+          proxy_set_header X-Forwarded-For $remote_addr;
+        }
+      }
+    '';
+
+    services.bindExtra.subdomains = [ "id" ];
   };
 }

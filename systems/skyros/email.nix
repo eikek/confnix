@@ -124,7 +124,13 @@ in
 
   services.bindExtra.subdomains = if (settings.enableWebmail) then [ subdomain "lists" ] else [];
   services.shelter.apps = [
-    { id = "mail"; name = "SMTP and IMAP services."; }
-    { id = "mailinglist"; name = "Grouping for virtual accounts denoting mailinglists."; }
+    { id = "mail";
+      name = "SMTP and IMAP services.";
+      url = url= ((if (settings.useCertificate) then "https://" else "http://")+subdomain+"."+settings.primaryDomain);
+      description = "";}
+    { id = "mailinglist";
+      name = "Grouping for virtual accounts denoting mailinglists.";
+      url = "";
+      description = ""; }
   ];
 }

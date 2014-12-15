@@ -13,7 +13,13 @@ in
                    subdomain + "." + settings.primaryDomain;
   };
 
-  services.shelter.apps = [{ id = "gitblit"; name = "Gitblit git solution"; }];
+  services.shelter.apps = [{
+    id = "gitblit";
+    name = "Gitblit";
+    url= ((if (settings.useCertificate) then "https://" else "http://")+subdomain+"."+settings.primaryDomain);
+    description = "";
+  }];
+
   services.bindExtra.subdomains = [ subdomain ];
 
   services.nginx.httpConfig =
