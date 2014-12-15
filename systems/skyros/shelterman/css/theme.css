@@ -1,0 +1,21 @@
+body {
+    max-width: 1000px;
+    margin: auto;
+    padding: 0 25px;
+}
+.navbar {
+    padding: 30px 50px 28px;
+    background: none repeat scroll 0% 0% #8b0000;
+    color: #fff;
+}
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+}
+.navbar li.active a {
+    color: #ef9690;
+}
+.navbar a:hover {
+    color: #fff;
+    text-decoration: underline;
+}

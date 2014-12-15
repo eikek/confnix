@@ -3,6 +3,15 @@ with config;
 with lib;
 let
   shelterVar = config.services.shelter.baseDir;
+  htmlManager = pkgs.stdenv.mkDerivation rec {
+    name = "sheltermanager";
+    version = "0.1.0";
+    src = ./shelterman;
+    installPhase = ''
+      mkdir -p $out
+      cp -R * $out/
+    '';
+  };
 in
 {
   options = {
@@ -48,7 +57,7 @@ in
       server {
         listen ${settings.primaryIp}:${if (settings.useCertificate) then "443 ssl" else "80"};
         server_name id.${settings.primaryDomain};
-        root /var/data/www/id.${settings.primaryDomain};
+        root ${htmlManager};
         index index.html index.php;
         location / {
           try_files $uri $uri/ /index.html;

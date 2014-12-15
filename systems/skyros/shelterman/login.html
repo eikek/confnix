@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Login &mdash; Meine Daten</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="css/kube.min.css"/>
+    <link rel="stylesheet" href="css/theme.css"/>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/kube.min.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+  </head>
+  <body>
+    <nav id="navbar-1" class="navbar fullwidth">
+      <ul>
+	<li class="active"><a href="#">Home</a></li>
+      </ul>
+    </nav>
+    <h1>Meine Daten</h1>
+
+    <div id="error-msg" class="tools-message tools-message-red">
+      Anmeldung fehlgeschlagen!
+    </div>
+
+    <form id="loginform" method="post" action="http://localhost:9919/api/verify/form" class="forms">
+      <label>
+        <input type="text" name="login" placeholder="Login" class="width-50" />
+      </label>
+      <label>
+        <input type="password" name="password" placeholder="Password" class="width-50" />
+      </label>
+      <p>
+        <button class="btn btn-blue width-50">Log in</button>
+      </p>
+    </form>
+
+  </body>
+</html>
