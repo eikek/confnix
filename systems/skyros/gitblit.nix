@@ -8,7 +8,8 @@ in
 
   services.gitblit = {
     enable = true;
-    httpurlRealm = ''http://localhost:${shelterHttpPort}/verify?name=%[username]&password=%[password]&app=gitblit'';
+    httpurlRealm = ''http://localhost:${shelterHttpPort}/api/verify/form?login=%[username]&password=%[password]&app=gitblit'';
+    httpurlPost = true;
     canonicalUrl = (if (settings.useCertificate) then "https://" else "http://") +
                    subdomain + "." + settings.primaryDomain;
   };

@@ -67,5 +67,6 @@ with config;
   environment.systemPackages = with pkgs; [
     goaccess
     fetchmail
+    leiningen
   ];
 }

@@ -1,4 +1,4 @@
-{stdenv, fetchgit, leiningen, jre, makeWrapper, bash, curl}:
+{stdenv, fetchgit, leiningen, jre, makeWrapper, bash, curl, coreutils, gnugrep}:
 
 stdenv.mkDerivation rec {
   version = "0.1.0";
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     url = https://github.com/eikek/shelter;
     rev = "refs/heads/master";
     name = "shelter-${version}-git";
-    sha256 = "1510h4mx9qb95i9i7cfhl88mm0y8l0xmvfxlcappk5aw4c209grx";
+    sha256 = "1m8a6kkbw7vsg19kzrln2fv18y0mx1jbqcrl54msqgwilz9rd3i7";
   };
 
   buildInputs = [ leiningen jre makeWrapper ];
@@ -26,11 +26,17 @@ stdenv.mkDerivation rec {
     HOME=$(pwd) ${leiningen}/bin/lein uberjar
   '';
 
+  patchPhase = ''
+    sed -i 's,head,${coreutils}/bin/head,g' scripts/shelter_auth
+    sed -i 's,grep,${gnugrep}/bin/grep,g' scripts/shelter_auth
+    sed -i 's,curl,${curl}/bin/curl,g' scripts/shelter_auth
+  '';
+
   installPhase = ''
     mkdir -p $out/{bin,lib}
     cp target/uberjar/shelter-0.1.0-SNAPSHOT-standalone.jar $out/lib/
     makeWrapper ${jre}/bin/java $out/bin/shelter --add-flags "-jar $out/lib/shelter-0.1.0-SNAPSHOT-standalone.jar"
-    cp $src/scripts/shelter_auth $out/bin/
+    cp scripts/shelter_auth $out/bin/
   '';
 
   meta = with stdenv.lib; {

@@ -64,6 +64,11 @@ in {
         description = "The url pattern used with <literal>realm.httpurl.urlPattern</literal>.";
       };
 
+      httpurlPost = mkOption {
+        default = false;
+        description = "Whether to authenticate via post requests";
+      };
+
       canonicalUrl = mkOption {
         default = "";
         description = "The canonical url of running gitblit instance.";
@@ -107,6 +112,7 @@ in {
         ${if (cfg.httpurlRealm != null) then ''
         sed -i 's,^realm.httpurl.*,,' ${cfg.dataDir}/gitblit.properties
         echo "realm.httpurl.urlPattern = ${cfg.httpurlRealm}" >> ${cfg.dataDir}/gitblit.properties
+        echo "realm.httpurl.usePost = ${if (cfg.httpurlPost) then "true" else "false"}" >> ${cfg.dataDir}/gitblit.properties
         '' else ""}
         ln -snf ${pkgs.gitblit}/ext ${cfg.baseDir}/ext
         ln -snf ${pkgs.gitblit}/docs ${cfg.baseDir}/docs

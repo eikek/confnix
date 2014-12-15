@@ -1,8 +1,20 @@
+From 4af879b1eea499b84d10fda34624634654e91cbc Mon Sep 17 00:00:00 2001
+From: Eike Kettner <eike.kettner@posteo.de>
+Date: Tue, 2 Dec 2014 12:42:53 +0100
+Subject: [PATCH] custom http authenticator
+
+---
+ src/main/distrib/data/gitblit.properties           |  11 ++
+ .../java/com/gitblit/auth/HttpUrlAuthProvider.java | 132 +++++++++++++++++++++
+ .../com/gitblit/manager/AuthenticationManager.java |   9 +-
+ 3 files changed, 145 insertions(+), 7 deletions(-)
+ create mode 100644 src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
+
 diff --git a/src/main/distrib/data/gitblit.properties b/src/main/distrib/data/gitblit.properties
-index f53cc11..83d6fd9 100644
+index f53cc11..26f19ab 100644
 --- a/src/main/distrib/data/gitblit.properties
 +++ b/src/main/distrib/data/gitblit.properties
-@@ -1772,6 +1772,12 @@ realm.ldap.removeDeletedUsers = true
+@@ -1772,6 +1772,17 @@ realm.ldap.removeDeletedUsers = true
  # SINCE 1.2.0
  realm.redmine.url = http://example.com/redmine
  
@@ -12,15 +24,20 @@ index f53cc11..83d6fd9 100644
 +# Example: http://my.authserver.com/?username=%[username]&password=%[password]
 +realm.httpurl.urlPattern =
 +
++# Use a POST request. If true, the query string of `urlPattern` is put into
++# the body and the request is send via POST and x-www-form-url-encoded. If
++# false, a GET request is issued.
++realm.httpurl.usePost = false
++
  #
  # Gitblit GO Server Settings
  # The following settings only affect the integrated GO variant.
 diff --git a/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
 new file mode 100644
-index 0000000..f27742a
+index 0000000..87f86bc
 --- /dev/null
 +++ b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
-@@ -0,0 +1,94 @@
+@@ -0,0 +1,132 @@
 +package com.gitblit.auth;
 +
 +import com.gitblit.Constants;
@@ -28,6 +45,8 @@ index 0000000..f27742a
 +import com.gitblit.models.UserModel;
 +import com.gitblit.utils.StringUtils;
 +
++import java.io.DataOutputStream;
++import java.io.IOException;
 +import java.net.HttpURLConnection;
 +import java.net.URL;
 +
@@ -45,14 +64,10 @@ index 0000000..f27742a
 +    public UserModel authenticate(String username, char[] password) {
 +        final String urlPattern = settings.getRequiredString(Keys.realm.httpurl.urlPattern);
 +        try {
-+            final URL url = new URL(urlPattern
-+                    .replace("%[username]", StringUtils.encodeUsername(username))
-+                    .replace("%[password]", StringUtils.encodeURL(String.valueOf(password))));
-+
-+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
++            HttpURLConnection conn = settings.getBoolean(Keys.realm.httpurl.usePost, false) ?
++                    makePost(username, password, urlPattern)
++                    : makeGet(username, password, urlPattern);
 +            try {
-+                conn.setRequestMethod("GET");
-+                conn.connect();
 +                int rc = conn.getResponseCode();
 +                if (rc != 200) {
 +                    logger.error(String.format("Authentication failed (%d) for: %s", rc,
@@ -89,6 +104,46 @@ index 0000000..f27742a
 +
 +        return user;
 +    }
++
++    private HttpURLConnection makeGet(String username, char[] password, String urlPattern) throws IOException {
++        final URL url = new URL(replaceParams(username, password, urlPattern));
++
++        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
++        conn.setRequestMethod("GET");
++        conn.connect();
++        return conn;
++    }
++
++    private String replaceParams(String username, char[] password, String urlPattern) {
++        return urlPattern
++                .replace("%[username]", StringUtils.encodeUsername(username))
++                .replace("%[password]", StringUtils.encodeURL(String.valueOf(password)));
++    }
++
++    private HttpURLConnection makePost(String username, char[] password, String urlPattern) throws IOException {
++        int idx = urlPattern.indexOf('?');
++        if (idx > 0) {
++            URL url = new URL(urlPattern.substring(0, idx));
++            String query = replaceParams(username, password, urlPattern.substring(idx + 1));
++
++            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
++            conn.setDoOutput(true);
++            conn.setDoInput(true);
++            conn.setUseCaches(false);
++            conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
++            conn.setRequestProperty("User-Agent", "Mozilla/5.0");
++            conn.setRequestMethod("POST");
++            conn.setInstanceFollowRedirects(true);
++            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
++            out.writeBytes(query);
++            out.flush();
++            out.close();
++            return conn;
++        } else {
++            return makeGet(username, password, urlPattern);
++        }
++    }
++
 +
 +    @Override
 +    public Constants.AccountType getAccountType() {
@@ -150,3 +205,6 @@ index f98f7b6..f403552 100644
  
  		// map of legacy external user services
  		legacyRedirects = new HashMap<String, String>();
+-- 
+2.1.3
+

@@ -22,7 +22,7 @@ let
      if [ "$CREDENTIALS_LOOKUP" = 1 ]; then
        exit $ERR_FAIL
      else
-       if ${pkgs.curl}/bin/curl -I -s "http://localhost:${shelterHttpPort}/verify?name=$USER&password=$PASS&app=mail" | ${pkgs.gnugrep}/bin/grep "200 OK"; then
+       if ${shelterAuth} localhost:${shelterHttpPort} $USER $PASS mail; then
            exec $REPLY
        else
            exit $ERR_FAIL
@@ -125,12 +125,12 @@ in
   services.bindExtra.subdomains = if (settings.enableWebmail) then [ subdomain "lists" ] else [];
   services.shelter.apps = [
     { id = "mail";
-      name = "SMTP and IMAP services.";
-      url = url= ((if (settings.useCertificate) then "https://" else "http://")+subdomain+"."+settings.primaryDomain);
-      description = "";}
+      name = "Email";
+      url= ((if (settings.useCertificate) then "https://" else "http://")+subdomain+"."+settings.primaryDomain);
+      description = "SMTP and IMAP services.";}
     { id = "mailinglist";
-      name = "Grouping for virtual accounts denoting mailinglists.";
-      url = "";
+      name = "Mailing-Lists";
+      url = "Grouping for virtual accounts denoting mailinglists.";
       description = ""; }
   ];
 }

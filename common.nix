@@ -43,6 +43,7 @@
 
   environment.systemPackages = with pkgs; [
     binutils
+    coreutils
     cacert
     psmisc
     lsof

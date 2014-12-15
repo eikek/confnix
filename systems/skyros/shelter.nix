@@ -32,10 +32,12 @@ in
       (add-listapps-route)
       (rest/apply-routes)
 
+      (config/set {:cookie-secure ${if (settings.useCertificate) then "true" else "false"}})
+
       (defn- shelter--app-add [id name & [url description]]
         (store/with-conn conn
           (if (not (account/app-exists? conn id))
-            (account/add-application conn id name url descripton))))
+            (account/app-set conn {:appid id :appname name :url url :description description}))))
 
       ${concatMapStringsSep "\n" (app: ''(shelter--app-add "${app.id}" "${app.name}" "${app.url}" "${app.description}")'') services.shelter.apps}
       '';
@@ -52,7 +54,7 @@ in
           try_files $uri $uri/ /index.html;
         }
         location /api {
-          proxy_pass http://localhost:${config.services.shelter.httpPort};
+          proxy_pass http://localhost:${builtins.toString config.services.shelter.httpPort};
           proxy_set_header X-Forwarded-For $remote_addr;
         }
       }
