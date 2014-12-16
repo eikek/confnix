@@ -10,6 +10,9 @@ in
     enable = true;
     httpurlRealm = ''http://localhost:${shelterHttpPort}/api/verify/form?login=%[username]&password=%[password]&app=gitblit'';
     httpurlPost = true;
+    mailServer = "localhost";
+    mailFromAddress = "noreply@"+settings.primaryDomain;
+    enableMirroring = true;
     canonicalUrl = (if (settings.useCertificate) then "https://" else "http://") +
                    subdomain + "." + settings.primaryDomain;
   };
