@@ -148,6 +148,8 @@ in {
      }
     '';
 
+    services.exim.localDomains = [ "myperception.de" ];
+
     services.bind = {
       zones = [
         { name = "myperception.de";
