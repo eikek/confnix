@@ -19,6 +19,8 @@ with config;
 
   boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" "/dev/sdc" ];
 
+  services.openssh.passwordAuthentication = false;
+
   networking = {
     hostName = "skyros";
 
