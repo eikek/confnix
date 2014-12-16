@@ -8,18 +8,6 @@ let
   confFile = ''
   include "application"
   akka {
-    ${if cfg.porter.mode == "remote" then ''
-    actor {
-      provider = "akka.remote.RemoteActorRefProvider"
-    }
-    remote {
-      enabled-transports = [ "akka.remote.netty.tcp" ]
-      netty.tcp {
-        hostname = "127.0.0.1"
-        port = 7557
-      }
-    }
-    '' else ""}
     loggers = ["akka.event.slf4j.Slf4jLogger"]
     loglevel = "DEBUG"
   }
@@ -37,22 +25,6 @@ let
         }
       }
     }
-    '' else ""}
-  }
-  porter {
-    mode = "${cfg.porter.mode}"
-    realm = "${cfg.porter.realm}"
-    ${if cfg.porter.mode == "embedded" then ''
-    embedded {
-        telnet.enabled = ${str cfg.porter.embedded.telnet.enable}
-        telnet.host = "${cfg.porter.embedded.telnet.host}"
-        telnet.port = ${str cfg.porter.embedded.telnet.port}
-      }
-    '' else ""}
-    ${if cfg.porter.mode == "remote" then ''
-    remote {
-        url = "${cfg.porter.remote.url}"
-      }
     '' else ""}
   }
   sitebag {
@@ -73,6 +45,19 @@ let
       enable-change-password = ${str cfg.webui.enableChangePasswordForm}
       enable-highlightjs = ${str cfg.webui.enableHighlightJs}
       highlightjs-theme = "${cfg.webui.highlightJsTheme}"
+    }
+    porter {
+      realm = "${cfg.porter.realm}"
+
+      telnet.enabled = ${str cfg.porter.telnet.enable}
+      telnet.host = "${cfg.porter.telnet.host}"
+      telnet.port = ${str cfg.porter.telnet.port}
+
+      externalAuthentication = {
+        enable = ${if (cfg.porter.externalAuthentication.urlPattern != "") then "true" else "false"}
+        urlPattern = "${cfg.porter.externalAuthentication.urlPattern}"
+        usePost = ${if (cfg.porter.externalAuthentication.usePost) then "true" else "false"}
+      }
     }
   }
   '';
@@ -189,40 +174,37 @@ in {
       };
 
       porter = {
-        mode = mkOption {
-          default = "embedded";
-          description = "If `embedded' sitebag's internal user management is used. A
-             value of `remote' specifies to use an external porter server for authentication.";
-        };
-
         realm = mkOption {
           default = "default";
           description = "The realm name to use.";
         };
 
-        remote = {
-          url = mkOption {
-            default = "akka.tcp://porter@127.0.0.1:4554/user/porter/api";
-            description = "The url where akka can lookup the porter actor via remoting.";
+        externalAuthentication = {
+          urlPattern = mkOption {
+            default = "";
+            description = "The external url to use for authentication. If empty, external auth is disabled.";
+            example = "http://localhost/auth?username=%[username]&password=%[password]";
+          };
+          usePost = mkOption {
+            default = true;
+            description = "Whether the query part of the url should be send via a POST request as www-form-urlencoded body.";
           };
         };
 
-        embedded = {
-          telnet = {
-            enable = mkOption {
-              default = false;
-              description = "Enable porter's admin console, available via telnet.";
-            };
+        telnet = {
+          enable = mkOption {
+            default = false;
+            description = "Enable porter's admin console, available via telnet.";
+          };
 
-            host = mkOption {
-              default = "localhost";
-              description = "The host where telnet server binds to.";
-            };
+          host = mkOption {
+            default = "localhost";
+            description = "The host where telnet server binds to.";
+          };
 
-            port = mkOption {
-              default = 9990;
-              description = "The port where the telnet server binds to.";
-            };
+          port = mkOption {
+            default = 9990;
+            description = "The port where the telnet server binds to.";
           };
         };
       };
@@ -239,7 +221,7 @@ in {
         };
 
         enableChangePasswordForm = mkOption {
-          default = (if cfg.porter.mode == "embedded" then true else false);
+          default = true;
           description = "Whether to display a 'change password form'. It may be desired to disable it when using external user management.";
         };
 

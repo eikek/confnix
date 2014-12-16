@@ -5,8 +5,23 @@ let
 in
 {
 
-  services.sitebag.urlBase = (if (settings.useCertificate) then "https://" else "http://") + subdomain + "." + settings.primaryDomain;
+  services.sitebag = {
+    urlBase = (if (settings.useCertificate) then "https://" else "http://") + subdomain + "." + settings.primaryDomain +"/";
+    porter.externalAuthentication = {
+      urlPattern = "http://localhost:${builtins.toString config.services.shelter.httpPort}/api/verify/form?login=%[username]&password=%[password]&app=sitebag";
+      usePost = true;
+    };
+    webui.enableChangePasswordForm = false;
+  };
+
   services.bindExtra.subdomains = if (services.sitebag.enable) then [ subdomain ] else [];
+
+  services.shelter.apps = [{
+    id = "sitebag";
+    name = "Sitebag";
+    url= ((if (settings.useCertificate) then "https://" else "http://")+subdomain+"."+settings.primaryDomain);
+    description = "Sitebag read-it-later web application.";
+  }];
 
   services.nginx.httpConfig = if (services.sitebag.enable) then
     (if (settings.useCertificate) then ''
