@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ pcre db gnutls pkgconfig sqlite perl which ];
 
   configurePhase = ''
-    cat > Local/Makefile << EOF
+    cat > Local/Makefile <<- EOF
     USE_DB=yes
     DBMLIB = -ldb
-    CONFIGURE_FILE=$out/etc/exim.conf
+    CONFIGURE_FILE=/var/run/exim/etc/exim.conf
     TRUSTED_CONFIG_LIST=$out/etc/trusted-configs
     BIN_DIRECTORY=/var/setuid-wrappers
-    SPOOL_DIRECTORY=/var/exim-${version}/spool
+    SPOOL_DIRECTORY=/var/run/exim-${version}/spool
     INFO_DIRECTORY=$out/share/info
     LOG_FILE_PATH=syslog
     SYSLOG_LOG_PID=yes
@@ -74,16 +74,18 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-   mkdir -p $out/
+   mkdir -p $out/etc
+   cat > $out/etc/trusted-configs <<-"EOF"
+   /var/run/exim/etc/exim.conf
+   /var/exim-${version}/etc/exim.conf
+   /var/exim/etc/exim.conf
+   EOF
+
    # the following two lines remove the call to exim to get the version number
    # you must be root to do that or exim, which does not exist (yet)
    sed -i 's,version=exim-.*exim -bV -C /dev/null.*,version=exim-${version},' scripts/exim_install
    sed -i 's,awk ./Exim version/ { OFS="".*,,' scripts/exim_install
    make INST_BIN_DIRECTORY=$out/bin INSTALL_ARG=-no_chown install
-   cat > $out/etc/trusted-configs <<-"EOF"
-   /var/exim-${version}/etc/exim.conf
-   /var/exim/etc/exim.conf
-   EOF
   '';
 
   meta = with stdenv.lib; {
