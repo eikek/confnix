@@ -1,6 +1,16 @@
 { config, pkgs, lib, ... }:
 with config;
 with lib;
+let
+   myphpini = pkgs.stdenv.mkDerivation {
+     name = "myphpini";
+     src = config.services.phpfpm.phpPackage;
+     installPhase = ''
+       mkdir -p $out
+       sed 's/;date.timezone =/date.timezone = "UTC"/' etc/php-recommended.ini > $out/php.ini
+     '';
+   };
+in
 {
 
   options = {
@@ -14,6 +24,7 @@ with lib;
 
   config = mkIf settings.enableWebServer {
     services.phpfpm = {
+      phpIni = myphpini;
       poolConfigs = {
         mypool = ''
           listen = ${services.phpfpmExtra.fastCgiBinding}
