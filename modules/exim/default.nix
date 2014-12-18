@@ -145,6 +145,7 @@ let
       delivery_date_add
       envelope_to_add
       return_path_add
+      create_directory
       directory_mode = 0770
       mode = 0660
       user = ${user}
@@ -156,9 +157,20 @@ let
 
     address_file:
       driver = appendfile
+      current_directory = ${cfg.usersDir}/''${lc:$local_part}
+      directory = ''${if eq{$address_file}{inbox} \
+        {${cfg.usersDir}/''${lc:$local_part}/Maildir} \
+        {${cfg.usersDir}/''${lc:$local_part}/Maildir/.''${sg{$address_file}{[/\.]}{/.}}} \
+      }
+      check_string = ""
+      escape_string = ""
+      mode = 0660
+      maildir_format
       delivery_date_add
       envelope_to_add
       return_path_add
+      create_directory
+      directory_mode = 0770
 
     address_reply:
       driver = autoreply
