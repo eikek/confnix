@@ -2,8 +2,22 @@
 with config;
 with lib;
 let
+  htmlManager = pkgs.stdenv.mkDerivation rec {
+    name = "shelter-manager";
+    src = ./shelterman;
+    unpackPhase = "true";
+    installPhase = ''
+      mkdir -p $out/{css,js}
+      cp ${pkgs.jquery2}/js/jquery.min.js $out/js/jquery.min.js
+      cp ${pkgs.kube}/js/kube.min.js $out/js/kube.min.js
+      cp ${pkgs.kube}/css/kube.min.css $out/css/kube.min.css
+      cp $src/css/* $out/css/
+      cp $src/js/* $out/js/
+      cp $src/*.html $out/
+    '';
+    /**/
+  };
   shelterVar = config.services.shelter.baseDir;
-  htmlManager = ./shelterman;
 in
 {
   options = {
