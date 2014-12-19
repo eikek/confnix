@@ -99,11 +99,12 @@
     gnome.metacity
 
   # web/email
-    firefox
+    firefoxWrapper
     conkerorWrapper
     surf
     mu
     offlineimap
+    chromium
 
   # devel
     lua
