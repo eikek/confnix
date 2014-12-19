@@ -74,18 +74,26 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-   mkdir -p $out/etc
-   cat > $out/etc/trusted-configs <<-"EOF"
-   /var/run/exim/etc/exim.conf
-   /var/exim-${version}/etc/exim.conf
-   /var/exim/etc/exim.conf
-   EOF
+    # the following two lines remove the call to exim to get the version number
+    # you must be root to do that or exim, which does not exist (yet)
+    sed -i 's,version=exim-.*exim -bV -C /dev/null.*,version=exim-${version},' scripts/exim_install
+    sed -i 's,awk ./Exim version/ { OFS="".*,,' scripts/exim_install
+    make INST_BIN_DIRECTORY=$out/bin INSTALL_ARG=-no_chown install
 
-   # the following two lines remove the call to exim to get the version number
-   # you must be root to do that or exim, which does not exist (yet)
-   sed -i 's,version=exim-.*exim -bV -C /dev/null.*,version=exim-${version},' scripts/exim_install
-   sed -i 's,awk ./Exim version/ { OFS="".*,,' scripts/exim_install
-   make INST_BIN_DIRECTORY=$out/bin INSTALL_ARG=-no_chown install
+    mkdir -p $out/etc
+    cat > $out/etc/trusted-configs <<-"EOF"
+    /var/run/exim/etc/exim.conf
+    /var/exim-${version}/etc/exim.conf
+    /var/exim/etc/exim.conf
+    EOF
+
+    # copy template files manually if not there (i.e. if config file already exists, this step is skipped in make install)
+    if ! [ -r $out/etc/exim.conf ]; then
+        cp src/configure.default $out/etc/exim.conf
+    fi
+    if ! [ -r $out/etc/aliases ]; then
+        cp src/aliases.default $out/etc/aliases
+    fi
   '';
 
   meta = with stdenv.lib; {

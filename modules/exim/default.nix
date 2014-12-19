@@ -336,10 +336,9 @@ in {
       after = [ "networking.target" ];
 
       preStart = ''
-        if ! [ -d ${cfg.stateDir}/etc ]; then
-          mkdir -p ${cfg.stateDir}/etc
-          # todo
-          cp ${pkgs.exim}/etc/aliases ${cfg.stateDir}/etc/
+        mkdir -p ${cfg.stateDir}/etc
+        if ! [ -r ${cfg.stateDir}/etc/aliases ]; then
+           cp ${pkgs.exim}/etc/aliases ${cfg.stateDir}/etc/
         fi
         if ! [ -d ${cfg.stateDir}/mail ]; then
            mkdir -p ${cfg.stateDir}
