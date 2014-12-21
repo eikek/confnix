@@ -25,6 +25,7 @@
     }) ["backups" "dokumente" "downloads" "home" "music" "photo" "safe" "video"]);
 
   services.virtualboxHost.enable = true;
+  services.virtualboxHost.enableHardening = true;
 
   services.xserver = {
     enable = true;
