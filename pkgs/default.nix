@@ -9,6 +9,7 @@ let
     html2textpy = callPackage ./html2textpy {};
     jquery2 = callPackage ./jquery2 {};
     kube = callPackage ./kube {};
+    lsdvd = callPackage ./lsdvd {};
     roundcube = callPackage ./roundcube {};
     publet = callPackage ./publet {};
     shelter = callPackage ./shelter {};

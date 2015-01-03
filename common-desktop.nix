@@ -94,6 +94,8 @@
     vorbisTools
     soundkonverter
     dvdauthor
+    lsdvd
+    exiv2
 
   # x-window
     xlibs.xrandr
