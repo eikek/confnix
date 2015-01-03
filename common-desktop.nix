@@ -85,6 +85,15 @@
     mpc_cli
     mplayer
     vlc
+    cdparanoia
+    lxdvdrip
+    libav
+    libtheora
+    sox
+    flac
+    vorbisTools
+    soundkonverter
+    dvdauthor
 
   # x-window
     xlibs.xrandr
@@ -108,6 +117,7 @@
     chromium
 
   # devel
+    subversion
     lua
     sbcl
     python
@@ -145,10 +155,6 @@
     xpdf
     ghostscript
     wireshark
-    lxdvdrip
-    #dvdauthor
-    libav
-    libtheora
     libreoffice
     sqliteman
     unison
