@@ -96,6 +96,7 @@
     dvdauthor
     lsdvd
     exiv2
+    easytag
 
   # x-window
     xlibs.xrandr
