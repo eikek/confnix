@@ -97,6 +97,7 @@
     lsdvd
     exiv2
     easytag
+    ffmpeg
 
   # x-window
     xlibs.xrandr
