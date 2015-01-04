@@ -130,7 +130,7 @@ in
       description = "SMTP and IMAP services.";}
     { id = "mailinglist";
       name = "Mailing-Lists";
-      url = "Grouping for virtual accounts denoting mailinglists.";
-      description = ""; }
+      url = "";
+      description = "Grouping for virtual accounts denoting mailinglists."; }
   ];
 }

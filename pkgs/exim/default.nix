@@ -4,8 +4,6 @@ stdenv.mkDerivation rec {
   version = "4.84";
   name = "exim-${version}";
 
-  # buildinfo plugin reads the current commit on build
-  # thus, need to build from git sources
   src = fetchurl {
     url = "ftp://ftp.univie.ac.at/applications/exim/exim/exim4/exim-${version}.tar.bz2";
     sha256 = "174yifry1ji6i87xbvcx1k5cxxlyxhxjyj7xwy0ghvgvhyz25skq";
