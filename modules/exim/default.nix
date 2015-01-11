@@ -231,7 +231,7 @@ in {
       };
 
       debug = mkOption {
-        default = true;
+        default = false;
         description = "Execute exim in debug mode.";
       };
 

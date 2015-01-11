@@ -98,6 +98,7 @@
     exiv2
     easytag
     ffmpeg
+    calibre
 
   # x-window
     xlibs.xrandr
@@ -124,6 +125,7 @@
     subversion
     lua
     sbcl
+    asdf
     python
     scala
     sbt
