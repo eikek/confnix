@@ -365,7 +365,7 @@ in {
         chmod 644 ${cfg.stateDir}/etc/{exim.conf,aliases}
       '';
 
-      script="/var/setuid-wrappers/exim-${version} -bd -q1h ${if cfg.debug then "-v -d" else ""} -C ${cfg.stateDir}/etc/exim.conf";
+      script="/var/setuid-wrappers/exim-${version} -bdf -q1h ${if cfg.debug then "-v -d" else ""} -C ${cfg.stateDir}/etc/exim.conf";
     };
   };
 }
