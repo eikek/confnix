@@ -32,6 +32,7 @@ with config;
 
     firewall = {
       allowedTCPPorts = [ 22 25 587 143 80 443 29418 ];
+      allowedUDPPorts = [ 53 ];
     };
   };
 
