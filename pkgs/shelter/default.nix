@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     url = https://github.com/eikek/shelter;
     rev = "refs/heads/master";
     name = "shelter-${version}-git";
-    sha256 = "1m8a6kkbw7vsg19kzrln2fv18y0mx1jbqcrl54msqgwilz9rd3i7";
+    sha256 = "283fd36140abdf8113fe53d666fe08782359b5b68d629c047f7e29c31ac672d3";
   };
 
   buildInputs = [ leiningen jre makeWrapper ];
