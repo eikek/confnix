@@ -89,5 +89,8 @@ with config;
     goaccess
     fetchmail
     leiningen
+    scala
+    jdk
+    clojure
   ];
 }
