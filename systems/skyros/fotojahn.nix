@@ -88,7 +88,7 @@ in {
     environment.systemPackages = [ pkgs.publet ];
 
     systemd.services.fotojahn = {
-      description = "Publet server for fotojahn.de";
+      description = "Publet server for fotojahn.com";
       after = ["networking.target"];
 
       preStart = ''
@@ -135,7 +135,7 @@ in {
     services.nginx.httpConfig = ''
      server {
        listen  ${config.settings.primaryIp}:80;
-       server_name fotojahn.de www.fotojahn.de;
+       server_name fotostudio-jahn.com www.fotostudio-jahn.com;
        location / {
           proxy_pass http://127.0.0.1:${builtins.toString cfg.bindPort};
           proxy_set_header X-Forwarded-For $remote_addr;
