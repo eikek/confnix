@@ -1,7 +1,7 @@
 pkgs:
 let
   callPackage = pkgs.lib.callPackageWith(pkgs // custom);
-
+  callPackage2 = pkgs.lib.callPackageWith(pkgs);
   custom = {
     cdparanoiax = callPackage ./cdparanoiax {};
     exim = callPackage ./exim {};
@@ -15,6 +15,7 @@ let
     shelter = callPackage ./shelter {};
     sitebag = callPackage ./sitebag {};
     soundkonverter = callPackage ./soundkonverter {};
+    stumpwm = callPackage2 ./stumpwm {};
   };
 
 in custom
