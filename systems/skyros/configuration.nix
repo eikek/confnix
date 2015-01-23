@@ -92,6 +92,5 @@ with config;
     scala
     jdk
     clojure
-    mailutils
   ];
 }

@@ -20,7 +20,6 @@
     wireless = {
       enable = false;
     };
-
     useDHCP = true;
     wicd.enable = false;
     firewall.allowedTCPPorts = [ 22 80 443 ];
@@ -33,10 +32,11 @@
       '';
   };
 
-
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.gutenprint pkgs.splix pkgs.foomatic_filters ];
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.c544ppd ];
+  };
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -44,20 +44,10 @@
 # doesn't work with nouveau, but with nvidia…
 #    xrandrHeads = [ "DVI-I-1" "DVI-D-0" ];
 
-    # for some unknown reason, another dm won't let me login, only root
-    # kdm allows me to login, but not root...
-    displayManager.kdm.enable = false;
-    displayManager.lightdm.enable = true;
     # my weird monitor setup :) this is needed when using nouveau
     displayManager.sessionCommands = ''
       xrandr --output DVI-I-1 --left-of DVI-D-1
     '';
-
-    displayManager.session = [{
-      manage = "window";
-      name = "cstumpwm";
-      start = ''exec /home/eike/bin/stumpwm'';
-    }];
   };
 
   nixpkgs = {

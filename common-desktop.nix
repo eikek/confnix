@@ -114,7 +114,6 @@
     xclip
     autorandr
     i3lock
-    gnome.metacity
 
   # web/email
     firefoxWrapper
