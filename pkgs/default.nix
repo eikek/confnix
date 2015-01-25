@@ -11,6 +11,7 @@ let
     kube = callPackage ./kube {};
     c544ppd = callPackage ./lexmark-c544 {};
     lsdvd = callPackage ./lsdvd {};
+    markdown = callPackage ./markdown {};
     roundcube = callPackage ./roundcube {};
     publet = callPackage ./publet {};
     shelter = callPackage ./shelter {};

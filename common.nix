@@ -78,6 +78,7 @@
     storeBackup
     bind
     nix-prefetch-scripts
+    markdown
   ];
 
   users.extraUsers.eike = {

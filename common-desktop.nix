@@ -108,6 +108,7 @@
     xlibs.xmodmap
     xlibs.twm
     xlibs.xwd
+    xlibs.xdpyinfo
     xfce.terminal
     compton
     stumpwm
