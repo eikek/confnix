@@ -5,7 +5,9 @@ let
   cfg = config.services.gitblit;
   str = e: if (builtins.typeOf e) == "bool" then (if e then "true" else "false") else (builtins.toString e);
   gitblitUser = "gitblit";
-
+  gitblitOption = line: option: if (option != null) then
+      ''sed -i 's,^${line}.*,${line}=${option},' ${cfg.dataDir}/gitblit.properties''
+    else "";
 in {
 
   ## interface
@@ -123,11 +125,45 @@ in {
         default = [];
         description = "List of email addresses for the gitblit admins.";
       };
+
+      webSiteName = mkOption {
+        default = null;
+        description = "Name of the web site.";
+      };
+      webHeaderLogo = mkOption {
+        default = null;
+        description = "Path to the logo";
+        example = "${baseFolder}/mylogo.png";
+      };
+      webRootLink = mkOption {
+        default = null;
+        description = "Link URL for the logo image anchor.";
+      };
+      webHeaderBackgroundColor = mkOption {
+        default = null;
+        description = "Header background CSS color.";
+      };
+      webHeaderForegroundColor = mkOption {
+        default = null;
+        description = "Header foreground CSS color.";
+      };
+      webHeaderHoverColor = mkOption {
+        default = null;
+        description = "Header foreground hove CSS color.";
+      };
+      webHeaderBorderColor = mkOption {
+        default = null;
+        description = "Header border CSS color.";
+      };
+      webHeaderBorderFocusColor = mkOption {
+        default = null;
+        description = "Header border CSS color.";
+      };
     };
   };
 
   ## implementation
-  config = mkIf config.services.gitblit.enable {
+  config = mkIf cfg.enable {
     users.extraGroups = singleton {
       name = "gitblit";
       gid = config.ids.gids.gitblit;
@@ -151,24 +187,32 @@ in {
         cd ${cfg.baseDir}
         if [ ! -d ${cfg.dataDir} ]; then
            mkdir -p ${cfg.dataDir}
-           cp -R ${pkgs.gitblit}/data/* ${cfg.dataDir}/
-           # /**/
+           cp -R ${pkgs.gitblit}/data/* ${cfg.dataDir}/  #/**/
            chown -R ${gitblitUser}:gitblit ${cfg.dataDir}/
            find ${cfg.dataDir}/ -type d -exec chmod 755 {} \;
         fi
-        sed -i 's,^tickets.service.*,tickets.service=${cfg.ticketBackend},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^realm.authenticationProviders.*,realm.authenticationProviders = httpurl,' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^web.canonicalUrl.*,web.canonicalUrl = ${cfg.canonicalUrl},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^git.enableMirroring.*,git.enableMirroring = ${str cfg.enableMirroring},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^git.mirrorPeriod.*,git.mirrorPeriod = ${cfg.mirrorPeriod},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.server.*,mail.server = ${cfg.mailServer},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.port.*,mail.port = ${builtins.toString cfg.mailPort},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.smtps.*,mail.smtps = ${str cfg.mailSmtps},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.starttls.*,mail.starttls = ${str cfg.mailStartTLS},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.username.*,mail.username = ${cfg.mailUsername},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.password.*,mail.password = ${cfg.mailPassword},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.fromAddress.*,mail.fromAddress = ${cfg.mailFromAddress},' ${cfg.dataDir}/gitblit.properties
-        sed -i 's,^mail.adminAddresses.*,mail.adminAddresses = ${concatStringsSep " " cfg.mailAdminAddresses},' ${cfg.dataDir}/gitblit.properties
+        cp ${pkgs.gitblit}/data/gitblit.properties ${cfg.dataDir}/
+        ${gitblitOption "tickets.service" cfg.ticketBackend}
+        ${gitblitOption "realm.authenticationProviders" "httpurl"}
+        ${gitblitOption "web.canonicalUrl" cfg.canonicalUrl}
+        ${gitblitOption "git.enableMirroring" (str cfg.enableMirroring)}
+        ${gitblitOption "git.mirrorPeriod" cfg.mirrorPeriod}
+        ${gitblitOption "mail.server" cfg.mailServer}
+        ${gitblitOption "mail.port" (builtins.toString cfg.mailPort)}
+        ${gitblitOption "mail.smtps" (str cfg.mailSmtps)}
+        ${gitblitOption "mail.starttls" (str cfg.mailStartTLS)}
+        ${gitblitOption "mail.username" cfg.mailUsername}
+        ${gitblitOption "mail.password" cfg.mailPassword}
+        ${gitblitOption "mail.fromAddress" cfg.mailFromAddress}
+        ${gitblitOption "mail.adminAddresses" (concatStringsSep " " cfg.mailAdminAddresses)}
+        ${gitblitOption "web.siteName" cfg.webSiteName}
+        ${gitblitOption "web.headerLogo" cfg.webHeaderLogo}
+        ${gitblitOption "web.rootLink" cfg.webRootLink}
+        ${gitblitOption "web.headerBackgroundColor" cfg.webHeaderBackgroundColor}
+        ${gitblitOption "web.headerForegroundColor" cfg.webHeaderForegroundColor}
+        ${gitblitOption "web.headerHoverColor" cfg.webHeaderHoverColor}
+        ${gitblitOption "web.headerBorderColor" cfg.webHeaderBorderColor}
+        ${gitblitOption "web.headerBorderFocusColor" cfg.webHeaderBorderFocusColor}
 
         ${if (cfg.httpurlRealm != null) then ''
         sed -i 's,^realm.httpurl.*,,' ${cfg.dataDir}/gitblit.properties

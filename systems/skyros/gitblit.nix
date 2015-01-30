@@ -13,6 +13,8 @@ in
     mailServer = "localhost";
     mailFromAddress = "noreply@"+settings.primaryDomain;
     enableMirroring = true;
+    webHeaderBackgroundColor = "#904238";
+    webHeaderBorderColor = "#904238";
     canonicalUrl = (if (settings.useCertificate) then "https://" else "http://") +
                    subdomain + "." + settings.primaryDomain;
   };
