@@ -129,6 +129,8 @@ in {
         cat > ${cfg.baseDir}/etc/publet.properties <<- "EOF"
         publet.mode=production
         superadminEnabled=false
+        sharry.maxFolderSize=1500MiB
+        sharry.maxUploadSize=300MiB
         publet.urlBase=http://www.myperception.de
         EOF
         chmod a+x ${cfg.baseDir}/bin/start-publet.sh
