@@ -46,6 +46,26 @@
       default = "awesome";
     };
     startGnuPGAgent = false;
+    displayManager = {
+      sessionCommands = let cacheTime = builtins.toString (4 * 60 * 60); in ''
+      killall gpg-agent
+      ${pkgs.gnupg}/bin/gpg-agent --daemon \
+         --enable-ssh-support \
+         --default-cache-ttl ${cacheTime} \
+         --max-cache-ttl ${cacheTime} \
+         --default-cache-ttl-ssh ${cacheTime} \
+         --max-cache-ttl-ssh ${cacheTime} \
+         --write-env-file $HOME/.gpg-agent-info \
+         --pinentry-program "${pkgs.pinentry}/bin/pinentry-gtk-2"
+      eval $(cat $HOME/.gpg-agent-info)
+      export GPG_AGENT_INFO
+      export SSH_AUTH_SOCK
+      export SSH_AGENT_PID
+      export PATH=$HOME/bin:$PATH
+      export JAVA_HOME=${pkgs.jdk}
+      export JDK_HOME=${pkgs.jdk}
+      '';
+    };
   };
 
   fonts = {

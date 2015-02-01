@@ -47,6 +47,10 @@
       name = "cstumpwm";
       start = ''exec /home/eike/bin/stumpwm'';
     }];
+    displayManager.sessionCommands = ''
+      setxkbmap -layout de
+      xmodmap -e "keycode 66 = Shift_L"
+    '';
   };
 
   environment.pathsToLink = [ "/" ];

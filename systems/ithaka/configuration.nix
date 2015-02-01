@@ -47,6 +47,8 @@
     # my weird monitor setup :) this is needed when using nouveau
     displayManager.sessionCommands = ''
       xrandr --output DVI-I-1 --left-of DVI-D-1
+      setxkbmap -layout de
+      xmodmap -e "keycode 66 = Shift_L"
     '';
   };
 

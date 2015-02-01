@@ -49,7 +49,6 @@
     lsof
     file
     gnupg
-    gnupg1compat
     wget
     git
     curl
