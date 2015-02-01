@@ -14,6 +14,8 @@ let
     markdown = callPackage ./markdown {};
     roundcube = callPackage ./roundcube {};
     publet = callPackage ./publet {};
+    publetSharry = callPackage ./publet/sharry.nix {};
+    publetQuartz = callPackage ./publet/quartz.nix {};
     shelter = callPackage ./shelter {};
     sitebag = callPackage ./sitebag {};
     soundkonverter = callPackage ./soundkonverter {};

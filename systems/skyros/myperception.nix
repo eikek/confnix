@@ -104,13 +104,15 @@ in {
       after = ["networking.target"];
 
       preStart = ''
-        mkdir -p ${cfg.baseDir}
+        mkdir -p ${cfg.baseDir}/plugins
         ln -sfn ${pkgs.publet}/webapp ${cfg.baseDir}/webapp
 
         mkdir -p ${cfg.baseDir}/{bin,log,etc,plugins,var,temp}
         chown publet:publet ${cfg.baseDir}/{log,var,temp}
 
         ln -sfn ${pkgs.publet}/bin/publet-server.jar ${cfg.baseDir}/bin/publet-server.jar
+        ln -sfn ${pkgs.publetSharry}/publet-sharry.jar ${cfg.baseDir}/plugins/publet-sharry.jar
+        ln -sfn ${pkgs.publetQuartz}/publet-quartz.jar ${cfg.baseDir}/plugins/publet-quartz.jar
 
         cat > ${cfg.baseDir}/etc/logback.xml <<- "EOF"
         ${logbackConf}

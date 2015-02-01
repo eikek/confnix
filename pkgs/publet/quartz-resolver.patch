@@ -1,0 +1,34 @@
+diff --git project/Build.scala project/Build.scala
+index e7143e7..362cc08 100644
+--- project/Build.scala
++++ project/Build.scala
+@@ -6,6 +6,7 @@ import AssemblyKeys._
+ 
+ object Resolvers {
+   val eknet = "eknet.org" at "https://eknet.org/maven2"
++  val restlet = "restlet.com" at "http://maven.restlet.com/"
+ }
+ 
+ object Version {
+@@ -32,7 +33,7 @@ object Dependencies {
+   val quartz = "org.quartz-scheduler" % "quartz" % Version.quartz exclude("org.slf4j", "slf4j-api") exclude("log4j", "log4j")
+ }
+ 
+-// Root Module 
++// Root Module
+ 
+ object RootBuild extends Build {
+   import org.eknet.publet.sbt.PubletPlugin
+@@ -71,11 +72,9 @@ object RootBuild extends Build {
+     exportJars := true,
+     pomIncludeRepository := (_ => false),
+     scalacOptions ++= Seq("-unchecked", "-deprecation"),
+-    resolvers += Resolvers.eknet,
++    resolvers ++= Seq(Resolvers.eknet, Resolvers.restlet),
+     licenses := Seq(("ASL2", new URL("http://www.apache.org/licenses/LICENSE-2.0.txt")))
+   )
+ 
+   val deps = Seq(publetWeb, publetExt, publetAppPlugin, servletApiProvided, quartz)
+ }
+-
+-

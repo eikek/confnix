@@ -19,7 +19,6 @@ with config;
 
 
   settings.primaryDomain = "testvm.com";
-  settings.primaryIp = "192.168.1.59";
 
   boot.loader.grub.devices = [ "/dev/sda" ];
 
