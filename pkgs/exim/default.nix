@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   name = "exim-${version}";
 
   src = fetchurl {
-    url = "ftp://ftp.univie.ac.at/applications/exim/exim/exim4/exim-${version}.tar.bz2";
+    url = "ftp://ftp.univie.ac.at/applications/exim/exim/exim4/old/exim-${version}.tar.bz2";
     sha256 = "174yifry1ji6i87xbvcx1k5cxxlyxhxjyj7xwy0ghvgvhyz25skq";
   };
 
