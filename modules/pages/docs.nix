@@ -1,12 +1,10 @@
 # a list of documentation pages for scala, java and clojure
 # use it like this in your configuration.nix:
 #
-#  services.pages = import docs.nix pkgs;
+#  services.pages.sources = import docs.nix pkgs;
 #
 pkgs:
-{
-  enable = true;
-  sources = [
+[
   { name = "Scala 2.11.5 Library Docs";
     location = "scalalib";
     root = "${pkgs.scaladocs}/api/scala-library/";}
@@ -27,5 +25,4 @@ pkgs:
     root = "${pkgs.clojuredocs}/"; }
   { name = "Stumpwm 0.9.9 Manual";
     location = "stumpwm";
-    root = "${pkgs.stumpwmdocs}/"; }];
-}
+    root = "${pkgs.stumpwmdocs}/"; }]

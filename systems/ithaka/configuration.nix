@@ -25,7 +25,10 @@
     firewall.allowedTCPPorts = [ 22 80 443 ];
   };
 
-  services.pages = import ../../modules/pages/docs.nix pkgs;
+  services.pages = {
+    enable = true;
+    sources = import ../../modules/pages/docs.nix pkgs;
+  };
 
   services.mongodb = {
     enable = true;
