@@ -16,7 +16,6 @@ stdenv.mkDerivation rec {
 
   patches = [
    ./httpauth.patch
-   ./urlfix.patch
   ];
 
   buildPhase = ''
