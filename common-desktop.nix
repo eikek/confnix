@@ -187,5 +187,6 @@
     libreoffice
     sqliteman
     unison
+    pandoc
   ];
 }

@@ -26,6 +26,7 @@
     };
   };
 
+  services.pages = import ../../modules/pages/docs.nix pkgs;
 
   services.acpid.enable = true;
   services.mongodb.enable = true;
