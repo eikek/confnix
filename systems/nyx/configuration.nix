@@ -41,15 +41,6 @@
   services.xserver = {
     videoDrivers = [ "intel" ];
 
-    # for some unknown reason, another dm won't let me login, only root
-    # only kdm allows me to login, but not root...
-    displayManager.kdm.enable = true;
-    displayManager.lightdm.enable = false;
-    displayManager.session = [{
-      manage = "window";
-      name = "cstumpwm";
-      start = ''exec /home/eike/bin/stumpwm'';
-    }];
     displayManager.sessionCommands = ''
       setxkbmap -layout de
       xmodmap -e "keycode 66 = Shift_L"
