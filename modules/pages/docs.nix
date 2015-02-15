@@ -25,4 +25,8 @@ pkgs:
     root = "${pkgs.clojuredocs}/"; }
   { name = "Stumpwm 0.9.9 Manual";
     location = "stumpwm";
-    root = "${pkgs.stumpwmdocs}/"; }]
+    root = "${pkgs.stumpwmdocs}/"; }
+  { name = "Orgmode Manual";
+    location = "orgmode";
+    root = "${pkgs.emacs24Packages.org}/share/doc/${pkgs.emacs24Packages.org.name}/";
+    file = "org.html"; }]

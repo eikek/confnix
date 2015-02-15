@@ -2,6 +2,8 @@
 {
   imports = import ./modules/module-list.nix;
 
+  nix.extraOptions = "auto-optimise-store = true";
+
   boot.loader.grub = {
     enable = true;
     version = 2;

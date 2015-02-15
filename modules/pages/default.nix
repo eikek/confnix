@@ -15,7 +15,7 @@ let
       <body>
       <h1>Read offline…</h1>
       <ul>
-      ${concatMapStringsSep "\n" (src: "<li><a href='${src.location}/'>${src.name}</a></li>") cfg.sources}
+      ${concatMapStringsSep "\n" (src: "<li><a href='${src.location}/${if (builtins.hasAttr ''file'' src) then src.file else ''''}'>${src.name}</a></li>") cfg.sources}
       </ul>
       </body>
       </html>
