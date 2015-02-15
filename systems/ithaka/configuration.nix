@@ -14,6 +14,7 @@
 
   # this should not be necessary, but my system did not start x otherwise
   boot.initrd.kernelModules = [ "nouveau" ];
+  boot.blacklistedKernelModules = [ "snd-hda-intel" ];
 
   networking = {
     hostName = "ithaka";
