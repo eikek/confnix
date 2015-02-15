@@ -45,27 +45,26 @@
       stumpwm.enable = true;  #unstable
       default = "awesome";
     };
-    startGnuPGAgent = false;
+    startGnuPGAgent = true;
     displayManager = {
-      sessionCommands = let cacheTime = builtins.toString (4 * 60 * 60); in ''
-      killall gpg-agent
-      ${pkgs.gnupg}/bin/gpg-agent --daemon \
-         --enable-ssh-support \
-         --default-cache-ttl ${cacheTime} \
-         --max-cache-ttl ${cacheTime} \
-         --default-cache-ttl-ssh ${cacheTime} \
-         --max-cache-ttl-ssh ${cacheTime} \
-         --write-env-file $HOME/.gpg-agent-info \
-         --pinentry-program "${pkgs.pinentry}/bin/pinentry-gtk-2"
-      eval $(cat $HOME/.gpg-agent-info)
-      export GPG_AGENT_INFO
-      export SSH_AUTH_SOCK
-      export SSH_AGENT_PID
-      export PATH=$HOME/bin:$PATH
-      export JAVA_HOME=${pkgs.jdk}
-      export JDK_HOME=${pkgs.jdk}
+      sessionCommands = ''
+        export JAVA_HOME=${pkgs.jdk}
+        export JDK_HOME=${pkgs.jdk}
       '';
     };
+  };
+
+  system.activationScripts = {
+    gpgAgentOptions = let cacheTime = builtins.toString (4 * 60 * 60); in ''
+      cat > /home/eike/.gnupg/gpg-agent.conf <<-"EOF"
+      enable-ssh-support
+      default-cache-ttl ${cacheTime}
+      max-cache-ttl ${cacheTime}
+      default-cache-ttl-ssh ${cacheTime}
+      max-cache-ttl-ssh ${cacheTime}
+      pinentry-program "${pkgs.pinentry}/bin/pinentry-gtk-2"
+      EOF
+    '';
   };
 
   fonts = {
@@ -132,6 +131,7 @@
     xfce.terminal
     compton
     stumpwm
+    stumpwmContrib
     xclip
     autorandr
     i3lock
@@ -188,5 +188,6 @@
     sqliteman
     unison
     pandoc
+    youtube-dl
   ];
 }
