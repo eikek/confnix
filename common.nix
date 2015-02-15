@@ -83,7 +83,7 @@
   ];
 
   users.extraUsers.eike = {
-    isNormalUser = true;  # unstable
+    isNormalUser = true;
     name = "eike";
     group = "users";
     uid = 1000;

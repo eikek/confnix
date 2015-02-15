@@ -58,14 +58,6 @@
     '';
   };
 
-  nixpkgs = {
-    config = {
-      firefox = {
-        enableAdobeFlash = true;
-      };
-    };
-  };
-
   environment.pathsToLink = [ "/" ];
 
   hardware = {
