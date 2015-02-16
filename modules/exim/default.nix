@@ -160,7 +160,7 @@ let
       current_directory = ${cfg.usersDir}/''${lc:$local_part}
       directory = ''${if eq{$address_file}{inbox} \
         {${cfg.usersDir}/''${lc:$local_part}/Maildir} \
-        {${cfg.usersDir}/''${lc:$local_part}/Maildir/.''${sg{$address_file}{[/\.]}{/.}}} \
+        {${cfg.usersDir}/''${lc:$local_part}/Maildir/.''${sg{$address_file}{[/\.]}{.}}} \
       }
       check_string = ""
       escape_string = ""
