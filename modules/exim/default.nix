@@ -56,10 +56,6 @@ let
 
       ${cfg.moreRecipientAcl}
 
-      deny   message       = Unknown user
-             domains       = +local_domains
-             local_parts   = ! LOCAL_USERS : MAIL_ALIASES
-
       require verify        = sender
 
       accept  hosts         = +relay_from_hosts
@@ -93,6 +89,8 @@ let
       driver = redirect
       allow_fail
       allow_defer
+      local_part_suffix = +*
+      local_part_suffix_optional
       data = MAIL_ALIASES
       user = exim
       file_transport = address_file
@@ -103,7 +101,7 @@ let
       user = ${user}
       group = ${group}
       local_parts = LOCAL_USERS
-      local_part_suffix = +* : -*
+      local_part_suffix = +*
       local_part_suffix_optional
       file = ${cfg.usersDir}/''${lc:$local_part}/.forward
       allow_filter
@@ -159,7 +157,7 @@ let
       driver = appendfile
       current_directory = ${cfg.usersDir}/''${lc:$local_part}
       directory = ''${if eq{$address_file}{inbox} \
-        {${cfg.usersDir}/''${lc:$local_part}/Maildir} \
+        {${cfg.usersDir}/''${lc:$local_part}/Maildir''${if eq{$local_part_suffix}{}{}{/.''${substr_1:$local_part_suffix}}}} \
         {${cfg.usersDir}/''${lc:$local_part}/Maildir/.''${sg{$address_file}{[/\.]}{.}}} \
       }
       check_string = ""

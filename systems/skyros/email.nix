@@ -71,8 +71,11 @@ in
          select login from shelter_account_app where login = '$local_part' and appid = 'mail';}}
      '';
     mailAliases = ''
-    ''${lookup sqlite {${shelterDb} \
-         select login from shelter_alias where loginalias = '$local_part';}}
+    ''${if eq{$local_part_suffix}{}\
+      {''${lookup sqlite {${shelterDb} \
+           select login from shelter_alias where loginalias = '$local_part';}}}\
+      {''${lookup sqlite {${shelterDb} \
+           select login || "$local_part_suffix" from shelter_alias where loginalias = '$local_part';}}}}
     '';
     plainAuthCondition = ''
       ''${run{${shelterAuth} localhost:${shelterHttpPort} $auth2 $auth3 mail}{true}{false}}
