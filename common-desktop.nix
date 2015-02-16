@@ -201,5 +201,6 @@
     unison
     pandoc
     youtube-dl
+    mediathekview
   ];
 }

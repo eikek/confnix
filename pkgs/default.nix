@@ -14,6 +14,7 @@ let
     kube = callPackage ./kube {};
     lsdvd = callPackage ./lsdvd {};
     markdown = callPackage ./markdown {};
+    mediathekview = callPackage ./mediathekview {};
     roundcube = callPackage ./roundcube {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
