@@ -39,11 +39,40 @@ in
     primaryHostname = settings.primaryDomain;
     localDomains = [ "@" "localhost" ("lists."+settings.primaryDomain) ];
     postmaster = "eike";
+
     moreRecipientAcl = ''
-    accept  local_parts = ''${lookup sqlite {${shelterDb} \
-                     select login from shelter_account_app where login = '$local_part' and appid = 'mailinglist';}}
-                domains = ${"lists."+settings.primaryDomain}
+     accept  local_parts = ''${lookup sqlite {${shelterDb} \
+                select login from shelter_account_app where login = '$local_part' and appid = 'mailinglist';}}
+             domains = ${"lists."+settings.primaryDomain}
     '';
+
+    dataAcl = ''
+     # Do not scan messages submitted from our own hosts
+     # and locally submitted messages. Since the DATA ACL
+     # is not called for messages not submitted via SMTP
+     # protocols, we do not need to check for an empty
+     # host field.
+     accept  hosts = 127.0.0.1:+relay_from_hosts
+
+     # put headers in all messages (no matter if spam or not)
+     warn  spam = nobody:true
+           condition = ''${if <{$message_size}{80k}{1}{0}}
+           add_header = X-Spam-Score: $spam_score ($spam_bar)
+           add_header = X-Spam-Report: $spam_report
+
+     # add second subject line with *SPAM* marker when message
+     # is over threshold
+     warn  spam = nobody
+           add_header = Subject: [**SPAM**] $h_Subject:
+
+     # reject spam at scores > 8
+     deny  message = This message scored $spam_score spam points.
+           spam = nobody:true
+           condition = ''${if >{$spam_score_int}{80}{1}{0}}
+
+     accept
+    '';
+
     moreRouters = ''
     allusers:
       driver = redirect
@@ -64,12 +93,13 @@ in
       forbid_file
       errors_to = ${eximCfg.postmaster}@${settings.primaryDomain}
       no_more
-
     '';
+
     localUsers = ''
      ''${lookup sqlite {${shelterDb} \
          select login from shelter_account_app where login = '$local_part' and appid = 'mail';}}
      '';
+
     mailAliases = ''
     ''${if eq{$local_part_suffix}{}\
       {''${lookup sqlite {${shelterDb} \
@@ -77,12 +107,15 @@ in
       {''${lookup sqlite {${shelterDb} \
            select login || "$local_part_suffix" from shelter_alias where loginalias = '$local_part';}}}}
     '';
+
     plainAuthCondition = ''
       ''${run{${shelterAuth} localhost:${shelterHttpPort} $auth2 $auth3 mail}{true}{false}}
     '';
+
     loginAuthCondition = ''
       ''${run{${shelterAuth} localhost:${shelterHttpPort} $auth1 $auth2 mail}{true}{false}}
     '';
+
     tlsCertificate = if (settings.useCertificate) then settings.certificate else "";
     tlsPrivatekey = if (settings.useCertificate) then settings.certificateKey else "";
   };
@@ -124,6 +157,11 @@ in
       return 301 https://${subdomain}.${settings.primaryDomain}$request_uri;
     }
   '' else "";
+
+  services.spamassassin = {
+    enable = true;
+    #debug = true;
+  };
 
   services.bindExtra.subdomains = if (settings.enableWebmail) then [ subdomain "lists" ] else [];
   services.shelter.apps = [

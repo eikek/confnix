@@ -51,10 +51,10 @@ let
              domains       = !+local_domains
              local_parts   = ^[./|] : ^.*[@%!] : ^.*/\\.\\./
 
+      ${cfg.moreRecipientAcl}
+
       accept local_parts   = postmaster
              domains       = +local_domains
-
-      ${cfg.moreRecipientAcl}
 
       require verify        = sender
 
@@ -73,7 +73,7 @@ let
       accept
 
     acl_check_data:
-      accept
+      ${cfg.dataAcl}
 
     begin routers
     dnslookup:
@@ -294,6 +294,11 @@ in {
       moreRecipientAcl = mkOption {
         default = "";
         description = "Additional config lines placed before the last deny acl block verifying recipients";
+      };
+
+      dataAcl = mkOption {
+        default = "accept";
+        description = "ACL config lines for the acl data section.";
       };
 
       perlScript = mkOption {
