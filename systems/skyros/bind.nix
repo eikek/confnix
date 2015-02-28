@@ -23,7 +23,7 @@ with lib;
             inherit pkgs lib;
             domain = settings.primaryDomain;
             ip = settings.primaryIp;
-            nameserver = [ settings.primaryNameServer ];
+            nameserver = [ settings.primaryNameServer "STATIC.134.107.40.188.CLIENTS.YOUR-SERVER.DE" ];
             arecords = config.services.bindExtra.subdomains ++ (if (settings.enableMailServer) then ["mail"] else []);
             mx = if (settings.enableMailServer) then [{ domain = "mail"; priority = "10"; }] else [];
           };
