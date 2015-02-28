@@ -33,6 +33,8 @@ let
   subdomain = "webmail";
 in
 {
+  imports =
+    [ ./spam.nix ];
 
   services.exim = {
     enable = settings.enableMailServer;
@@ -157,11 +159,6 @@ in
       return 301 https://${subdomain}.${settings.primaryDomain}$request_uri;
     }
   '' else "";
-
-  services.spamassassin = {
-    enable = true;
-    #debug = true;
-  };
 
   services.bindExtra.subdomains = if (settings.enableWebmail) then [ subdomain "lists" ] else [];
   services.shelter.apps = [
