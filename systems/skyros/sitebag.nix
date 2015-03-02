@@ -7,6 +7,7 @@ in
 
   services.sitebag = {
     urlBase = (if (settings.useCertificate) then "https://" else "http://") + subdomain + "." + settings.primaryDomain +"/";
+    alwaysSaveDocument = true;
     porter.externalAuthentication = {
       urlPattern = "http://localhost:${builtins.toString config.services.shelter.httpPort}/api/verify/form?login=%[username]&password=%[password]&app=sitebag";
       usePost = true;
