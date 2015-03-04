@@ -41,7 +41,7 @@ in
     primaryHostname = settings.primaryDomain;
     localDomains = [ "@" "localhost" ("lists."+settings.primaryDomain) ];
     postmaster = "eike";
-
+    #debug = true;
     moreRecipientAcl = ''
      accept  local_parts = ''${lookup sqlite {${shelterDb} \
                 select login from shelter_account_app where login = '$local_part' and appid = 'mailinglist';}}

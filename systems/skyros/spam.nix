@@ -21,41 +21,67 @@ let
     #bayes_auto_learn_threshold_nonspam 0.1
     bayes_auto_learn_threshold_spam 10.0
   '';
-  mkwhitelist = pkgs.writeScript "mk-whitelist.sh" ''
-  #!/bin/sh -e
-  # go through all Sent mailboxes and collect To addresses
-  # copied from: http://wiki.apache.org/spamassassin/ManualWhitelist#Automatically_whitelisting_people_you.27ve_emailed
-  SENTMAIL=
-  for d in /var/data/users/*; do  #*/
-     if [ -r "$d/Maildir/.Sent/cur" ]; then
-       SENTMAIL="$SENTMAIL $d/Maildir/.Sent/cur/*"
-     fi
-  done
-  echo "whitelist_from *@eknet.org"
-  cat $SENTMAIL |
-        grep -Ei '^(To|cc|bcc):' |
-        grep -oEi '[a-z0-9_.=/-]+@([a-z0-9-]+\.)+[a-z]{2,}' |
-        tr "A-Z" "a-z" |
-        sort -u |
-        xargs -n 100 echo "whitelist_from"
-  '';
-  learnfromusers = pkgs.writeScript "learn-ham-and-spam.sh" ''
-  #!/bin/sh -e
-  LEARNHAM=".LearnNotSpam"
-  LEARNSPAM=".LearnSpam"
 
-  learn() {
-    user=$(expr match ''${2#/var/data/users/} '\([a-zA-Z0-9]*\)')
-    echo "Learn ham for user $user…"
-    ${pkgs.spamassassin}/bin/sa-learn -u $user --dbpath /var/lib/spamassassin/user-$user/bayes $1 $2
-    chown -R spamd:spamd /var/lib/spamassassin/user-$user/
-  }
-  find /var/data/users -type d | grep "$LEARNHAM/cur" | while read f; do
-    learn "--ham" $f
-  done
-  find /var/data/users -type d | grep "$LEARNSPAM/cur" | while read f; do
-    learn "--spam" $f
-  done
+  mkwhitelist = pkgs.writeScript "mk-whitelist.sh" ''
+    #!/bin/sh -e
+    # go through all Sent mailboxes and collect To addresses
+    # copied from: http://wiki.apache.org/spamassassin/ManualWhitelist#Automatically_whitelisting_people_you.27ve_emailed
+    # should be run as root, it modifies files in /etc/spamassassin
+
+    log() {
+      ${pkgs.inetutils}/bin/logger "mk-whitelist: $1"
+    }
+
+    log "starting on $(date)"
+    SENTMAIL=
+    for d in /var/data/users/*; do  #*/
+       if [ -r "$d/Maildir/.Sent/cur" ]; then
+         SENTMAIL="$SENTMAIL $d/Maildir/.Sent/cur/*"
+       fi
+    done
+    log "adding mail addresses from folders $SENTMAIL"
+    cat $SENTMAIL |
+          grep -Ei '^(To|cc|bcc):' |
+          grep -oEi '[a-z0-9_.=/-]+@([a-z0-9-]+\.)+[a-z]{2,}' |
+          tr "A-Z" "a-z" |
+          sort -u |
+          xargs -n 100 echo "whitelist_from"
+    log "done on $(date)"
+  '';
+
+  learnfromusers = pkgs.writeScript "learn-ham-and-spam.sh" ''
+    #!/bin/sh -e
+    # feeds mails from LearnSpam and LearnNotSpam maildirs into spamassassin
+    # must be run as spamd user
+
+    LEARNHAM=".LearnNotSpam"
+    LEARNSPAM=".LearnSpam"
+
+    log() {
+      ${pkgs.inetutils}/bin/logger "learn-spam-ham: $1"
+    }
+    learn() {
+      user=$(expr match ''${2#/var/data/users/} '\([a-zA-Z0-9]*\)')
+      log "Learn $1 for user $user on file $2…"
+      ${pkgs.spamassassin}/bin/sa-learn -u $user --dbpath /var/lib/spamassassin/user-$user/bayes $1 $2
+      #chown -R spamd:spamd /var/lib/spamassassin/user-$user/
+      if [ "$1" = "--spam" ]; then
+          [ "$(ls -A $2)" ] && log "remove spam mail $2" && rm -f $2/* #*/
+      else
+          # mv does not work if src dir is empty
+          [ "$(ls -A $2)" ] && log "move ham mail $2 to inbox" && mv -f $2/* /var/data/users/$user/Maildir/cur/ #*/
+      fi
+      return 0
+    }
+
+    log "starting on $(date)"
+    find /var/data/users -type d | grep "$LEARNHAM/cur" | while read f; do
+      learn "--ham" $f
+    done
+    find /var/data/users -type d | grep "$LEARNSPAM/cur" | while read f; do
+      learn "--spam" $f
+    done
+    log "done on $(date)"
   '';
 in
 {
@@ -68,10 +94,7 @@ in
   services.exim = {
     dataAcl = ''
       # Do not scan messages submitted from our own hosts
-      # and locally submitted messages. Since the DATA ACL
-      # is not called for messages not submitted via SMTP
-      # protocols, we do not need to check for an empty
-      # host field.
+      # and locally submitted messages.
       accept  hosts = 127.0.0.1:+relay_from_hosts
 
       # put headers in all messages (no matter if spam or not)
@@ -122,13 +145,16 @@ in
 
   services.cron.systemCronJobs = [
     "0 3 * * Sun root ${mkwhitelist} > /etc/spamassassin/whitelist_from.txt"
-    "0 3 * * Sun root ${learnfromusers}"
+    "0 3 * * Sun spamd ${learnfromusers}"
   ];
 
   system.activationScripts = if (services.spamassassin.enable) then {
     spamassassincfg = ''
       mkdir -p /etc/spamassassin
       mkdir -p /var/lib/spamassassin
+      for u in $(ls -1 /var/data/users/); do
+          mkdir -p /var/lib/spamassassin/user-$u
+      done
       chown -R spamd:spamd /var/lib/spamassassin
       cp -n ${pkgs.spamassassin}/share/spamassassin/* /etc/spamassassin/
       #*/
