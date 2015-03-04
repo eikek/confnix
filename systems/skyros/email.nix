@@ -48,33 +48,6 @@ in
              domains = ${"lists."+settings.primaryDomain}
     '';
 
-    dataAcl = ''
-     # Do not scan messages submitted from our own hosts
-     # and locally submitted messages. Since the DATA ACL
-     # is not called for messages not submitted via SMTP
-     # protocols, we do not need to check for an empty
-     # host field.
-     accept  hosts = 127.0.0.1:+relay_from_hosts
-
-     # put headers in all messages (no matter if spam or not)
-     warn  spam = nobody:true
-           condition = ''${if <{$message_size}{80k}{1}{0}}
-           add_header = X-Spam-Score: $spam_score ($spam_bar)
-           add_header = X-Spam-Report: $spam_report
-
-     # add second subject line with *SPAM* marker when message
-     # is over threshold
-     warn  spam = nobody
-           add_header = Subject: [**SPAM**] $h_Subject:
-
-     # reject spam at scores > 8
-     deny  message = This message scored $spam_score spam points.
-           spam = nobody:true
-           condition = ''${if >{$spam_score_int}{80}{1}{0}}
-
-     accept
-    '';
-
     moreRouters = ''
     allusers:
       driver = redirect
