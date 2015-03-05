@@ -51,10 +51,10 @@ let
              domains       = !+local_domains
              local_parts   = ^[./|] : ^.*[@%!] : ^.*/\\.\\./
 
+      ${cfg.moreRecipientAcl}
+
       accept local_parts   = postmaster
              domains       = +local_domains
-
-      ${cfg.moreRecipientAcl}
 
       require verify        = sender
 
@@ -73,7 +73,7 @@ let
       accept
 
     acl_check_data:
-      accept
+      ${cfg.dataAcl}
 
     begin routers
     dnslookup:
@@ -96,6 +96,8 @@ let
       file_transport = address_file
       pipe_transport = address_pipe
 
+    ${cfg.moreRouters}
+
     userforward:
       driver = redirect
       user = ${user}
@@ -117,8 +119,6 @@ let
       local_parts = root:postmaster
       data = ${cfg.postmaster}@$primary_hostname
 
-    ${cfg.moreRouters}
-
     localuser:
       driver = accept
       local_parts = LOCAL_USERS
@@ -137,8 +137,7 @@ let
       current_directory = ${cfg.usersDir}/''${lc:$local_part}
       maildir_format = true
       directory = ${cfg.usersDir}/''${lc:$local_part}/Maildir\
-        ''${if eq{$local_part_suffix}{}{}\
-        {/.''${substr_1:$local_part_suffix}}}
+        ''${if and {{def:h_X-Spam-Flag:}{eq {$h_X-Spam-Flag:}{YES}}} {/.spam}{''${if eq{$local_part_suffix}{} {}{/.''${substr_1:$local_part_suffix}}}}}
       maildirfolder_create_regex = /\.[^/]+$
       delivery_date_add
       envelope_to_add
@@ -157,7 +156,7 @@ let
       driver = appendfile
       current_directory = ${cfg.usersDir}/''${lc:$local_part}
       directory = ''${if eq{$address_file}{inbox} \
-        {${cfg.usersDir}/''${lc:$local_part}/Maildir''${if eq{$local_part_suffix}{}{}{/.''${substr_1:$local_part_suffix}}}} \
+        {${cfg.usersDir}/''${lc:$local_part}/Maildir''${if and {{def:h_X-Spam-Flag:}{eq {$h_X-Spam-Flag:}{YES}}} {/.spam}{''${if eq{$local_part_suffix}{} {}{/.''${substr_1:$local_part_suffix}}}}}} \
         {${cfg.usersDir}/''${lc:$local_part}/Maildir/.''${sg{$address_file}{[/\.]}{.}}} \
       }
       check_string = ""
@@ -172,6 +171,8 @@ let
 
     address_reply:
       driver = autoreply
+
+    ${cfg.moreTransports}
 
     begin retry
     # Address or Domain    Error       Retries
@@ -286,14 +287,24 @@ in {
         description = "Exim config value used in <literal>server_condition</literal> in the login authenticator.";
       };
 
+      moreTransports = mkOption {
+        default = "";
+        description = "More transport defintions that are appended to default transports.";
+      };
+
       moreRouters = mkOption {
         default = "";
-        description = "Additional router config that is put before local-user router.";
+        description = "Additional router config that is put before local-user router and after forwarding router.";
       };
 
       moreRecipientAcl = mkOption {
         default = "";
         description = "Additional config lines placed before the last deny acl block verifying recipients";
+      };
+
+      dataAcl = mkOption {
+        default = "accept";
+        description = "ACL config lines for the acl data section.";
       };
 
       perlScript = mkOption {

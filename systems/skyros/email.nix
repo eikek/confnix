@@ -33,17 +33,21 @@ let
   subdomain = "webmail";
 in
 {
+  imports =
+    [ ./spam.nix ];
 
   services.exim = {
     enable = settings.enableMailServer;
     primaryHostname = settings.primaryDomain;
     localDomains = [ "@" "localhost" ("lists."+settings.primaryDomain) ];
     postmaster = "eike";
+    #debug = true;
     moreRecipientAcl = ''
-    accept  local_parts = ''${lookup sqlite {${shelterDb} \
-                     select login from shelter_account_app where login = '$local_part' and appid = 'mailinglist';}}
-                domains = ${"lists."+settings.primaryDomain}
+     accept  local_parts = ''${lookup sqlite {${shelterDb} \
+                select login from shelter_account_app where login = '$local_part' and appid = 'mailinglist';}}
+             domains = ${"lists."+settings.primaryDomain}
     '';
+
     moreRouters = ''
     allusers:
       driver = redirect
@@ -64,12 +68,13 @@ in
       forbid_file
       errors_to = ${eximCfg.postmaster}@${settings.primaryDomain}
       no_more
-
     '';
+
     localUsers = ''
      ''${lookup sqlite {${shelterDb} \
          select login from shelter_account_app where login = '$local_part' and appid = 'mail';}}
      '';
+
     mailAliases = ''
     ''${if eq{$local_part_suffix}{}\
       {''${lookup sqlite {${shelterDb} \
@@ -77,12 +82,15 @@ in
       {''${lookup sqlite {${shelterDb} \
            select login || "$local_part_suffix" from shelter_alias where loginalias = '$local_part';}}}}
     '';
+
     plainAuthCondition = ''
       ''${run{${shelterAuth} localhost:${shelterHttpPort} $auth2 $auth3 mail}{true}{false}}
     '';
+
     loginAuthCondition = ''
       ''${run{${shelterAuth} localhost:${shelterHttpPort} $auth1 $auth2 mail}{true}{false}}
     '';
+
     tlsCertificate = if (settings.useCertificate) then settings.certificate else "";
     tlsPrivatekey = if (settings.useCertificate) then settings.certificateKey else "";
   };

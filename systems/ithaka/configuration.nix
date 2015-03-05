@@ -16,6 +16,7 @@
   boot.initrd.kernelModules = [ "nouveau" ];
   boot.blacklistedKernelModules = [ "snd-hda-intel" ];
 
+
   networking = {
     hostName = "ithaka";
     wireless = {
@@ -24,6 +25,12 @@
     useDHCP = true;
     wicd.enable = false;
     firewall.allowedTCPPorts = [ 22 80 443 ];
+
+    nat = {
+      enable = true;
+      externalInterface = "enp5s0";
+      internalInterfaces = [ "ve-+" ];
+    };
   };
 
   services.pages = {
