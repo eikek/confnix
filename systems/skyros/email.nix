@@ -64,6 +64,8 @@ in
       driver = redirect
       domains = lists.${settings.primaryDomain}
       file = /var/data/mailinglists/$local_part
+      headers_add = "List-Id: <$local_part.lists.${settings.primaryDomain}>"
+      headers_add = "Reply-To: $local_part@lists.${settings.primaryDomain}"
       forbid_pipe
       forbid_file
       errors_to = ${eximCfg.postmaster}@${settings.primaryDomain}
