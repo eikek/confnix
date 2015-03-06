@@ -109,7 +109,7 @@ in
            add_header = X-Spam-Flag: YES
 
       # reject spam at scores > 10
-      deny  message = This message scored $spam_score spam points.
+      deny  message = This message scored too many spam points.
             spam = nobody:true
             condition = ''${if >{$spam_score_int}{100}{1}{0}}
 
