@@ -3,6 +3,16 @@
 with lib;
 let
   cfg = config.services.shelter;
+  autoload = pkgs.writeText "shelter-autoload.clj" ''
+    (in-ns 'shelter.core)
+    ${cfg.autoLoad}
+  '';
+  dbrc = pkgs.writeText "shelter-db.clj" ''
+    (in-ns 'shelter.core)
+    (config/set {:database "${cfg.databaseFile}"
+                 :nrepl-port ${builtins.toString cfg.nreplPort}
+                 :rest-port ${builtins.toString cfg.httpPort}})
+  '';
 in {
 
   ## interface
@@ -35,7 +45,7 @@ in {
 
       autoLoad = mkOption {
         default = null;
-        description = "Clojure code to automatically load on startup.";
+        description = "Clojure code to automatically load on startup. The code is evaluated inside shelter.core namespace.";
       };
 
       loadFiles = mkOption {
@@ -68,25 +78,11 @@ in {
       preStart = ''
         mkdir -p ${cfg.baseDir}
         chown shelter:shelter ${cfg.baseDir}
-        cat > ${cfg.baseDir}/db.clj <<-"EOF"
-        (in-ns 'shelter.core)
-        (config/set {:database "${cfg.databaseFile}"
-                     :nrepl-port ${builtins.toString cfg.nreplPort}
-                     :rest-port ${builtins.toString cfg.httpPort}})
-        EOF
-        if ! [ -r ${cfg.databaseFile} ]; then
-          touch ${cfg.databaseFile}
-        fi
-        ${if (cfg.autoLoad == null) then "" else ''
-        cat > ${cfg.baseDir}/autoload.clj <<- "EOF"
-        ${cfg.autoLoad}
-        EOF
-        ''}
         chown shelter:shelter ${cfg.databaseFile}
         chmod 644 ${cfg.databaseFile}
       '';
 
-      script = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh shelter -c \"${pkgs.shelter}/bin/shelter ${cfg.baseDir}/db.clj ${if (cfg.autoLoad == null) then "" else "${cfg.baseDir}/autoload.clj"} ${builtins.toString cfg.loadFiles} \"";
+      script = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh shelter -c \"${pkgs.shelter}/bin/shelter ${dbrc} ${if (cfg.autoLoad == null) then "" else "${autoload}"} ${builtins.toString cfg.loadFiles} \"";
     };
   };
 }

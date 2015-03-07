@@ -41,13 +41,13 @@ in
     services.shelter = {
       enable = true;
       autoLoad = ''
-      (in-ns 'shelter.core)
       (add-setpassword-routes)
       (add-verify-routes)
       (add-listapps-route)
       (rest/apply-routes)
 
-      (config/set {:cookie-secure ${if (settings.useCertificate) then "true" else "false"}})
+      (config/set {:cookie-secure ${if (settings.useCertificate) then "true" else "false"}
+                   :cookie-domain ".${settings.primaryDomain}"})
 
       (defn- shelter--app-add [id name & [url description]]
         (store/with-conn conn

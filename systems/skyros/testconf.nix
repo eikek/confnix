@@ -23,7 +23,7 @@ with config;
   boot.loader.grub.devices = [ "/dev/sda" ];
 
   networking = {
-    hostName = "skyros";
+    hostName = "skyrostest";
 
     defaultMailServer = {
       domain = settings.primaryDomain;
