@@ -90,7 +90,7 @@ in {
     systemd.services.fotojahn = {
       description = "Publet server for fotojahn.com";
       after = ["networking.target"];
-
+      wantedBy = [ "multi-user.target" ];
       preStart = ''
         mkdir -p ${cfg.baseDir}
         ln -sfn ${pkgs.publet}/webapp ${cfg.baseDir}/webapp

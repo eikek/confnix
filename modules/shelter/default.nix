@@ -74,6 +74,7 @@ in {
     systemd.services.shelter = {
       description = "Shelter server";
       after = [ "networking.target" ];
+      wantedBy = [ "multi-user.target" ];
 
       preStart = ''
         mkdir -p ${cfg.baseDir}

@@ -102,7 +102,7 @@ in {
     systemd.services.myperception = {
       description = "Publet server for myperception.de";
       after = ["networking.target"];
-
+      wantedBy = [ "multi-user.target" ];
       preStart = ''
         mkdir -p ${cfg.baseDir}/plugins
         ln -sfn ${pkgs.publet}/webapp ${cfg.baseDir}/webapp

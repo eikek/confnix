@@ -259,7 +259,7 @@ in {
     systemd.services.sitebag = {
       description = "Sitebag server";
       after = [ "networking.target" ];
-
+      wantedBy = [ "multi-user.target" ];
       preStart = ''
         mkdir -p ${cfg.baseDir}
         ln -sfn ${pkgs.sitebag}/lib ${cfg.baseDir}/lib

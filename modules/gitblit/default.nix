@@ -181,7 +181,7 @@ in {
     systemd.services.gitblit = {
       description = "Gitblit";
       after = [ "networking.target" ];
-
+      wantedBy = [ "multi-user.target" ];
       preStart = ''
         mkdir -p ${cfg.baseDir}
         cd ${cfg.baseDir}

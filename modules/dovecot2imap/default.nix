@@ -152,6 +152,7 @@ in
     systemd.services.dovecot2imap = {
       description = "Dovecot IMAP/POP3 server";
       after = [ "networking.target" ];
+      wantedBy = [ "multi-user.target" ];
       preStart =
         ''
           ${pkgs.coreutils}/bin/mkdir -p ${cfg.baseDir}/login
