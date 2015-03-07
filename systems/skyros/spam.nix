@@ -144,8 +144,8 @@ in
   };
 
   services.cron.systemCronJobs = [
-    "0 3 * * Sun root ${mkwhitelist} > /etc/spamassassin/whitelist_from.txt"
-    "0 3 * * Sun spamd ${learnfromusers}"
+    "0 3 * * * root ${mkwhitelist} > /tmp/whitelist && mv /tmp/whitelist /etc/spamassassin/whitelist_from.txt"
+    "0 3 * * * spamd ${learnfromusers}"
   ];
 
   system.activationScripts = if (services.spamassassin.enable) then {
@@ -161,6 +161,5 @@ in
       rm -f /etc/spamassassin/local.cf
       ln -s ${localcf} /etc/spamassassin/local.cf
     '';
-  } else {}
-;
+  } else {};
 }
