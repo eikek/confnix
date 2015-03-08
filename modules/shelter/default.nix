@@ -69,8 +69,6 @@ in {
       description = "Shelter daemon user.";
     };
 
-    environment.systemPackages = [ pkgs.shelter ];
-
     systemd.services.shelter = {
       description = "Shelter server";
       after = [ "networking.target" ];

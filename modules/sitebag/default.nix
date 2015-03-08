@@ -252,8 +252,6 @@ in {
       description = "Sitebag daemon user.";
     };
 
-    environment.systemPackages = [ pkgs.sitebag ];
-
     services.mongodb.enable = true;
 
     systemd.services.sitebag = {

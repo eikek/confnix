@@ -176,8 +176,6 @@ in {
       description = "Gitblit daemon user.";
     };
 
-    environment.systemPackages = [ pkgs.gitblit ];
-
     systemd.services.gitblit = {
       description = "Gitblit";
       after = [ "networking.target" ];
