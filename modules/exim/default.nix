@@ -198,6 +198,15 @@ let
       server_advertise_condition = ''${if def:tls_in_cipher}
   '';
 
+  sendmail = pkgs.stdenv.mkDerivation {
+    name = "exim-sendmail";
+    buildCommand = ''
+      mkdir -p $out/bin
+      cd $out/bin
+      ln -sfn ${pkgs.exim}/bin/exim sendmail
+    '';
+  };
+
 in {
 
 ### interface
@@ -324,8 +333,9 @@ in {
 
   config = mkIf config.services.exim.enable {
 
-    environment.systemPackages = [ pkgs.exim ];
-    security.setuidPrograms = [ "exim-${version}" "exim" ];
+    environment.systemPackages = [pkgs.exim sendmail];
+
+    security.setuidPrograms = [ "exim-${version}" "exim" "sendmail" ];
 
     users.extraGroups = singleton {
       name = group;
