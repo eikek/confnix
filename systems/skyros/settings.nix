@@ -1,5 +1,6 @@
 {config, lib, pkgs, ...}:
 with lib;
+with config;
 {
   options = {
     settings = {
@@ -76,5 +77,53 @@ with lib;
     };
   };
 
-  config = {};
+  config = {
+    services.cron.mailto = "root@${settings.primaryDomain}";
+
+    services.openssh.passwordAuthentication = false;
+
+    networking = {
+      defaultMailServer = {
+        domain = settings.primaryDomain;
+        hostName = "localhost";
+        root = "root@" + settings.primaryDomain;
+      };
+
+      firewall = {
+        allowedTCPPorts = [ 22 25 587 143 80 443 29418 ];
+        allowedUDPPorts = [ 53 ];
+      };
+    };
+
+    time.timeZone = "UTC";
+
+    users.extraGroups = lib.singleton {
+      name = "publet";
+      gid = config.ids.gids.publet;
+    };
+
+    users.extraUsers = lib.singleton {
+      name = "publet";
+      uid = config.ids.uids.publet;
+      extraGroups = ["publet"];
+      description = "Publet daemon user.";
+    };
+
+    environment.systemPackages = with pkgs; [
+      goaccess
+      fetchmail
+      leiningen
+      scala
+      jdk
+      clojure
+    ];
+
+    system.activationScripts = {
+      datachmod = ''
+        mkdir -p /var/data
+        chmod 755 /var/data
+      '';
+    };
+
+  };
 }

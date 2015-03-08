@@ -19,21 +19,8 @@ with config;
 
   boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" "/dev/sdc" ];
 
-  services.openssh.passwordAuthentication = false;
-
   networking = {
     hostName = "skyros";
-
-    defaultMailServer = {
-      domain = settings.primaryDomain;
-      hostName = "localhost";
-      root = "root@" + settings.primaryDomain;
-    };
-
-    firewall = {
-      allowedTCPPorts = [ 22 25 587 143 80 443 29418 ];
-      allowedUDPPorts = [ 53 ];
-    };
   };
 
   settings.primaryIp = "188.40.107.134";
@@ -47,24 +34,13 @@ with config;
   settings.certificateKey = "/etc/nixos/certs/certificate_key.key";
   settings.caCertificate = "/etc/nixos/certs/ca_cert.crt";
 
-  time.timeZone = "UTC";
-
   services.sitebag.enable = true;
 
-  users.extraGroups = lib.singleton {
-    name = "publet";
-    gid = config.ids.gids.publet;
-  };
-  users.extraUsers = lib.singleton {
-    name = "publet";
-    uid = config.ids.uids.publet;
-    extraGroups = ["publet"];
-    description = "Publet daemon user.";
-  };
   services.myperception = {
     enable = true;
     bindPort = 10100;
   };
+
   services.fotojahn = {
     enable = true;
     bindPort = 10200;
@@ -78,19 +54,4 @@ with config;
     cpu.intel.updateMicrocode = true;  #needs unfree
   };
 
-  system.activationScripts = {
-    datachmod = ''
-      mkdir -p /var/data
-      chmod 755 /var/data
-    '';
-  };
-
-  environment.systemPackages = with pkgs; [
-    goaccess
-    fetchmail
-    leiningen
-    scala
-    jdk
-    clojure
-  ];
 }
