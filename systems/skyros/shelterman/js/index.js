@@ -29,7 +29,7 @@ $(function() {
 
     $.ajax("/api/verify/cookie", {
         error: function(xhr,status,error) {
-            document.location = "login.html";
+            document.location = "signin.html?to=/";
         },
         success: function(data) {
             $.getJSON("/api/listapps", function(data) {

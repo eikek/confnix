@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Login &mdash; Meine Daten</title>
+    <title>Login - eknet.org</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/theme.css"/>
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/kube.min.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/signin.js"></script>
   </head>
   <body>
     <nav id="navbar-1" class="navbar fullwidth">
@@ -16,7 +16,8 @@
 	<li class="active"><a href="#">Home</a></li>
       </ul>
     </nav>
-    <h1>Meine Daten</h1>
+
+    <h1 id="h1-login">Login</h1>
 
     <div id="error-msg" class="tools-message tools-message-red">
       Anmeldung fehlgeschlagen!
@@ -29,6 +30,7 @@
       <label>
         <input type="password" name="password" placeholder="Password" class="width-50" />
       </label>
+      <input type="hidden" name="app" value=""/>
       <p>
         <button class="btn btn-blue width-50">Log in</button>
       </p>
