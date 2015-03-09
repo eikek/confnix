@@ -15,6 +15,7 @@ let
     lsdvd = callPackage ./lsdvd {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
+    nginx = callPackage2 ./nginx {};
     roundcube = callPackage ./roundcube {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
