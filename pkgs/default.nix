@@ -3,9 +3,10 @@ let
   callPackage = pkgs.lib.callPackageWith(pkgs // custom);
   callPackage2 = pkgs.lib.callPackageWith(pkgs);
   custom = {
-    cdparanoiax = callPackage ./cdparanoiax {};
     c544ppd = callPackage ./lexmark-c544 {};
+    cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
+    conkeror = callPackage2 ./conkeror {};
     exim = callPackage ./exim {};
     gitblit = callPackage ./gitblit {};
     html2textpy = callPackage ./html2textpy {};
