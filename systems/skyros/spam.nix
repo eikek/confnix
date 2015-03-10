@@ -52,7 +52,7 @@ let
   learnfromusers = pkgs.writeScript "learn-ham-and-spam.sh" ''
     #!/bin/sh -e
     # feeds mails from LearnSpam and LearnNotSpam maildirs into spamassassin
-    # must be run as spamd user
+    # must be run as root
 
     LEARNHAM=".LearnNotSpam"
     LEARNSPAM=".LearnSpam"
@@ -63,7 +63,7 @@ let
     learn() {
       user=$(expr match ''${2#/var/data/users/} '\([a-zA-Z0-9]*\)')
       log "Learn $1 for user $user on file $2…"
-      ${pkgs.spamassassin}/bin/sa-learn -u $user --dbpath /var/lib/spamassassin/user-$user/bayes $1 $2
+      ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh spamd -c "${pkgs.spamassassin}/bin/sa-learn -u $user --dbpath /var/lib/spamassassin/user-$user/bayes $1 $2"
       #chown -R spamd:spamd /var/lib/spamassassin/user-$user/
       if [ "$1" = "--spam" ]; then
           [ "$(ls -A $2)" ] && log "remove spam mail $2" && rm -f $2/* #*/
@@ -145,7 +145,7 @@ in
 
   services.cron.systemCronJobs = [
     "0 3 * * * root ${mkwhitelist} > /tmp/whitelist && mv /tmp/whitelist /etc/spamassassin/whitelist_from.txt"
-    "0 3 * * * spamd ${learnfromusers}"
+    "0 3 * * * root ${learnfromusers}"
   ];
 
   system.activationScripts = if (services.spamassassin.enable) then {
