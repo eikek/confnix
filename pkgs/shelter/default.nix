@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Utility for managing virtual user accounts.";
     homepage = https://github.com/eikek/shelter;
-    license = licenses.gplv3;
+    license = licenses.gpl3;
     maintainers = [ maintainers.eikek ];
   };
 }

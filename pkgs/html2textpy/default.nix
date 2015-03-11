@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "html2text is a Python script that converts a page of HTML into clean, easy-to-read plain ASCII text.";
     homepage = https://github.com/aaronsw/html2text;
-    license = licenses.gplv3;
+    license = licenses.gpl3;
     maintainers = [ maintainers.eikek ];
   };
 }

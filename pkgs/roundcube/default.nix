@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
        client with an application-like user interface.
     '';
     homepage = http://roundcube.net/;
-    license = stdenv.lib.licenses.gpl3plus;
+    license = stdenv.lib.licenses.gpl3Plus;
     maintainers = [ stdenv.lib.maintainers.eikek ];
   };
 }

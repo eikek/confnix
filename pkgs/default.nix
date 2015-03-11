@@ -1,12 +1,11 @@
 pkgs:
 let
-  callPackage = pkgs.lib.callPackageWith(pkgs // custom);
-  callPackage2 = pkgs.lib.callPackageWith(pkgs);
+  callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   custom = {
     c544ppd = callPackage ./lexmark-c544 {};
     cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
-    conkeror = callPackage2 ./conkeror {};
+    conkeror = callPackage ./conkeror {};
     exim = callPackage ./exim {};
     gitblit = callPackage ./gitblit {};
     html2textpy = callPackage ./html2textpy {};
@@ -16,7 +15,7 @@ let
     lsdvd = callPackage ./lsdvd {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
-    nginx = callPackage2 ./nginx {};
+    nginx = callPackage ./nginx {};
     roundcube = callPackage ./roundcube {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
@@ -25,7 +24,7 @@ let
     scaladocs = callPackage ./scala-docs {};
     sitebag = callPackage ./sitebag {};
     soundkonverter = callPackage ./soundkonverter {};
-    stumpwm = callPackage2 ./stumpwm {};
+    stumpwm = callPackage ./stumpwm {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
   };
 
