@@ -80,6 +80,7 @@
     bind
     nix-prefetch-scripts
     markdown
+    guile
   ];
 
   users.extraUsers.eike = {
