@@ -29,6 +29,7 @@ let
     soundkonverter = callPackage ./soundkonverter {};
     stumpwm = callPackage2 ./stumpwm {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
+    twitterBootstrap3 = callPackage ./twbs {};
   };
 
 in custom
