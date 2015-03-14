@@ -82,6 +82,32 @@ with config;
 
     services.openssh.passwordAuthentication = false;
 
+    services.nginxExtra = {
+      protectedPaths = [{
+        path = "/s/pics/family";
+        app = "family";
+      }{
+        path = "/s/pics/harry";
+        app = "harry";
+        config = ''
+          autoindex on;
+        '';
+      }];
+    };
+
+    services.shelter.apps = [{
+      id = "family";
+      name = "Kjartan Bilder";
+      url= ((if (settings.useCertificate) then "https://" else "http://")+ settings.primaryDomain) + "/s/pics/family";
+      description = "Kjartan Bilder";
+    }{
+      id = "harry";
+      name = "Harry Bilder";
+      url= ((if (settings.useCertificate) then "https://" else "http://")+ settings.primaryDomain) + "/s/pics/harry";
+      description = "Harry Bilder";
+    }];
+
+
     networking = {
       defaultMailServer = {
         domain = settings.primaryDomain;
