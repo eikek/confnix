@@ -10,6 +10,7 @@ let
     clojuredocs = callPackage ./clojure-docs {};
     exim = callPackage ./exim {};
     gitblit = callPackage ./gitblit {};
+    handlebars = callPackage ./handlebars {};
     html2textpy = callPackage ./html2textpy {};
     javadocs = callPackage ./java-docs {};
     jquery2 = callPackage ./jquery2 {};
