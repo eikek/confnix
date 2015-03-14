@@ -18,13 +18,14 @@ let
     lsdvd = callPackage ./lsdvd {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
-    nginx = callPackage2 ./nginx {};
-    roundcube = callPackage ./roundcube {};
+    nginx = callPackage ./nginx {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
     publetQuartz = callPackage ./publet/quartz.nix {};
-    shelter = callPackage ./shelter {};
+    roundcube = callPackage ./roundcube {};
     scaladocs = callPackage ./scala-docs {};
+    shelter = callPackage ./shelter {};
+    sig = callPackage ./sig {};
     sitebag = callPackage ./sitebag {};
     soundkonverter = callPackage ./soundkonverter {};
     stumpwm = callPackage2 ./stumpwm {};
