@@ -2,6 +2,8 @@
 with config;
 with lib;
 let
+   shelterHttpPort = builtins.toString config.services.shelter.httpPort;
+   nginxExtras = config.services.nginxExtra;
    myphpini = pkgs.stdenv.mkDerivation {
      name = "myphpini";
      src = config.services.phpfpm.phpPackage;
@@ -10,6 +12,16 @@ let
        sed 's/;date.timezone =/date.timezone = "UTC"/' etc/php-recommended.ini > $out/php.ini
      '';
    };
+
+   protectedConfig = concatMapStringsSep "\n" (m: ''
+       location ${m.path} {
+          set $appid "${m.app}";
+          auth_request /auth;
+          auth_request_set $originalurl $scheme://$host$request_uri$query_string;
+
+          ${if (builtins.hasAttr "config" m) then m.config else ""}
+        }
+      '') nginxExtras.protectedPaths;
 in
 {
 
@@ -18,6 +30,15 @@ in
       fastCgiBinding = mkOption {
         default = "127.0.0.1:9000";
         description = "The socket address to bind php-fpm to.";
+      };
+    };
+    services.nginxExtra = {
+      protectedPaths = mkOption {
+        default = [];
+        description = ''A list of maps defining a path, a app and a config property. The path
+          is configured to be protected with nginx (using shelter) and only users enabled for the
+          specified app may enter. Users are redirected to a login page, if necessary. The
+          config property is additional nginx configuration that is inserted verbatim.'';
       };
     };
   };
@@ -77,6 +98,7 @@ in
           server_name www.${settings.primaryDomain} ${settings.primaryDomain};
           root /var/data/www/${settings.primaryDomain};
           index index.html index.php;
+
           location / {
             try_files $uri $uri/ /index.php;
           }
@@ -86,6 +108,22 @@ in
             include ${pkgs.nginx}/conf/fastcgi_params;
             include ${pkgs.nginx}/conf/fastcgi.conf;
           }
+
+          ${if ((length nginxExtras.protectedPaths) > 0) then ''
+          error_page 401 = @error401;
+
+          location @error401 {
+            return 302 http://id.${settings.primaryDomain}/signin.html?to=$originalurl&app=$appid;
+          }
+          location = /auth {
+            internal;
+            proxy_pass http://localhost:${shelterHttpPort}/api/verify/cookie;
+            proxy_pass_request_body off;
+            proxy_set_header Content-Length "";
+            proxy_set_header X-Shelter-App $appid;
+          }
+          ${protectedConfig}
+          '' else ""}
         }
       '';
     };
