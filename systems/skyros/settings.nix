@@ -116,6 +116,7 @@ with config;
       scala
       jdk
       clojure
+      sig
     ];
 
     system.activationScripts = {

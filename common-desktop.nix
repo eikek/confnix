@@ -202,5 +202,6 @@
     pandoc
     youtube-dl
     mediathekview
+    sig
   ];
 }
