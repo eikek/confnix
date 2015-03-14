@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = https://github.com/eikek/sig;
-    rev = "3395064bcc902aeb7879062ed38062027c1b48ec";
+    rev = "3f237124ac72d9909fa9c309074bf076adbaf374";
     name = "sig-git-${version}";
-    sha256 = "0h8dbc4k73p4w0z825rm3zys0whwjygl2h33nc2smiy95crs6kil";
+    sha256 = "13zyk10js976id2x7v9y2pdvcldhgf76gd1y911xvil439lx915l";
   };
 
   patchPhase = ''
@@ -29,6 +29,7 @@ stdenv.mkDerivation rec {
 
     sed -i 's|\*sig/curl\* "curl"|*sig/curl* "${curl}/bin/curl"|g' sig.scm
     sed -i 's|\*sig/convert\* "convert"|*sig/convert* "${imagemagick}/bin/convert"|g' sig.scm
+    sed -i 's|\*sig/composite\* "composite"|*sig/composite* "${imagemagick}/bin/composite"|g' sig.scm
     sed -i 's|\*sig/jhead\* "jhead"|*sig/jhead* "${jhead}/bin/jhead"|g' sig.scm
     sed -i 's|\*sig/ffmpeg\* "ffmpeg"|*sig/ffmpeg* "${ffmpeg}/bin/ffmpeg"|g' sig.scm
   '';
