@@ -3,6 +3,8 @@ let
   callPackage = pkgs.lib.callPackageWith(pkgs // custom);
   callPackage2 = pkgs.lib.callPackageWith(pkgs);
   custom = {
+    blueimpGallery = callPackage ./blueimp-gallery {};
+    blueimpImageGallery = callPackage ./blueimp-image-gallery {};
     cdparanoiax = callPackage ./cdparanoiax {};
     c544ppd = callPackage ./lexmark-c544 {};
     clojuredocs = callPackage ./clojure-docs {};
