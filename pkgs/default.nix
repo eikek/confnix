@@ -2,12 +2,15 @@ pkgs:
 let
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   custom = {
+    blueimpGallery = callPackage ./blueimp-gallery {};
+    blueimpImageGallery = callPackage ./blueimp-image-gallery {};
     c544ppd = callPackage ./lexmark-c544 {};
     cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
     conkeror = callPackage ./conkeror {};
     exim = callPackage ./exim {};
     gitblit = callPackage ./gitblit {};
+    handlebars = callPackage ./handlebars {};
     html2textpy = callPackage ./html2textpy {};
     javadocs = callPackage ./java-docs {};
     jquery2 = callPackage ./jquery2 {};
@@ -16,16 +19,18 @@ let
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
     nginx = callPackage ./nginx {};
-    roundcube = callPackage ./roundcube {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
     publetQuartz = callPackage ./publet/quartz.nix {};
-    shelter = callPackage ./shelter {};
+    roundcube = callPackage ./roundcube {};
     scaladocs = callPackage ./scala-docs {};
+    shelter = callPackage ./shelter {};
+    sig = callPackage ./sig {};
     sitebag = callPackage ./sitebag {};
     soundkonverter = callPackage ./soundkonverter {};
     stumpwm = callPackage ./stumpwm {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
+    twitterBootstrap3 = callPackage ./twbs {};
   };
 
 in custom
