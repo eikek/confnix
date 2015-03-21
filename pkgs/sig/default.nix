@@ -1,14 +1,14 @@
 { stdenv, fetchgit, jquery2, blueimpGallery, blueimpImageGallery, twitterBootstrap3, imagemagick, jhead, guile, curl, ffmpeg }:
 
 stdenv.mkDerivation rec {
-  version = "0.1.0-20150314";
+  version = "0.1.0a-20150321";
   name = "simple-image-gallery-${version}";
 
   src = fetchgit {
     url = https://github.com/eikek/sig;
-    rev = "96990a53232f36345eb17ec8a275ef95d758b677";
+    rev = "f7762456d4c956259cf1746c4dca1510aa31ce29";
     name = "sig-git-${version}";
-    sha256 = "d57646b0853874e111f796743f1c3eff6056f432329dcc17b13bcf6f44290020";
+    sha256 = "1x6gqa8sgxyxkprq4ml4k8a8li0355brl81j7wwnlwiplaq1xq60";
   };
 
   patchPhase = ''
