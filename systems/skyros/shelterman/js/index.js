@@ -1,4 +1,12 @@
 $(function() {
+    $("#logout-link").click(function(ev) {
+        $.getJSON("/api/logout", function(data) {
+            window.location.reload();
+        });
+        ev.preventDefault();
+        return false;
+    });
+
     $("#setpassform").submit(function(ev) {
         var form = $("#setpassform");
         var pw1 = form.find('[name="newpassword"]').val();

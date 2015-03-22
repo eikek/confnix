@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = https://github.com/eikek/shelter;
-    rev = "a3fcef2b4755caa633b542b91c29dc49249aec28";
+    rev = "ce22cba9de699e10cbe20c8ff175208908b17b2e";
     name = "shelter-${version}-git";
-    sha256 = "01mbqgkcildjkwkq8mcnzf3l1732089jcd2lm05521mg5vzy23na";
+    sha256 = "0bymww1a71g4259hnwll3paknganlgizhvjhcmb5qllq21pdmrkg";
   };
 #  src = /home/eike/workspace/projects/shelter;
 

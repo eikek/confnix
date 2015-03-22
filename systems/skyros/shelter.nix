@@ -44,6 +44,7 @@ in
       (add-setpassword-routes)
       (add-verify-routes)
       (add-listapps-route)
+      (add-logout-route)
       (rest/apply-routes)
 
       (config/set {:cookie-secure ${if (settings.useCertificate) then "true" else "false"}
