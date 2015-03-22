@@ -81,6 +81,7 @@
     nix-prefetch-scripts
     markdown
     guile
+    openssl
   ];
 
   users.extraUsers.eike = {
