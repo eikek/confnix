@@ -30,6 +30,9 @@ let
     soundkonverter = callPackage ./soundkonverter {};
     stumpwm = callPackage ./stumpwm {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
+    texLiveModerntimeline = with pkgs; builderDefsPackage (import ./moderntimelinefix) {
+      inherit texLive unzip;
+    };
     twitterBootstrap3 = callPackage ./twbs {};
   };
 
