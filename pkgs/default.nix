@@ -8,6 +8,7 @@ let
     cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
     conkeror = callPackage ./conkeror {};
+    derby = callPackage ./derby {};
     exim = callPackage ./exim {};
     gitblit = callPackage ./gitblit {};
     handlebars = callPackage ./handlebars {};
