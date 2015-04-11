@@ -105,6 +105,7 @@
     gnumake
     autoconf
     wicd
+    which
 
   # images
     feh
@@ -203,5 +204,6 @@
     youtube-dl
     mediathekview
     sig
+    python27Packages.pygments
   ];
 }
