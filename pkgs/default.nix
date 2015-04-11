@@ -29,6 +29,7 @@ let
     sig = callPackage ./sig {};
     sitebag = callPackage ./sitebag {};
     soundkonverter = callPackage ./soundkonverter {};
+    storeBackup = callPackage ./storebackup {};
     stumpwm = callPackage ./stumpwm {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
     texLiveModerntimeline = with pkgs; builderDefsPackage (import ./moderntimelinefix) {
