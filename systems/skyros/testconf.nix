@@ -6,6 +6,7 @@ with config;
       ../../common.nix
 
       ./settings.nix
+      ./backup.nix
       ./bind.nix
       ./nginx.nix
       ./email.nix
