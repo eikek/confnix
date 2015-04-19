@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = https://github.com/eikek/sig;
-    rev = "70641fa1ac51e9874c114eb593ee830f06e51555";
+    rev = "c120294807b15a385d7a7564c49533cca32fa4d7";
     name = "sig-git-${version}";
-    sha256 = "0vwb8pf43dxdld17ihnpkrmbfqf47290hjkgsny95j2qz7drjs2s";
+    sha256 = "1qbd61a6c0bb2491pcxhfqzv6xjgcmr3gb44qjsgrvsjh2dn1ap9";
   };
 
   patchPhase = ''
