@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
 
   patches = [
    ./httpauth.patch
+   ./hardwraps.patch
   ];
 
   buildPhase = ''
