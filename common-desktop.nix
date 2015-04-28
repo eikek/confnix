@@ -17,6 +17,11 @@
   # needed for the `user` option below
   security.setuidPrograms = [ "mount.cifs" ];
 
+  # clean /tmp regularly
+  services.cron.systemCronJobs = [
+    "0 0,4,8,12,16,20 * * * root find /tmp -atime +28 -delete"
+  ];
+
   fileSystems = builtins.listToAttrs (map (mp:
     { name = "/mnt/nas/" + mp;
       value = {
@@ -187,6 +192,7 @@
        pkgs.texLiveCMSuper
        pkgs.texLiveLatexXColor
        pkgs.texLivePGF
+       pkgs.lmodern
        ]; })
 
   # other tools
