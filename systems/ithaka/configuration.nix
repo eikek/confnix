@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 {
   imports =
@@ -24,31 +20,12 @@
     };
     useDHCP = true;
     wicd.enable = false;
-    firewall.allowedTCPPorts = [ 22 80 443 ];
 
     nat = {
       enable = true;
       externalInterface = "enp5s0";
       internalInterfaces = [ "ve-+" ];
     };
-  };
-
-  services.pages = {
-    enable = true;
-    sources = import ../../modules/pages/docs.nix pkgs;
-  };
-
-  services.mongodb = {
-    enable = true;
-    extraConfig = ''
-      nojournal = true
-      '';
-  };
-
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.c544ppd ];
   };
 
   # Enable the X11 windowing system.
@@ -60,8 +37,6 @@
     # my weird monitor setup :) this is needed when using nouveau
     displayManager.sessionCommands = ''
       xrandr --output DVI-I-1 --left-of DVI-D-1
-      setxkbmap -layout de
-      xmodmap -e "keycode 66 = Shift_L"
     '';
   };
 

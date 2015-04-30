@@ -9,6 +9,12 @@
 
   time.timeZone = "Europe/Berlin";
 
+  networking = {
+    firewall = {
+      allowedTCPPorts = [ 22 80 443 ];
+    };
+  };
+
   powerManagement = {
     enable = true;
     cpuFreqGovernor = "ondemand";
@@ -35,6 +41,24 @@
   services.virtualboxHost.enable = true;
   services.virtualboxHost.enableHardening = true;
 
+  services.pages = {
+    enable = true;
+    sources = import ./modules/pages/docs.nix pkgs;
+  };
+
+  services.mongodb = {
+    enable = true;
+    extraConfig = ''
+      nojournal = true
+      '';
+  };
+
+  # Enable CUPS to print documents.
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.c544ppd ];
+  };
+
   services.xserver = {
     enable = true;
     autorun = true;
@@ -55,6 +79,8 @@
       sessionCommands = ''
         export JAVA_HOME=${pkgs.jdk}
         export JDK_HOME=${pkgs.jdk}
+        setxkbmap -layout de
+        xmodmap -e "keycode 66 = Shift_L"
       '';
     };
   };

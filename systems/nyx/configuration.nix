@@ -20,36 +20,27 @@
 
     useDHCP = true;
     wicd.enable = true;
-    firewall = {
-      allowedTCPPorts = [ 22 80 443 ];
+
+    nat = {
+      enable = true;
+      externalInterface = "wlp2s0";
+      internalInterfaces = [ "ve-+" ];
     };
   };
 
-  services.pages = {
-    enable = true;
-    sources = import ../../modules/pages/docs.nix pkgs;
-  };
-
   services.acpid.enable = true;
-  services.mongodb.enable = true;
   services.sitebag.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
     videoDrivers = [ "intel" ];
-
-    displayManager.sessionCommands = ''
-      setxkbmap -layout de
-      xmodmap -e "keycode 66 = Shift_L"
-    '';
   };
 
   environment.pathsToLink = [ "/" ];
 
   hardware = {
+    enableAllFirmware = true;
+    bluetooth.enable = false;
     cpu.intel.updateMicrocode = true;  #needs unfree
     opengl.driSupport32Bit = true;
   };
