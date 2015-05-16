@@ -51,6 +51,7 @@
     lsof
     file
     gnupg
+    gnupg1
     wget
     git
     curl
