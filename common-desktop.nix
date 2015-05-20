@@ -237,5 +237,6 @@
     mediathekview
     sig
     python27Packages.pygments
+    drip
   ];
 }
