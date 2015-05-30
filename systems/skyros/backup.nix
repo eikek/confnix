@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   sourceDir = "/var/data";
+  mongoDumpDir = "${sourceDir}/mongodb";
   backupDir = "/var/backups/storebackup";
   backupConfig = pkgs.writeText "storebackup-conf" ''
     # run `storeBackup.pl -g filename.conf' to create a template config file
@@ -21,8 +22,15 @@ let
     # An archive flag is not possible with this parameter (see below).
     ;keepAll=
   '';
+  dumpMongodbScript = pkgs.writeScript "dump-mongodbs.sh" ''
+    #!${pkgs.bash}/bin/bash -e
+    mkdir -p ${mongoDumpDir}
+    ${pkgs.mongodb}/bin/mongodump -o ${mongoDumpDir}
+  '';
   backupScript = pkgs.writeScript "do-backup.sh" ''
     #!${pkgs.bash}/bin/bash -e
+    mkdir -p ${backupDir}
+    ${dumpMongodbScript}
     ${pkgs.storeBackup}/bin/storeBackup.pl --file ${backupConfig}
   '';
 in
@@ -31,10 +39,4 @@ in
   services.cron.systemCronJobs = [
     "0 4 * * 1,4 root ${backupScript}"
   ];
-
-  system.activationScripts = {
-    storebackupSetup = ''
-       mkdir -p ${backupDir}
-    '';
-  };
 }
