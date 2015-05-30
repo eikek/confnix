@@ -2,7 +2,7 @@
 with config;
 {
   imports =
-    [ ./hw-eknet.nix
+    [ ./hw-skyros.nix
       ../../common.nix
 
       ./settings.nix
@@ -26,6 +26,14 @@ with config;
   networking = {
     hostName = "skyrostest";
   };
+
+  services.logrotate = {
+    enable = true;
+    config = ''
+      compress
+    '';
+  };
+
 
   services.sitebag.enable = true;
 

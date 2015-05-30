@@ -63,6 +63,19 @@ in
       # '';
     };
 
+    services.logrotate = {
+      config = let spool = config.services.nginx.stateDir; in ''
+        ${spool}/logs/access.log ${spool}/logs/error.log {
+          monthly
+          rotate 12
+          sharedscripts
+          postrotate
+            ${pkgs.coreutils}/bin/kill -USR1 $(cat ${spool}/nginx.pid)
+          endscript
+        }
+      '';
+    };
+
     services.nginx =  {
       enable = config.settings.enableWebServer;
       httpConfig = ''

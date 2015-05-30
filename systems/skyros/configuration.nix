@@ -35,6 +35,13 @@ with config;
   settings.certificateKey = "/etc/nixos/certs/certificate_key.key";
   settings.caCertificate = "/etc/nixos/certs/ca_cert.crt";
 
+  services.logrotate = {
+    enable = true;
+    config = ''
+      compress
+    '';
+  };
+
   services.sitebag.enable = true;
 
   services.myperception = {
