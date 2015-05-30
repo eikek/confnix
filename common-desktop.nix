@@ -183,7 +183,7 @@
   # web/email
     firefoxWrapper
     conkerorWrapper
-    surf
+    surfraw
     mu
     offlineimap
     chromium
