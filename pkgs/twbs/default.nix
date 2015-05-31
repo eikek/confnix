@@ -1,14 +1,14 @@
 {stdenv, fetchgit}:
 
 stdenv.mkDerivation rec {
-  version = "3.3.2";
+  version = "3.3.4";
   name = "twitter-bootstrap-${version}";
 
   src = fetchgit {
     url = https://github.com/twbs/bootstrap;
     rev = "refs/tags/v${version}";
     name = "twitter-bootstrap-${version}-git";
-    sha256 = "0gs1vsr5rlwdkwh32q9d3l27k0p0v4bmpbks1j8yc6q5qgjyrvwv";
+    sha256 = "0wm0mq0p22zxycwf6dk4plbcflvc6z3iac0413qbbijxwqcq3k11";
   };
 
   installPhase = ''
