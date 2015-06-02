@@ -70,7 +70,7 @@ in
           rotate 12
           sharedscripts
           postrotate
-            ${pkgs.coreutils}/bin/kill -USR1 $(cat ${spool}/nginx.pid)
+            ${pkgs.coreutils}/bin/kill -USR1 $(cat ${spool}/logs/nginx.pid)
           endscript
         }
       '';
