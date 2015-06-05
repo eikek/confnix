@@ -18,7 +18,7 @@ let
       -
         port: 5222
         module: ejabberd_c2s
-        ${if (cfg.certfile != null) then cfg.certfile else "# no certificate file"}
+        ${if (cfg.certfile != null) then ''certfile: "${cfg.certfile}"'' else "# no certificate file"}
         ${if (cfg.certfile != null) then "starttls_required: true" else "# no certificate file"}
         max_stanza_size: 65536
         shaper: c2s_shaper
