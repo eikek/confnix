@@ -10,6 +10,7 @@ let
     conkeror = callPackage ./conkeror {};
     derby = callPackage ./derby {};
     drip = callPackage ./drip {};
+    ejabberd15 = callPackage ./ejabberd {};
     exim = callPackage ./exim {};
     gitblit = callPackage ./gitblit {};
     handlebars = callPackage ./handlebars {};
