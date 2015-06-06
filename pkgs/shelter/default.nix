@@ -4,12 +4,12 @@ stdenv.mkDerivation rec {
   version = "0.1.0";
   name = "shelter-${version}";
 
-  src = fetchgit {
-    url = https://github.com/eikek/shelter;
-    rev = "ce22cba9de699e10cbe20c8ff175208908b17b2e";
-    name = "shelter-${version}-git";
-    sha256 = "0bymww1a71g4259hnwll3paknganlgizhvjhcmb5qllq21pdmrkg";
-  };
+   src = fetchgit {
+     url = https://github.com/eikek/shelter;
+     rev = "e52c9a51a8f0f6d935f9e8d968fb9991d1ab8144";
+     name = "shelter-${version}-git";
+     sha256 = "0zqv4kwpr33yr6d9i4v2r8ky6x3801jl6k50zfx7sbk7rj2fjjy2";
+   };
 #  src = /home/eike/workspace/projects/shelter;
 
   buildInputs = [ leiningen jre makeWrapper ];
