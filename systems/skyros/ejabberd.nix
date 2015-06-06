@@ -20,6 +20,26 @@ let
       return @resp[0] =~ m{^HTTP.*200 OK};
     }
 
+    sub isuser {
+      my $login = shift;
+      $login = (split /@/, $login)[0];
+      my $url = "http://localhost:${shelterHttpPort}/api/account-exists?login=$login&app=jabber";
+      syslog LOG_INFO, "check user existence via shelter at $url with $login";
+      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null $url`;
+      syslog LOG_INFO, "result: @resp[0]";
+      return @resp[0] =~ m{^HTTP.*200 OK};
+    }
+
+    sub setpass {
+      my $login = shift;
+      my $newpass = shift;
+      my $url = "http://localhost:${shelterHttpPort}/api/setpass-force";
+      syslog LOG_INFO, "set new password for $login at $url";
+      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null --data-urlencode login=$login --data-urlencode newpassword=$newpass --data-urlencode app=jabber $url`;
+      syslog LOG_INFO, "result: @resp[0]";
+      return @resp[0] =~ m{^HTTP.*200 OK};
+    }
+
     while (1) {
         my $buf = "";
         syslog("info", "ejabberd-extauth: waiting for packet");
@@ -44,10 +64,10 @@ let
               $success = authenticate($user, $password);
           },last SWITCH;
           $op eq 'setpass' and do {
-              $success = false;
+              $success = setpass($user, $password);
           },last SWITCH;
           $op eq 'isuser' and do {
-              $success = true;
+              $success = isuser($user);
           },last SWITCH;
         };
         if ($success) {
