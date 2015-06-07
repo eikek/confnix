@@ -10,6 +10,7 @@ with config;
       ./bind.nix
       ./nginx.nix
       ./email.nix
+      ./ejabberd.nix
       ./gitblit.nix
       ./sitebag.nix
       ./myperception.nix
@@ -34,6 +35,9 @@ with config;
     '';
   };
 
+  services.ejabberd15 = {
+    enable = true;
+  };
 
   services.sitebag.enable = true;
 

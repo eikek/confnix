@@ -9,6 +9,7 @@ with config;
       ./backup.nix
       ./bind.nix
       ./nginx.nix
+      ./ejabberd.nix
       ./email.nix
       ./gitblit.nix
       ./sitebag.nix
@@ -40,6 +41,10 @@ with config;
     config = ''
       compress
     '';
+  };
+
+  services.ejabberd15 = {
+    enable = true;
   };
 
   services.sitebag.enable = true;
