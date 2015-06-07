@@ -94,7 +94,7 @@ in
     services.shelter.apps = [
       { id = "jabber";
         name = "Jabber";
-        url= (if (settings.useCertificate) then "https://" else "http://") + settings.primaryDomain + "/s/jabber/";
+        url= (if (settings.useCertificate) then "https://" else "http://") + settings.primaryDomain + "/services/jabber/";
         description = "Jabber XMPP chat service.";}
     ];
 

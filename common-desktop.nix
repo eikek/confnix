@@ -204,7 +204,7 @@
     idea.idea-community
     nodejs
     mozart
-    haskellPackages_ghc783_no_profiling.ghcPlain
+    silver-searcher
 
   # tex
   # see https://nixos.org/wiki/TexLive_HOWTO
