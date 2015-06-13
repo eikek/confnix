@@ -5,10 +5,10 @@
 #
 pkgs:
 [
-  { name = "Scala 2.11.5 Library Docs";
+  { name = "Scala 2.11.6 Library Docs";
     location = "scalalib";
     root = "${pkgs.scaladocs}/api/scala-library/";}
-  { name = "Scala 2.11.5 Compiler Docs";
+  { name = "Scala 2.11.6 Compiler Docs";
     location = "scalacompiler";
     root = "${pkgs.scaladocs}/api/scala-compiler/"; }
   { name = "Java 8 Api Docs";

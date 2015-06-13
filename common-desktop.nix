@@ -81,6 +81,7 @@
         export JDK_HOME=${pkgs.jdk}
         setxkbmap -layout de
         xmodmap -e "keycode 66 = Shift_L"
+        xmodmap -e "keycode 91 = comma period"
       '';
     };
   };

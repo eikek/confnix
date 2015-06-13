@@ -1,16 +1,14 @@
-{stdenv, fetchurl, unzip}:
+{stdenv, fetchurl}:
 
 stdenv.mkDerivation rec {
   version = "3.1.1";
   name = "blueimp-image-gallery-${version}";
 
   src = fetchurl {
-    url = "https://github.com/blueimp/Bootstrap-Image-Gallery/archive/${version}.zip";
-    name = "blueimp-bootstrap-image-gallery-${version}-src.zip";
-    sha256 = "05bdi2rvwqrs101cjybjwsw7f8if8af37zhid5lr1vn9h5b5l0g1";
+    url = "https://github.com/blueimp/Bootstrap-Image-Gallery/archive/${version}.tar.gz";
+    name = "blueimp-bootstrap-image-gallery-${version}-src.tar.gz";
+    sha256 = "0q82f5452924ckgchnq1v9wz9rlh9ywri6qvwi4gk4zs1bfrikv3";
   };
-
-  buildInputs = [ unzip ];
 
   installPhase = ''
     mkdir -p $out

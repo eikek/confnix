@@ -6,7 +6,7 @@ These are the configuration file for some of my
 ## Setup
 
     cd /etc/nixos
-    git clone .../confnix
+    git clone https://github.com/eikek/confnix
     ln -s confnix/systems/some-conf.nix configuration.nix
     nixos-rebuild switch
 

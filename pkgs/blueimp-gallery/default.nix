@@ -1,15 +1,14 @@
-{stdenv, fetchurl, unzip}:
+{stdenv, fetchurl}:
 
 stdenv.mkDerivation rec {
   version = "2.15.2";
   name = "blueimp-gallery-${version}";
 
   src = fetchurl {
-    url = "https://github.com/blueimp/Gallery/archive/${version}.zip";
-    sha256 = "0idkm903vpyjrscap8q5c2zx8r1l0xgkpvgnxzm3grrkqasijpcs";
+    url = "https://github.com/blueimp/Gallery/archive/${version}.tar.gz";
+    name = "blueimp-gallery-${version}-src.tar.gz";
+    sha256 = "0p67grp3s0i5j4d22z60qgi22qrcjgkx6v69vlhgz3ks291arnzq";
   };
-
-  buildInputs = [ unzip ];
 
   installPhase = ''
     mkdir -p $out

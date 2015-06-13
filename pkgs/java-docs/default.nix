@@ -20,8 +20,8 @@ let
   };
 in {
 
- jdk7 = mkJavaDoc "7" "7u75-2.5.4-1" "0d85z6dvwlsaqw5caqm0vyw1wn60x1d2lwhcxhwwyd0h69887rim";
- jdk8 = mkJavaDoc "8" "8u40~b22-2" "15s1za6yjdz06ysswnqpfjwi1dg3z9n6k73d5l83kqndsrh1vlas";
+ jdk7 = mkJavaDoc "7" "7u79-2.5.5-1" "1f2jkvypq38yxi5sx9xjvdzvzmda5d7q947lck2cgdk0xfz41100";
+ jdk8 = mkJavaDoc "8" "8u45-b14-3" "0s3icnwbvkw5gig67fvp7cyi4q753y6kaz82rkx0w8kysb8fbgg5";
  jee7 = stdenv.mkDerivation rec {
    name = "javaee-7.0-doc";
    src = fetchurl {
