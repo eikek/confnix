@@ -206,6 +206,7 @@
     nodejs
     mozart
     silver-searcher
+    global
 
   # tex
   # see https://nixos.org/wiki/TexLive_HOWTO
