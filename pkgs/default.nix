@@ -12,6 +12,7 @@ let
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
     exim = callPackage ./exim {};
+    flashplayer = callPackage ./flashplayer {};
     gitblit = callPackage ./gitblit {};
     handlebars = callPackage ./handlebars {};
     html2textpy = callPackage ./html2textpy {};
