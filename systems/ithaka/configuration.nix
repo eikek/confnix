@@ -6,6 +6,8 @@
       ../../common-desktop.nix
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_4_0;
+
   boot.loader.grub.devices = [ "/dev/sda" ];
 
   # this should not be necessary, but my system did not start x otherwise
