@@ -39,6 +39,7 @@ let
       inherit texLive unzip;
     };
     twitterBootstrap3 = callPackage ./twbs {};
+    visualvm = callPackage ./visualvm {};
   };
 
 in custom
