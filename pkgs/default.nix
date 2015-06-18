@@ -22,6 +22,7 @@ let
     lsdvd = callPackage ./lsdvd {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
+    neomodmap = callPackage ./neomodmap {};
     neo2osd = callPackage ./neo2osd {};
     nginx = callPackage ./nginx {};
     publet = callPackage ./publet {};
