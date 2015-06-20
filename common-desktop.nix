@@ -65,6 +65,8 @@
     layout = "de";
     exportConfiguration = true;
 
+    xkbVariant = "neo";
+
     desktopManager = {
       xterm.enable = false;
       default = "none";
@@ -79,9 +81,7 @@
       sessionCommands = ''
         export JAVA_HOME=${pkgs.jdk}
         export JDK_HOME=${pkgs.jdk}
-        setxkbmap -layout de
-        xmodmap -e "keycode 66 = Shift_L"
-        xmodmap -e "keycode 91 = comma period"
+        ${pkgs.neomodmap}/bin/neomodmap.sh on
       '';
     };
   };
@@ -240,5 +240,6 @@
     sig
     python27Packages.pygments
     drip
+    neomodmap
   ];
 }
