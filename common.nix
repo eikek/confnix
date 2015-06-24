@@ -4,11 +4,6 @@
 
   nix.extraOptions = "auto-optimise-store = true";
 
-  boot.loader.grub = {
-#    enable = true;
-    version = 2;
-  };
-
   i18n = {
     consoleFont = "lat9w-16";
     consoleKeyMap = "de";

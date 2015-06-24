@@ -7,11 +7,19 @@
       ../../common-desktop.nix
     ];
 
-  boot.loader.grub.devices = [ "/dev/sda" ];
-  boot.initrd.luks.devices = [ { device = "/dev/sda5"; name = "rootfs"; }];
+  boot = {
+    loader.grub = {
+      enable = true;
+      version = 2;
+      devices = [ "/dev/sda" ];
+    };
+    initrd.luks.devices = [
+      {device = "/dev/sda5"; name = "rootfs"; }
+    ];
+  };
 
   networking = {
-    hostName = "nyx"; # Define your hostname.
+    hostName = "nyx";
     wireless = {
       enable = false;  # would enable wpa_supplicant. not needed with wicd
       userControlled.enable = true;
