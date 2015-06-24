@@ -7,6 +7,11 @@
     ];
 
 #  boot.kernelPackages = pkgs.linuxPackages_4_0;
+  networking = {
+    firewall = {
+      allowedTCPPorts = [ 8080 ];
+    };
+  };
 
   boot.loader = {
     gummiboot.enable = true;
@@ -14,7 +19,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  # this should not be necessary, but my system did not start x otherwise
   boot.initrd.kernelModules = [ "nouveau" "fbcon" ];
 
   networking = {

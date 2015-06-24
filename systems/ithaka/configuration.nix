@@ -4,6 +4,8 @@
     [ # Include the results of the hardware scan.
       ./hw-ithaka.nix
       ../../common-desktop.nix
+      ../../env-home.nix
+      ../../env-vbox.nix
     ];
 
   boot = {

@@ -5,13 +5,11 @@
     ./common.nix
   ];
 
-#  users.extraUsers.eike.extraGroups = [ "vboxusers" ];
-
   time.timeZone = "Europe/Berlin";
 
   networking = {
     firewall = {
-      allowedTCPPorts = [ 22 80 443 ];
+      allowedTCPPorts = [ 80 443 ];
     };
   };
 
@@ -20,30 +18,16 @@
     cpuFreqGovernor = "ondemand";
   };
 
-  # needed for the `user` option below
-  security.setuidPrograms = [ "mount.cifs" ];
-
   # clean /tmp regularly
   services.cron.systemCronJobs = [
     "0 0,4,8,12,16,20 * * * root find /tmp -atime +28 -delete"
   ];
-
-#  services.virtualboxHost.enable = true;
-#  services.virtualboxHost.enableHardening = true;
 
   services.pages = {
     enable = true;
     sources = import ./modules/pages/docs.nix pkgs;
   };
 
-  services.mongodb = {
-    enable = false;
-    extraConfig = ''
-      nojournal = true
-      '';
-  };
-
-  # Enable CUPS to print documents.
   services.printing = {
     enable = true;
     drivers = [ pkgs.c544ppd ];
@@ -63,7 +47,7 @@
     };
     windowManager = {
       awesome.enable = true;
-      stumpwm.enable = true;  #unstable
+      stumpwm.enable = true;
       default = "awesome";
     };
     startGnuPGAgent = true;
@@ -130,32 +114,32 @@
     which
 
   # images
-#    feh
-#    viewnior
-#    imagemagick
-#    jhead
-#    libjpeg
-#    gimp
+    feh
+    viewnior
+    imagemagick
+    jhead
+    libjpeg
+    gimp
 
   # multimedia
-#    mpd
-#    mpc_cli
-#    mplayer
-#    vlc
-#    cdparanoia
-#    lxdvdrip
-#    libav
-#    libtheora
-#    sox
-#    flac
-#    vorbisTools
-#    soundkonverter
-#    dvdauthor
-#    lsdvd
-#    exiv2
-#    easytag
-#    ffmpeg
-#    calibre
+    mpd
+    mpc_cli
+    mplayer
+    vlc
+    cdparanoia
+    lxdvdrip
+    libav
+    libtheora
+    sox
+    flac
+    vorbisTools
+    soundkonverter
+    dvdauthor
+    lsdvd
+    exiv2
+    easytag
+    ffmpeg
+    calibre
 
   # x-window
     xlibs.xrandr
@@ -180,11 +164,11 @@
     chromium
 
   # devel
-  #  subversion
-  #  lua
-  #  sbcl
-  #  asdf
-  #  python
+    subversion
+    lua
+    sbcl
+    asdf
+    python
     scala
     sbt
     clojure
@@ -192,38 +176,33 @@
     jdk
     maven
     ant
-  #  idea.idea-community
-  #  nodejs
-  #  mozart
+    idea.idea-community
     silver-searcher
     global
 
   # tex
   # see https://nixos.org/wiki/TexLive_HOWTO
-  ##  (pkgs.texLiveAggregationFun { paths = [
-  #     pkgs.texLive
-  #     pkgs.texLiveExtra
-  #     pkgs.texLiveBeamer
-  #     pkgs.texLiveModerncv
-  #     pkgs.texLiveModerntimeline
-  #     pkgs.texLiveContext
-  #     pkgs.texLiveCMSuper
-  #     pkgs.texLiveLatexXColor
-  #     pkgs.texLivePGF
-  #     pkgs.lmodern
-  #     ]; })
+    (pkgs.texLiveAggregationFun { paths = [
+       pkgs.texLive
+       pkgs.texLiveExtra
+       pkgs.texLiveBeamer
+       pkgs.texLiveModerncv
+       pkgs.texLiveModerntimeline
+       pkgs.texLiveContext
+       pkgs.texLiveCMSuper
+       pkgs.texLiveLatexXColor
+       pkgs.texLivePGF
+       pkgs.lmodern
+    ]; })
 
   # other tools
     html2text
     html2textpy
-  #  gitg
     zathura
-  #  xpdf
     ghostscript
-  #  wireshark
-  #  libreoffice
+    wireshark
+    libreoffice
     sqliteman
-  #  unison
     pandoc
     youtube-dl
     mediathekview
