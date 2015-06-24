@@ -5,7 +5,7 @@
   nix.extraOptions = "auto-optimise-store = true";
 
   boot.loader.grub = {
-    enable = true;
+#    enable = true;
     version = 2;
   };
 

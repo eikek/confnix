@@ -5,7 +5,7 @@
     ./common.nix
   ];
 
-  users.extraUsers.eike.extraGroups = [ "vboxusers" ];
+#  users.extraUsers.eike.extraGroups = [ "vboxusers" ];
 
   time.timeZone = "Europe/Berlin";
 
@@ -28,18 +28,8 @@
     "0 0,4,8,12,16,20 * * * root find /tmp -atime +28 -delete"
   ];
 
-  fileSystems = builtins.listToAttrs (map (mp:
-    { name = "/mnt/nas/" + mp;
-      value = {
-        device = "//nas/" + mp;
-        fsType = "cifs";
-        options = "noauto,user,username=eike,password=eike,uid=1000,gid=100";
-        noCheck = true;
-      };
-    }) ["backups" "dokumente" "downloads" "home" "music" "photo" "safe" "video"]);
-
-  services.virtualboxHost.enable = true;
-  services.virtualboxHost.enableHardening = true;
+#  services.virtualboxHost.enable = true;
+#  services.virtualboxHost.enableHardening = true;
 
   services.pages = {
     enable = true;
@@ -47,7 +37,7 @@
   };
 
   services.mongodb = {
-    enable = true;
+    enable = false;
     extraConfig = ''
       nojournal = true
       '';
@@ -79,8 +69,8 @@
     startGnuPGAgent = true;
     displayManager = {
       sessionCommands = ''
-        export JAVA_HOME=${pkgs.jdk}
-        export JDK_HOME=${pkgs.jdk}
+        export JAVA_HOME=${pkgs.jdk}/lib/openjdk
+        export JDK_HOME=${pkgs.jdk}/lib/openjdk
         ${pkgs.neomodmap}/bin/neomodmap.sh on
       '';
     };
@@ -140,32 +130,32 @@
     which
 
   # images
-    feh
-    viewnior
-    imagemagick
-    jhead
-    libjpeg
-    gimp
+#    feh
+#    viewnior
+#    imagemagick
+#    jhead
+#    libjpeg
+#    gimp
 
   # multimedia
-    mpd
-    mpc_cli
-    mplayer
-    vlc
-    cdparanoia
-    lxdvdrip
-    libav
-    libtheora
-    sox
-    flac
-    vorbisTools
-    soundkonverter
-    dvdauthor
-    lsdvd
-    exiv2
-    easytag
-    ffmpeg
-    calibre
+#    mpd
+#    mpc_cli
+#    mplayer
+#    vlc
+#    cdparanoia
+#    lxdvdrip
+#    libav
+#    libtheora
+#    sox
+#    flac
+#    vorbisTools
+#    soundkonverter
+#    dvdauthor
+#    lsdvd
+#    exiv2
+#    easytag
+#    ffmpeg
+#    calibre
 
   # x-window
     xlibs.xrandr
@@ -190,11 +180,11 @@
     chromium
 
   # devel
-    subversion
-    lua
-    sbcl
-    asdf
-    python
+  #  subversion
+  #  lua
+  #  sbcl
+  #  asdf
+  #  python
     scala
     sbt
     clojure
@@ -202,38 +192,38 @@
     jdk
     maven
     ant
-    idea.idea-community
-    nodejs
-    mozart
+  #  idea.idea-community
+  #  nodejs
+  #  mozart
     silver-searcher
     global
 
   # tex
   # see https://nixos.org/wiki/TexLive_HOWTO
-    (pkgs.texLiveAggregationFun { paths = [
-       pkgs.texLive
-       pkgs.texLiveExtra
-       pkgs.texLiveBeamer
-       pkgs.texLiveModerncv
-       pkgs.texLiveModerntimeline
-       pkgs.texLiveContext
-       pkgs.texLiveCMSuper
-       pkgs.texLiveLatexXColor
-       pkgs.texLivePGF
-       pkgs.lmodern
-       ]; })
+  ##  (pkgs.texLiveAggregationFun { paths = [
+  #     pkgs.texLive
+  #     pkgs.texLiveExtra
+  #     pkgs.texLiveBeamer
+  #     pkgs.texLiveModerncv
+  #     pkgs.texLiveModerntimeline
+  #     pkgs.texLiveContext
+  #     pkgs.texLiveCMSuper
+  #     pkgs.texLiveLatexXColor
+  #     pkgs.texLivePGF
+  #     pkgs.lmodern
+  #     ]; })
 
   # other tools
     html2text
     html2textpy
-    gitg
+  #  gitg
     zathura
-    xpdf
+  #  xpdf
     ghostscript
-    wireshark
-    libreoffice
+  #  wireshark
+  #  libreoffice
     sqliteman
-    unison
+  #  unison
     pandoc
     youtube-dl
     mediathekview

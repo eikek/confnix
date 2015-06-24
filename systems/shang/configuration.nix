@@ -6,26 +6,31 @@
       ../../common-desktop.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_0;
+#  boot.kernelPackages = pkgs.linuxPackages_4_0;
 
-  boot.loader.grub.devices = [ "/dev/sda" ];
+  boot.loader = {
+    gummiboot.enable = true;
+    gummiboot.timeout = 5;
+    efi.canTouchEfiVariables = true;
+  };
 
   # this should not be necessary, but my system did not start x otherwise
-  boot.initrd.kernelModules = [ "nouveau" ];
+  boot.initrd.kernelModules = [ "nouveau" "fbcon" ];
 
   networking = {
     hostName = "shang";
+    hostId = "b43f128a";
     wireless = {
       enable = false;
     };
     useDHCP = true;
     wicd.enable = false;
 
-    nat = {
-      enable = true;
-      externalInterface = "enp3s0";
-      internalInterfaces = [ "ve-+" ];
-    };
+#    nat = {
+#      enable = true;
+#      externalInterface = "enp3s0";
+#      internalInterfaces = [ "ve-+" ];
+#    };
   };
 
   # Enable the X11 windowing system.

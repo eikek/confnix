@@ -20,9 +20,9 @@ pkgs:
   { name = "Java 7 Api Docs";
     location = "javadocs7";
     root = "${pkgs.javadocs.jdk7}/api/";}
-  { name = "Clojure 1.6 Api Docs";
-    location = "clojure16";
-    root = "${pkgs.clojuredocs}/"; }
+#  { name = "Clojure 1.6 Api Docs";
+#    location = "clojure16";
+#    root = "${pkgs.clojuredocs}/"; }
   { name = "Stumpwm 0.9.9 Manual";
     location = "stumpwm";
     root = "${pkgs.stumpwmdocs}/"; }
