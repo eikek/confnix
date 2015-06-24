@@ -30,16 +30,8 @@
     };
   };
 
-  # Enable the X11 windowing system.
   services.xserver = {
     videoDrivers = [ "nouveau" ];
-# doesn't work with nouveau, but with nvidia…
-#    xrandrHeads = [ "DVI-I-1" "DVI-D-0" ];
-
-    # my weird monitor setup :) this is needed when using nouveau
-    displayManager.sessionCommands = ''
-      xrandr --output DVI-I-1 --left-of DVI-D-1
-    '';
   };
 
   environment.pathsToLink = [ "/" ];
