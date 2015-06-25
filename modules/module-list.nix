@@ -2,7 +2,7 @@
  ./extra-ids
  ./ejabberd
  ./dovecot2imap
- ./exim
+# ./exim
  ./gitblit
  ./pages
  ./roundcube

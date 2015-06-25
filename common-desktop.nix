@@ -150,7 +150,6 @@
     xfce.terminal
     compton
     stumpwm
-    stumpwmContrib
     xclip
     autorandr
     i3lock
