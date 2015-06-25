@@ -6,14 +6,15 @@
       ../../common-desktop.nix
     ];
 
-  boot.loader = {
-    gummiboot.enable = true;
-    gummiboot.timeout = 5;
-    efi.canTouchEfiVariables = true;
-    #boot.kernelPackages = pkgs.linuxPackages_4_0;
+  boot = {
+    loader = {
+      gummiboot.enable = true;
+      gummiboot.timeout = 5;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_4_0;
+    initrd.kernelModules = [ "nouveau" "fbcon" ];
   };
-
-  boot.initrd.kernelModules = [ "nouveau" "fbcon" ];
 
   networking = {
     hostName = "shang";
