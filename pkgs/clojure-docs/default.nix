@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://github.com/clojure/clojure.git";
-    rev = "refs/heads/gh-pages";
-    sha256 = "00da6c3qrgw245vkn26a5hjhixx7dlm2pg5zbgnws7dyqh615dgv";
+    rev = "757a1d952821914e20f7d64910acfb7f48adf23d"; #refs/heads/gh-pages
+    sha256 = "0b1nxywk67qnmspr5myyml9zi2dhhjvgy41yigxlnm0hlb6yjinv";
     name = "clojure-docs-${version}-git";
   };
 

@@ -19,7 +19,14 @@ with config;
       ./shelter.nix
     ];
 
-  boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" "/dev/sdc" ];
+
+  boot = {
+    loader.grub = {
+      enable = true;
+      version = 2;
+      devices = [ "/dev/sda" "/dev/sdb" "/dev/sdc" ];
+    };
+  };
 
   networking = {
     hostName = "skyros";

@@ -4,16 +4,21 @@
     [ # Include the results of the hardware scan.
       ./hw-ithaka.nix
       ../../common-desktop.nix
+      ../../env-home.nix
+      ../../env-vbox.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_0;
-
-  boot.loader.grub.devices = [ "/dev/sda" ];
-
-  # this should not be necessary, but my system did not start x otherwise
-  boot.initrd.kernelModules = [ "nouveau" ];
-  boot.blacklistedKernelModules = [ "snd-hda-intel" ];
-
+  boot = {
+    loader.grub = {
+      enable = true;
+      version = 2;
+      devices = [ "/dev/sda" ];
+    };
+    kernelPackages = pkgs.linuxPackages_4_0;
+    # this should not be necessary, but my system did not start x otherwise
+    initrd.kernelModules = [ "nouveau" ];
+    blacklistedKernelModules = [ "snd-hda-intel" ];
+  };
 
   networking = {
     hostName = "ithaka";

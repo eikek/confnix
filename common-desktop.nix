@@ -5,13 +5,11 @@
     ./common.nix
   ];
 
-  users.extraUsers.eike.extraGroups = [ "vboxusers" ];
-
   time.timeZone = "Europe/Berlin";
 
   networking = {
     firewall = {
-      allowedTCPPorts = [ 22 80 443 ];
+      allowedTCPPorts = [ 80 443 ];
     };
   };
 
@@ -20,40 +18,16 @@
     cpuFreqGovernor = "ondemand";
   };
 
-  # needed for the `user` option below
-  security.setuidPrograms = [ "mount.cifs" ];
-
   # clean /tmp regularly
   services.cron.systemCronJobs = [
     "0 0,4,8,12,16,20 * * * root find /tmp -atime +28 -delete"
   ];
-
-  fileSystems = builtins.listToAttrs (map (mp:
-    { name = "/mnt/nas/" + mp;
-      value = {
-        device = "//nas/" + mp;
-        fsType = "cifs";
-        options = "noauto,user,username=eike,password=eike,uid=1000,gid=100";
-        noCheck = true;
-      };
-    }) ["backups" "dokumente" "downloads" "home" "music" "photo" "safe" "video"]);
-
-  services.virtualboxHost.enable = true;
-  services.virtualboxHost.enableHardening = true;
 
   services.pages = {
     enable = true;
     sources = import ./modules/pages/docs.nix pkgs;
   };
 
-  services.mongodb = {
-    enable = true;
-    extraConfig = ''
-      nojournal = true
-      '';
-  };
-
-  # Enable CUPS to print documents.
   services.printing = {
     enable = true;
     drivers = [ pkgs.c544ppd ];
@@ -73,14 +47,14 @@
     };
     windowManager = {
       awesome.enable = true;
-      stumpwm.enable = true;  #unstable
+      stumpwm.enable = true;
       default = "awesome";
     };
     startGnuPGAgent = true;
     displayManager = {
       sessionCommands = ''
-        export JAVA_HOME=${pkgs.jdk}
-        export JDK_HOME=${pkgs.jdk}
+        export JAVA_HOME=${pkgs.jdk}/lib/openjdk
+        export JDK_HOME=${pkgs.jdk}/lib/openjdk
         ${pkgs.neomodmap}/bin/neomodmap.sh on
       '';
     };
@@ -203,8 +177,6 @@
     maven
     ant
     idea.idea-community
-    nodejs
-    mozart
     silver-searcher
     global
 
@@ -221,19 +193,16 @@
        pkgs.texLiveLatexXColor
        pkgs.texLivePGF
        pkgs.lmodern
-       ]; })
+    ]; })
 
   # other tools
     html2text
     html2textpy
-    gitg
     zathura
-    xpdf
     ghostscript
     wireshark
     libreoffice
     sqliteman
-    unison
     pandoc
     youtube-dl
     mediathekview
