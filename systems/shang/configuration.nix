@@ -6,17 +6,11 @@
       ../../common-desktop.nix
     ];
 
-#  boot.kernelPackages = pkgs.linuxPackages_4_0;
-  networking = {
-    firewall = {
-      allowedTCPPorts = [ 8080 ];
-    };
-  };
-
   boot.loader = {
     gummiboot.enable = true;
     gummiboot.timeout = 5;
     efi.canTouchEfiVariables = true;
+    #boot.kernelPackages = pkgs.linuxPackages_4_0;
   };
 
   boot.initrd.kernelModules = [ "nouveau" "fbcon" ];
@@ -29,6 +23,9 @@
     };
     useDHCP = true;
     wicd.enable = false;
+    firewall = {
+      allowedTCPPorts = [ 8080 ];
+    };
 
 #    nat = {
 #      enable = true;
@@ -40,6 +37,12 @@
   # Enable the X11 windowing system.
   services.xserver = {
     videoDrivers = [ "nouveau" ];
+  };
+
+  services.postgresql = {
+    enable = true;
+    #dataDir = "/data/postgresql/data-9.4";
+    package = pkgs.postgresql94;
   };
 
   environment.pathsToLink = [ "/" ];
