@@ -107,9 +107,6 @@
     tcpdump
     cifs_utils
     aumix
-    automake
-    gnumake
-    autoconf
     wicd
     which
 
@@ -128,8 +125,6 @@
     vlc
     cdparanoia
     lxdvdrip
-    libav
-    libtheora
     sox
     flac
     vorbisTools
@@ -166,7 +161,6 @@
     subversion
     lua
     sbcl
-    asdf
     python
     scala
     sbt

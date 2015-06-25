@@ -45,9 +45,8 @@
     psmisc
     lsof
     file
-    gnupg
-    gnupg1
     wget
+    gnupg1compat
     git
     curl
     tmux
