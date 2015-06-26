@@ -7,6 +7,16 @@
 
   time.timeZone = "Europe/Berlin";
 
+  i18n = let
+    neomap = pkgs.fetchurl {
+      url = "http://wiki.neo-layout.org/browser/linux/console/neo.map?format=raw";
+      name = "neo.map";
+      sha256 = "1wlgp09wq84hml60hi4ls6d4zna7vhycyg40iipyh1279i91hsx7";
+    };
+  in {
+    consoleKeyMap = pkgs.lib.mkForce neomap;
+  };
+
   networking = {
     firewall = {
       allowedTCPPorts = [ 80 443 ];
