@@ -28,6 +28,8 @@
     cpuFreqGovernor = "ondemand";
   };
 
+  security.pam.enableSSHAgentAuth = true;
+
   # clean /tmp regularly
   services.cron.systemCronJobs = [
     "0 0,4,8,12,16,20 * * * root find /tmp -atime +28 -delete"
@@ -56,9 +58,9 @@
       default = "none";
     };
     windowManager = {
-      awesome.enable = true;
+      awesome.enable = false;
       stumpwm.enable = true;
-      default = "awesome";
+      default = "stumpwm";
     };
     startGnuPGAgent = true;
     displayManager = {
@@ -118,7 +120,6 @@
     cifs_utils
     aumix
     wicd
-    which
 
   # images
     feh
