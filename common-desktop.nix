@@ -11,7 +11,7 @@
     neomap = pkgs.fetchurl {
       url = "http://wiki.neo-layout.org/browser/linux/console/neo.map?format=raw";
       name = "neo.map";
-      sha256 = "1wlgp09wq84hml60hi4ls6d4zna7vhycyg40iipyh1279i91hsx7";
+      sha256 = "0b99lbvxfjr2d5m4gwp54b982y6yp7cxm2imigpsy5r8ha9qcjyx";
     };
   in {
     consoleKeyMap = pkgs.lib.mkForce neomap;

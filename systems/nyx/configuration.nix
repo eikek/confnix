@@ -18,6 +18,11 @@
     initrd.luks.devices = [
       {device = "/dev/sda5"; name = "rootfs"; }
     ];
+    kernelPackages = pkgs.linuxPackages_4_0;
+  };
+
+  i18n = {
+    consoleKeyMap = pkgs.lib.mkOverride 10 "de";
   };
 
   networking = {
