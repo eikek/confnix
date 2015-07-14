@@ -21,7 +21,7 @@ let
 in {
 
  jdk7 = mkJavaDoc "7" "7u79-2.5.5-1" "1f2jkvypq38yxi5sx9xjvdzvzmda5d7q947lck2cgdk0xfz41100";
- jdk8 = mkJavaDoc "8" "8u45-b14-4" "1j987gk6ybh0fhr12gpfl0mv4yqjw5mhj208bmwynjndm3dif40l";
+ jdk8 = mkJavaDoc "8" "8u60~b22-1" "1n0f8zylg5v2rn24szxj8cfnk6m31rp24i3vmbdzq5d9ivhkzhf8";
  jee7 = stdenv.mkDerivation rec {
    name = "javaee-7.0-doc";
    src = fetchurl {
