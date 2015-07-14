@@ -15,6 +15,7 @@ let
     flashplayer = callPackage ./flashplayer {};
     gitblit = callPackage ./gitblit {};
     handlebars = callPackage ./handlebars {};
+    hl5380ppd = callPackage ./brother-hl5380 {};
     html2textpy = callPackage ./html2textpy {};
     javadocs = callPackage ./java-docs {};
     jquery2 = callPackage ./jquery2 {};

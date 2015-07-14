@@ -55,4 +55,8 @@
     opengl.driSupport32Bit = true;
   };
 
+  services.printing = {
+    drivers = [ pkgs.hl5380ppd ];
+  };
+
 }
