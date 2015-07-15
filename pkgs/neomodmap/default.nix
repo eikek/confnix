@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, xlibs }:
+{ stdenv, fetchurl, xlibs, kbd }:
 
 let
   neoMap = fetchurl {
@@ -8,7 +8,7 @@ let
 
 in
 stdenv.mkDerivation rec {
-  version = "2332";
+  version = "2472";
 
   name = "neo_de-${version}-keymap";
 
@@ -19,6 +19,8 @@ stdenv.mkDerivation rec {
     substituteInPlace neomodmap.sh --replace "setxkbmap" "${xlibs.setxkbmap}/bin/setxkbmap"
     substituteInPlace neomodmap.sh --replace "xset" "${xlibs.xset}/bin/xset"
     substituteInPlace neomodmap.sh --replace "neo_de.modmap" "${neoMap}"
+
+    substituteInPlace neo.map --replace "linux-keys-bare" "${kbd}/share/keymaps/i386/include/linux-keys-bare.inc"
   '';
 
   installPhase = ''
