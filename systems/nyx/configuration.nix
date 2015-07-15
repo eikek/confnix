@@ -21,10 +21,6 @@
     kernelPackages = pkgs.linuxPackages_4_0;
   };
 
-  i18n = {
-    consoleKeyMap = pkgs.lib.mkOverride 10 "de";
-  };
-
   networking = {
     hostName = "nyx";
     wireless = {

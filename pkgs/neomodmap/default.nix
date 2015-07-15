@@ -10,7 +10,7 @@ in
 stdenv.mkDerivation rec {
   version = "2332";
 
-  name = "neo_de-${version}.xmodmap";
+  name = "neo_de-${version}-keymap";
 
   src = ./.;
 
@@ -24,5 +24,8 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     cp neomodmap.sh $out/bin
+
+    mkdir -p $out/share/keymaps/i386/neo
+    cp neo.map $out/share/keymaps/i386/neo
   '';
 }

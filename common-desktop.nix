@@ -7,14 +7,8 @@
 
   time.timeZone = "Europe/Berlin";
 
-  i18n = let
-    neomap = pkgs.fetchurl {
-      url = "http://wiki.neo-layout.org/browser/linux/console/neo.map?format=raw";
-      name = "neo.map";
-      sha256 = "0b99lbvxfjr2d5m4gwp54b982y6yp7cxm2imigpsy5r8ha9qcjyx";
-    };
-  in {
-    consoleKeyMap = pkgs.lib.mkForce neomap;
+  i18n = {
+    consoleKeyMap = pkgs.lib.mkForce "${pkgs.neomodmap}/share/keymaps/i386/neo/neo.map";
   };
 
   networking = {
