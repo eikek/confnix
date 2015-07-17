@@ -15,7 +15,7 @@ let
       my $passw = shift;
       my $url = "http://localhost:${shelterHttpPort}/api/verify/form";
       syslog LOG_INFO, "doing authentication via shelter at $url with $login";
-      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null --data-urlencode login=$login --data-urlencode password=$passw --data-urlencode app=jabber $url`;
+      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null --data-urlencode 'login=$login' --data-urlencode 'password=$passw' --data-urlencode app=jabber '$url'`;
       syslog LOG_INFO, "result: @resp[0]";
       return @resp[0] =~ m{^HTTP.*200 OK};
     }
@@ -25,7 +25,7 @@ let
       $login = (split /@/, $login)[0];
       my $url = "http://localhost:${shelterHttpPort}/api/account-exists?login=$login&app=jabber";
       syslog LOG_INFO, "check user existence via shelter at $url with $login";
-      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null $url`;
+      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null '$url'`;
       syslog LOG_INFO, "result: @resp[0]";
       return @resp[0] =~ m{^HTTP.*200 OK};
     }
@@ -35,7 +35,7 @@ let
       my $newpass = shift;
       my $url = "http://localhost:${shelterHttpPort}/api/setpass-force";
       syslog LOG_INFO, "set new password for $login at $url";
-      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null --data-urlencode login=$login --data-urlencode newpassword=$newpass --data-urlencode app=jabber $url`;
+      my @resp = `${pkgs.curl}/bin/curl -s -D /dev/stdout -o /dev/null --data-urlencode 'login=$login' --data-urlencode 'newpassword=$newpass' --data-urlencode app=jabber '$url'`;
       syslog LOG_INFO, "result: @resp[0]";
       return @resp[0] =~ m{^HTTP.*200 OK};
     }
