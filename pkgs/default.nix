@@ -12,7 +12,6 @@ let
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
     exim = callPackage ./exim {};
-    flashplayer = callPackage ./flashplayer {};
     gitblit = callPackage ./gitblit {};
     handlebars = callPackage ./handlebars {};
     hl5380ppd = callPackage ./brother-hl5380 {};
@@ -25,7 +24,6 @@ let
     mediathekview = callPackage ./mediathekview {};
     neomodmap = callPackage ./neomodmap {};
     neo2osd = callPackage ./neo2osd {};
-    nginx = callPackage ./nginx {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
     publetQuartz = callPackage ./publet/quartz.nix {};

@@ -122,6 +122,7 @@
     jhead
     libjpeg
     gimp
+    graphviz
 
   # multimedia
     mpd
