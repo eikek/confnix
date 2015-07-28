@@ -1,4 +1,4 @@
-{stdenv, fetchurl, unzip}:
+{stdenv, fetchurl, unzip, jdk}:
 
 let
   packed = v: stdenv.lib.replaceChars ["."] [""] v;
@@ -20,8 +20,13 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out
-    mv * $out
+    mkdir -p $out/{bin,program}
+    mv * $out/program
+    cat >> $out/bin/visualvm <<-EOF
+    #! /bin/env bash
+    $out/program/bin/visualvm --jdkhome ${jdk}/lib/openjdk $@
+    EOF
+    chmod 755 $out/bin/visualvm
   '';
 
   meta = with stdenv.lib; {

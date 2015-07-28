@@ -177,6 +177,7 @@
     idea.idea-community
     silver-searcher
     global
+    visualvm
 
   # tex
   # see https://nixos.org/wiki/TexLive_HOWTO
