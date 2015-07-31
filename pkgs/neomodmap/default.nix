@@ -19,8 +19,6 @@ stdenv.mkDerivation rec {
     substituteInPlace neomodmap.sh --replace "setxkbmap" "${xlibs.setxkbmap}/bin/setxkbmap"
     substituteInPlace neomodmap.sh --replace "xset" "${xlibs.xset}/bin/xset"
     substituteInPlace neomodmap.sh --replace "neo_de.modmap" "${neoMap}"
-
-    substituteInPlace neo.map --replace "linux-keys-bare" "${kbd}/share/keymaps/i386/include/linux-keys-bare.inc"
   '';
 
   installPhase = ''
