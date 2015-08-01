@@ -210,5 +210,6 @@
     python27Packages.pygments
     drip
     neomodmap
+    recoll
   ];
 }
