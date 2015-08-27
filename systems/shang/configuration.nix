@@ -62,6 +62,9 @@
     enable = true;
     #dataDir = "/data/postgresql/data-9.4";
     package = pkgs.postgresql94;
+    extraConfig = ''
+      track_activities = true
+    '';
   };
 
   environment.pathsToLink = [ "/" ];
