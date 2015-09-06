@@ -123,6 +123,7 @@
     libjpeg
     gimp
     graphviz
+    gnuplot
 
   # multimedia
     mpd
