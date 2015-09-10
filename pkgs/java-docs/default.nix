@@ -20,7 +20,7 @@ let
   };
 in {
 
- jdk7 = mkJavaDoc "7" "7u79-2.5.5-1" "1f2jkvypq38yxi5sx9xjvdzvzmda5d7q947lck2cgdk0xfz41100";
+ jdk7 = mkJavaDoc "7" "7u85-2.6.1-3" "1dfrn338c6hys4i24v9n1gap65xcfsn6dfkv5416qzzipqlclchx";
  jdk8 = mkJavaDoc "8" "8u66-b01-1" "0qngr0ifq8h8y8vs9af41pddiz5racl5ypdn5biyn497akxlzn0v";
  jee7 = stdenv.mkDerivation rec {
    name = "javaee-7.0-doc";
