@@ -14,7 +14,7 @@
       version = 2;
       devices = [ "/dev/sda" ];
     };
-    kernelPackages = pkgs.linuxPackages_4_0;
+    kernelPackages = pkgs.linuxPackages_4_2;
     # this should not be necessary, but my system did not start x otherwise
     initrd.kernelModules = [ "nouveau" ];
     blacklistedKernelModules = [ "snd-hda-intel" ];
