@@ -33,6 +33,7 @@ let
     sig = callPackage ./sig {};
     sitebag = callPackage ./sitebag {};
     soundkonverter = callPackage ./soundkonverter {};
+    spark = callPackage ./spark {};
     storeBackup = callPackage ./storebackup {};
     stumpwm = callPackage ./stumpwm {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
