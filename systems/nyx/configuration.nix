@@ -18,7 +18,7 @@
     initrd.luks.devices = [
       {device = "/dev/sda5"; name = "rootfs"; }
     ];
-    kernelPackages = pkgs.linuxPackages_4_0;
+    kernelPackages = pkgs.linuxPackages_4_2;
   };
 
   networking = {
