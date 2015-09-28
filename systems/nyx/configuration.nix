@@ -49,6 +49,20 @@
 
   environment.pathsToLink = [ "/" ];
 
+  services.postgresql = {
+    enable = true;
+    #dataDir = "/data/postgresql/data-9.4";
+    package = pkgs.postgresql94;
+    extraConfig = ''
+      track_activities = true
+    '';
+  };
+
+  environment.systemPackages = with pkgs ; [
+    pgadmin
+  ];
+
+
   hardware = {
     enableAllFirmware = true;
     bluetooth.enable = false;
