@@ -12,7 +12,7 @@
       gummiboot.timeout = 5;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_4_0;
+    kernelPackages = pkgs.linuxPackages_4_2;
     initrd.kernelModules = [ "nouveau" "fbcon" ];
   };
 
