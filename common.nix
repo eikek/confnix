@@ -48,6 +48,7 @@
     wget
     gnupg1compat
     git
+    gitAndTools.gitAnnex
     curl
     tmux
     screen
@@ -77,6 +78,7 @@
     markdown
     guile
     openssl
+    which
   ];
 
   users.extraUsers.eike = {
