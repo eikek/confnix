@@ -47,7 +47,7 @@
     file
     wget
     gnupg1compat
-    git
+    gitAndTools.gitFull
     gitAndTools.gitAnnex
     curl
     tmux
