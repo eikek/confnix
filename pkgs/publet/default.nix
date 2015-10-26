@@ -1,4 +1,4 @@
-{stdenv, fetchgit, fetchurl, git, jdk}:
+{stdenv, fetchgit, fetchurl, git, jdk7}:
 
 let
   sbtVersion = "0.12.4";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "04k411gcrq35ayd2xj79bcshczslyqkicwvhkf07hkyr4j3blxda";
   };
 
-  buildInputs = [ git jdk ];
+  buildInputs = [ git jdk7 ];
 
   buildPhase = ''
     mkdir -p _sbt/{boot,ivy2}
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     mkdir -p project/lib
     cp ${assembly} project/lib/sbt-assembly-0.9.2.jar
     export SBT_OPTS="-XX:PermSize=190m -Dsbt.boot.directory=_sbt/boot/ -Dsbt.ivy.home=_sbt/ivy2/ -Dsbt.global.base=_sbt/"
-    ${jdk}/bin/java $SBT_OPTS -jar ${sbt} server-dist
+    ${jdk7}/bin/java $SBT_OPTS -jar ${sbt} server-dist
   '';
 
   installPhase = ''
