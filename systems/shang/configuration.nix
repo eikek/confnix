@@ -1,4 +1,7 @@
 { config, pkgs, ... }:
+let
+  jdk7env = (import ../../jdk7env.nix) { inherit pkgs; };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -68,6 +71,10 @@
   };
 
   environment.pathsToLink = [ "/" ];
+
+  environment.systemPackages = [
+    jdk7env
+  ];
 
   hardware = {
     enableAllFirmware = true;
