@@ -114,6 +114,7 @@
     cifs_utils
     aumix
     wicd
+    ntfs3g
 
   # images
     feh
