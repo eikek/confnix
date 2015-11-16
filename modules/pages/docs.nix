@@ -5,10 +5,10 @@
 #
 pkgs:
 [
-  { name = "Scala 2.11.6 Library Docs";
+  { name = "Scala 2.11.7 Library Docs";
     location = "scalalib";
     root = "${pkgs.scaladocs}/api/scala-library/";}
-  { name = "Scala 2.11.6 Compiler Docs";
+  { name = "Scala 2.11.7 Compiler Docs";
     location = "scalacompiler";
     root = "${pkgs.scaladocs}/api/scala-compiler/"; }
   { name = "Java 8 Api Docs";
@@ -20,8 +20,8 @@ pkgs:
   { name = "Java 7 Api Docs";
     location = "javadocs7";
     root = "${pkgs.javadocs.jdk7}/api/";}
-  { name = "Clojure 1.6 Api Docs";
-    location = "clojure16";
+  { name = "Clojure 1.7 Api Docs";
+    location = "clojure17";
     root = "${pkgs.clojuredocs}/"; }
   { name = "Stumpwm 0.9.9 Manual";
     location = "stumpwm";
