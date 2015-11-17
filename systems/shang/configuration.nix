@@ -56,6 +56,14 @@ in
     };
   };
 
+  services.pages = {
+    sources = [{
+      name = "My Public HTML";
+      location = "home";
+      root = "/home/eike/public_html/";
+    }];
+  };
+
   # Enable the X11 windowing system.
   services.xserver = {
     videoDrivers = [ "nouveau" ];
