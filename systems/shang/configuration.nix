@@ -56,12 +56,31 @@ in
     };
   };
 
-  services.pages = {
-    sources = [{
-      name = "My Public HTML";
-      location = "home";
-      root = "/home/eike/public_html/";
-    }];
+  services.nginx = {
+    httpConfig = ''
+      ssl_session_cache    shared:SSL:10m;
+      ssl_session_timeout  10m;
+      ssl_certificate      /root/wildcard.tocco.ch.2014.sha2.pem;
+      ssl_certificate_key  /root/wildcard.tocco.ch.2014.sha2.key;
+      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+      ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+      ssl_prefer_server_ciphers   on;
+
+      server {
+        listen 443 ssl;
+        listen 80;
+        server_name ek.tocco.ch;
+        location /home {
+          alias /home/eike/public_html/;
+        }
+        location / {
+          proxy_pass http://127.0.0.1:8080;
+          proxy_set_header X-Forwarded-For   $remote_addr;
+          proxy_set_header Host              $host;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        }
+      }
+    '';
   };
 
   # Enable the X11 windowing system.
