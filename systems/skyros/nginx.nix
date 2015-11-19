@@ -9,7 +9,10 @@ let
      src = config.services.phpfpm.phpPackage;
      installPhase = ''
        mkdir -p $out
-       sed 's/;date.timezone =/date.timezone = "UTC"/' etc/php-recommended.ini > $out/php.ini
+       cp etc/php-recommended.ini $out/php.ini
+       sed -i 's/;date.timezone =/date.timezone = "UTC"/' $out/php.ini
+       sed -i 's/post_max_size = .M$/post_max_size = 20M/' $out/php.ini
+       sed -i 's/upload_max_filesize = .M$/upload_max_filesize = 12M/' $out/php.ini
      '';
    };
 
@@ -87,6 +90,7 @@ in
         gzip_min_length 1024;
         gzip_buffers 4 32k;
         gzip_types text/plain text/html application/x-javascript text/javascript text/xml text/css;
+        client_max_body_size 20m;
 
         ${if (settings.useCertificate) then ''
          ssl_session_cache    shared:SSL:10m;
