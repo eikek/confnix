@@ -7,8 +7,8 @@
   i18n = let
     neomap = pkgs.fetchurl {
       url = "http://wiki.neo-layout.org/browser/linux/console/neo.map?format=raw";
-      name = "neo.map";
-      sha256 = "1wlgp09wq84hml60hi4ls6d4zna7vhycyg40iipyh1279i91hsx7";
+      name = "neo2.map";
+      sha256 = "19mfrd31vzpsjiwc7pshxm0b0sz5dd17xrz6k079cy4im1vf0r4g";
     };
   in {
     consoleKeyMap = pkgs.lib.mkForce neomap;
