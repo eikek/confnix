@@ -4,11 +4,18 @@
 
   nix.extraOptions = "auto-optimise-store = true";
 
-  i18n = {
+  i18n = let
+    neomap = pkgs.fetchurl {
+      url = "http://wiki.neo-layout.org/browser/linux/console/neo.map?format=raw";
+      name = "neo2.map";
+      sha256 = "19mfrd31vzpsjiwc7pshxm0b0sz5dd17xrz6k079cy4im1vf0r4g";
+    };
+  in {
+    consoleKeyMap = pkgs.lib.mkForce neomap;
     consoleFont = "lat9w-16";
-    consoleKeyMap = "de";
     defaultLocale = "de_DE.UTF-8";
   };
+
 
   networking.firewall = {
     enable = true;

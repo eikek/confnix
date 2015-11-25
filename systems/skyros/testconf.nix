@@ -2,7 +2,8 @@
 with config;
 {
   imports =
-    [ ./hw-skyros.nix
+    [
+    # ./hw-skyros.nix
       ../../common.nix
 
       ./settings.nix

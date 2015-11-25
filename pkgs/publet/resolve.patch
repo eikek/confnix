@@ -1,0 +1,13 @@
+diff --git project/RootBuild.scala project/RootBuild.scala
+index 637af13..03088a2 100644
+--- project/RootBuild.scala
++++ project/RootBuild.scala
+@@ -126,7 +126,7 @@ object RootBuild extends Build {
+     credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
+     exportJars := true,
+     scalacOptions ++= Seq("-unchecked", "-deprecation"),
+-    resolvers := Seq(Resolvers.eknet, Resolvers.ettrema),
++    resolvers := Seq(Resolvers.eknet),
+     licenses := Seq(("ASL2", new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))),
+ 
+     // see https://jira.codehaus.org/browse/JETTY-1493

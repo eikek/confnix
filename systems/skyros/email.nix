@@ -74,7 +74,7 @@ in
 
     localUsers = ''
      ''${lookup sqlite {${shelterDb} \
-         select login from shelter_account_app where login = '$local_part' and appid = 'mail';}}
+         select a.login from shelter_account a join shelter_account_app aa on a.login = aa.login where a.login = '$local_part' and aa.appid = 'mail' and a.locked = 0;}}
      '';
 
     mailAliases = ''
