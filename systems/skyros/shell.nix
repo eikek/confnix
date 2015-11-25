@@ -2,7 +2,7 @@ with import <nixpkgs> {};
 let
   makevm = writeScript "makevm.sh" ''
   #!${bash}/bin/bash -e
-  nix-build '<nixpkgs/nixos>' -A config.system.build.vm
+  nix-build '<nixpkgs/nixos>' -A config.system.build.virtualBoxOVA
   '';
 in
 runCommand "zsh" {

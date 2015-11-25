@@ -2,14 +2,13 @@
 with config;
 {
   imports =
-    [ <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
+    [ <nixpkgs/nixos/modules/virtualisation/virtualbox-image.nix>
       ./testconf.nix
     ];
 
-
-  virtualisation = {
-    diskSize = 9210;
-    memorySize = 2048;
+  settings = {
+  # mac 0800272ACD77
+    primaryIp = "192.168.1.74";
   };
 
   users.extraUsers = {
