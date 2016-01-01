@@ -213,5 +213,8 @@
     drip
     neomodmap
     recoll
+    aspell
+    aspellDicts.en
+    aspellDicts.de
   ];
 }
