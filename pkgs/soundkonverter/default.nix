@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, cmake, taglib, gettext, cdparanoiax, kde4, automoc4}:
+{ stdenv, fetchurl, cmake, taglib_1_9, gettext, cdparanoiax, kde4, automoc4}:
 
 stdenv.mkDerivation rec {
   name = "soundkonverter";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ cmake taglib gettext automoc4
+  buildInputs = [ cmake taglib_1_9 gettext automoc4
     kde4.kdelibs kde4.libkcddb kde4.audiocd_kio
     cdparanoiax ];
 
