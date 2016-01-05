@@ -1,12 +1,12 @@
 { stdenv, fetchurl, lib, flashplayer }:
-
+# https://fpdownload.adobe.com/get/flashplayer/pdc/11.2.202.559/install_flash_player_11_linux.x86_64.tar.gz
 lib.overrideDerivation flashplayer (attrs: rec {
-  version = "11.2.202.466";
+  version = "11.2.202.559";
   name = "flashplayer-${version}";
   src =  if (stdenv.system == "x86_64-linux") then
     fetchurl {
       url = "http://fpdownload.adobe.com/get/flashplayer/pdc/${version}/install_flash_player_11_linux.x86_64.tar.gz";
-      sha256 = "1clwfhq57gck638sj7i19gxar1z5ks2zfdw1p9iln515a57ik158";
+      sha256 = "1dh80g222r3qr5xz16akhp64knndng0jsphnlq8ih69fm81ixfpb";
     }
     else if (stdenv.system == "i686-linux") then fetchurl {
       url = "http://fpdownload.adobe.com/get/flashplayer/pdc/11.2.202.466/install_flash_player_11_linux.i386.tar.gz";

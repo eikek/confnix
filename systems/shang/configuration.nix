@@ -19,6 +19,8 @@ in
     initrd.kernelModules = [ "nouveau" "fbcon" ];
   };
 
+  virtualisation.virtualbox.host.enable = true;
+
   networking = {
     hostName = "shang";
     hostId = "b43f128a";
