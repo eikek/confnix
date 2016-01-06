@@ -13,6 +13,13 @@
 
   virtualbox.baseImageSize = 18 * 1024;
 
+  users.extraUsers.eike = {
+    password = "eike";
+  };
+  users.extraUsers.root = {
+    password = "root";
+  };
+
   networking = {
     hostName = "shangv";
     hostId = "b43f228a";
