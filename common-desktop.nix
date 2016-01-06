@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   imports = [
     ./common.nix
@@ -103,7 +102,14 @@
     ];
   };
 
-  environment.systemPackages = with pkgs ; [
+  environment.systemPackages =
+  with pkgs;
+  let
+    # see https://nixos.org/wiki/TexLive_HOWTO
+    tex = texlive.combine {
+      inherit (texlive) scheme-basic beamer moderncv moderntimeline cm-super collection-langgerman;
+    };
+  in [
   # base
     nix-repl
     pinentry
@@ -181,21 +187,7 @@
     silver-searcher
     global
     visualvm
-
-  # tex
-  # see https://nixos.org/wiki/TexLive_HOWTO
-    (pkgs.texLiveAggregationFun { paths = [
-       pkgs.texLive
-       pkgs.texLiveExtra
-       pkgs.texLiveBeamer
-       pkgs.texLiveModerncv
-       pkgs.texLiveModerntimeline
-       pkgs.texLiveContext
-       pkgs.texLiveCMSuper
-       pkgs.texLiveLatexXColor
-       pkgs.texLivePGF
-       pkgs.lmodern
-    ]; })
+    tex
 
   # other tools
     html2text
