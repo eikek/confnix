@@ -107,7 +107,7 @@
   let
     # see https://nixos.org/wiki/TexLive_HOWTO
     tex = texlive.combine {
-      inherit (texlive) scheme-basic beamer moderncv moderntimeline cm-super collection-langgerman;
+      inherit (texlive) scheme-medium collection-latexextra beamer moderncv moderntimeline cm-super inconsolata libertine;
     };
   in [
   # base
