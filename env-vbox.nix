@@ -2,9 +2,6 @@
 
 {
 
-  users.extraUsers.eike.extraGroups = [ "vboxusers" ];
-
-  services.virtualboxHost.enable = true;
-  services.virtualboxHost.enableHardening = true;
-
+  users.extraGroups.vboxusers.members = [ "eike" ];
+  virtualisation.virtualbox.host.enable = true;
 }
