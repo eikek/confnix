@@ -20,6 +20,10 @@
     blacklistedKernelModules = [ "snd-hda-intel" ];
   };
 
+  fonts.fontconfig = {
+    dpi = 140;
+  };
+
   networking = {
     hostName = "ithaka";
     wireless = {
@@ -37,6 +41,14 @@
 
   services.xserver = {
     videoDrivers = [ "nouveau" ];
+    monitorSection = ''
+      DisplaySize 698 393
+    '';
+    displayManager = {
+      sessionCommands = ''
+        xrandr --dpi 140
+      '';
+    };
   };
 
   environment.pathsToLink = [ "/" ];
