@@ -26,6 +26,7 @@ let
     neomodmap = callPackage ./neomodmap {};
     neo2osd = callPackage ./neo2osd {};
     nginx =  callPackage ./nginx {};
+    odt2org = callPackage ./odt2org {};
     offlineimap = callPackage ./offlineimap {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
