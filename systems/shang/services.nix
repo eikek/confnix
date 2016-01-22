@@ -38,6 +38,7 @@ in
       track_activities = true
       shared_buffers = 2GB
       maintenance_work_mem = 2GB
+      work_mem = 16MB
       fsync = off
       synchronous_commit = off
       wal_level = minimal
