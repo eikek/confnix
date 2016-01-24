@@ -6,6 +6,10 @@
 
   time.timeZone = "Europe/Berlin";
 
+  boot = {
+    kernelPackages = pkgs.linuxPackages_4_3;
+  };
+
   i18n = {
     consoleKeyMap = pkgs.lib.mkForce "${pkgs.neomodmap}/share/keymaps/i386/neo/neo.map";
   };

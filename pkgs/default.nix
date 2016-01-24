@@ -12,7 +12,7 @@ let
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
     exim = callPackage ./exim {};
-    flashplayer = callPackage ./flashplayer {};
+#    flashplayer = callPackage ./flashplayer {};
     gitblit = callPackage ./gitblit {};
     handlebars = callPackage ./handlebars {};
     hl5380ppd = callPackage ./brother-hl5380 {};

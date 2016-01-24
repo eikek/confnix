@@ -34,8 +34,7 @@ in
 
   services.postgresql = {
     enable = true;
-    #dataDir = "/data/postgresql/data-9.4";
-    package = pkgs.postgresql94;
+    package = pkgs.postgresql95;
     extraConfig = ''
       track_activities = true
       shared_buffers = 2GB

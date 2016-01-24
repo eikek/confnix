@@ -18,7 +18,6 @@
     initrd.luks.devices = [
       {device = "/dev/sda5"; name = "rootfs"; }
     ];
-    kernelPackages = pkgs.linuxPackages_4_2;
   };
 
   networking = {
@@ -51,10 +50,18 @@
 
   services.postgresql = {
     enable = true;
-    #dataDir = "/data/postgresql/data-9.4";
-    package = pkgs.postgresql94;
+    package = pkgs.postgresql95;
     extraConfig = ''
       track_activities = true
+      fsync = off
+      synchronous_commit = off
+      wal_level = minimal
+      full_page_writes = off
+      wal_buffers = 64MB
+      max_wal_senders = 0
+      wal_keep_segments = 0
+      archive_mode = off
+      autovacuum = off
     '';
   };
 
