@@ -25,6 +25,8 @@ in
           proxy_set_header X-Forwarded-For   $remote_addr;
           proxy_set_header Host              $host;
           proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_read_timeout 120m;
+          proxy_send_timeout 120m;
         }
       }
     '';
