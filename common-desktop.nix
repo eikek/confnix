@@ -192,6 +192,7 @@
     global
     visualvm
     tex
+    R
 
   # other tools
     html2text
