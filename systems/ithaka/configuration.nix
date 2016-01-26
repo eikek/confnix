@@ -1,4 +1,5 @@
 { config, pkgs, ... }:
+let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -51,6 +52,11 @@
   };
 
   environment.pathsToLink = [ "/" ];
+
+  nix = {
+    sshServe.enable = true;
+    sshServe.keys = [ mykey ];
+  };
 
   hardware = {
     enableAllFirmware = true;
