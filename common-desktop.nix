@@ -7,7 +7,7 @@
   time.timeZone = "Europe/Berlin";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_4_3;
+    kernelPackages = pkgs.linuxPackages_4_4;
   };
 
   i18n = {
