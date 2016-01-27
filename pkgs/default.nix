@@ -28,6 +28,7 @@ let
     nginx =  callPackage ./nginx {};
     odt2org = callPackage ./odt2org {};
     offlineimap = callPackage ./offlineimap {};
+    pam_script = callPackage ./pam-script {};
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
     publetQuartz = callPackage ./publet/quartz.nix {};
