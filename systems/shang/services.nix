@@ -49,6 +49,7 @@ in
       wal_keep_segments = 0
       archive_mode = off
       autovacuum = off
+      log_statement = all
     '';
   };
 
