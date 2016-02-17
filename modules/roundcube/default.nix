@@ -18,6 +18,16 @@ in {
         description = "Enable roundcube, by providing it to nginx.";
       };
 
+      smtpServer = mkOption {
+        default = "localhost";
+        description = "The smtp server name";
+      };
+
+      smtpPort = mkOption {
+        default = 25;
+        description = "The smtp port";
+      };
+
       baseDir = mkOption {
         default = "/var/run/roundcube";
         description = "The directory used to run roundcube";
@@ -124,8 +134,8 @@ in {
         \$config['default_host'] = 'localhost';
         \$config['imap_auth_type'] = 'LOGIN';
         \$config['imap_cache'] = 'db';
-        \$config['smtp_server'] = 'localhost';
-        \$config['smtp_port'] = 25;
+        \$config['smtp_server'] = '${cfg.smtpServer}';
+        \$config['smtp_port'] = ${builtins.toString cfg.smtpPort};
         \$config['product_name'] = '${cfg.productName}';
         \$config['des_key'] = '$RC_KEY';
         \$config['plugins'] = array('archive', 'zipdownload');
