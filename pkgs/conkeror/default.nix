@@ -1,12 +1,12 @@
 { fetchgit, lib, conkeror }:
 
 lib.overrideDerivation conkeror (attrs: {
-   name = "conkeror-1.0pre-20150310";
+   name = "conkeror-1.0pre-20160205";
 
    src = fetchgit {
      url = git://repo.or.cz/conkeror.git;
-     rev = "876f60a6d92047123418866ec7f9f4f367e91248";
-     sha256 = "1zmq90bgw72h0bi6yyqy2pr7glfwzf21dhw0lp23ikkndz9nqyr0";
+     rev = "9f2b5488764939a931550eda486ee89b48ded38e";
+     sha256 = "0qc4jg5pszq14z9zzph2w0q43pxdy3ls7rg7s920bk2q3m0zmgqk";
    };
 
 })

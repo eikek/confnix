@@ -8,7 +8,7 @@
     ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_4_2;
+    kernelPackages = pkgs.linuxPackages_4_4;
   };
 
   virtualbox.baseImageSize = 18 * 1024;
