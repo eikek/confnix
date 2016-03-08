@@ -48,5 +48,5 @@ let
     twitterBootstrap3 = callPackage ./twbs {};
     visualvm = callPackage ./visualvm {};
   };
-
-in custom
+  osxcollection = import ./osxcollection/default.nix (custom // pkgs);
+in custom // { inherit osxcollection; }
