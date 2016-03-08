@@ -160,6 +160,7 @@
     xlibs.twm
     xlibs.xwd
     xlibs.xdpyinfo
+    xsel
     xfce.terminal
     compton
     stumpwm
