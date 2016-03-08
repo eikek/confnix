@@ -9,7 +9,7 @@
       value = {
         device = "//nas/" + mp;
         fsType = "cifs";
-        options = "noauto,user,username=eike,password=eike,uid=1000,gid=100";
+        options = ["noauto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" ];
         noCheck = true;
       };
     }) ["backups" "dokumente" "downloads" "home" "music" "photo" "safe" "video"]);
