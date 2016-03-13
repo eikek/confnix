@@ -11,6 +11,7 @@ buildEnv {
   name = "osxcollection";
   paths = [
     R
+    cask
     coreutils
     curl
     emacs

@@ -5,6 +5,7 @@ let
     blueimpGallery = callPackage ./blueimp-gallery {};
     blueimpImageGallery = callPackage ./blueimp-image-gallery {};
     c544ppd = callPackage ./lexmark-c544 {};
+    cask = callPackage ./cask {};
     cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
     conkeror = callPackage ./conkeror {};

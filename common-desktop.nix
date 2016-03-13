@@ -194,6 +194,7 @@
     visualvm
     tex
     R
+    cask
 
   # other tools
     html2text
