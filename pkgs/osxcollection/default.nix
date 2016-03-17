@@ -41,6 +41,7 @@ buildEnv {
     offlineimap
     pandoc
     pass
+    qemu
     rlwrap
     silver-searcher
     tex
