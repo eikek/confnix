@@ -3,6 +3,6 @@
 nginx.override {
   fullWebDAV = true;
   rtmp = true;
-  moreheaders = true;
+  moreheaders = false;
   ngx_lua = true;
 }
