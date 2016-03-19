@@ -1,9 +1,23 @@
 with import <nixpkgs> {};
 let
+  nixos = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-15.09.tar.gz";
   makeova = writeScript "makeova.sh" ''
     #!${bash}/bin/bash -e
-    NIX_PATH="nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-15.09.tar.gz:nixos-config=$(pwd)/testvm.nix";
+    NIXOS_CONFIG="$(pwd)/testvm.nix";
+    NIX_PATH="nixpkgs=${nixos}:nixos-config=$(pwd)/testvm.nix";
     nix-build '<nixpkgs/nixos>' -A config.system.build.skyrosOVA $@
+  '';
+  systembuild = writeScript "systembuild" ''
+    #!${bash}/bin/bash -e
+    NIXOS_CONFIG="$(pwd)/configuration.nix";
+    NIX_PATH="nixpkgs=${nixos}:nixos-config=$(pwd)/configuration.nix";
+    nixos-rebuild $@
+  '';
+  testbuild = writeScript "testbuild" ''
+    #!${bash}/bin/bash -e
+    NIXOS_CONFIG="$(pwd)/testconf.nix";
+    NIX_PATH="nixpkgs=${nixos}:nixos-config=$(pwd)/testconf.nix";
+    nixos-rebuild $@
   '';
   runvm = writeScript "runvm.sh" ''
     #!${bash}/bin/bash -e
@@ -25,8 +39,8 @@ runCommand "zsh" rec {
   shellHook = ''
      alias makeova='${makeova}'
      alias runvm='${runvm}'
+     alias rebuild='${systembuild}'
+     alias testrebuild='${testbuild}'
      SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
-     NIXOS_CONFIG="$(pwd)/testconf.nix";
-     NIX_PATH="nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-15.09.tar.gz:nixos-config=$NIXOS_CONFIG";
   '';
 } ""
