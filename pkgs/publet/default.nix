@@ -1,7 +1,6 @@
 {stdenv, fetchgit, fetchurl, git, jdk7}:
-
 let
-  sbtVersion = "0.12.4";
+  sbt = (import ./sbt.nix { inherit fetchurl; });
 in
 stdenv.mkDerivation rec {
   version = "1.2.1-20130612";
@@ -19,11 +18,6 @@ stdenv.mkDerivation rec {
   };
 
   assembly = ./sbt-assembly-0.9.2.jar;
-
-  sbt = fetchurl {
-    url = "http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/${sbtVersion}/sbt-launch.jar";
-    sha256 = "04k411gcrq35ayd2xj79bcshczslyqkicwvhkf07hkyr4j3blxda";
-  };
 
   buildInputs = [ git jdk7 ];
 

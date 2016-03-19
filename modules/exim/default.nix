@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.services.exim;
+  cfg = config.services.exim4;
   user = "exim";
   group = "exim";
   version = "4.86";
@@ -212,7 +212,7 @@ in {
 ### interface
 
   options = {
-    services.exim = {
+    services.exim4 = {
       enable = mkOption {
         default = false;
         description = "Whether to enable the exim mail server.";
@@ -331,7 +331,7 @@ in {
 
 ### implementation
 
-  config = mkIf config.services.exim.enable {
+  config = mkIf cfg.enable {
 
     environment.systemPackages = [pkgs.exim sendmail];
 

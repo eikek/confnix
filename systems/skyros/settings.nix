@@ -81,6 +81,8 @@ with config;
     services.cron.mailto = "root@${settings.primaryDomain}";
 
     services.openssh.passwordAuthentication = false;
+    services.openssh.forwardX11 = true;
+    programs.ssh.setXAuthLocation = true;
 
     services.nginxExtra = {
       protectedPaths = [{

@@ -152,7 +152,7 @@ in {
      }
     '';
 
-    services.exim.localDomains = [ "myperception.de" ];
+    services.exim4.localDomains = [ "myperception.de" ];
 
     services.bind = {
       zones = [

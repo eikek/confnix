@@ -1,33 +1,33 @@
-From ff663c4a7372bf9c5a620e60c7f60b269a3995f5 Mon Sep 17 00:00:00 2001
+From 0facfcd4c2cfdbb4f2486ae49c68c03fb84b6478 Mon Sep 17 00:00:00 2001
 From: Eike Kettner <eike.kettner@posteo.de>
 Date: Thu, 23 Apr 2015 18:46:32 +0200
-Subject: [PATCH] omit markdown hardwraps
+Subject: [PATCH 2/2] omit markdown hardwraps
 
 ---
  src/main/java/com/gitblit/utils/MarkdownUtils.java | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/src/main/java/com/gitblit/utils/MarkdownUtils.java b/src/main/java/com/gitblit/utils/MarkdownUtils.java
-index 2ebfdb2..e07530c 100644
+index e0c9dd4..7e782b9 100644
 --- a/src/main/java/com/gitblit/utils/MarkdownUtils.java
 +++ b/src/main/java/com/gitblit/utils/MarkdownUtils.java
-@@ -16,6 +16,7 @@
- package com.gitblit.utils;
+@@ -17,6 +17,7 @@ package com.gitblit.utils;
  
  import static org.pegdown.Extensions.ALL;
+ import static org.pegdown.Extensions.ANCHORLINKS;
 +import static org.pegdown.Extensions.HARDWRAPS;
  import static org.pegdown.Extensions.SMARTYPANTS;
  
  import java.io.IOException;
-@@ -76,7 +77,7 @@ public class MarkdownUtils {
+@@ -77,7 +78,7 @@ public class MarkdownUtils {
  	 */
  	public static String transformMarkdown(String markdown, LinkRenderer linkRenderer) {
  		try {
--			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS);
-+			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS & ~HARDWRAPS);
+-			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS & ~ANCHORLINKS);
++			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS & ~ANCHORLINKS & ~HARDWRAPS);
  			RootNode astRoot = pd.parseMarkdown(markdown.toCharArray());
  			return new WorkaroundHtmlSerializer(linkRenderer == null ? new LinkRenderer() : linkRenderer).toHtml(astRoot);
  		} catch (ParsingTimeoutException e) {
 -- 
-2.1.4
+2.6.2
 

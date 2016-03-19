@@ -1,6 +1,6 @@
-{stdenv, fetchurl, fetchgit, jdk, git}:
+{stdenv, fetchurl, fetchgit, jdk7, git}:
 let
-  sbtVersion = "0.12.4";
+  sbt = (import ./sbt.nix { inherit fetchurl; });
 in
 stdenv.mkDerivation rec {
   version = "0.2.0-SNAPSHOT-20121220";
@@ -17,14 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "0b7j2c84ad4cy7bnrlqm4ainykprkz9rskirr91fqpyzbh1ng59r";
   };
 
-  buildInputs = [ jdk git ];
+  buildInputs = [ jdk7 git ];
 
   assembly = ./sbt-assembly-0.9.2.jar;
-
-  sbt = fetchurl {
-    url = "http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/${sbtVersion}/sbt-launch.jar";
-    sha256 = "04k411gcrq35ayd2xj79bcshczslyqkicwvhkf07hkyr4j3blxda";
-  };
 
   patchPhase = ''
     sed -i '$ d' project/build.sbt
@@ -37,7 +32,7 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     mkdir -p _sbt/{boot,ivy2}
     export SBT_OPTS="-XX:PermSize=190m -Dsbt.boot.directory=_sbt/boot/ -Dsbt.ivy.home=_sbt/ivy2/ -Dsbt.global.base=_sbt/"
-    ${jdk}/bin/java $SBT_OPTS -jar ${sbt} assembly
+    ${jdk7}/bin/java $SBT_OPTS -jar ${sbt} assembly
   '';
 
   installPhase = ''

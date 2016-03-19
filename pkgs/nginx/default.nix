@@ -1,10 +1,8 @@
-{ nginx, nginxModules }:
+{ nginx }:
 
 nginx.override {
-  modules =  [
-    nginxModules.rtmp
-    nginxModules.dav
-    nginxModules.moreheaders
-    nginxModules.lua
-  ];
+  fullWebDAV = true;
+  rtmp = true;
+  moreheaders = true;
+  ngx_lua = true;
 }

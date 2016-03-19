@@ -4,7 +4,7 @@ let
   shelterHttpPort = builtins.toString config.services.shelter.httpPort;
   shelterDb = config.services.shelter.databaseFile;
   shelterAuth = "${pkgs.shelter}/bin/shelter_auth";
-  eximCfg = config.services.exim;
+  eximCfg = config.services.exim4;
   checkPassword = ''
      #!/bin/sh
 
@@ -36,7 +36,7 @@ in
   imports =
     [ ./spam.nix ];
 
-  services.exim = {
+  services.exim4 = {
     enable = settings.enableMailServer;
     primaryHostname = settings.primaryDomain;
     localDomains = [ "@" "localhost" ("lists."+settings.primaryDomain) ];

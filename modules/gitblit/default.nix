@@ -6,7 +6,7 @@ let
   str = e: if (builtins.typeOf e) == "bool" then (if e then "true" else "false") else (builtins.toString e);
   gitblitUser = "gitblit";
   gitblitOption = line: option: if (option != null) then
-      ''sed -i 's,^${line}.*,${line}=${option},' ${cfg.dataDir}/gitblit.properties''
+      ''echo '${line} = ${option}' >> ${cfg.dataDir}/gitblit.properties''
     else "";
 in {
 

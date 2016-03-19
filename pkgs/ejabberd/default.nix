@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = ["--enable-pam"];
 
-  SSL_CERT_FILE = cacert + "/etc/ca-bundle.crt";
+  SSL_CERT_FILE = cacert + "/etc/ssl/certs/ca-bundle.crt";
 
   meta = {
     description = "Open-source XMPP application server written in Erlang";
