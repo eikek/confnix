@@ -42,7 +42,7 @@ let
   JAVA_OPTS="${cfg.javaOpts} -jar \
    -Djava.io.tmpdir=${cfg.baseDir}/temp \
    -Dlogback.configurationFile=${cfg.baseDir}/etc/logback.xml"
-  ${pkgs.jre}/bin/java $JAVA_OPTS bin/publet-server.jar --start
+  ${pkgs.jre7}/bin/java $JAVA_OPTS bin/publet-server.jar --start
   cd -
   '';
 
