@@ -29,6 +29,11 @@
 
   environment.pathsToLink = [ "/" ];
 
+  environment.systemPackages = with pkgs; [
+    tesseract
+    mongodb
+  ];
+
   hardware = {
     enableAllFirmware = true;
     bluetooth.enable = false;
