@@ -5,8 +5,8 @@
   nix.extraOptions = "auto-optimise-store = true";
 
   i18n = {
+    consoleKeyMap = pkgs.lib.mkForce "${pkgs.neomodmap}/share/keymaps/i386/neo/neo.map";
     consoleFont = "lat9w-16";
-    consoleKeyMap = "de";
     defaultLocale = "de_DE.UTF-8";
   };
 

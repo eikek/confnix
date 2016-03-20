@@ -91,7 +91,7 @@ in
     #debug = true;
   };
 
-  services.exim = {
+  services.exim4 = {
     dataAcl = ''
       # Do not scan messages submitted from our own hosts
       # and locally submitted messages.

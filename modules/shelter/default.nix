@@ -77,8 +77,11 @@ in {
       preStart = ''
         mkdir -p ${cfg.baseDir}
         chown shelter:shelter ${cfg.baseDir}
-        chown shelter:shelter ${cfg.databaseFile}
-        chmod 644 ${cfg.databaseFile}
+        if [ -e ${cfg.databaseFile} ];
+        then
+          chown shelter:shelter ${cfg.databaseFile}
+          chmod 644 ${cfg.databaseFile}
+        fi
       '';
 
       script = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh shelter -c \"${pkgs.shelter}/bin/shelter ${dbrc} ${if (cfg.autoLoad == null) then "" else "${autoload}"} ${builtins.toString cfg.loadFiles} \"";

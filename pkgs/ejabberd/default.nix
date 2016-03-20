@@ -2,11 +2,11 @@
  , automake, autoconf, git, cacert, libyaml }:
 
 stdenv.mkDerivation rec {
-  version = "15.04";
+  version = "15.11";
   name = "ejabberd-${version}";
   src = fetchurl {
     url = "http://www.process-one.net/downloads/ejabberd/${version}/${name}.tgz";
-    sha256 = "1v335l9fb25kgbm4zr9j13yb40s8k4h4xwzxpzd5idnnfndijl37";
+    sha256 = "0sll1si9pd4v7yibzr8hp18hfrbxsa5nj9h7qsldvy7r4md4n101";
   };
 
   buildInputs = [ expat erlang zlib openssl libyaml pam autoconf automake git ];
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = ["--enable-pam"];
 
-  SSL_CERT_FILE = cacert + "/etc/ca-bundle.crt";
+  SSL_CERT_FILE = cacert + "/etc/ssl/certs/ca-bundle.crt";
 
   meta = {
     description = "Open-source XMPP application server written in Erlang";

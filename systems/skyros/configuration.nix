@@ -26,6 +26,7 @@ with config;
       version = 2;
       devices = [ "/dev/sda" "/dev/sdb" "/dev/sdc" ];
     };
+    kernelPackages = pkgs.linuxPackages_4_4;
   };
 
   networking = {

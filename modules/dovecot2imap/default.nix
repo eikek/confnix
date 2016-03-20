@@ -40,7 +40,7 @@ let
         ${cfg.passDb}
       }
 
-      first_valid_uid = 399
+      first_valid_uid = 172
 
     '' + cfg.extraConfig;
 

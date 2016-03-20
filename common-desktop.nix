@@ -10,10 +10,6 @@
     kernelPackages = pkgs.linuxPackages_4_4;
   };
 
-  i18n = {
-    consoleKeyMap = pkgs.lib.mkForce "${pkgs.neomodmap}/share/keymaps/i386/neo/neo.map";
-  };
-
   networking = {
     firewall = {
       allowedTCPPorts = [ 80 443 ];

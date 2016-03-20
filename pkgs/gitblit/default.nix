@@ -1,18 +1,17 @@
-{stdenv, fetchgit, jdk, ant }:
+{stdenv, fetchgit, jdk7, ant }:
 
 stdenv.mkDerivation rec {
-  version = "1.6.2";
+  version = "1.7.1";
   name = "gitblit-${version}";
 
   src = fetchgit {
     url = "https://github.com/gitblit/gitblit";
-    #url = "http://dl.bintray.com/gitblit/releases/gitblit-${version}.tar.gz";
-    rev = "refs/tags/v1.6.2";
+    rev = "refs/tags/v${version}";
     name = "gitblit-${version}-git";
-    sha256 = "18j03gfa7v4cn97z189wmm8c6n2f8dri7xq4ggjs36kypimkwh54";
+    sha256 = "0wwffib2w2dw9h0sixx46kyqb1sq02q7wkrx36igicblqdh1djj3";
   };
 
-  buildInputs = [ jdk ant ];
+  buildInputs = [ jdk7 ant ];
 
   patches = [
    ./httpauth.patch
@@ -27,9 +26,10 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/
-    tar xzf build/target/gitblit-${version}.tar.gz -C $out/
+    tar xzf build/target/gitblit-${version}.tar.gz
+    mv gitblit-${version}/* $out/ #*/
     sed -i s,/bin/bash,/bin/sh, $out/gitblit.sh
-    sed -i s,java,${jdk}/bin/java, $out/gitblit.sh
+    sed -i s,java,${jdk7}/bin/java, $out/gitblit.sh
   '';
 
   meta = {
