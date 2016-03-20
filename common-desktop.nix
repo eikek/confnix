@@ -161,6 +161,7 @@
     xlibs.xwd
     xlibs.xdpyinfo
     xsel
+    xorg.xwininfo
     xfce.terminal
     compton
     stumpwm
@@ -212,6 +213,7 @@
     drip
     neomodmap
     recoll
+    recordmydesktop
     aspell
     aspellDicts.en
     aspellDicts.de
