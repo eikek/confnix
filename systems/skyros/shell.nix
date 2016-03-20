@@ -1,6 +1,6 @@
 with import <nixpkgs> {};
 let
-  nixos = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-15.09.tar.gz";
+  nixos = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-16.03-testing.tar.gz";
   makeova = writeScript "makeova.sh" ''
     #!${bash}/bin/bash -e
     NIXOS_CONFIG="$(pwd)/testvm.nix";

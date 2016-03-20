@@ -12,16 +12,6 @@ with config;
     primaryIp = "192.168.1.74";
   };
 
-  users.extraUsers = {
-    demo = {
-      isNormalUser = true;
-      description = "Demo user account";
-      extraGroups = [ "wheel" "audio" "messagebus" "systemd-journal" ];
-      password = "demo";
-      uid = 1004;
-    };
-  };
-
   # slightly modified version from <nixpkgs/nixos/modules/virtualisation/virtualbox-image.nix>
   system.build.skyrosOVA = pkgs.runCommand "virtualbox-ova"
       { buildInputs = [ pkgs.linuxPackages.virtualbox ];

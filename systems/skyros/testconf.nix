@@ -27,7 +27,7 @@ with config;
       enable = true;
       version = 2;
     };
-    kernelPackages = pkgs.linuxPackages_4_3;
+    kernelPackages = pkgs.linuxPackages_4_4;
   };
 
   users.extraUsers = {
