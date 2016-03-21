@@ -25,7 +25,7 @@ let
   dumpMongodbScript = pkgs.writeScript "dump-mongodbs.sh" ''
     #!${pkgs.bash}/bin/bash -e
     mkdir -p ${mongoDumpDir}
-    ${pkgs.mongodb}/bin/mongodump -o ${mongoDumpDir}
+    ${pkgs.mongodb-tools}/bin/mongodump -o ${mongoDumpDir}
   '';
   backupScript = pkgs.writeScript "do-backup.sh" ''
     #!${pkgs.bash}/bin/bash -e
