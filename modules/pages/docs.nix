@@ -14,9 +14,9 @@ pkgs:
   { name = "Java 8 Api Docs";
     location = "javadocs8";
     root = "${pkgs.javadocs.jdk8}/api/";}
-  { name = "Java EE 7 Api Docs";
-    location = "jeedocs7";
-    root = "${pkgs.javadocs.jee7}/";}
+  # { name = "Java EE 7 Api Docs";
+  #   location = "jeedocs7";
+  #   root = "${pkgs.javadocs.jee7}/";}
   { name = "Java 7 Api Docs";
     location = "javadocs7";
     root = "${pkgs.javadocs.jdk7}/api/";}
