@@ -14,8 +14,27 @@
     };
   };
 
+  virtualisation.virtualbox.guest.enable = true;
+
   fonts.fontconfig = {
-#    dpi = 120;
+    dpi = 140;
+  };
+
+  services.xserver = {
+    displayManager = {
+      sessionCommands = ''
+        xrandr --dpi 140
+      '';
+    };
+  };
+
+  fileSystems = {
+    "/home/host" = {
+      device = "home";
+      fsType = "vboxsf";
+      options = ["auto" "rw" "uid=1000" "gid=100" "exec"];
+      noCheck = true;
+      };
   };
 
   networking = {
@@ -32,6 +51,8 @@
   environment.systemPackages = with pkgs; [
     tesseract
     mongodb
+    mongodb-tools
+    ansible2
   ];
 
   hardware = {
