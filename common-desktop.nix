@@ -131,6 +131,7 @@
     gimp
     graphviz
     gnuplot
+    plantuml
 
   # multimedia
     mpd
