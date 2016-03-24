@@ -16,14 +16,10 @@
 
   virtualisation.virtualbox.guest.enable = true;
 
-  fonts.fontconfig = {
-    dpi = 140;
-  };
-
   services.xserver = {
     displayManager = {
       sessionCommands = ''
-        xrandr --dpi 140
+        ${pkgs.xlibs.xrandr}/bin/xrandr --output VGA-0 --mode 2880x1800 --pos 0x00 --output VGA-1 --mode 1920x1200 --pos 2880x0
       '';
     };
   };
@@ -38,6 +34,7 @@
   };
 
   networking = {
+    extraHosts = "127.0.0.1 macnix";
     hostName = "macnix";
     wireless = {
       enable = false;
