@@ -17,7 +17,7 @@ in {
       user = mkOption {
         default = "";
         description = "The system user to run HIN Client.";
-      }
+      };
 
       identities = mkOption {
         default = "";
