@@ -4,5 +4,5 @@ let
 in
 fetchurl {
   url = "http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/${sbtVersion}/sbt-launch.jar";
-  sha256 = "04k411gcrq35ayd2xj79bcshczslyqkicwvhkf07hkyr4j3blxda";
+  sha256 = "1067xfdk7g8r3axmbxcbags7fvn60yk4kfrcpqdkm1x2cfk9dvvw";
 }
