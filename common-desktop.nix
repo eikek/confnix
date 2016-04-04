@@ -55,12 +55,16 @@
       stumpwm.enable = true;
       default = "stumpwm";
     };
-    startGnuPGAgent = true;
     displayManager = {
       sessionCommands = ''
         export JAVA_HOME=${pkgs.jdk}/lib/openjdk
         export JDK_HOME=${pkgs.jdk}/lib/openjdk
         ${pkgs.neomodmap}/bin/neomodmap.sh on
+
+        gpg-connect-agent /bye
+        export GPG_TTY=$(tty)
+        unset SSH_AGENT_PID
+        export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
       '';
     };
   };
@@ -85,6 +89,7 @@
       max-cache-ttl ${cacheTime}
       default-cache-ttl-ssh ${cacheTime}
       max-cache-ttl-ssh ${cacheTime}
+      allow-emacs-pinentry
       pinentry-program "${pkgs.pinentry}/bin/pinentry-gtk-2"
       EOF
     '';
