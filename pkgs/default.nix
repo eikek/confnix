@@ -23,7 +23,7 @@ let
     jquery2 = callPackage ./jquery2 {};
     kube = callPackage ./kube {};
     lsdvd = callPackage ./lsdvd {};
-    makemkv = callPackage ./makemkv {};
+#    makemkv = callPackage ./makemkv {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
     neomodmap = callPackage ./neomodmap {};
@@ -35,6 +35,7 @@ let
     publet = callPackage ./publet {};
     publetSharry = callPackage ./publet/sharry.nix {};
     publetQuartz = callPackage ./publet/quartz.nix {};
+    recutils = callPackage ./recutils {};
     roundcube = callPackage ./roundcube {};
     scaladocs = callPackage ./scala-docs {};
     shelter = callPackage ./shelter {};

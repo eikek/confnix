@@ -79,6 +79,7 @@
     guile
     openssl
     which
+    recutils
   ];
 
   users.extraUsers.eike = {
