@@ -34,7 +34,14 @@
   };
 
   networking = {
-    extraHosts = "127.0.0.1 macnix";
+    extraHosts = ''
+      127.0.0.1 macnix
+
+      # https://intranet/x/HIGkAQ
+      192.168.13.27 larnags.int
+      192.168.13.75 larnags.sta larnags.sta1
+      192.168.13.76 larnags.sta2
+    '';
     hostName = "macnix";
     wireless = {
       enable = false;
