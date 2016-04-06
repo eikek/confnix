@@ -19,7 +19,7 @@
   services.xserver = {
     displayManager = {
       sessionCommands = ''
-        ${pkgs.xlibs.xrandr}/bin/xrandr --output VGA-0 --mode 2880x1800 --pos 0x00 --output VGA-1 --mode 1920x1200 --pos 2880x0
+        ${pkgs.xlibs.xrandr}/bin/xrandr --output VGA-1 --mode 1440x900 --pos 0x0 --output VGA-0 --mode 1920x1200 --pos 1440x0
       '';
     };
   };
@@ -35,14 +35,14 @@
 
   networking = {
     extraHosts = ''
-      127.0.0.1 macnix
+      127.0.0.1 macnix bluecare-n46_1
 
       # https://intranet/x/HIGkAQ
       192.168.13.27 larnags.int
       192.168.13.75 larnags.sta larnags.sta1
       192.168.13.76 larnags.sta2
     '';
-    hostName = "macnix";
+    hostName = "bluecare-n46_1";
     wireless = {
       enable = false;
     };
