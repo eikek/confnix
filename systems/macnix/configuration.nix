@@ -24,6 +24,20 @@
     };
   };
 
+  systemd.timers.clocksync = {
+    description = "Every 5 minutes.";
+    enable = true;
+    timerConfig = {
+      OnCalendar = "*:0/5";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+  systemd.services.clocksync = {
+    enable = true;
+    wantedBy = ["multi-user.target"];
+    script = "${pkgs.utillinux}/bin/hwclock --hctosys";
+  };
+
   fileSystems = {
     "/home/host" = {
       device = "home";
