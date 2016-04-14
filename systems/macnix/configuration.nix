@@ -78,6 +78,7 @@
     mongodb
     mongodb-tools
     ansible2
+    nodePackages.grunt-cli
   ];
 
   hardware = {
