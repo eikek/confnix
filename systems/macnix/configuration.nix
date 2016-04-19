@@ -48,6 +48,9 @@
   };
 
   networking = {
+    firewall = {
+      allowedTCPPorts = [ 9001 ];
+    };
     extraHosts = ''
       127.0.0.1 macnix bluecare-n46_1
 
