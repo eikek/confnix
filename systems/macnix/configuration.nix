@@ -24,6 +24,10 @@
     };
   };
 
+  services.ntp = {
+    servers = [ "192.168.10.1" ];
+  };
+
   systemd.timers.clocksync = {
     description = "Every 5 minutes.";
     enable = true;
