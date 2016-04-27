@@ -42,13 +42,35 @@
     script = "${pkgs.utillinux}/bin/hwclock --hctosys";
   };
 
-  fileSystems = {
+  fileSystems = let
+   serverpass = if (builtins.tryEval <serverpass>).success then
+     builtins.readFile <serverpass>
+     else builtins.throw ''Please specify a file that contains the
+       password to mount the fileserver and add it to the NIX_PATH
+       variable with key "serverpass".
+     '' ;
+  in {
+    "/mnt/fileserver/homes" = {
+      device = "//bluecare-s22.bluecare.local/home";
+      fsType = "cifs";
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+    };
+    "/mnt/fileserver/transfer" = {
+      device = "//bluecare-s22.bluecare.local/Transfer";
+      fsType = "cifs";
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+    };
+    "/mnt/fileserver/data" = {
+      device = "//bluecare-s22.bluecare.local/Data";
+      fsType = "cifs";
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+    };
     "/home/host" = {
       device = "home";
       fsType = "vboxsf";
       options = ["auto" "rw" "uid=1000" "gid=100" "exec"];
       noCheck = true;
-      };
+    };
   };
 
   networking = {
