@@ -103,7 +103,7 @@
   environment.pathsToLink = [ "/" ];
 
   environment.systemPackages = with pkgs; [
-    tesseract
+    tesseract304
     mongodb
     mongodb-tools
     ansible2
