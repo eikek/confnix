@@ -10,6 +10,7 @@ let
     clojuredocs = callPackage ./clojure-docs {};
     conkeror = callPackage ./conkeror {};
     derby = callPackage ./derby {};
+    mongodex = callPackage ./dex {};
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
     exim = callPackage ./exim {};
