@@ -9,6 +9,7 @@ let
     cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
     conkeror = callPackage ./conkeror {};
+    coursier = callPackage ./coursier {};
     derby = callPackage ./derby {};
     mongodex = callPackage ./dex {};
     drip = callPackage ./drip {};

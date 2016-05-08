@@ -198,6 +198,7 @@
     tex
     R
     cask
+    coursier
 
   # other tools
     html2text
