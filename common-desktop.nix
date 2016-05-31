@@ -65,6 +65,8 @@
         export GPG_TTY=$(tty)
         unset SSH_AGENT_PID
         export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+
+        ${pkgs.xflux}/bin/xflux -l 47.5 -g 8.75
       '';
     };
   };
