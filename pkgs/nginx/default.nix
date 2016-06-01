@@ -5,6 +5,6 @@ nginx.override {
     nginxModules.rtmp
     nginxModules.dav
     nginxModules.moreheaders
-    nginxModules.lua
+#    nginxModules.lua
   ];
 }

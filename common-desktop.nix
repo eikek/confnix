@@ -150,7 +150,7 @@
     sox
     flac
     vorbisTools
-    soundkonverter
+#    soundkonverter
     dvdauthor
     lsdvd
     exiv2
