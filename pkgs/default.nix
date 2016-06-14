@@ -28,6 +28,7 @@ let
 #    makemkv = callPackage ./makemkv {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
+    msgconvert = callPackage ./msgconvert {};
     neomodmap = callPackage ./neomodmap {};
     neo2osd = callPackage ./neo2osd {};
     nginx =  callPackage ./nginx {};
