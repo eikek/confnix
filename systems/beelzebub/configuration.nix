@@ -37,7 +37,6 @@
       enable = false;
     };
     useDHCP = true;
-    wicd.enable = false;
   };
 
   environment.pathsToLink = [ "/" ];
@@ -77,7 +76,7 @@
         unset SSH_AGENT_PID
         export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 
-        ${pkgs.xflux}/bin/xflux -l 47.5 -g 8.75
+        ${pkgs.xflux}/bin/xflux -l 50.55 -g 10.41
       '';
     };
   };
@@ -202,6 +201,12 @@
     cask
 
   # other tools
+    lyx
+    kde4.kopete
+    kde4.l10n.de
+    kde4.amarok
+    torbrowser
+    dropbox
     zathura
     ghostscript
     libreoffice
