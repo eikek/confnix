@@ -1,20 +1,47 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    ./common.nix
-  ];
-
-  time.timeZone = "Europe/Berlin";
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hw-beelzebub.nix
+      ../../common.nix
+    ];
 
   boot = {
+    loader.grub = {
+      enable = true;
+      version = 2;
+      devices = [ "/dev/sda" ];
+    };
     kernelPackages = pkgs.linuxPackages_4_4;
+    # this should not be necessary, but my system did not start x otherwise
+#    initrd.kernelModules = [ "nouveau" ];
+  };
+
+  i18n = {
+    consoleKeyMap = pkgs.lib.mkOverride 20 "de";
+  };
+
+  users.extraGroups.vboxusers.members = [ "schwarzer" ];
+  virtualisation.virtualbox.host.enable = true;
+
+  users.groups.kvm = {
+    members = [ "schwarzer" ];
   };
 
   networking = {
+    hostName = "beelzebub";
     firewall = {
       allowedTCPPorts = [ 80 443 ];
     };
+    wireless = {
+      enable = false;
+    };
+    useDHCP = true;
+    wicd.enable = false;
   };
+
+  environment.pathsToLink = [ "/" ];
+  time.timeZone = "Europe/Berlin";
 
   powerManagement = {
     enable = true;
@@ -23,19 +50,8 @@
 
   security.pam.enableSSHAgentAuth = true;
 
-  # clean /tmp regularly
-  services.cron.systemCronJobs = [
-    "0 0,4,8,12,16,20 * * * root find /tmp -atime +28 -delete"
-  ];
-
-  services.pages = {
-    enable = true;
-    sources = import ./modules/pages/docs.nix pkgs;
-  };
-
   services.printing = {
     enable = true;
-    drivers = [ pkgs.c544ppd ];
   };
 
   services.xserver = {
@@ -44,22 +60,17 @@
     layout = "de";
     exportConfiguration = true;
 
-    xkbVariant = "neo";
+    xkbVariant = pkgs.lib.mkForce "";
 
     desktopManager = {
-      xterm.enable = false;
-      default = "none";
+      kde4.enable = true;
     };
-    windowManager = {
-      awesome.enable = false;
-      stumpwm.enable = true;
-      default = "stumpwm";
-    };
+
     displayManager = {
+      kdm.enable = true;
       sessionCommands = ''
         export JAVA_HOME=${pkgs.jdk}/lib/openjdk
         export JDK_HOME=${pkgs.jdk}/lib/openjdk
-        ${pkgs.neomodmap}/bin/neomodmap.sh on
 
         gpg-connect-agent /bye
         export GPG_TTY=$(tty)
@@ -81,20 +92,6 @@
         icedtea = true;
       };
     };
-  };
-
-  system.activationScripts = {
-    gpgAgentOptions = let cacheTime = builtins.toString (4 * 60 * 60); in ''
-      cat > /home/eike/.gnupg/gpg-agent.conf <<-"EOF"
-      enable-ssh-support
-      default-cache-ttl ${cacheTime}
-      max-cache-ttl ${cacheTime}
-      default-cache-ttl-ssh ${cacheTime}
-      max-cache-ttl-ssh ${cacheTime}
-      allow-emacs-pinentry
-      pinentry-program "${pkgs.pinentry}/bin/pinentry-gtk-2"
-      EOF
-    '';
   };
 
   fonts = {
@@ -168,23 +165,18 @@
     xorg.xwininfo
     xfce.terminal
     compton
-    stumpwm
     xclip
     autorandr
     i3lock
 
   # web/email
     firefoxWrapper
-    conkerorWrapper
     surfraw
-    mu
-    offlineimap
     chromium
+    thunderbird
 
   # devel
     subversion
-    lua
-    sbcl
     python
     scala
     sbt
@@ -193,33 +185,34 @@
     jdk
     maven
     ant
-    idea.idea-community
     silver-searcher
     global
-    visualvm
     tex
     R
     cask
-    coursier
 
   # other tools
-    html2text
     zathura
     ghostscript
-    wireshark
     libreoffice
     sqliteman
     pandoc
     youtube-dl
     mediathekview
-    sig
     python27Packages.pygments
     drip
-    neomodmap
     recoll
     recordmydesktop
     aspell
     aspellDicts.en
     aspellDicts.de
   ];
+
+  hardware = {
+    enableAllFirmware = true;
+    bluetooth.enable = false;
+    cpu.intel.updateMicrocode = true;  #needs unfree
+    opengl.driSupport32Bit = true;
+  };
+
 }
