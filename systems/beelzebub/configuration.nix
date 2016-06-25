@@ -106,6 +106,16 @@
     ];
   };
 
+  users.extraUsers.schwarzer = {
+    isNormalUser = true;
+    name = "schwarzer";
+    group = "users";
+    uid = 1001;
+    createHome = true;
+    shell = "/run/current-system/sw/bin/zsh";
+    extraGroups = [ "wheel" "audio" "messagebus" "systemd-journal" ];
+  };
+
   environment.systemPackages =
   with pkgs;
   let
@@ -187,7 +197,7 @@
     ant
     silver-searcher
     global
-    tex
+#    tex
     R
     cask
 
