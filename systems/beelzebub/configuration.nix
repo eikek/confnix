@@ -12,7 +12,7 @@
       version = 2;
       devices = [ "/dev/sda" ];
     };
-    kernelPackages = pkgs.linuxPackages_4_4;
+    kernelPackages = pkgs.linuxPackages_4_6;
     # this should not be necessary, but my system did not start x otherwise
 #    initrd.kernelModules = [ "nouveau" ];
   };
