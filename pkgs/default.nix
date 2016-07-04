@@ -47,12 +47,9 @@ let
     soundkonverter = callPackage ./soundkonverter {};
     spark = callPackage ./spark {};
     storeBackup = callPackage ./storebackup {};
-    stumpwm = callPackage ./stumpwm {};
+#    stumpwm = callPackage ./stumpwm {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
     tesseract304 = callPackage ./tesseract {};
-    texLiveModerntimeline = with pkgs; builderDefsPackage (import ./moderntimelinefix) {
-      inherit texLive unzip;
-    };
     twitterBootstrap3 = callPackage ./twbs {};
     visualvm = callPackage ./visualvm {};
   };

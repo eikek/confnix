@@ -168,7 +168,6 @@
     xorg.xwininfo
     xfce.terminal
     compton
-    stumpwm
     xclip
     autorandr
     i3lock
