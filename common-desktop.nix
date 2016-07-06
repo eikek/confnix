@@ -23,11 +23,6 @@
 
   security.pam.enableSSHAgentAuth = true;
 
-  # clean /tmp regularly
-  services.cron.systemCronJobs = [
-    "0 0,4,8,12,16,20 * * * root find /tmp -atime +28 -delete"
-  ];
-
   services.pages = {
     enable = true;
     sources = import ./modules/pages/docs.nix pkgs;
@@ -62,9 +57,8 @@
         ${pkgs.neomodmap}/bin/neomodmap.sh on
 
         gpg-connect-agent /bye
-        export GPG_TTY=$(tty)
         unset SSH_AGENT_PID
-        export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 
         ${pkgs.xflux}/bin/xflux -l 47.5 -g 8.75
       '';
