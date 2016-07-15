@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     url = https://github.com/twbs/bootstrap;
     rev = "refs/tags/v${version}";
     name = "twitter-bootstrap-${version}-git";
-    sha256 = "0wm0mq0p22zxycwf6dk4plbcflvc6z3iac0413qbbijxwqcq3k11";
+    sha256 = "0ai4jqvb8kkbc68pphpp61gxspr6904czxs444aysa3r7c2m7fqx";
   };
 
   installPhase = ''

@@ -8,6 +8,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_4_6;
+    cleanTmpDir = true;
   };
 
   networking = {

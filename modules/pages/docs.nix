@@ -17,9 +17,9 @@ pkgs:
   # { name = "Java EE 7 Api Docs";
   #   location = "jeedocs7";
   #   root = "${pkgs.javadocs.jee7}/";}
-  { name = "Java 7 Api Docs";
-    location = "javadocs7";
-    root = "${pkgs.javadocs.jdk7}/api/";}
+  # { name = "Java 7 Api Docs";
+  #   location = "javadocs7";
+  #   root = "${pkgs.javadocs.jdk7}/api/";}
   { name = "Clojure 1.7 Api Docs";
     location = "clojure17";
     root = "${pkgs.clojuredocs}/"; }

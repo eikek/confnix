@@ -3,7 +3,7 @@
 let
   neoMap = fetchurl {
     url = http://neo-layout.org/neo_de.xmodmap;
-    sha256 = "06yqhlf9wqifwq4b8bxmic289kqs95j3kwpxlwl6xdvi4a3516zx";
+    sha256 = "0xv753a6gwjz2crr87dmhbhq5hmjq391r3l029cv0ffw0rb6ppwc";
   };
 
 in
