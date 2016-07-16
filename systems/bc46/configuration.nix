@@ -19,6 +19,9 @@
     ];
   };
 
+  users.groups.kvm = {
+    members = [ "eike" ];
+  };
 
   services.ntp = {
     servers = [ "192.168.10.1" ];
@@ -35,21 +38,21 @@
   in {
     "/".device = pkgs.lib.mkForce "/dev/mapper/vg-root";
 
-    # "/mnt/fileserver/homes" = {
-    #   device = "//bluecare-s22.bluecare.local/home";
-    #   fsType = "cifs";
-    #   options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
-    # };
-    # "/mnt/fileserver/transfer" = {
-    #   device = "//bluecare-s22.bluecare.local/Transfer";
-    #   fsType = "cifs";
-    #   options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
-    # };
-    # "/mnt/fileserver/data" = {
-    #   device = "//bluecare-s22.bluecare.local/Data";
-    #   fsType = "cifs";
-    #   options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
-    # };
+    "/mnt/fileserver/homes" = {
+      device = "//bluecare-s22.bluecare.local/home";
+      fsType = "cifs";
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+    };
+    "/mnt/fileserver/transfer" = {
+      device = "//bluecare-s22.bluecare.local/Transfer";
+      fsType = "cifs";
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+    };
+    "/mnt/fileserver/data" = {
+      device = "//bluecare-s22.bluecare.local/Data";
+      fsType = "cifs";
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+    };
   };
 
   networking = {
@@ -77,6 +80,15 @@
     };
     useDHCP = true;
     wicd.enable = true;
+
+    # enable networking in qemu vms
+    localCommands = ''
+     ${pkgs.vde2}/bin/vde_switch -tap tap0 -mod 660 -group kvm -daemon
+     ip addr add 10.0.2.1/24 dev tap0
+     ip link set dev tap0 up
+     ${pkgs.procps}/sbin/sysctl -w net.ipv4.ip_forward=1
+     ${pkgs.iptables}/sbin/iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -j MASQUERADE
+   '';
   };
 
   environment.pathsToLink = [ "/" ];
