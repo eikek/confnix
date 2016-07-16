@@ -27,6 +27,8 @@
     servers = [ "192.168.10.1" ];
   };
 
+  # needed for the `user` option below
+  security.setuidPrograms = [ "mount.cifs" ];
 
   fileSystems = let
    serverpass = if (builtins.tryEval <serverpass>).success then
