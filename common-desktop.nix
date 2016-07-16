@@ -24,6 +24,14 @@
 
   security.pam.enableSSHAgentAuth = true;
 
+  services.redshift = {
+    enable = true;
+    brightness.night = "0.8";
+    temperature.night = 3500;
+    latitude = "47.5";
+    longitude = "8.75";
+  };
+
   services.pages = {
     enable = true;
     sources = import ./modules/pages/docs.nix pkgs;
@@ -60,8 +68,6 @@
         gpg-connect-agent /bye
         unset SSH_AGENT_PID
         export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
-
-        ${pkgs.xflux}/bin/xflux -l 47.5 -g 8.75
       '';
     };
   };

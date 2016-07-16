@@ -4,6 +4,7 @@
     [ # Include the results of the hardware scan.
       ./hw-bc46.nix
       ../../common-desktop.nix
+      ../../env-vbox.nix
     ];
 
   boot = {
@@ -75,7 +76,7 @@
       enable = false;
     };
     useDHCP = true;
-    wicd.enable = false;
+    wicd.enable = true;
   };
 
   environment.pathsToLink = [ "/" ];
