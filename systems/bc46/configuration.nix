@@ -57,6 +57,15 @@
     };
   };
 
+  services.xserver = {
+    synaptics = {
+      enable = true;
+      twoFingerScroll = true;
+      accelFactor = "0.001";
+      buttonsMap = [ 1 3 2 ];
+    };
+  };
+
   networking = {
     firewall = {
       allowedTCPPorts = [ 9000 ];
