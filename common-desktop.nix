@@ -102,8 +102,9 @@
     fontconfig.enable = true;
     enableFontDir = true;
     fonts = with pkgs; [
+      corefonts
       inconsolata
-      source-code-pro  # unstable
+      source-code-pro
       dejavu_fonts
       ttf_bitstream_vera
       terminus_font
