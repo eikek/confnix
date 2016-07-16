@@ -42,6 +42,11 @@
     drivers = [ pkgs.c544ppd ];
   };
 
+  services.locate = {
+    enable = true;
+    interval = "13:00";
+  };
+
   services.xserver = {
     enable = true;
     autorun = true;
