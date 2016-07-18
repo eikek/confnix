@@ -11,6 +11,7 @@ let
     conkeror = callPackage ./conkeror {};
     coursier = callPackage ./coursier {};
     derby = callPackage ./derby {};
+    elexis = callPackage ./elexis {};
     mongodex = callPackage ./dex {};
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
