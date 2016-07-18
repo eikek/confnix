@@ -126,7 +126,6 @@
   in [
   # base
     nix-repl
-    pinentry
     dhcp
     nmap
     iptables
@@ -158,8 +157,6 @@
     flac
     vorbisTools
 #    soundkonverter
-    dvdauthor
-    lsdvd
     exiv2
     easytag
     ffmpeg
@@ -168,13 +165,11 @@
   # x-window
     xlibs.xrandr
     xlibs.xmodmap
-    xlibs.twm
     xlibs.xwd
     xlibs.xdpyinfo
     xsel
     xorg.xwininfo
     xfce.terminal
-    compton
     xclip
     autorandr
     i3lock
@@ -185,11 +180,8 @@
     surfraw
     mu
     offlineimap
-    chromium
 
   # devel
-    subversion
-    lua
     sbcl
     python
     scala
@@ -209,10 +201,8 @@
     coursier
 
   # other tools
-    html2text
     zathura
     ghostscript
-    wireshark
     libreoffice
     sqliteman
     pandoc

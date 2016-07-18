@@ -41,14 +41,12 @@
   environment.systemPackages = with pkgs; [
     binutils
     coreutils
-    cacert
     psmisc
     lsof
     file
     wget
     gnupg1compat
     gitAndTools.gitFull
-    gitAndTools.gitAnnex
     curl
     tmux
     screen
@@ -69,6 +67,7 @@
     sqlite
     fdupes
     emacs
+    zile
     elinks
     w3m
     lynx
@@ -95,11 +94,4 @@
     #   "./private/id_dsa_eike.pub"
     # ];
   };
-
-  hardware = {
-    enableAllFirmware = true;
-    bluetooth.enable = false;
-#    cpu.intel.updateMicrocode = true;  #needs unfree
-  };
-
 }
