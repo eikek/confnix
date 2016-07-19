@@ -10,7 +10,6 @@
   boot = {
     loader = {
       timeout = 10;
-      #gummiboot.enable = true;
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
@@ -107,7 +106,11 @@
   nixpkgs.config = {
     allowUnfree = true;
     firefox = {
+      icedtea = true;
       enableAdobeFlash = true;
+    };
+    chromium = {
+      icedtea = true;
     };
   };
 
@@ -121,6 +124,7 @@
     mongodb-tools
     ansible2
     nodePackages.grunt-cli
+    chromium
   ];
 
   hardware = {
