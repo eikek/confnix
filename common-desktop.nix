@@ -80,7 +80,6 @@
   nixpkgs = {
     config = {
       firefox = {
-        enableAdobeFlash = true;
         icedtea = true;
       };
       chromium = {
@@ -107,7 +106,7 @@
     fontconfig.enable = true;
     enableFontDir = true;
     fonts = with pkgs; [
-      corefonts
+      #corefonts #unfree
       inconsolata
       source-code-pro
       dejavu_fonts

@@ -104,6 +104,17 @@
 
   environment.pathsToLink = [ "/" ];
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    firefox = {
+      enableAdobeFlash = true;
+    };
+  };
+
+  fonts.fonts = with pkgs; [
+    corefonts #unfree
+  ];
+
   environment.systemPackages = with pkgs; [
     tesseract304
     mongodb

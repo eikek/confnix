@@ -20,6 +20,6 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = https://github.com/alexarchambault/coursier;
     description = ''Pure Scala Artifact Fetching'';
-    license = stdenv.lib.licenses.apl20;
+    license = stdenv.lib.licenses.asl20;
   };
 }

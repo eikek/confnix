@@ -31,11 +31,7 @@
 
   services.acpid.enable = true;
 
-  nixpkgs = {
-    config = {
-      allowUnfree = pkgs.lib.mkForce false;
-    };
-  };
+  nixpkgs.config.allowUnfree = false;
 
   environment.pathsToLink = [ "/" ];
 }
