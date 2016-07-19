@@ -72,7 +72,7 @@
 
         gpg-connect-agent /bye
         unset SSH_AGENT_PID
-        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
+        export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/gnupg/S.gpg-agent.ssh"
       '';
     };
   };
