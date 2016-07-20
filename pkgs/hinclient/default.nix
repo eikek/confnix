@@ -15,5 +15,6 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out
     mv * $out
+    mv .install4j $out
   '';
 }
