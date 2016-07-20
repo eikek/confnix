@@ -212,6 +212,8 @@
     drip
     neomodmap
     recoll
+    tesseract304
+    poppler_utils
     recordmydesktop
     aspell
     aspellDicts.en
