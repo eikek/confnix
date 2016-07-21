@@ -78,6 +78,18 @@ in
       accelFactor = "0.001";
       buttonsMap = [ 1 3 2 ];
     };
+
+    displayManager = {
+      sessionCommands = ''
+        if [ $(${pkgs.xlibs.xrandr}/bin/xrandr --listmonitors --verbose | grep "^[^[:blank:]]" | grep "1920x1200" | wc -l) -eq 2 ]; then
+          ${pkgs.xlibs.xrandr}/bin/xrandr --output HDMI-0 --mode 1920x1200 --pos 1920x0 \
+            --output DisplayPort-1 --mode 1920x1200 --pos 0x0 \
+            --output DisplayPort-0 --off \
+            --output eDP --off
+        fi
+      '';
+    };
+
   };
 
   networking = {
@@ -141,6 +153,18 @@ in
     nodePackages.grunt-cli
     chromium
   ];
+
+#   users.extraUsers.sniffy = {
+#     isSystemUser = true;
+#     home = "/var/lib/sniffy";
+#     createHome = true;
+#     useDefaultShell = true;
+# #    openssh.authorizedKeys.keys = [ ];
+#   };
+
+  # security.sudo.extraConfig = ''
+  #   sniffy ALL=${pkgs.dmidecode}/bin/dmidecode
+  # '';
 
   hardware = {
     enableAllFirmware = true;

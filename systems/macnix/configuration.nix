@@ -16,14 +16,6 @@
 
   virtualisation.virtualbox.guest.enable = true;
 
-  services.xserver = {
-    displayManager = {
-      sessionCommands = ''
-#        ${pkgs.xlibs.xrandr}/bin/xrandr --output VGA-1 --mode 1440x900 --pos 0x0 --output VGA-0 --mode 1920x1200 --pos 1440x0
-      '';
-    };
-  };
-
   services.ntp = {
     servers = [ "192.168.10.1" ];
   };
