@@ -79,6 +79,8 @@
     openssl
     which
     recutils
+    tmuxinator
+    direnv
   ];
 
   users.extraUsers.eike = {
