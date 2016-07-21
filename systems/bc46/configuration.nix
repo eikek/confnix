@@ -1,4 +1,12 @@
 { config, pkgs, ... }:
+let
+ serverpass = if (builtins.tryEval <serverpass>).success then
+   builtins.readFile <serverpass>
+   else builtins.throw ''Please specify a file that contains the
+     password to mount the fileserver and add it to the NIX_PATH
+     variable with key "serverpass".
+   '' ;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -29,14 +37,7 @@
   # needed for the `user` option below
   security.setuidPrograms = [ "mount.cifs" ];
 
-  fileSystems = let
-   serverpass = if (builtins.tryEval <serverpass>).success then
-     builtins.readFile <serverpass>
-     else builtins.throw ''Please specify a file that contains the
-       password to mount the fileserver and add it to the NIX_PATH
-       variable with key "serverpass".
-     '' ;
-  in {
+  fileSystems = {
     "/".device = pkgs.lib.mkForce "/dev/mapper/vg-root";
 
     "/mnt/fileserver/homes" = {
@@ -57,6 +58,18 @@
   };
 
   services.acpid.enable = true;
+
+  services.hinclient = {
+    enable = true;
+    identities = "ekettne1";
+    passphrase = pkgs.writeText "hinpass" serverpass;
+    keystore = /root/ekettne1.hin;
+    httpProxyPort = 6016;
+    clientapiPort = 6017;
+    smtpProxyPort = 6018;
+    pop3ProxyPort = 6019;
+    imapProxyPort = 6020;
+  };
 
   services.xserver = {
     synaptics = {
