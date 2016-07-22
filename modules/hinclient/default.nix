@@ -90,9 +90,10 @@ in {
       environment = {
         JAVA_HOME = "${pkgs.jre}";
         HOME = "${cfg.baseDir}";
+        INSTALL4J_ADD_VM_PARAMS = "-Djava.io.tmpdir=${cfg.baseDir}/tmp";
       };
       preStart = ''
-        mkdir -p ${cfg.baseDir}
+        mkdir -p ${cfg.baseDir}/tmp
         for name in .install4j help lib hinclient cert-prod.jks; do
           ln -nfs ${cfg.hinClientPackage}/$name ${cfg.baseDir}/
         done
