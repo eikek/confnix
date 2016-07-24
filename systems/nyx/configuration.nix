@@ -6,7 +6,6 @@
       ./hw-nyx.nix
       ../../common-desktop.nix
       ../../env-home.nix
-      ../../env-vbox.nix
     ];
 
   boot = {
@@ -39,7 +38,6 @@
   };
 
   services.acpid.enable = true;
-  services.sitebag.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
