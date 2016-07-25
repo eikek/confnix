@@ -1,12 +1,12 @@
 {stdenv, fetchurl, pcre, db, gnutls, pkgconfig, sqlite, perl, which, exim_user ? "exim" }:
 
 stdenv.mkDerivation rec {
-  version = "4.86.2";
+  version = "4.87";
   name = "exim-${version}";
 
   src = fetchurl {
     url = "http://exim.mirror.iphh.net/ftp/exim/exim4/exim-${version}.tar.gz";
-    sha256 = "0r7sradhl3chl4idzfh0irg6zaw9j15pfr0pvp1ds5g26qjwcvc4";
+    sha256 = "1wf7xrg38nkc1qf0b7rn55k6yccaiqvf1vr58swrixchxh377qlm";
   };
 
   buildInputs = [ pcre db gnutls pkgconfig sqlite perl which ];
