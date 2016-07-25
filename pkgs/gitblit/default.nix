@@ -1,14 +1,14 @@
 {stdenv, fetchgit, jdk7, ant }:
 
 stdenv.mkDerivation rec {
-  version = "1.7.1";
+  version = "1.8.0";
   name = "gitblit-${version}";
 
   src = fetchgit {
     url = "https://github.com/gitblit/gitblit";
     rev = "refs/tags/v${version}";
     name = "gitblit-${version}-git";
-    sha256 = "0wwffib2w2dw9h0sixx46kyqb1sq02q7wkrx36igicblqdh1djj3";
+    sha256 = "1fx954my177ply8x80jl4bbr60l0nawwr2djyh45jsxdvb38maiq";
   };
 
   buildInputs = [ jdk7 ant ];
