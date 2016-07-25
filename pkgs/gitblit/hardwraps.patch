@@ -1,33 +1,219 @@
-From 0facfcd4c2cfdbb4f2486ae49c68c03fb84b6478 Mon Sep 17 00:00:00 2001
+From 7691fb2e281249137489e654010388a723f3918d Mon Sep 17 00:00:00 2001
 From: Eike Kettner <eike.kettner@posteo.de>
-Date: Thu, 23 Apr 2015 18:46:32 +0200
-Subject: [PATCH 2/2] omit markdown hardwraps
+Date: Mon, 25 Jul 2016 20:54:23 +0200
+Subject: [PATCH 1/2] custom http authenticator
 
 ---
- src/main/java/com/gitblit/utils/MarkdownUtils.java | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ src/main/distrib/data/defaults.properties          |  11 ++
+ src/main/distrib/data/gitblit.properties           |   1 -
+ .../java/com/gitblit/auth/HttpUrlAuthProvider.java | 143 +++++++++++++++++++++
+ .../com/gitblit/manager/AuthenticationManager.java |   2 +
+ 4 files changed, 156 insertions(+), 1 deletion(-)
+ create mode 100644 src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
 
-diff --git a/src/main/java/com/gitblit/utils/MarkdownUtils.java b/src/main/java/com/gitblit/utils/MarkdownUtils.java
-index e0c9dd4..7e782b9 100644
---- a/src/main/java/com/gitblit/utils/MarkdownUtils.java
-+++ b/src/main/java/com/gitblit/utils/MarkdownUtils.java
-@@ -17,6 +17,7 @@ package com.gitblit.utils;
+diff --git a/src/main/distrib/data/defaults.properties b/src/main/distrib/data/defaults.properties
+index 0c7d6cd..f43a7d9 100644
+--- a/src/main/distrib/data/defaults.properties
++++ b/src/main/distrib/data/defaults.properties
+@@ -1957,6 +1957,17 @@ realm.ldap.removeDeletedUsers = true
+ # SINCE 1.2.0
+ realm.redmine.url = http://example.com/redmine
  
- import static org.pegdown.Extensions.ALL;
- import static org.pegdown.Extensions.ANCHORLINKS;
-+import static org.pegdown.Extensions.HARDWRAPS;
- import static org.pegdown.Extensions.SMARTYPANTS;
++# A url to authenticate against. On successful http status code, authentication
++# is successful, otherwise it is not.
++#
++# Example: http://my.authserver.com/?username=%[username]&password=%[password]
++realm.httpurl.urlPattern =
++
++# Use a POST request. If true, the query string of `urlPattern` is put into
++# the body and the request is send via POST and x-www-form-url-encoded. If
++# false, a GET request is issued.
++realm.httpurl.usePost = false
++
+ #
+ # Gitblit GO Server Settings
+ # The following settings only affect the integrated GO variant.
+diff --git a/src/main/distrib/data/gitblit.properties b/src/main/distrib/data/gitblit.properties
+index a4202e0..3c6405c 100644
+--- a/src/main/distrib/data/gitblit.properties
++++ b/src/main/distrib/data/gitblit.properties
+@@ -3,7 +3,6 @@
+ #
+ # Define your custom settings in this file and/or include settings defined in
+ # other properties files.
+-#
  
- import java.io.IOException;
-@@ -77,7 +78,7 @@ public class MarkdownUtils {
- 	 */
- 	public static String transformMarkdown(String markdown, LinkRenderer linkRenderer) {
- 		try {
--			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS & ~ANCHORLINKS);
-+			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS & ~ANCHORLINKS & ~HARDWRAPS);
- 			RootNode astRoot = pd.parseMarkdown(markdown.toCharArray());
- 			return new WorkaroundHtmlSerializer(linkRenderer == null ? new LinkRenderer() : linkRenderer).toHtml(astRoot);
- 		} catch (ParsingTimeoutException e) {
+ # Include Gitblit's 'defaults.properties' within your configuration.
+ #
+diff --git a/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
+new file mode 100644
+index 0000000..a021e85
+--- /dev/null
++++ b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
+@@ -0,0 +1,143 @@
++package com.gitblit.auth;
++
++import com.gitblit.Constants;
++import com.gitblit.Keys;
++import com.gitblit.models.UserModel;
++import com.gitblit.models.TeamModel;
++import com.gitblit.Constants.Role;
++import com.gitblit.utils.StringUtils;
++
++import java.io.DataOutputStream;
++import java.io.IOException;
++import java.net.HttpURLConnection;
++import java.net.URL;
++
++public class HttpUrlAuthProvider extends AuthenticationProvider.UsernamePasswordAuthenticationProvider {
++
++    public HttpUrlAuthProvider() {
++        super("httpurl");
++    }
++
++    @Override
++    public void setup() {
++    }
++
++    @Override
++    public UserModel authenticate(String username, char[] password) {
++        final String urlPattern = settings.getRequiredString(Keys.realm.httpurl.urlPattern);
++        try {
++            HttpURLConnection conn = settings.getBoolean(Keys.realm.httpurl.usePost, false) ?
++                    makePost(username, password, urlPattern)
++                    : makeGet(username, password, urlPattern);
++            try {
++                int rc = conn.getResponseCode();
++                if (rc != 200) {
++                    logger.error(String.format("Authentication failed (%d) for: %s", rc,
++                            urlPattern.replace("%[username]", username).replace("%[password]", "***")));
++                    return null;
++                }
++            } finally {
++                conn.disconnect();
++            }
++        } catch (Exception e) {
++            logger.error(e.getMessage());
++            return null;
++        }
++
++
++        UserModel user = userManager.getUserModel(username);
++        if (user == null) {
++            // create user object for new authenticated user
++            user = new UserModel(username.toLowerCase());
++            user.canAdmin = false;
++            user.canCreate = true;
++            user.canFork = true;
++        }
++
++        // create a user cookie
++        setCookie(user, password);
++
++        // update user attributes from UnixUser
++        user.accountType = getAccountType();
++        user.password = Constants.EXTERNAL_ACCOUNT;
++
++        // push the changes to the backing user service
++        updateUser(user);
++
++        return user;
++    }
++
++    private HttpURLConnection makeGet(String username, char[] password, String urlPattern) throws IOException {
++        final URL url = new URL(replaceParams(username, password, urlPattern));
++
++        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
++        conn.setRequestMethod("GET");
++        conn.connect();
++        return conn;
++    }
++
++    private String replaceParams(String username, char[] password, String urlPattern) {
++        return urlPattern
++                .replace("%[username]", StringUtils.encodeUsername(username))
++                .replace("%[password]", StringUtils.encodeURL(String.valueOf(password)));
++    }
++
++    private HttpURLConnection makePost(String username, char[] password, String urlPattern) throws IOException {
++        int idx = urlPattern.indexOf('?');
++        if (idx > 0) {
++            URL url = new URL(urlPattern.substring(0, idx));
++            String query = replaceParams(username, password, urlPattern.substring(idx + 1));
++
++            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
++            conn.setDoOutput(true);
++            conn.setDoInput(true);
++            conn.setUseCaches(false);
++            conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
++            conn.setRequestProperty("User-Agent", "Mozilla/5.0");
++            conn.setRequestMethod("POST");
++            conn.setInstanceFollowRedirects(true);
++            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
++            out.writeBytes(query);
++            out.flush();
++            out.close();
++            return conn;
++        } else {
++            return makeGet(username, password, urlPattern);
++        }
++    }
++
++
++    @Override
++    public Constants.AccountType getAccountType() {
++        return Constants.AccountType.HTTPHEADER;
++    }
++
++    @Override
++    public boolean supportsCredentialChanges() {
++        return false;
++    }
++
++    @Override
++    public boolean supportsDisplayNameChanges() {
++        return true;
++    }
++
++    @Override
++    public boolean supportsEmailAddressChanges() {
++        return true;
++    }
++
++    @Override
++    public boolean supportsTeamMembershipChanges() {
++        return true;
++    }
++
++    public boolean supportsRoleChanges(TeamModel model, Role role) {
++        return false;
++    }
++
++    @Override
++    public boolean supportsRoleChanges(UserModel user, Role role) {
++        return false;
++    }
++}
+diff --git a/src/main/java/com/gitblit/manager/AuthenticationManager.java b/src/main/java/com/gitblit/manager/AuthenticationManager.java
+index 4978763..a3f0007 100644
+--- a/src/main/java/com/gitblit/manager/AuthenticationManager.java
++++ b/src/main/java/com/gitblit/manager/AuthenticationManager.java
+@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.HttpServletResponse;
+ import javax.servlet.http.HttpSession;
+ 
++import com.gitblit.auth.*;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
+@@ -99,6 +100,7 @@ public class AuthenticationManager implements IAuthenticationManager {
+ 		providerNames.put("redmine", RedmineAuthProvider.class);
+ 		providerNames.put("salesforce", SalesforceAuthProvider.class);
+ 		providerNames.put("windows", WindowsAuthProvider.class);
++		providerNames.put("httpurl", HttpUrlAuthProvider.class);
+ 
+ 		// map of legacy external user services
+ 		legacyRedirects = new HashMap<String, String>();
 -- 
-2.6.2
+2.9.1
 

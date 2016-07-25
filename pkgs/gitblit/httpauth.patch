@@ -1,234 +1,323 @@
-From 54ec6b2659c1b86b0f728c2d56b4a9d4ba57d83e Mon Sep 17 00:00:00 2001
+From a226b3089c2ceb3731dec88f1642458b1b610f5a Mon Sep 17 00:00:00 2001
 From: Eike Kettner <eike.kettner@posteo.de>
-Date: Tue, 2 Dec 2014 12:42:53 +0100
-Subject: [PATCH 1/2] custom http authenticator
+Date: Mon, 25 Jul 2016 20:56:18 +0200
+Subject: [PATCH 2/2] omit markdown hardwraps
 
 ---
- src/main/distrib/data/defaults.properties          |  11 ++
- src/main/distrib/data/gitblit.properties           |   1 -
- .../java/com/gitblit/auth/HttpUrlAuthProvider.java | 143 +++++++++++++++++++++
- .../com/gitblit/manager/AuthenticationManager.java |   9 +-
- 4 files changed, 156 insertions(+), 8 deletions(-)
- create mode 100644 src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
+ src/main/java/com/gitblit/utils/MarkdownUtils.java | 302 ++++++++++-----------
+ 1 file changed, 150 insertions(+), 152 deletions(-)
 
-diff --git a/src/main/distrib/data/defaults.properties b/src/main/distrib/data/defaults.properties
-index ce6267a..785d613 100644
---- a/src/main/distrib/data/defaults.properties
-+++ b/src/main/distrib/data/defaults.properties
-@@ -1913,6 +1913,17 @@ realm.ldap.removeDeletedUsers = true
- # SINCE 1.2.0
- realm.redmine.url = http://example.com/redmine
- 
-+# A url to authenticate against. On successful http status code, authentication
-+# is successful, otherwise it is not.
-+#
-+# Example: http://my.authserver.com/?username=%[username]&password=%[password]
-+realm.httpurl.urlPattern =
+diff --git a/src/main/java/com/gitblit/utils/MarkdownUtils.java b/src/main/java/com/gitblit/utils/MarkdownUtils.java
+index e0c9dd4..3a74932 100644
+--- a/src/main/java/com/gitblit/utils/MarkdownUtils.java
++++ b/src/main/java/com/gitblit/utils/MarkdownUtils.java
+@@ -1,156 +1,154 @@
+-/*
+- * Copyright 2011 gitblit.com.
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- *     http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-package com.gitblit.utils;
+-
+-import static org.pegdown.Extensions.ALL;
+-import static org.pegdown.Extensions.ANCHORLINKS;
+-import static org.pegdown.Extensions.SMARTYPANTS;
+-
+-import java.io.IOException;
+-import java.io.Reader;
+-import java.io.StringWriter;
+-import java.text.MessageFormat;
+-
+-import org.apache.commons.io.IOUtils;
+-import org.pegdown.LinkRenderer;
+-import org.pegdown.ParsingTimeoutException;
+-import org.pegdown.PegDownProcessor;
+-import org.pegdown.ast.RootNode;
+-
+-import com.gitblit.IStoredSettings;
+-import com.gitblit.Keys;
+-import com.gitblit.wicket.MarkupProcessor.WorkaroundHtmlSerializer;
+-
+-/**
+- * Utility methods for transforming raw markdown text to html.
+- *
+- * @author James Moger
+- *
+- */
+-public class MarkdownUtils {
+-
+-	/**
+-	 * Returns the html version of the plain source text.
+-	 *
+-	 * @param text
+-	 * @return html version of plain text
+-	 * @throws java.text.ParseException
+-	 */
+-	public static String transformPlainText(String text) {
+-		// url auto-linking
+-		text = text.replaceAll("((http|https)://[0-9A-Za-z-_=\\?\\.\\$#&/]*)", "<a href=\"$1\">$1</a>");
+-		String html = "<pre>" + text + "</pre>";
+-		return html;
+-	}
+-
+-
+-	/**
+-	 * Returns the html version of the markdown source text.
+-	 *
+-	 * @param markdown
+-	 * @return html version of markdown text
+-	 * @throws java.text.ParseException
+-	 */
+-	public static String transformMarkdown(String markdown) {
+-		return transformMarkdown(markdown, null);
+-	}
+-
+-	/**
+-	 * Returns the html version of the markdown source text.
+-	 *
+-	 * @param markdown
+-	 * @return html version of markdown text
+-	 * @throws java.text.ParseException
+-	 */
+-	public static String transformMarkdown(String markdown, LinkRenderer linkRenderer) {
+-		try {
+-			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS & ~ANCHORLINKS);
+-			RootNode astRoot = pd.parseMarkdown(markdown.toCharArray());
+-			return new WorkaroundHtmlSerializer(linkRenderer == null ? new LinkRenderer() : linkRenderer).toHtml(astRoot);
+-		} catch (ParsingTimeoutException e) {
+-			return null;
+-		}
+-	}
+-
+-	/**
+-	 * Returns the html version of the markdown source reader. The reader is
+-	 * closed regardless of success or failure.
+-	 *
+-	 * @param markdownReader
+-	 * @return html version of the markdown text
+-	 * @throws java.text.ParseException
+-	 */
+-	public static String transformMarkdown(Reader markdownReader) throws IOException {
+-		// Read raw markdown content and transform it to html
+-		StringWriter writer = new StringWriter();
+-		try {
+-			IOUtils.copy(markdownReader, writer);
+-			String markdown = writer.toString();
+-			return transformMarkdown(markdown);
+-		} finally {
+-			try {
+-				writer.close();
+-			} catch (IOException e) {
+-				// IGNORE
+-			}
+-		}
+-	}
+-
+-
+-	/**
+-	 * Transforms GFM (Github Flavored Markdown) to html.
+-	 * Gitblit does not support the complete GFM specification.
+-	 *
+-	 * @param input
+-	 * @param repositoryName
+-	 * @return html
+-	 */
+-	public static String transformGFM(IStoredSettings settings, String input, String repositoryName) {
+-		String text = input;
+-
+-		// strikethrough
+-		text = text.replaceAll("~~(.*)~~", "<s>$1</s>");
+-		text = text.replaceAll("\\{(?:-){2}(.*)(?:-){2}}", "<s>$1</s>");
+-
+-		// underline
+-		text = text.replaceAll("\\{(?:\\+){2}(.*)(?:\\+){2}}", "<u>$1</u>");
+-
+-		// strikethrough, replacement
+-		text = text.replaceAll("\\{~~(.*)~>(.*)~~}", "<s>$1</s><u>$2</u>");
+-
+-		// highlight
+-		text = text.replaceAll("\\{==(.*)==}", "<span class='highlight'>$1</span>");
+-
+-		String canonicalUrl = settings.getString(Keys.web.canonicalUrl, "https://localhost:8443");
+-
+-		// emphasize and link mentions
+-		String mentionReplacement = String.format(" **[@$1](%1s/user/$1)**", canonicalUrl);
+-		text = text.replaceAll("\\s@([A-Za-z0-9-_]+)", mentionReplacement);
+-
++/*
++ * Copyright 2011 gitblit.com.
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *     http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package com.gitblit.utils;
 +
-+# Use a POST request. If true, the query string of `urlPattern` is put into
-+# the body and the request is send via POST and x-www-form-url-encoded. If
-+# false, a GET request is issued.
-+realm.httpurl.usePost = false
-+
- #
- # Gitblit GO Server Settings
- # The following settings only affect the integrated GO variant.
-diff --git a/src/main/distrib/data/gitblit.properties b/src/main/distrib/data/gitblit.properties
-index a4202e0..3c6405c 100644
---- a/src/main/distrib/data/gitblit.properties
-+++ b/src/main/distrib/data/gitblit.properties
-@@ -3,7 +3,6 @@
- #
- # Define your custom settings in this file and/or include settings defined in
- # other properties files.
--#
- 
- # Include Gitblit's 'defaults.properties' within your configuration.
- #
-diff --git a/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
-new file mode 100644
-index 0000000..358fc04
---- /dev/null
-+++ b/src/main/java/com/gitblit/auth/HttpUrlAuthProvider.java
-@@ -0,0 +1,143 @@
-+package com.gitblit.auth;
-+
-+import com.gitblit.Constants;
-+import com.gitblit.Keys;
-+import com.gitblit.models.UserModel;
-+import com.gitblit.models.TeamModel;
-+import com.gitblit.Constants.Role;
-+import com.gitblit.utils.StringUtils;
-+
-+import java.io.DataOutputStream;
 +import java.io.IOException;
-+import java.net.HttpURLConnection;
-+import java.net.URL;
++import java.io.Reader;
++import java.io.StringWriter;
++import java.text.MessageFormat;
 +
-+public class HttpUrlAuthProvider extends AuthenticationProvider.UsernamePasswordAuthenticationProvider {
++import org.apache.commons.io.IOUtils;
++import org.pegdown.LinkRenderer;
++import org.pegdown.ParsingTimeoutException;
++import org.pegdown.PegDownProcessor;
++import org.pegdown.ast.RootNode;
 +
-+    public HttpUrlAuthProvider() {
-+        super("httpurl");
-+    }
++import com.gitblit.IStoredSettings;
++import com.gitblit.Keys;
++import com.gitblit.wicket.MarkupProcessor.WorkaroundHtmlSerializer;
 +
-+    @Override
-+    public void setup() {
-+    }
++import static org.pegdown.Extensions.*;
 +
-+    @Override
-+    public UserModel authenticate(String username, char[] password) {
-+        final String urlPattern = settings.getRequiredString(Keys.realm.httpurl.urlPattern);
-+        try {
-+            HttpURLConnection conn = settings.getBoolean(Keys.realm.httpurl.usePost, false) ?
-+                    makePost(username, password, urlPattern)
-+                    : makeGet(username, password, urlPattern);
-+            try {
-+                int rc = conn.getResponseCode();
-+                if (rc != 200) {
-+                    logger.error(String.format("Authentication failed (%d) for: %s", rc,
-+                            urlPattern.replace("%[username]", username).replace("%[password]", "***")));
-+                    return null;
-+                }
-+            } finally {
-+                conn.disconnect();
-+            }
-+        } catch (Exception e) {
-+            logger.error(e.getMessage());
-+            return null;
-+        }
++/**
++ * Utility methods for transforming raw markdown text to html.
++ *
++ * @author James Moger
++ *
++ */
++public class MarkdownUtils {
 +
-+
-+        UserModel user = userManager.getUserModel(username);
-+        if (user == null) {
-+            // create user object for new authenticated user
-+            user = new UserModel(username.toLowerCase());
-+            user.canAdmin = false;
-+            user.canCreate = true;
-+            user.canFork = true;
-+        }
-+
-+        // create a user cookie
-+        setCookie(user, password);
-+
-+        // update user attributes from UnixUser
-+        user.accountType = getAccountType();
-+        user.password = Constants.EXTERNAL_ACCOUNT;
-+
-+        // push the changes to the backing user service
-+        updateUser(user);
-+
-+        return user;
-+    }
-+
-+    private HttpURLConnection makeGet(String username, char[] password, String urlPattern) throws IOException {
-+        final URL url = new URL(replaceParams(username, password, urlPattern));
-+
-+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-+        conn.setRequestMethod("GET");
-+        conn.connect();
-+        return conn;
-+    }
-+
-+    private String replaceParams(String username, char[] password, String urlPattern) {
-+        return urlPattern
-+                .replace("%[username]", StringUtils.encodeUsername(username))
-+                .replace("%[password]", StringUtils.encodeURL(String.valueOf(password)));
-+    }
-+
-+    private HttpURLConnection makePost(String username, char[] password, String urlPattern) throws IOException {
-+        int idx = urlPattern.indexOf('?');
-+        if (idx > 0) {
-+            URL url = new URL(urlPattern.substring(0, idx));
-+            String query = replaceParams(username, password, urlPattern.substring(idx + 1));
-+
-+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-+            conn.setDoOutput(true);
-+            conn.setDoInput(true);
-+            conn.setUseCaches(false);
-+            conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
-+            conn.setRequestProperty("User-Agent", "Mozilla/5.0");
-+            conn.setRequestMethod("POST");
-+            conn.setInstanceFollowRedirects(true);
-+            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-+            out.writeBytes(query);
-+            out.flush();
-+            out.close();
-+            return conn;
-+        } else {
-+            return makeGet(username, password, urlPattern);
-+        }
-+    }
++	/**
++	 * Returns the html version of the plain source text.
++	 *
++	 * @param text
++	 * @return html version of plain text
++	 * @throws java.text.ParseException
++	 */
++	public static String transformPlainText(String text) {
++		// url auto-linking
++		text = text.replaceAll("((http|https)://[0-9A-Za-z-_=\\?\\.\\$#&/]*)", "<a href=\"$1\">$1</a>");
++		String html = "<pre>" + text + "</pre>";
++		return html;
++	}
 +
 +
-+    @Override
-+    public Constants.AccountType getAccountType() {
-+        return Constants.AccountType.EXTERNAL;
-+    }
++	/**
++	 * Returns the html version of the markdown source text.
++	 *
++	 * @param markdown
++	 * @return html version of markdown text
++	 * @throws java.text.ParseException
++	 */
++	public static String transformMarkdown(String markdown) {
++		return transformMarkdown(markdown, null);
++	}
 +
-+    @Override
-+    public boolean supportsCredentialChanges() {
-+        return false;
-+    }
++	/**
++	 * Returns the html version of the markdown source text.
++	 *
++	 * @param markdown
++	 * @return html version of markdown text
++	 * @throws java.text.ParseException
++	 */
++	public static String transformMarkdown(String markdown, LinkRenderer linkRenderer) {
++		try {
++			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS & ~ANCHORLINKS & ~HARDWRAPS);
++			RootNode astRoot = pd.parseMarkdown(markdown.toCharArray());
++			return new WorkaroundHtmlSerializer(linkRenderer == null ? new LinkRenderer() : linkRenderer).toHtml(astRoot);
++		} catch (ParsingTimeoutException e) {
++			return null;
++		}
++	}
 +
-+    @Override
-+    public boolean supportsDisplayNameChanges() {
-+        return true;
-+    }
++	/**
++	 * Returns the html version of the markdown source reader. The reader is
++	 * closed regardless of success or failure.
++	 *
++	 * @param markdownReader
++	 * @return html version of the markdown text
++	 * @throws java.text.ParseException
++	 */
++	public static String transformMarkdown(Reader markdownReader) throws IOException {
++		// Read raw markdown content and transform it to html
++		StringWriter writer = new StringWriter();
++		try {
++			IOUtils.copy(markdownReader, writer);
++			String markdown = writer.toString();
++			return transformMarkdown(markdown);
++		} finally {
++			try {
++				writer.close();
++			} catch (IOException e) {
++				// IGNORE
++			}
++		}
++	}
 +
-+    @Override
-+    public boolean supportsEmailAddressChanges() {
-+        return true;
-+    }
 +
-+    @Override
-+    public boolean supportsTeamMembershipChanges() {
-+        return true;
-+    }
++	/**
++	 * Transforms GFM (Github Flavored Markdown) to html.
++	 * Gitblit does not support the complete GFM specification.
++	 *
++	 * @param input
++	 * @param repositoryName
++	 * @return html
++	 */
++	public static String transformGFM(IStoredSettings settings, String input, String repositoryName) {
++		String text = input;
 +
-+    public boolean supportsRoleChanges(TeamModel model, Role role) {
-+        return false;
-+    }
++		// strikethrough
++		text = text.replaceAll("~~(.*)~~", "<s>$1</s>");
++		text = text.replaceAll("\\{(?:-){2}(.*)(?:-){2}}", "<s>$1</s>");
 +
-+    @Override
-+    public boolean supportsRoleChanges(UserModel user, Role role) {
-+        return false;
-+    }
++		// underline
++		text = text.replaceAll("\\{(?:\\+){2}(.*)(?:\\+){2}}", "<u>$1</u>");
++
++		// strikethrough, replacement
++		text = text.replaceAll("\\{~~(.*)~>(.*)~~}", "<s>$1</s><u>$2</u>");
++
++		// highlight
++		text = text.replaceAll("\\{==(.*)==}", "<span class='highlight'>$1</span>");
++
++		String canonicalUrl = settings.getString(Keys.web.canonicalUrl, "https://localhost:8443");
++
++		// emphasize and link mentions
++		String mentionReplacement = String.format(" **[@$1](%1s/user/$1)**", canonicalUrl);
++		text = text.replaceAll("\\s@([A-Za-z0-9-_]+)", mentionReplacement);
++
+ 		// link ticket refs
+ 		String ticketReplacement = MessageFormat.format("$1[#$2]({0}/tickets?r={1}&h=$2)$3", canonicalUrl, repositoryName);
+ 		text = text.replaceAll("([\\s,]+)#(\\d+)([\\s,:\\.\\n])", ticketReplacement);
+ 
+-		// link commit shas
+-		int shaLen = settings.getInteger(Keys.web.shortCommitIdLength, 6);
+-		String commitPattern = MessageFormat.format("\\s([A-Fa-f0-9]'{'{0}'}')([A-Fa-f0-9]'{'{1}'}')", shaLen, 40 - shaLen);
+-		String commitReplacement = String.format(" [`$1`](%1$s/commit?r=%2$s&h=$1$2)", canonicalUrl, repositoryName);
+-		text = text.replaceAll(commitPattern, commitReplacement);
+-
+-		String html = transformMarkdown(text);
+-		return html;
+-	}
+-}
++		// link commit shas
++		int shaLen = settings.getInteger(Keys.web.shortCommitIdLength, 6);
++		String commitPattern = MessageFormat.format("\\s([A-Fa-f0-9]'{'{0}'}')([A-Fa-f0-9]'{'{1}'}')", shaLen, 40 - shaLen);
++		String commitReplacement = String.format(" [`$1`](%1$s/commit?r=%2$s&h=$1$2)", canonicalUrl, repositoryName);
++		text = text.replaceAll(commitPattern, commitReplacement);
++
++		String html = transformMarkdown(text);
++		return html;
++	}
 +}
-diff --git a/src/main/java/com/gitblit/manager/AuthenticationManager.java b/src/main/java/com/gitblit/manager/AuthenticationManager.java
-index 7e0b07b..1e17dab 100644
---- a/src/main/java/com/gitblit/manager/AuthenticationManager.java
-+++ b/src/main/java/com/gitblit/manager/AuthenticationManager.java
-@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
- import javax.servlet.http.HttpServletResponse;
- import javax.servlet.http.HttpSession;
- 
-+import com.gitblit.auth.*;
- import org.slf4j.Logger;
- import org.slf4j.LoggerFactory;
- 
-@@ -38,14 +39,7 @@ import com.gitblit.Constants.AuthenticationType;
- import com.gitblit.Constants.Role;
- import com.gitblit.IStoredSettings;
- import com.gitblit.Keys;
--import com.gitblit.auth.AuthenticationProvider;
- import com.gitblit.auth.AuthenticationProvider.UsernamePasswordAuthenticationProvider;
--import com.gitblit.auth.HtpasswdAuthProvider;
--import com.gitblit.auth.LdapAuthProvider;
--import com.gitblit.auth.PAMAuthProvider;
--import com.gitblit.auth.RedmineAuthProvider;
--import com.gitblit.auth.SalesforceAuthProvider;
--import com.gitblit.auth.WindowsAuthProvider;
- import com.gitblit.models.TeamModel;
- import com.gitblit.models.UserModel;
- import com.gitblit.transport.ssh.SshKey;
-@@ -97,6 +91,7 @@ public class AuthenticationManager implements IAuthenticationManager {
- 		providerNames.put("redmine", RedmineAuthProvider.class);
- 		providerNames.put("salesforce", SalesforceAuthProvider.class);
- 		providerNames.put("windows", WindowsAuthProvider.class);
-+		providerNames.put("httpurl", HttpUrlAuthProvider.class);
- 
- 		// map of legacy external user services
- 		legacyRedirects = new HashMap<String, String>();
 -- 
-2.6.2
+2.9.1
 
