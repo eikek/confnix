@@ -60,6 +60,12 @@ in {
         default = "unix:/run/fastcgi.socket";
         description = "FastCgi socket connection.";
       };
+
+      enableInstaller = mkOption {
+        default = false;
+        description = ''Enables the roundcube installer. Can be used to check
+          the configuration, but must be disabled before going live!'';
+      };
     };
   };
 
@@ -99,6 +105,7 @@ in {
         ln -snf ${rc}/composer.json-dist ${cfg.baseDir}/composer.json-dist
         ln -snf ${rc}/index.php ${cfg.baseDir}/index.php
         ln -snf ${rc}/robots.txt ${cfg.baseDir}/robots.txt
+        ${if (cfg.enableInstaller) then "ln -snf ${rc}/installer ${cfg.baseDir}/installer" else "rm -f ${cfg.baseDir}/installer"}
         cp ${rc}/config/* ${cfg.baseDir}/config/
         # /**/
 
@@ -132,7 +139,7 @@ in {
         \$config['skin'] = 'larry';
         \$config['debug_level'] = 1;
         \$config['log_driver'] = 'syslog';
-        \$config['enable_installer'] = false;
+        \$config['enable_installer'] = ${if (cfg.enableInstaller) then "true" else "false"};
         \$config['support_url'] = '${cfg.supportUrl}';
         \$config['language'] = 'de_DE';
         \$config['timezone'] = "Europe/Berlin";
