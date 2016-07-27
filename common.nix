@@ -66,7 +66,6 @@
     rlwrap
     sqlite
     fdupes
-    emacs
     zile
     elinks
     w3m
@@ -92,8 +91,5 @@
     home = "/home/eike";
     shell = "/run/current-system/sw/bin/zsh";
     extraGroups = [ "wheel" "audio" "messagebus" "systemd-journal" ];
-    # openssh.authorizedKeys.keyFiles = [
-    #   "./private/id_dsa_eike.pub"
-    # ];
   };
 }

@@ -1,13 +1,13 @@
 {stdenv, fetchurl, unzip}:
 
 stdenv.mkDerivation rec {
-  version = "9.0";
+  version = "11";
   name = "mediathekview-${version}";
 
   src = fetchurl {
-    url = http://downloads.sourceforge.net/project/zdfmediathk/Mediathek/Mediathek%209/MediathekView_9.zip;
+    url = "http://downloads.sourceforge.net/project/zdfmediathk/Mediathek/Mediathek%20${version}/MediathekView_${version}.zip";
     name = "${name}-download.zip";
-    sha256 = "1wff0igr33z9p1mjw7yvb6658smdwnp22dv8klz0y8qg116wx7a4";
+    sha256 = "1gyb9jfd2yxkf4gknwvd792idpkim63kbqylq7qs17mjvkif4ihq";
   };
 
   buildInputs = [ unzip ];

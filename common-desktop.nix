@@ -133,6 +133,8 @@
     aumix
     wicd
     ntfs3g
+    nixops
+    emacs25pre
 
   # images
     feh
@@ -146,18 +148,12 @@
     plantuml
 
   # multimedia
-    mpd
-    mpc_cli
     mplayer
     vlc
     cdparanoia
-    lxdvdrip
     sox
     flac
     vorbisTools
-#    soundkonverter
-    exiv2
-    easytag
     ffmpeg
     calibre
 
@@ -212,8 +208,6 @@
     drip
     neomodmap
     recoll
-    tesseract304
-    poppler_utils
     recordmydesktop
     aspell
     aspellDicts.en
