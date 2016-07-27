@@ -84,8 +84,6 @@ in {
 
   config = mkIf config.services.roundcube.enable {
 
-    environment.systemPackages = [ pkgs.php pkgs.roundcube ];
-
     services.nginx.httpConfig = mkIf cfg.nginxEnable ''
       server {
          listen ${cfg.nginxListen};
