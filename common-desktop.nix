@@ -134,7 +134,7 @@
     wicd
     ntfs3g
     nixops
-    emacs25pre
+    emacs
 
   # images
     feh
