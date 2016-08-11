@@ -154,17 +154,16 @@ in
     chromium
   ];
 
-#   users.extraUsers.sniffy = {
-#     isSystemUser = true;
-#     home = "/var/lib/sniffy";
-#     createHome = true;
-#     useDefaultShell = true;
-# #    openssh.authorizedKeys.keys = [ ];
-#   };
-
-  # security.sudo.extraConfig = ''
-  #   sniffy ALL=${pkgs.dmidecode}/bin/dmidecode
-  # '';
+  users.extraUsers.lansweeper = let
+    key = if (builtins.pathExists ./id_lansweeper.pub) then builtins.readFile ./id_lansweeper.pub
+          else throw "No public key file for lansweeper";
+  in {
+    isSystemUser = true;
+    home = "/var/lib/lansweeper";
+    createHome = true;
+    useDefaultShell = true;
+    openssh.authorizedKeys.keys = [ key ];
+  };
 
   hardware = {
     enableAllFirmware = true;
