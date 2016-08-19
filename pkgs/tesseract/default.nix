@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, leptonica, libpng, libtiff }:
+{ stdenv, fetchurl, autoconf, automake, libtool, leptonica_gif, libpng, libtiff, giflib }:
 
 with stdenv.lib;
 
@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "0snwd8as5i8vx7zkimpd2yg898jl96zf90r65a9w615f2hdkxxjp";
   };
 
-  buildInputs = [ autoconf automake libtool leptonica libpng libtiff ];
+  buildInputs = [ autoconf automake libtool leptonica_gif libpng libtiff giflib ];
 
   preConfigure = ''
       ./autogen.sh
       substituteInPlace "configure" \
         --replace 'LIBLEPT_HEADERSDIR="/usr/local/include /usr/include /opt/local/include/leptonica"' \
-                  'LIBLEPT_HEADERSDIR=${leptonica}/include'
+                  'LIBLEPT_HEADERSDIR=${leptonica_gif}/include'
   '';
 
   postInstall = tessdata;
