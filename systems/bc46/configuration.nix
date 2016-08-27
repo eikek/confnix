@@ -152,6 +152,7 @@ in
     ansible2
     nodePackages.grunt-cli
     chromium
+    libreoffice
   ];
 
   users.extraUsers.lansweeper = let

@@ -198,7 +198,6 @@
   # other tools
     zathura
     ghostscript
-    libreoffice
     sqliteman
     pandoc
     youtube-dl
