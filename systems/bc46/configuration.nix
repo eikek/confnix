@@ -6,6 +6,12 @@ let
      password to mount the fileserver and add it to the NIX_PATH
      variable with key "serverpass".
    '' ;
+  hinpass = if (builtins.tryEval <hinpass>).success then
+   builtins.readFile <hinpass>
+   else builtins.throw ''Please specify a file that contains the
+     password to mount the fileserver and add it to the NIX_PATH
+     variable with key "hinpass".
+   '' ;
 in
 {
   imports =
@@ -62,7 +68,7 @@ in
   services.hinclient = {
     enable = true;
     identities = "ekettne1";
-    passphrase = pkgs.writeText "hinpass" serverpass;
+    passphrase = pkgs.writeText "hinpass" hinpass;
     keystore = /root/ekettne1.hin;
     httpProxyPort = 6016;
     clientapiPort = 6017;
