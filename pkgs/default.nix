@@ -38,7 +38,7 @@ let
     publet = callPackage ./publet {};
     publetQuartz = callPackage ./publet/quartz.nix {};
     publetSharry = callPackage ./publet/sharry.nix {};
-#    recutils = callPackage ./recutils {};
+    recutils = callPackage ./recutils {};
     roundcube = callPackage ./roundcube {};
     scaladocs = callPackage ./scala-docs {};
     shelter = callPackage ./shelter {};
