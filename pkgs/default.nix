@@ -8,7 +8,6 @@ let
     cask = callPackage ./cask {};
     cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
-    conkeror = callPackage ./conkeror {};
     coursier = callPackage ./coursier {};
     derby = callPackage ./derby {};
     drip = callPackage ./drip {};
