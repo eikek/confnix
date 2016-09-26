@@ -16,6 +16,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ autoconf ];
 
+  hardeningDisable = [ "format" ];
+
   preConfigure = " autoconf ";
 
   meta = {
