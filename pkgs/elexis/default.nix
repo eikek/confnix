@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, freetype, fontconfig, xorg, zlib, jdk, glib, gtk, webkitgtk2, makeWrapper, unzip }:
+{ stdenv, fetchurl, freetype, fontconfig, xorg, zlib, jdk, glib, gnome2, webkitgtk2, makeWrapper, unzip }:
 
 stdenv.mkDerivation rec {
   version = "3.0.0";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper $out/Elexis3 $out/bin/Elexis3 \
       --prefix PATH : ${jdk}/bin \
-      --prefix LD_LIBRARY_PATH : ${glib}/lib:${gtk.out}/lib:${xorg.libXtst}/lib${stdenv.lib.optionalString (webkitgtk2 != null) ":${webkitgtk2}/lib"}
+      --prefix LD_LIBRARY_PATH : ${glib}/lib:${gnome2.gtk.out}/lib:${xorg.libXtst}/lib${stdenv.lib.optionalString (webkitgtk2 != null) ":${webkitgtk2}/lib"}
   '';
 
   meta = {
