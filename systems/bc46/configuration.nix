@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
  serverpass = if (builtins.tryEval <serverpass>).success then
    builtins.readFile <serverpass>
@@ -135,6 +135,8 @@ in
   };
 
   environment.pathsToLink = [ "/" ];
+
+  nix.maxJobs = lib.mkOverride 20 4;
 
   nixpkgs.config = {
     allowUnfree = true;
