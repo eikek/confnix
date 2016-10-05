@@ -161,6 +161,7 @@ in
     nodePackages.grunt-cli
     chromium
     libreoffice
+    subversion
   ];
 
   users.extraUsers.lansweeper = let
