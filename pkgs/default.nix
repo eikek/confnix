@@ -25,6 +25,7 @@ let
     kube = callPackage ./kube {};
     leptonica_gif = callPackage ./leptonica {};
     lsdvd = callPackage ./lsdvd {};
+    makemkv = callPackage ./makemkv {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
     mongodex = callPackage ./dex {};
@@ -51,7 +52,6 @@ let
     twitterBootstrap3 = callPackage ./twbs {};
     visualvm = callPackage ./visualvm {};
 #    flashplayer = callPackage ./flashplayer {};
-#    makemkv = callPackage ./makemkv {};
 #    stumpwm = callPackage ./stumpwm {};
   };
   osxcollection = import ./osxcollection/default.nix (custom // pkgs);
