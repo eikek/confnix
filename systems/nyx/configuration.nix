@@ -16,7 +16,7 @@
       {device = "/dev/sda5"; name = "rootfs"; }
     ];
 
-    kernelPackages = pkgs.linuxPackages_4_6;
+    kernelPackages = pkgs.linuxPackages_4_8;
   };
 
   i18n = {
