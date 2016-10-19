@@ -80,6 +80,7 @@
     recutils
     tmuxinator
     direnv
+    tree
   ];
 
   users.extraUsers.eike = {
