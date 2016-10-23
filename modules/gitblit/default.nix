@@ -180,6 +180,9 @@ in {
       description = "Gitblit";
       after = [ "networking.target" ];
       wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        WorkingDirectory = "${cfg.baseDir}";
+      };
       preStart = ''
         mkdir -p ${cfg.baseDir}
         cd ${cfg.baseDir}
@@ -224,7 +227,7 @@ in {
       '';
 
       script = ''
-        ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${gitblitUser} -c "cd ${cfg.baseDir} && ${pkgs.jdk}/bin/java -jar gitblit.jar --baseFolder ${cfg.dataDir} --dailyLogFile --httpPort ${str cfg.httpPort} --httpsPort ${str cfg.httpsPort} --sshPort ${str cfg.sshPort} --gitPort ${str cfg.gitPort} --repositoriesFolder ${cfg.repositoriesDir} "
+        ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${gitblitUser} -c "${pkgs.jdk}/bin/java -jar gitblit.jar --baseFolder ${cfg.dataDir} --dailyLogFile --httpPort ${str cfg.httpPort} --httpsPort ${str cfg.httpsPort} --sshPort ${str cfg.sshPort} --gitPort ${str cfg.gitPort} --repositoriesFolder ${cfg.repositoriesDir} "
       '';
     };
   };
