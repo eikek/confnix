@@ -29,8 +29,9 @@ let
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
     mongodex = callPackage ./dex {};
+    mongodb-tools = callPackage ./mongodb-tools {};
     msgconvert = callPackage ./msgconvert {};
-    neo2osd = callPackage ./neo2osd {};
+#    neo2osd = callPackage ./neo2osd {};
     neomodmap = callPackage ./neomodmap {};
     nginx =  callPackage ./nginx {};
     odt2org = callPackage ./odt2org {};
