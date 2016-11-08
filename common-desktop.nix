@@ -193,7 +193,7 @@
     tex
     R
     cask
-    coursier
+    ammonite-repl
 
   # other tools
     zathura
