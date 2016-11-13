@@ -19,8 +19,8 @@ let
     ''; #*/
   };
 in {
- jdk7 = mkJavaDoc "7" "7u101-2.6.6-2" "1hqga624pydg27gb53219hynizhmpbn7ffh97jhnrbrwc84gc0c9";
- jdk8 = mkJavaDoc "8" "8u102-b14.1-2" "1w6dlyg3dvmjk27793zpm44zksqkmwlqrbhm591vc2ivz92rxkzx";
+ jdk9 = mkJavaDoc "9" "9~b144-1" "0gh4nfwnxciim88c0iii7144pqsr54hq5mbzh3366iv254af1ncp";
+ jdk8 = mkJavaDoc "8" "8u111-b14-3" "180by08mzgrn2my8yyw5z9fj3mik73nrilwy873k67xwzhmsi8nb";
  jee7 = stdenv.mkDerivation rec {
    name = "javaee-7.0-doc";
    src = fetchurl {
