@@ -215,6 +215,7 @@
     kde4.l10n.de
     kde4.amarok
     kde4.okular
+    kde4.kmix
     torbrowser
     zathura
     ghostscript
