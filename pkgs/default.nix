@@ -52,6 +52,7 @@ let
     tesseract304 = callPackage ./tesseract {};
     twitterBootstrap3 = callPackage ./twbs {};
     visualvm = callPackage ./visualvm {};
+    imagemagick695 = callPackage ./imagick{};
 #    flashplayer = callPackage ./flashplayer {};
 #    stumpwm = callPackage ./stumpwm {};
   };
