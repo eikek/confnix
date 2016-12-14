@@ -116,6 +116,10 @@ in
       192.168.13.79 larnags.sta.dbmaster
       192.168.13.80 larnags.sta.dbslave1
       192.168.13.81 larnags.sta.dbslave2
+      192.168.13.71 patstamm.int patstamm.int1
+      192.168.13.72 patstamm.int2
+      192.168.13.83 patstamm.sta patstamm.sta1
+      192.168.13.88 patstamm.sta2
     '';
     hostName = "bluecare-n46";
     wireless = {
