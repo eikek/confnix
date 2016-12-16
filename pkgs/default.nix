@@ -51,6 +51,7 @@ let
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
     tesseract304 = callPackage ./tesseract {};
     twitterBootstrap3 = callPackage ./twbs {};
+    utaxccdclp = callPackage ./utaxccdclp {};
     visualvm = callPackage ./visualvm {};
     imagemagick695 = callPackage ./imagick{};
 #    flashplayer = callPackage ./flashplayer {};

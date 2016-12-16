@@ -153,6 +153,11 @@ in
     };
   };
 
+  # refer to the osx manual here https://intranet/x/EQNxAg
+  services.printing = {
+    drivers = [ pkgs.utaxccdclp ];
+  };
+
   fonts.fonts = with pkgs; [
     corefonts #unfree
   ];
