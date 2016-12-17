@@ -194,6 +194,7 @@
     R
     cask
     ammonite-repl
+    elmPackages.elm
 
   # other tools
     zathura
