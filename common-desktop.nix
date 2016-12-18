@@ -195,6 +195,7 @@
     cask
     ammonite-repl
     elmPackages.elm
+    elmPackages.elm-oracle
 
   # other tools
     zathura

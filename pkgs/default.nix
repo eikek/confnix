@@ -13,6 +13,7 @@ let
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
     elexis = callPackage ./elexis {};
+    elmPackages = pkgs.elmPackages // { elm-oracle = callPackage ./elm-oracle {}; };
     exim = callPackage ./exim {};
     freerdpUnstable = callPackage ./freerdp {};
     gitblit = callPackage ./gitblit {};
