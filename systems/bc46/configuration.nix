@@ -168,7 +168,6 @@ in
     mongodb-tools
     ansible2
     nodePackages.grunt-cli
-    chromium
     libreoffice
     subversion
   ];
