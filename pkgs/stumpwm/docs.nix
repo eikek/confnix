@@ -1,13 +1,13 @@
 {stdenv, fetchgit}:
 
 stdenv.mkDerivation rec {
-  version = "0.9.9";
+  version = "1.0.0";
   name = "stumpwm-docs-${version}";
 
   src = fetchgit {
     url = https://github.com/stumpwm/stumpwm.github.io.git;
     rev = "refs/heads/master";
-    sha256 = "0bfh80v234nnaxih37xw4nklx8h3fq2p89kx231rp1bjhmjfq03h";
+    sha256 = "0hz389k0v0jm9ncjqfh3jfpli1l7hhvljx04ihxmb08nc8ymrad8";
     name = "stumpwm-docs-${version}-git";
   };
 

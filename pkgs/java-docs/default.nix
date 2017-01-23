@@ -5,7 +5,8 @@ let
     inherit version;
     name = "openjdk-${major}-doc";
     src = fetchurl {
-      url = "mirror://debian/pool/main/o/openjdk-${major}/openjdk-${major}-doc_${version}_all.deb";
+      # the ftp mirrors are blocked by our fw…
+      url = "http://ftp.de.debian.org/debian/pool/main/o/openjdk-${major}/openjdk-${major}-doc_${version}_all.deb";
       sha256 = "${sha}";
       name = "${name}-deb";
     };
@@ -19,7 +20,7 @@ let
     ''; #*/
   };
 in {
- jdk9 = mkJavaDoc "9" "9~b144-1" "0gh4nfwnxciim88c0iii7144pqsr54hq5mbzh3366iv254af1ncp";
+ jdk9 = mkJavaDoc "9" "9~b153-2" "05467sfc5afbcwds78irrivs6dfw0b843mg4xrigg6hiz7whk9q6";
  jdk8 = mkJavaDoc "8" "8u111-b14-3" "180by08mzgrn2my8yyw5z9fj3mik73nrilwy873k67xwzhmsi8nb";
  jee7 = stdenv.mkDerivation rec {
    name = "javaee-7.0-doc";
