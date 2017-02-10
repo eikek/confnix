@@ -65,22 +65,6 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
 
   services.postgresql = {
     enable = true;
-    extraConfig = ''
-      track_activities = true
-      shared_buffers = 2GB
-      maintenance_work_mem = 2GB
-      work_mem = 16MB
-      fsync = off
-      synchronous_commit = off
-      wal_level = minimal
-      full_page_writes = off
-      wal_buffers = 64MB
-      max_wal_senders = 0
-      wal_keep_segments = 0
-      archive_mode = off
-      autovacuum = off
-      log_statement = all
-    '';
   };
 
   environment.pathsToLink = [ "/" ];
