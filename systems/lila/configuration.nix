@@ -12,7 +12,7 @@
       version = 2;
       devices = [ "/dev/sda" ];
     };
-    kernelPackages = pkgs.linuxPackages_4_8;
+    kernelPackages = pkgs.linuxPackages_4_9;
   };
 
   i18n = {
@@ -210,6 +210,7 @@
     rstudio
 
   # other tools
+    pspp
     lyx
     kde4.kopete
     kde4.l10n.de
