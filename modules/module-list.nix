@@ -9,4 +9,5 @@
  ./sitebag
  ./shelter
  ./hinclient
+ ./pill
 ]

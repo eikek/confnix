@@ -64,6 +64,10 @@
     }) ["backups" "dokumente" "downloads" "home" "music" "photo" "safe" "video"]);
 
 
+  services.pill = {
+    enable = true;
+  };
+
   services.redshift = {
     enable = true;
     brightness.night = "0.8";

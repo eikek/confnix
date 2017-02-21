@@ -37,6 +37,7 @@ let
     nginx =  callPackage ./nginx {};
     odt2org = callPackage ./odt2org {};
     pam_script = callPackage ./pam-script {};
+    pill = callPackage ./pill {};
     publet = callPackage ./publet {};
     publetQuartz = callPackage ./publet/quartz.nix {};
     publetSharry = callPackage ./publet/sharry.nix {};
