@@ -4,12 +4,13 @@ let
   packed = v: stdenv.lib.replaceChars ["."] [""] v;
 in
 stdenv.mkDerivation rec {
-  version = "1.3.8";
+  version = "1.3.9";
   name = "visualvm-${version}";
 
   src = let v = packed version; in fetchurl {
-    url = "https://java.net/projects/visualvm/downloads/download/release${v}/visualvm_${v}.zip";
-    sha256 = "16fqfz0fzshx6hmh55ac4hvggxl646mk4z0d2p8l4ajmavkq3yh5";
+    url = "https://github.com/visualvm/visualvm.src/releases/download/${version}/visualvm_${v}-ml.zip";
+#    url = "https://java.net/projects/visualvm/downloads/download/release${v}/visualvm_${v}.zip";
+    sha256 = "1zp4am06p7vbngs28pj9hx2mc4cnmlpy166h96agy6g1gwy7yxas";
   };
 
   buildInputs = [ unzip ];
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
     mv * $out/program
     cat >> $out/bin/visualvm <<-EOF
     #! /bin/env bash
-    $out/program/bin/visualvm --jdkhome ${jdk}/lib/openjdk $@
+    $out/program/bin/visualvm --jdkhome ${jdk}/lib/openjdk "\$@"
     EOF
     chmod 755 $out/bin/visualvm
   '';
