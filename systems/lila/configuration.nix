@@ -25,6 +25,8 @@
     members = [ "linda" ];
   };
 
+  virtualisation.virtualbox.host.enable = true;
+
   networking = {
     hostName = "lila";
     wireless = {
@@ -214,6 +216,7 @@
     rstudio
 
   # other tools
+    virtualbox
     pspp
     lyx
     kde4.kopete
