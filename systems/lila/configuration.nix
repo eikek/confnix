@@ -53,7 +53,7 @@
     drivers = [ pkgs.c544ppd ];
   };
 
-  security.setuidPrograms = [ "mount.cifs" ];
+  security.wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
 
   fileSystems = builtins.listToAttrs (map (mp:
     { name = "/mnt/nas/" + mp;
@@ -94,11 +94,11 @@
     };
 
     desktopManager = {
-      kde4.enable = true;
+      kde5.enable = true;
     };
 
     displayManager = {
-      kdm.enable = true;
+      sddm.enable = true;
       sessionCommands = ''
         export JAVA_HOME=${pkgs.jdk}/lib/openjdk
         export JDK_HOME=${pkgs.jdk}/lib/openjdk
@@ -221,9 +221,11 @@
     lyx
     kde4.kopete
     kde4.l10n.de
+    kde5.l10n.de.qt5
+    kde5.l10n.de.qt4
     kde4.amarok
-    kde4.okular
-    kde4.kmix
+    kde5.okular
+    kde5.kmix
     torbrowser
     zathura
     ghostscript
