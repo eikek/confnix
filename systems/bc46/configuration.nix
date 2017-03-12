@@ -41,7 +41,7 @@ in
   };
 
   # needed for the `user` option below
-  security.setuidPrograms = [ "mount.cifs" ];
+  security.wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
 
   fileSystems = {
     "/".device = pkgs.lib.mkForce "/dev/mapper/vg-root";

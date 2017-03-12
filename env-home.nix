@@ -2,7 +2,7 @@
 
 {
   # needed for the `user` option below
-  security.setuidPrograms = [ "mount.cifs" ];
+  security.wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
 
   fileSystems = builtins.listToAttrs (map (mp:
     { name = "/mnt/nas/" + mp;
