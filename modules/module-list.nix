@@ -8,4 +8,5 @@
  ./roundcube
  ./sitebag
  ./shelter
+ ./gitbucket
 ]

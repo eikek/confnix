@@ -13,6 +13,7 @@ let
     ejabberd15 = callPackage ./ejabberd {};
     exim = callPackage ./exim {};
     gitblit = callPackage ./gitblit {};
+    gitbucket = callPackage ./gitbucket {};
     handlebars = callPackage ./handlebars {};
     hl5380ppd = callPackage ./brother-hl5380 {};
     html2textpy = callPackage ./html2textpy {};
