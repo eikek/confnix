@@ -9,6 +9,7 @@
       shelter = 396;
       publet = 395;
       fetchmail = 394;
+      gitbucket = 393;
     };
 
     ids.gids = {
@@ -18,6 +19,7 @@
       shelter = 396;
       publet = 395;
       fetchmail = 394;
+      gitbucket = 393;
     };
   };
 }
