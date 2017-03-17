@@ -10,4 +10,5 @@
  ./shelter
  ./hinclient
  ./pill
+ ./gitbucket
 ]
