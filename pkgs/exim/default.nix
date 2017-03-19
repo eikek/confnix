@@ -1,12 +1,12 @@
 {stdenv, fetchurl, pcre, db, gnutls, pkgconfig, sqlite, perl, which, exim_user ? "exim" }:
 
 stdenv.mkDerivation rec {
-  version = "4.86.2";
+  version = "4.89";
   name = "exim-${version}";
 
   src = fetchurl {
     url = "http://exim.mirror.iphh.net/ftp/exim/exim4/exim-${version}.tar.gz";
-    sha256 = "0r7sradhl3chl4idzfh0irg6zaw9j15pfr0pvp1ds5g26qjwcvc4";
+    sha256 = "076gdk4gl3c8daws0hc5zg1pjj2a9l50f98fcyidx7mc5xi91jqf";
   };
 
   buildInputs = [ pcre db gnutls pkgconfig sqlite perl which ];
@@ -72,11 +72,12 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-
-    # the following two lines remove the call to exim to get the version number
+    # the following lines remove the call to exim to get the version number
     # you must be root to do that or exim, which does not exist (yet)
-    sed -i 's,version=exim-.*exim -bV -C /dev/null.*,version=exim-${version},' scripts/exim_install
-    sed -i 's,awk ./Exim version/ { OFS="".*,,' scripts/exim_install
+    sed -i 's,^.*oldversion=exim-.*$,,' scripts/exim_install
+    sed -i 's,^.*version=exim-`$exim 2>/dev/null | .*$,,g' scripts/exim_install
+    sed -i 's,.*Exim version/ { OFS=""; print.*$,version=exim-${version},' scripts/exim_install
+
     make INST_BIN_DIRECTORY=$out/bin INSTALL_ARG='-no_chown' INST_CONFIGURE_FILE=$out/etc/exim.conf install
 
     cat > $out/etc/trusted-configs <<-"EOF"

@@ -1,12 +1,12 @@
 {stdenv, fetchurl}:
 
 stdenv.mkDerivation rec {
-  version = "1.0.3";
+  version = "1.0.9";
   name = "roundcube-${version}";
 
   src = fetchurl {
-    url = "http://downloads.sourceforge.net/project/roundcubemail/roundcubemail/${version}/roundcubemail-${version}.tar.gz";
-    sha256 = "1jm9z4waaw9zfl9mvdlcmsdx2wbp1zafixfz6pmmxlq83dnbnh48";
+    url = "https://github.com/roundcube/roundcubemail/releases/download/1.0.9/roundcubemail-1.0.9.tar.gz";
+    sha256 = "1qk9fprzv7ycqa2mqsinkxj5h7fzfdgvwbbb6a2sac322hs550p4";
   };
 
   unpackPhase = ''

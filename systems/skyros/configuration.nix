@@ -11,7 +11,7 @@ with config;
       ./nginx.nix
       ./ejabberd.nix
       ./email.nix
-      ./gitblit.nix
+      ./gitea.nix
       ./sitebag.nix
       ./myperception.nix
       ./fotojahn.nix

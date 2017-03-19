@@ -10,6 +10,7 @@
       publet = 395;
       fetchmail = 394;
       gitbucket = 393;
+      gitea = 392;
     };
 
     ids.gids = {
@@ -20,6 +21,7 @@
       publet = 395;
       fetchmail = 394;
       gitbucket = 393;
+      gitea = 392;
     };
   };
 }

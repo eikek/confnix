@@ -6,7 +6,7 @@ let
   cfg = config.services.exim4;
   user = "exim";
   group = "exim";
-  version = "4.86.2";
+  version = "4.89";
   eximConfig = ''
     primary_hostname = ${cfg.primaryHostname}
     domainlist local_domains = ${concatStringsSep ":" cfg.localDomains}

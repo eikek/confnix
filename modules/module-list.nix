@@ -11,4 +11,5 @@
  ./hinclient
  ./pill
  ./gitbucket
+ ./gitea
 ]

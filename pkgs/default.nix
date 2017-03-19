@@ -18,6 +18,7 @@ let
     freerdpUnstable = callPackage ./freerdp {};
     gitblit = callPackage ./gitblit {};
     gitbucket = callPackage ./gitbucket {};
+    gitea = callPackage ./gitea {};
     handlebars = callPackage ./handlebars {};
     hinclient = callPackage ./hinclient {};
     hl5380ppd = callPackage ./brother-hl5380 {};
