@@ -1,6 +1,6 @@
 with import <nixpkgs> {};
 let
-  nixos = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-16.03.tar.gz";
+  nixos = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-16.09.tar.gz";
 in
 stdenv.mkDerivation rec {
   name = "env";

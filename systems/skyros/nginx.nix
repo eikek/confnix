@@ -4,18 +4,6 @@ with lib;
 let
    shelterHttpPort = builtins.toString config.services.shelter.httpPort;
    nginxExtras = config.services.nginxExtra;
-   myphpini = pkgs.stdenv.mkDerivation {
-     name = "myphpini";
-     src = config.services.phpfpm.phpPackage;
-     installPhase = ''
-       mkdir -p $out
-       cp etc/php-recommended.ini $out/php.ini
-       sed -i 's/;date.timezone =/date.timezone = "UTC"/' $out/php.ini
-       sed -i 's/post_max_size = .M$/post_max_size = 20M/' $out/php.ini
-       sed -i 's/upload_max_filesize = .M$/upload_max_filesize = 12M/' $out/php.ini
-     '';
-   };
-
    protectedConfig = concatMapStringsSep "\n" (m: ''
        location ${m.path} {
           set $appid "${m.app}";
@@ -48,7 +36,6 @@ in
 
   config = mkIf settings.enableWebServer {
     services.phpfpm = {
-      phpIni = myphpini;
       poolConfigs = {
         mypool = ''
           listen = ${services.phpfpmExtra.fastCgiBinding}
@@ -61,9 +48,13 @@ in
           pm.max_requests = 500
         '';
       };
-      # extraConfig = ''
-      # log_level = debug
-      # '';
+      #roundcube needs php5, this is only for roundcube…
+      phpPackage = pkgs.php56;
+      phpOptions = ''
+        date.timezone = "UTC"
+        post_max_size = 20M
+        upload_max_filesize = 12M
+      '';
     };
 
     services.logrotate = {
