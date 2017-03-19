@@ -210,6 +210,7 @@
     zathura
     ghostscript
     libreoffice
+    wpsoffice
     sqliteman
     pandoc
     youtube-dl

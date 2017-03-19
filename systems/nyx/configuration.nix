@@ -218,6 +218,7 @@
     zathura
     ghostscript
     libreoffice
+    wpsoffice
     sqliteman
     pandoc
     youtube-dl
@@ -225,7 +226,6 @@
     python27Packages.pygments
     drip
     recordmydesktop
-    libreoffice
   ];
 
   hardware = {

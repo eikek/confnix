@@ -169,6 +169,7 @@ in
     ansible2
     nodePackages.grunt-cli
     libreoffice
+    wpsoffice
     subversion
   ];
 
