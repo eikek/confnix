@@ -12,13 +12,16 @@
     in
     {
       imports = [
-       ./testconf.nix
-       ];
+        ./testconf.nix
+      ];
 
-      settings.primaryIp = pkgs.lib.mkForce "192.168.56.101";
+      settings.primaryIp = pkgs.lib.mkForce "192.168.56.103";
       deployment.targetEnv = "virtualbox";
-      deployment.virtualbox.memorySize = 2500;
+      deployment.virtualbox.memorySize = 2560;
       deployment.virtualbox.headless = true;
+      deployment.virtualbox.disks.disk1 = {
+        size = 20480;
+      };
 
       users.extraUsers.root = {
         openssh.authorizedKeys.keys = [ mykey ];
