@@ -16,6 +16,7 @@ let
     exim = callPackage ./exim {};
     freerdpUnstable = callPackage ./freerdp {};
     gitblit = callPackage ./gitblit {};
+    gitea = callPackage ./gitea {};
     gitbucket = callPackage ./gitbucket {};
     handlebars = callPackage ./handlebars {};
     hinclient = callPackage ./hinclient {};

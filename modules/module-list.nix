@@ -10,4 +10,5 @@
  ./shelter
  ./hinclient
  ./gitbucket
+ ./gitea
 ]
