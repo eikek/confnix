@@ -12,7 +12,7 @@
       version = 2;
       devices = [ "/dev/sda" ];
     };
-    kernelPackages = pkgs.linuxPackages_4_9;
+    kernelPackages = pkgs.linuxPackages_4_10;
   };
 
   i18n = {
