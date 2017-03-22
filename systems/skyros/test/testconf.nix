@@ -19,6 +19,7 @@ with config;
       ./../shelter.nix
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_4_8;
   settings.primaryIp = "10.0.2.15";
   settings.primaryDomain = "testvm.com";
 
