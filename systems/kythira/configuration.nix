@@ -72,6 +72,12 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
 
   environment.pathsToLink = [ "/" ];
 
+  system.activationScripts = {
+    kworkerbug = ''
+      echo "disable" > /sys/firmware/acpi/interrupts/gpe6F
+    '';
+  };
+
   nixpkgs.config = {
     allowUnfree = true;
     firefox = {
