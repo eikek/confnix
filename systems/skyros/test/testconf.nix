@@ -19,12 +19,12 @@ with config;
       ./../shelter.nix
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_4_8;
   settings.primaryIp = "10.0.2.15";
   settings.primaryDomain = "testvm.com";
 
   networking = {
-    hostName = "skyrostest";
-    firewall.allowedTCPPorts = [ 9110 ];
+    # hostName = settings.primaryDomain;
     # localCommands = ''
     #   ip addr add 10.0.2.15/24 dev eth0
     #   ip link set dev eth0 up

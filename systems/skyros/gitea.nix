@@ -21,9 +21,9 @@ in
 
       [mailer]
       ENABLED = true
-      HOST = localhost:25
-      HELO_HOSTNAME = settings.primaryDomain;
-      FROM = git-noreply@eknet.org
+      HOST = ${settings.primaryDomain}:25
+      HELO_HOSTNAME = ${settings.primaryDomain}
+      FROM = git-noreply@${settings.primaryDomain}
     '';
   };
 

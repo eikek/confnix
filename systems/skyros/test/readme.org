@@ -1,0 +1,32 @@
+#+title: skyros tests
+
+Skyros is a machine providing some services that runs somewhere
+remote. This is an attempt to test the installation.
+
+** Environment
+
+Everything should be setup in =shell.nix=, thus do ~nix-shell~ and
+change into a subshell with the correct environment. This sets
+=$NIX_PATH= and =$NIX_CONFIG=.
+
+
+** Play in a VM
+
+At first, ~testvm.nix~ can be used to create a virtual machine to play
+with. I use it with nixops:
+
+#+begin_src shell :exports code
+nixops create testvm.nix -d skyrosvm
+#+end_src
+
+
+** Run Tests
+
+The file ~test.nix~ is an attempt to create a set of automatet
+tests. Run them with
+
+#+begin_src shell :exports code
+nix-build test.nix
+#+end_src
+
+See [[http://nixos.org/nixos/manual/index.html#sec-nixos-tests][the manual]] for additional info.
