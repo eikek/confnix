@@ -12,6 +12,7 @@ let
      password to mount the fileserver and add it to the NIX_PATH
      variable with key "hinpass".
    '' ;
+  fileServer = "bluecare-s54";
 in
 {
   imports =
@@ -47,17 +48,17 @@ in
     "/".device = pkgs.lib.mkForce "/dev/mapper/vg-root";
 
     "/mnt/fileserver/homes" = {
-      device = "//bluecare-s22.bluecare.local/home";
+      device = "//${fileServer}/home";
       fsType = "cifs";
       options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
     };
     "/mnt/fileserver/transfer" = {
-      device = "//bluecare-s22.bluecare.local/Transfer";
+      device = "//${fileServer}/Transfer";
       fsType = "cifs";
       options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
     };
     "/mnt/fileserver/data" = {
-      device = "//bluecare-s22.bluecare.local/Data";
+      device = "//${fileServer}/Data";
       fsType = "cifs";
       options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
     };
