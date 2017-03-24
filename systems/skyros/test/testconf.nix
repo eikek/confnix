@@ -33,6 +33,10 @@ with config;
     # '';
   };
 
+  services.gitea = {
+    disableRegistration = lib.mkForce false;
+  };
+
   services.logrotate = {
     enable = true;
     config = ''

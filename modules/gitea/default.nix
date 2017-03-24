@@ -30,6 +30,9 @@ let
     SECRET_KEY = #secretkey#
     INSTALL_LOCK = true
 
+    [service]
+    DISABLE_REGISTRATION = ${if (cfg.disableRegistration) then "true" else "false"}
+
     ${cfg.extraConfig}
   '';
 in
@@ -148,6 +151,12 @@ in
         description = "HTTP listen port.";
       };
 
+      disableRegistration = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Whether to disable registration";
+      };
+
       extraConfig = mkOption {
         type = types.str;
         default = "";
@@ -169,11 +178,11 @@ in
         ${optionalString (cfg.useWizard == false) ''
           mkdir -p ${cfg.stateDir}/custom/conf
           cp -f ${configFile} ${cfg.stateDir}/custom/conf/app.ini
-          KEY=$(head -c 16 /dev/urandom | tr -dc A-Za-z0-9)
+          KEY=$(head -c 256 /dev/urandom | tr -dc A-Za-z0-9)
           sed -i "s,#secretkey#,$KEY,g" ${cfg.stateDir}/custom/conf/app.ini
         ''}
-        mkdir -p ${cfg.stateDir}/conf
-        ln -nsf ${pkgs.gitea.data}/options/* ${cfg.stateDir}/conf/ #*/
+
+        ln -nsf ${pkgs.gitea.data}/options ${cfg.stateDir}/options
 
         mkdir -p ${cfg.repositoryRoot}
         # update all hooks' binary paths
