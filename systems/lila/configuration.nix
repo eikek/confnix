@@ -220,9 +220,8 @@
     pspp
     lyx
     kde4.kopete
-    kde4.l10n.de
+    kde4.k3b
     kde5.l10n.de.qt5
-    kde5.l10n.de.qt4
     kde4.amarok
     kde5.okular
     kde5.kmix
