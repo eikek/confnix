@@ -12,7 +12,7 @@ let
      password to mount the fileserver and add it to the NIX_PATH
      variable with key "hinpass".
    '' ;
-  fileServer = "bluecare-s54";
+  fileServer = "bluecare.local";
 in
 {
   imports =
