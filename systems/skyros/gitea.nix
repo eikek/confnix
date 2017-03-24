@@ -16,7 +16,7 @@ in
     httpPort = 9110;
     extraConfig = ''
       [service]
-      DISABLE_REGISTRATION = true
+      DEFAULT_KEEP_EMAIL_PRIVATE = true
       ENABLE_NOTIFY_MAIL = true
 
       [mailer]
@@ -24,6 +24,9 @@ in
       HOST = ${settings.primaryDomain}:25
       HELO_HOSTNAME = ${settings.primaryDomain}
       FROM = git-noreply@${settings.primaryDomain}
+
+      [log]
+      LEVEL = Warn
     '';
   };
 
