@@ -80,6 +80,8 @@
     recutils
     tmuxinator
     direnv
+    jq
+    pciutils
   ];
 
   users.extraUsers.eike = {
