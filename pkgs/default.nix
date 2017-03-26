@@ -2,6 +2,7 @@ pkgs:
 let
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   custom = {
+    alacritty = callPackage ./alacritty {};
     blueimpGallery = callPackage ./blueimp-gallery {};
     blueimpImageGallery = callPackage ./blueimp-image-gallery {};
     c544ppd = callPackage ./lexmark-c544 {};
