@@ -81,6 +81,8 @@
     tmuxinator
     direnv
     tree
+    jq
+    pciutils
   ];
 
   users.extraUsers.eike = {
