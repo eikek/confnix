@@ -153,6 +153,7 @@
 
   # multimedia
     mplayer
+    mpv
     vlc
     cdparanoia
     sox
