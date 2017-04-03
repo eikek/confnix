@@ -19,6 +19,15 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
     };
   };
 
+  fileSystems = {
+    "/mnt/data" = {
+      device = "/dev/disk/by-label/data";
+      fsType = "xfs";
+      options = ["noauto" "user" "rw" "exec" "suid" "async"];
+      noCheck = true;
+    };
+  };
+
   fonts.fontconfig = {
     dpi = 140;
   };
