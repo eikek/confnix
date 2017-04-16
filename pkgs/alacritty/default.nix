@@ -33,6 +33,6 @@ buildRustPackage rec {
   meta = {
     description = "A cross-platform, GPU-accelerated terminal emulator";
     homepage = https://github.com/jwilm/alacritty/;
-    license = with licenses; [ asl2 ];
+    license = with stdenv.lib.licenses; [ asl20 ];
   };
 }
