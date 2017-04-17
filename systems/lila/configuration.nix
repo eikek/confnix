@@ -94,7 +94,7 @@
     };
 
     desktopManager = {
-      kde5.enable = true;
+      xfce.enable = true;
     };
 
     displayManager = {
@@ -219,12 +219,8 @@
     virtualbox
     pspp
     lyx
-    kde4.kopete
-    kde4.k3b
-    kde5.l10n.de.qt5
-    kde4.amarok
-    kde5.okular
-    kde5.kmix
+    k3b
+    okular
     torbrowser
     zathura
     ghostscript
