@@ -31,6 +31,8 @@ in
     initrd.luks.devices = [
       { device = "/dev/sda4"; name = "crootfs"; preLVM = true; }
     ];
+    kernelPackages = pkgs.linuxPackages_4_10;
+    cleanTmpDir = true;
   };
 
   users.groups.kvm = {
