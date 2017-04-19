@@ -47,6 +47,7 @@
     wget
     gnupg1compat
     gitAndTools.gitFull
+    tig
     curl
     tmux
     screen
