@@ -14,6 +14,7 @@ let
     ejabberd15 = callPackage ./ejabberd {};
     elexis = callPackage ./elexis {};
     exim = callPackage ./exim {};
+    fileshelter = callPackage ./fileshelter {};
     freerdpUnstable = callPackage ./freerdp {};
     gitblit = callPackage ./gitblit {};
     gitea = callPackage ./gitea {};

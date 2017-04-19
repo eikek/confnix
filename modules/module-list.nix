@@ -11,4 +11,5 @@
  ./hinclient
  ./gitbucket
  ./gitea
+ ./fileshelter
 ]
