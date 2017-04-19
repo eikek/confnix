@@ -16,6 +16,7 @@ let
     elexis = callPackage ./elexis {};
     elmPackages = pkgs.elmPackages // { elm-oracle = callPackage ./elm-oracle {}; };
     exim = callPackage ./exim {};
+    fileshelter = callPackage ./fileshelter {};
     freerdpUnstable = callPackage ./freerdp {};
     gitblit = callPackage ./gitblit {};
     gitbucket = callPackage ./gitbucket {};

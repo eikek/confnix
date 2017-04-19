@@ -11,6 +11,7 @@
       fetchmail = 394;
       gitbucket = 393;
       gitea = 392;
+      fileshelter = 391;
     };
 
     ids.gids = {
@@ -22,6 +23,7 @@
       fetchmail = 394;
       gitbucket = 393;
       gitea = 392;
+      fileshelter = 391;
     };
   };
 }
