@@ -7,14 +7,14 @@ stdenv.mkDerivation rec {
   name = "publet-quartz-${version}";
 
   src = fetchgit {
-    url = https://git.eknet.org/r/~eike/attic/publet-quartz.git;
+    url = https://git.eknet.org/attic/publet-quartz.git;
     rev = "refs/heads/master";
 
     # buildinfo plugin reads the current commit on build
     # thus, need to build from git sources
     leaveDotGit = true;
     name = "publet-quartz-${version}-git";
-    sha256 = "0b7j2c84ad4cy7bnrlqm4ainykprkz9rskirr91fqpyzbh1ng59r";
+    sha256 = "182r83p4nkik74rglgwvk8sq3fikl5l67szi8b1jn5fqx7a51psp";
   };
 
   buildInputs = [ jdk7 git ];
