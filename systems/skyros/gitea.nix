@@ -25,6 +25,10 @@ in
       HELO_HOSTNAME = ${settings.primaryDomain}
       FROM = git-noreply@${settings.primaryDomain}
 
+      [repository.upload]
+      FILE_MAX_SIZE = 600
+      MAX_FILES = 1000
+
       [log]
       LEVEL = Warn
     '';

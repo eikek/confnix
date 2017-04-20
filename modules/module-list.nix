@@ -12,4 +12,5 @@
  ./pill
  ./gitbucket
  ./gitea
+ ./fileshelter
 ]
