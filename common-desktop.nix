@@ -137,7 +137,7 @@
     aumix
     wicd
     ntfs3g
-    nixops
+    #nixops urlib3 dependency doesn't build atm
     emacs
 
   # images

@@ -12,7 +12,7 @@ let
      password to mount the fileserver and add it to the NIX_PATH
      variable with key "hinpass".
    '' ;
-  fileServer = "bluecare.local";
+  fileServer = "bluecare-s54";
 in
 {
   imports =
@@ -169,7 +169,7 @@ in
     tesseract304
     mongodb
     mongodb-tools
-    ansible2
+    python35Packages.ansible
     nodePackages.grunt-cli
     libreoffice
     wpsoffice
