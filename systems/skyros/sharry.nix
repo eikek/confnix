@@ -2,16 +2,26 @@
 with config;
 let
   subdomain = "files";
+  shelterHttpPort = builtins.toString config.services.shelter.httpPort;
 in
 {
 
-  services.fileshelter = {
+  services.sharry = {
     enable = true;
-    httpPort = 9310;
-    appName = "Files!";
-    behindReverseProxy = true;
-    maxFileSize = 600;
-    tosOrg = "eknet.org";
+    bindPort = 9310;
+    maxFileSize = "5G";
+    baseUrl = (if (settings.useCertificate) then "https://" else "http://") +
+              subdomain + "." + settings.primaryDomain + "/";
+
+    extraConfig = ''
+    authc.extern.http {
+      enable = true
+      url = "http://localhost:${shelterHttpPort}/api/verify/json"
+      method = "POST"
+      body = """{ "login": "{login}", "password": "{password}", "appid": "files" }"""
+      content-type = "application/json"
+    }
+    '';
   };
 
 
@@ -33,11 +43,7 @@ in
      proxy_buffering off;
 
      location / {
-        proxy_pass http://127.0.0.1:${builtins.toString services.fileshelter.httpPort};
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Real-IP         $remote_addr;
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://127.0.0.1:${builtins.toString services.sharry.bindPort};
         proxy_http_version 1.1;
      }
    }

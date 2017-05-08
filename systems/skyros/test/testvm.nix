@@ -17,7 +17,8 @@
 
       settings.primaryIp = pkgs.lib.mkForce "192.168.56.101";
       deployment.targetEnv = "virtualbox";
-      deployment.virtualbox.memorySize = 3072;
+      deployment.virtualbox.memorySize = 6144;
+      deployment.virtualbox.vcpu = 4;
       deployment.virtualbox.headless = true;
       # deployment.virtualbox.disks.disk1 = {
       #   size = 20480;

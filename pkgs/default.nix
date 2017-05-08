@@ -43,6 +43,7 @@ let
     recutils = callPackage ./recutils {};
     roundcube = callPackage ./roundcube {};
     scaladocs = callPackage ./scala-docs {};
+    sharry = callPackage ./sharry {};
     shelter = callPackage ./shelter {};
     sig = callPackage ./sig {};
     sitebag = callPackage ./sitebag {};

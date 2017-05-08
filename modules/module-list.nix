@@ -12,4 +12,5 @@
  ./gitbucket
  ./gitea
  ./fileshelter
+ ./sharry
 ]
