@@ -23,9 +23,12 @@ let
         simultaneous-uploads = ${str cfg.simultaneousUploads}
         max-files = ${str cfg.maxFiles}
         max-file-size = "${cfg.maxFileSize}"
-        cleanup-enable = true
-        cleanup-interval = 30 days
-        cleanup-invalid-age = 7 days
+        max-validity = "${cfg.maxValidity}"
+        cleanup-enable = ${str cfg.cleanupEnable}
+        cleanup-interval = ${cfg.cleanupInterval}
+        cleanup-invalid-age = ${cfg.cleanupIntervalAge}
+        alias-delete-time = ${cfg.aliasDeleteTime}
+        enable-upload-notification = ${str cfg.enableMail}
       }
 
       web {
@@ -33,6 +36,9 @@ let
         bind-port = ${str cfg.bindPort}
         app-name = "${cfg.appName}"
         baseurl = "${cfg.baseUrl}"
+        mail {
+          enable = ${str cfg.enableMail}
+        }
       }
       authc.enable = ${str cfg.authenticationEnabled}
 
@@ -117,6 +123,36 @@ in {
       extraConfig = mkOption {
         default = "";
         description = "More configuration that is appended";
+      };
+
+      enableMail = mkOption {
+        default = false;
+        description = "Enable mail notifications";
+      };
+
+      maxValidity = mkOption {
+        default = "365 days";
+        description = "Maximum validity time for uploads";
+      };
+
+      cleanupEnable = mkOption {
+        default = true;
+        description = "Whether to run periodic removal of outdated uploads";
+      };
+
+      cleanupInterval = mkOption {
+        default = "30 days";
+        description = "Period for running the cleanup job";
+      };
+
+      cleanupIntervalAge = mkOption {
+        default = "7 days";
+        description = "The cleanup job only removes uploads older than this amount";
+      };
+
+      aliasDeleteTime = mkOption {
+        default = "2 minutes";
+        description = "The amount of time an anonymous user can delete his uploads";
       };
 
       dataDir = mkOption {

@@ -12,7 +12,9 @@ in
     maxFileSize = "5G";
     baseUrl = (if (settings.useCertificate) then "https://" else "http://") +
               subdomain + "." + settings.primaryDomain + "/";
-
+    enableMail = true;
+    maxValidity = "365 days";
+    cleanupEnable = true;
     extraConfig = ''
     authc.extern.http {
       enable = true
@@ -20,6 +22,11 @@ in
       method = "POST"
       body = """{ "login": "{login}", "password": "{password}", "appid": "files" }"""
       content-type = "application/json"
+    }
+    smtp {
+      host = localhost
+      port = 25
+      from = "noreply@${settings.primaryDomain}"
     }
     '';
   };
