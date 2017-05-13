@@ -13,4 +13,5 @@
  ./gitea
  ./fileshelter
  ./sharry
+ ./sharry/demo.nix
 ]

@@ -18,6 +18,7 @@ with config;
       ./fetchmail.nix
       ./shelter.nix
       ./sharry.nix
+      ./sharrydemo.nix
     ];
 
 
