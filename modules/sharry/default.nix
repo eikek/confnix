@@ -38,6 +38,7 @@ let
         baseurl = "${cfg.baseUrl}"
         mail {
           enable = ${str cfg.enableMail}
+          default-language = "${cfg.defaultLanguage}"
         }
       }
       authc.enable = ${str cfg.authenticationEnabled}
@@ -128,6 +129,11 @@ in {
       enableMail = mkOption {
         default = false;
         description = "Enable mail notifications";
+      };
+
+      defaultLanguage = mkOption {
+        default = "en";
+        description = "Language to use for email templates";
       };
 
       maxValidity = mkOption {
