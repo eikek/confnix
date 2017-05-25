@@ -202,6 +202,7 @@
     ammonite-repl
     elmPackages.elm
     elmPackages.elm-oracle
+    elmPackages.elm-test
 
   # other tools
     zathura
