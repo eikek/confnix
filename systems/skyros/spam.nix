@@ -4,8 +4,7 @@ with config;
 
 let
   localcf = pkgs.writeText "sa-local.cf"  ''
-    # set required score a bit higher
-    required_score 5.2
+    required_score 4.5
 
     # don't use any dns blacklists
     skip_rbl_checks 1
