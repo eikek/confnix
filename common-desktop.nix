@@ -7,7 +7,7 @@
   time.timeZone = "Europe/Berlin";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_4_10;
+    kernelPackages = pkgs.linuxPackages_4_11;
     cleanTmpDir = true;
   };
 
@@ -19,7 +19,7 @@
 
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "ondemand";
+#    cpuFreqGovernor = "ondemand";
   };
 
   security.pam.enableSSHAgentAuth = true;
@@ -137,7 +137,7 @@
     aumix
     wicd
     ntfs3g
-    #nixops urlib3 dependency doesn't build atm
+    nixops
     emacs
 
   # images
