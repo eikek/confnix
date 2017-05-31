@@ -57,12 +57,12 @@ in
     "/mnt/fileserver/transfer" = {
       device = "//${fileServer}/Transfer";
       fsType = "cifs";
-      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user" "vers=2.0"];
     };
     "/mnt/fileserver/data" = {
       device = "//${fileServer}/Data";
       fsType = "cifs";
-      options = ["user=eik" "password=${serverpass}" "uid=1000" "user"];
+      options = ["user=eik" "password=${serverpass}" "uid=1000" "user" "vers=2.0"];
     };
   };
 
