@@ -17,7 +17,8 @@ with config;
       ./../fotojahn.nix
       ./../fetchmail.nix
       ./../shelter.nix
-      ./../fileshelter.nix
+      ./../sharry.nix
+      ./../sharrydemo.nix
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_4_8;

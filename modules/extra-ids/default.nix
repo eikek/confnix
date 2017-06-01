@@ -12,6 +12,7 @@
       gitbucket = 393;
       gitea = 392;
       fileshelter = 391;
+      sharry = 390;
     };
 
     ids.gids = {
@@ -24,6 +25,7 @@
       gitbucket = 393;
       gitea = 392;
       fileshelter = 391;
+      sharry = 390;
     };
   };
 }

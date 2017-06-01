@@ -1,19 +1,24 @@
 { config, pkgs, lib, ... }:
 with config;
 let
-  subdomain = "files";
+  subdomain = "sharrydemo";
+  shelterHttpPort = builtins.toString config.services.shelter.httpPort;
 in
 {
 
-  services.fileshelter = {
+  services.sharrydemo = {
     enable = true;
-    httpPort = 9310;
-    appName = "Files!";
-    behindReverseProxy = true;
-    maxFileSize = 600;
-    tosOrg = "eknet.org";
+    bindPort = 9320;
+    maxFileSize = "500K";
+    baseUrl = (if (settings.useCertificate) then "https://" else "http://") +
+              subdomain + "." + settings.primaryDomain + "/";
+    enableMail = false;
+    maxValidity = "6 hours";
+    cleanupEnable = true;
+    cleanupInterval = "8 hours";
+    cleanupIntervalAge = "2 minutes";
+    authenticationEnabled = false;
   };
-
 
   services.bindExtra.subdomains = [ subdomain ];
 
@@ -33,14 +38,9 @@ in
      proxy_buffering off;
 
      location / {
-        proxy_pass http://127.0.0.1:${builtins.toString services.fileshelter.httpPort};
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Real-IP         $remote_addr;
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://127.0.0.1:${builtins.toString services.sharrydemo.bindPort};
         proxy_http_version 1.1;
      }
    }
   '';
-
 }
