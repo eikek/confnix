@@ -1,11 +1,11 @@
 {stdenv, fetchurl, jre }:
 
 stdenv.mkDerivation rec {
-  version = "0.2.0";
+  version = "0.3.0-SNAPSHOT";
   name = "sharry-${version}";
   src = fetchurl {
     url = "https://eknet.org/main/projects/sharry/sharry-server-${version}.jar.sh";
-    sha256 = "0nzwjmdjh1naqbxv7zz5fd8xmpvbzz655hdbz6jcca5d5acg96cf";
+    sha256 = "1i9lv65na6pml40m730hnhzg5qcsdr6b7lsass6l6jajj9bvvngd";
   };
 
   unpackPhase = "true";
