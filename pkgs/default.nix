@@ -31,7 +31,6 @@ let
     javadocs = callPackage ./java-docs {};
     jquery2 = callPackage ./jquery2 {};
     kube = callPackage ./kube {};
-    leptonica_gif = callPackage ./leptonica {};
     lsdvd = callPackage ./lsdvd {};
     makemkv = callPackage ./makemkv {};
     markdown = callPackage ./markdown {};
