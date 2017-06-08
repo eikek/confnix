@@ -160,7 +160,7 @@
     flac
     vorbisTools
     ffmpeg
-    calibre
+#    calibre doesn't build atm
 
   # x-window
     xlibs.xrandr
