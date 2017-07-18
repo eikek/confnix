@@ -63,7 +63,6 @@
     cryptsetup
     pass
     mr
-    vcsh
     rlwrap
     sqlite
     fdupes
