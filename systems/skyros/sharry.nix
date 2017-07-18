@@ -15,6 +15,7 @@ in
     enableMail = true;
     maxValidity = "365 days";
     cleanupEnable = true;
+    cleanupInterval = "10 days";
     defaultLanguage = "de";
     extraConfig = ''
     authc.extern.http {
