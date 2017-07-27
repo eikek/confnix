@@ -1,9 +1,15 @@
+# unfortunately, HIN Client doesn't work with recent java8 versions
+# (but requires java8). So add an older nixpkgs version to nix_path
+# requires to run nix-rebuild with for example
+#   -I oldpkgs=https://github.com/NixOS/nixpkgs/archive/17.03.tar.gz
+#
 {config, lib, pkgs, ...}:
 
 with lib;
 let
   cfg = config.services.hinclient;
   str = e: if (builtins.typeOf e) == "bool" then (if e then "true" else "false") else (builtins.toString e);
+  oldpkgs = import <oldpkgs> {};
 in {
 
   ## interface
@@ -88,7 +94,7 @@ in {
       after = [ "networking.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
-        JAVA_HOME = "${pkgs.jre}";
+        JAVA_HOME = "${oldpkgs.jre8}";
         HOME = "${cfg.baseDir}";
         INSTALL4J_ADD_VM_PARAMS = "-Djava.io.tmpdir=${cfg.baseDir}/tmp";
       };
