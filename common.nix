@@ -47,6 +47,7 @@
     wget
     gnupg1compat
     gitAndTools.gitFull
+    git-crypt
     tig
     curl
     tmux
