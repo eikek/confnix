@@ -3,21 +3,37 @@ with config;
 let
   subdomain = "sharrydemo";
   shelterHttpPort = builtins.toString config.services.shelter.httpPort;
+  authscript = pkgs.writeScript "sharrydemo-auth.sh" ''
+  #!${pkgs.bash}/bin/bash -e
+  [[ "$1" = "sharry" ]]
+  '';
 in
 {
 
   services.sharrydemo = {
     enable = true;
     bindPort = 9320;
-    maxFileSize = "500K";
+    maxFileSize = "1.5M";
     baseUrl = (if (settings.useCertificate) then "https://" else "http://") +
               subdomain + "." + settings.primaryDomain + "/";
     enableMail = false;
-    maxValidity = "6 hours";
+    maxValidity = "16 hours";
     cleanupEnable = true;
     cleanupInterval = "8 hours";
     cleanupIntervalAge = "2 minutes";
-    authenticationEnabled = false;
+    authenticationEnabled = true;
+    welcomeMessage = ''### Welcome to Sharry demo instance
+
+Please login as user `sharry` and any password to start exploration.'';
+    extraConfig = ''
+    authc.extern.command {
+      enable = true
+      program = [
+        "${authscript}"
+        "{login}"
+      ]
+    }
+    '';
   };
 
   services.bindExtra.subdomains = [ subdomain ];

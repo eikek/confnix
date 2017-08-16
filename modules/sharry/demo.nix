@@ -36,6 +36,7 @@ let
         bind-port = ${str cfg.bindPort}
         app-name = "${cfg.appName}"
         baseurl = "${cfg.baseUrl}"
+        welcome-message = """${cfg.welcomeMessage}"""
         mail {
           enable = ${str cfg.enableMail}
         }
@@ -111,13 +112,18 @@ in {
       };
 
       maxFileSize = mkOption {
-        default = "500K";
+        default = "1.5M";
         description = "Maximum size of the files to be uploaded, suffixes: M or G";
       };
 
       authenticationEnabled = mkOption {
         default = false;
         description = "Enable authentication or not";
+      };
+
+      welcomeMessage = mkOption {
+        default = "";
+        description = "A welcome message displayed at the login page. Can be markdown.";
       };
 
       extraConfig = mkOption {
@@ -131,7 +137,7 @@ in {
       };
 
       maxValidity = mkOption {
-        default = "12 hours";
+        default = "24 hours";
         description = "Maximum validity time for uploads";
       };
 

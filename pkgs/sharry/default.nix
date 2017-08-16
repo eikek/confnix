@@ -1,11 +1,11 @@
 {stdenv, fetchurl, jre }:
 
 stdenv.mkDerivation rec {
-  version = "0.3.0-SNAPSHOT";
+  version = "0.4.0-SNAPSHOT";
   name = "sharry-${version}";
   src = fetchurl {
     url = "https://eknet.org/main/projects/sharry/sharry-server-${version}.jar.sh";
-    sha256 = "0pjcg2rx3y181qw8zrdwp3f1v6zq1p039zbsgrdaprkdvlb9x0xd";
+    sha256 = "0hi8f2lw1qs33lhivbp4mfgh9wnhnnlrm5gnxi7hx5bawfsr6j5f";
   };
 
   unpackPhase = "true";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Sharry allows to share files with others in a simple way. It is a self-hosted web application.";
+    description = "Sharry allows to share files with others in a simple way.";
     license = stdenv.lib.licenses.gpl3;
     homepage = https://github.com/eikek/sharry;
   };

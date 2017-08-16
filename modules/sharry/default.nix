@@ -36,6 +36,7 @@ let
         bind-port = ${str cfg.bindPort}
         app-name = "${cfg.appName}"
         baseurl = "${cfg.baseUrl}"
+        welcome-message = """${cfg.welcomeMessage}"""
         mail {
           enable = ${str cfg.enableMail}
           default-language = "${cfg.defaultLanguage}"
@@ -119,6 +120,11 @@ in {
       authenticationEnabled = mkOption {
         default = true;
         description = "Enable authentication or not";
+      };
+
+      welcomeMessage = mkOption {
+        default = "";
+        description = "A welcome message displayed at the login page. Can be markdown.";
       };
 
       extraConfig = mkOption {
