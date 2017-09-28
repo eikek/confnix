@@ -9,7 +9,8 @@ in
   services.sharry = {
     enable = true;
     bindPort = 9310;
-    maxFileSize = "5G";
+    maxFileSize = "8G";
+    maxFiles = "800";
     baseUrl = (if (settings.useCertificate) then "https://" else "http://") +
               subdomain + "." + settings.primaryDomain + "/";
     enableMail = true;
