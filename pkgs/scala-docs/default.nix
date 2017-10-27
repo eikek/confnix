@@ -1,12 +1,12 @@
 {stdenv, fetchurl, unzip}:
 
 stdenv.mkDerivation rec {
-  version = "2.11.7";
+  version = "2.12.4";
   name = "scala-docs-${version}";
 
   src = fetchurl {
     url = "http://downloads.typesafe.com/scala/${version}/${name}.zip";
-    sha256 = "0rwn927jggmqyi2gz5vyw0p37ghk3jcqy73n0z76a92mi3rip64h";
+    sha256 = "19d2nnanh1s7dng8fxy21p09wgchhz2giw3d7s2jmnv9as2pkggz";
   };
 
   buildInputs = [ unzip ];

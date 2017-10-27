@@ -11,7 +11,6 @@
  ./hinclient
  ./pill
  ./gitbucket
- ./gitea
  ./fileshelter
  ./sharry
  ./sharry/demo.nix
