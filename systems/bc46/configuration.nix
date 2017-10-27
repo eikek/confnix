@@ -171,6 +171,9 @@ in
     mongodb-tools
     python35Packages.ansible
     nodePackages.grunt-cli
+    nodePackages.gulp
+    yarn
+    vagrant
     libreoffice
     wpsoffice
     subversion
