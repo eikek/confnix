@@ -169,7 +169,7 @@ in
     tesseract304
     mongodb
     mongodb-tools
-    python35Packages.ansible
+    ansible
     nodePackages.grunt-cli
     nodePackages.gulp
     yarn
