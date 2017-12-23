@@ -7,7 +7,7 @@
   time.timeZone = "Europe/Berlin";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_4_13;
+    kernelPackages = pkgs.linuxPackages_4_14;
     cleanTmpDir = true;
   };
 
@@ -170,6 +170,7 @@
     xsel
     xorg.xwininfo
     xfce.terminal
+    alacritty
     xclip
     autorandr
     i3lock
@@ -201,8 +202,8 @@
     cask
     ammonite-repl
     elmPackages.elm
-    elmPackages.elm-oracle
-    elmPackages.elm-test
+    # elmPackages.elm-oracle
+    # elmPackages.elm-test
 
   # other tools
     zathura

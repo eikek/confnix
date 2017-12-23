@@ -1,5 +1,6 @@
 pkgs:
 let
+  nixos1709 = (import <nixos1709> {}).pkgs;
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   custom = {
 #    alacritty = callPackage ./alacritty {};
@@ -14,12 +15,13 @@ let
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
 #    elexis = callPackage ./elexis {};
-    elmPackages = pkgs.elmPackages // {
-      elm-oracle = callPackage ./elm-oracle {};
-      elm-test = callPackage ./elm-test {};
-    };
+    # elmPackages = pkgs.elmPackages // {
+    #   elm-oracle = callPackage ./elm-oracle {};
+    #   elm-test = callPackage ./elm-test {};
+    # };
     exim = callPackage ./exim {};
     fileshelter = callPackage ./fileshelter {};
+    firefox = nixos1709.firefox;
     freerdpUnstable = callPackage ./freerdp {};
     gitblit = callPackage ./gitblit {};
     gitbucket = callPackage ./gitbucket {};
@@ -63,7 +65,7 @@ let
     visualvm = callPackage ./visualvm {};
     imagemagick695 = callPackage ./imagick{};
 #    flashplayer = callPackage ./flashplayer {};
-#    stumpwm = callPackage ./stumpwm {};
+    stumpwm = nixos1709.stumpwm; #callPackage ./stumpwm {};
   };
   osxcollection = import ./osxcollection/default.nix (custom // pkgs);
 in custom // { inherit osxcollection; }
