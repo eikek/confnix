@@ -73,6 +73,7 @@
         export JAVA_HOME=${pkgs.jdk}/lib/openjdk
         export JDK_HOME=${pkgs.jdk}/lib/openjdk
         ${pkgs.neomodmap}/bin/neomodmap.sh on
+        ${pkgs.compton}/bin/compton &
 
         gpg-connect-agent /bye
         unset SSH_AGENT_PID
