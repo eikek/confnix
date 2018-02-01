@@ -95,6 +95,8 @@ in
             --output DisplayPort-1 --mode 1920x1200 --pos 0x0 \
             --output DisplayPort-0 --off \
             --output eDP --off
+          ${pkgs.xlibs.xrandr}/bin/xrandr --output HDMI-0 --left-of DisplayPort-0
+          ${pkgs.xlibs.xrandr}/bin/xrandr --output DisplayPort-0 --rotation left
         fi
       '';
     };

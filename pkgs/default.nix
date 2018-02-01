@@ -3,7 +3,6 @@ let
   nixos1709 = (import <nixos1709> {}).pkgs;
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   custom = {
-#    alacritty = callPackage ./alacritty {};
     blueimpGallery = callPackage ./blueimp-gallery {};
     blueimpImageGallery = callPackage ./blueimp-image-gallery {};
     c544ppd = callPackage ./lexmark-c544 {};
@@ -55,7 +54,6 @@ let
     shelter = callPackage ./shelter {};
     sig = callPackage ./sig {};
     sitebag = callPackage ./sitebag {};
-    soundkonverter = callPackage ./soundkonverter {};
     spark = callPackage ./spark {};
     storeBackup = callPackage ./storebackup {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
