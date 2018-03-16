@@ -151,7 +151,7 @@ in
     allowUnfree = true;
     firefox = {
       icedtea = true;
-      enableAdobeFlash = true;
+      enableAdobeFlash = false;
     };
     chromium = {
       icedtea = true;

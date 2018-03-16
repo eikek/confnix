@@ -20,7 +20,6 @@ let
     # };
     exim = callPackage ./exim {};
     fileshelter = callPackage ./fileshelter {};
-    firefox = nixos1709.firefox;
     freerdpUnstable = callPackage ./freerdp {};
     gitblit = callPackage ./gitblit {};
     gitbucket = callPackage ./gitbucket {};
