@@ -94,6 +94,6 @@
     createHome = true;
     home = "/home/eike";
     shell = "/run/current-system/sw/bin/zsh";
-    extraGroups = [ "wheel" "audio" "messagebus" "systemd-journal" ];
+    extraGroups = [ "wheel" "audio" "messagebus" "systemd-journal" "cdrom" ];
   };
 }
