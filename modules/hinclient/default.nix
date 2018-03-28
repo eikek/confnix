@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.hinclient;
   str = e: if (builtins.typeOf e) == "bool" then (if e then "true" else "false") else (builtins.toString e);
-  oldpkgs = import <oldpkgs> {};
+  oldpkgs = import <nixos1703> {};
 in {
 
   ## interface
