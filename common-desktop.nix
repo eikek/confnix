@@ -173,6 +173,7 @@
     flac
     vorbisTools
     ffmpeg
+    alsaUtils
 #    calibre doesn't build atm
 
   # x-window
