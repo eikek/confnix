@@ -67,6 +67,8 @@ in
   };
 
   services.acpid.enable = true;
+  # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
+  services.logind.lidSwitch = "ignore";
 
   services.hinclient = {
     enable = true;

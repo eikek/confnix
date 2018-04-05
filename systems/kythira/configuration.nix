@@ -59,6 +59,9 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
    '';
   };
 
+  # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
+  services.logind.lidSwitch = "ignore";
+
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     synaptics = {
