@@ -192,8 +192,8 @@
     i3lock
 
   # web/email
-    firefoxWrapper
-    conkerorWrapper
+    firefox
+    conkeror
     chromium
     surfraw
     mu

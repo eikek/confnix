@@ -1,6 +1,7 @@
 pkgs:
 let
   nixos1709 = (import <nixos1709> {}).pkgs;
+  nixos1803 = (import <nixos1803> {}).pkgs;
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   custom = {
     blueimpGallery = callPackage ./blueimp-gallery {};
@@ -9,6 +10,7 @@ let
     cask = callPackage ./cask {};
     cdparanoiax = callPackage ./cdparanoiax {};
     clojuredocs = callPackage ./clojure-docs {};
+    conkeror = nixos1803.conkeror;
     coursier = callPackage ./coursier {};
     derby = callPackage ./derby {};
     drip = callPackage ./drip {};
