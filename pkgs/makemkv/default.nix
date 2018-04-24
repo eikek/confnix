@@ -1,11 +1,11 @@
 { fetchurl, lib, makemkv }:
 
-# test key is T-97pzDZ1bt6gLQbt9KpzffjEI0pRF_MjHnzDHBI@nwQIQpFmCmzpTlyzHfbI1ghXsR7
+# test key is T-NFjyvOeJ_y4pyiTEUKgI5bQMpms@HwygOuilHIWNV6_l3Z3su9psCLBHraoFktxO4O
+#             T-97pzDZ1bt6gLQbt9KpzffjEI0pRF_MjHnzDHBI@nwQIQpFmCmzpTlyzHfbI1ghXsR7
 #             T-Rj9dmR37zXFQlCz2ljQzy8tKHPasVYXIyREZwfDSi8uwRQjo1xw7Kzdr2iDGL@4QoW
-#             T-QWvg95pFZPQjcwoog2PxbrAlj1Ml279L3GogBfgVENxFW6fMTGgrW@RPN6aPAVH31O
 # from: http://www.makemkv.com/forum2/viewtopic.php?f=5&t=1053
 #
-# if optical drive is not recognized try doing `modprobe sg` before starting makemkv
+# if optical drive is not recognized try `modprobe sg` before starting makemkv
 
 let
   version = "1.12.0";
