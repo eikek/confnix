@@ -35,6 +35,8 @@ in
     cleanTmpDir = true;
   };
 
+  system.nixos.stateVersion = "18.09";
+
   users.groups.kvm = {
     members = [ "eike" ];
   };
@@ -178,7 +180,7 @@ in
     nodePackages.gulp
     yarn
     vagrant
-    libreoffice
+#    libreoffice
     wpsoffice
     subversion
   ];
