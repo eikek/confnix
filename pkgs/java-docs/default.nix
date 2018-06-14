@@ -21,7 +21,8 @@ let
   };
 in {
 
- jdk10 = mkJavaDoc "10" "10.0.1+10-3" "0xgxliz5zpvn1riq96igl1c4ly3pgbg90933icwvbvyp3cml76am";
+ # http://ftp.de.debian.org/debian/pool/main/o/openjdk-10/
+ jdk10 = mkJavaDoc "10" "10.0.1+10-4" "1lcmjp13g7v5zs8ihyr0hdyrpb1xpj2syky046lxja97ghc6iwfl";
  jdk8 = mkJavaDoc "8" "8u144-b01-2" "1gi9p1lskjqlssysyr5cxhddd446jkbj8dqj9cw43acpbkf929jc";
  jee7 = stdenv.mkDerivation rec {
    name = "javaee-7.0-doc";

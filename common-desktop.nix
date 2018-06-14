@@ -107,6 +107,8 @@
     '';
   };
 
+  system.nixos.stateVersion = "18.09";
+
   fonts = {
     fontconfig.enable = true;
     enableFontDir = true;
