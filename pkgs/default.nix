@@ -65,6 +65,10 @@ let
     imagemagick695 = callPackage ./imagick{};
 #    flashplayer = callPackage ./flashplayer {};
     stumpwm = nixos1709.stumpwm; #callPackage ./stumpwm {};
+    lispPackages = {
+      # the window-manager option adds this to systemPackages
+      stumpwm = nixos1709.stumpwm;
+    };
   };
   osxcollection = import ./osxcollection/default.nix (custom // pkgs);
 in custom // { inherit osxcollection; }
