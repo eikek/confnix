@@ -239,5 +239,6 @@
     aspell
     aspellDicts.en
     aspellDicts.de
+    orgHtmlThemes
   ];
 }
