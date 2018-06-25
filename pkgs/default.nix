@@ -42,6 +42,7 @@ let
     neomodmap = callPackage ./neomodmap {};
     nginx =  callPackage ./nginx {};
     odt2org = callPackage ./odt2org {};
+    jdk7 = nixos1803.jdk7;
     orgHtmlThemes = callPackage ./org-html-themes {};
     pam_script = callPackage ./pam-script {};
     pill = callPackage ./pill {};
