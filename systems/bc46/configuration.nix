@@ -167,6 +167,19 @@ in
     drivers = [ pkgs.utaxccdclp ];
   };
 
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/music";
+    extraConfig = ''
+      audio_output {
+        type "alsa"
+        name "FIIO X5"
+        device "iec958:CARD=X5,DEV=0"
+        mixer_control "PCM"
+      }
+    '';
+  };
+
   fonts.fonts = with pkgs; [
     corefonts #unfree
   ];
@@ -183,6 +196,9 @@ in
 #    libreoffice
     wpsoffice
     subversion
+    mpc_cli
+    ncmpc
+    ncmpcpp
   ];
 
   users.extraUsers.lansweeper = let
