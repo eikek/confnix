@@ -66,6 +66,12 @@ in
       fsType = "cifs";
       options = ["user=eik" "password=${serverpass}" "uid=1000" "user" "vers=2.0"];
     };
+
+    "/home/music/usb" = {
+      device = "/dev/sdc1";
+      fsType = "vfat";
+      options = [ "uid=${toString config.ids.uids.mpd}" "gid=${toString config.ids.gids.mpd}" ];
+    };
   };
 
   services.acpid.enable = true;
