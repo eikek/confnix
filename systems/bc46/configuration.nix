@@ -67,11 +67,11 @@ in
       options = ["user=eik" "password=${serverpass}" "uid=1000" "user" "vers=2.0"];
     };
 
-    "/home/music/usb" = {
-      device = "/dev/sdc1";
-      fsType = "vfat";
-      options = [ "uid=${toString config.ids.uids.mpd}" "gid=${toString config.ids.gids.mpd}" ];
-    };
+    # "/home/music/usb" = {
+    #   device = "/dev/disks/by-label/media512";
+    #   fsType = "ext4";
+    #   options = [ "uid=${toString config.ids.uids.mpd}" "gid=${toString config.ids.gids.mpd}" ];
+    # };
   };
 
   services.acpid.enable = true;
@@ -177,11 +177,11 @@ in
     enable = true;
     musicDirectory = "/home/music";
     extraConfig = ''
+      max_connections = "10"
       audio_output {
         type "alsa"
         name "FIIO X5"
         device "iec958:CARD=X5,DEV=0"
-        mixer_control "PCM"
       }
     '';
   };
