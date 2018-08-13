@@ -9,7 +9,7 @@ in
   services.sharry = {
     enable = true;
     bindPort = 9310;
-    maxFileSize = "8G";
+    maxFileSize = "30G";
     maxFiles = "800";
     baseUrl = (if (settings.useCertificate) then "https://" else "http://") +
               subdomain + "." + settings.primaryDomain + "/";
