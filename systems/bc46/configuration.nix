@@ -177,7 +177,7 @@ in
     enable = true;
     musicDirectory = "/home/music";
     extraConfig = ''
-      max_connections = "10"
+      max_connections "15"
       audio_output {
         type "alsa"
         name "FIIO X5"
