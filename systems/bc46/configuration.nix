@@ -151,6 +151,13 @@ in
      ${pkgs.procps}/sbin/sysctl -w net.ipv4.ip_forward=1
      ${pkgs.iptables}/sbin/iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -j MASQUERADE
    '';
+
+    nat = {
+      enable = true;
+      externalInterface = "ens9";
+      internalInterfaces = [ "ve-+" ];
+    };
+
   };
 
   environment.pathsToLink = [ "/" ];
