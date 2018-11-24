@@ -73,9 +73,12 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
 
     displayManager = {
       sessionCommands = ''
-        xrandr --dpi 140
         if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
           xrandr --output DP-0 --off
+          xrandr --dpi 140
+        else
+          xrandr --dpi 220
+          echo 'Xft.dpi: 220' | xrdb -merge
         fi
       '';
     };
