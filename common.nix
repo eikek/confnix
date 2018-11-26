@@ -84,6 +84,7 @@
     tree
     jq
     pciutils
+    exa
   ];
 
   users.extraUsers.eike = {
