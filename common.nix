@@ -32,7 +32,7 @@
     };
   };
 
-  environment.shellAliases = { l = "ls -lah"; };
+  environment.shellAliases = { l = "exa -la --git"; };
   environment.shells = [
     "${pkgs.bash}/bin/bash"
     "${pkgs.zsh}/bin/zsh"
