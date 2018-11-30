@@ -85,6 +85,7 @@
     jq
     pciutils
     exa
+    elvish
   ];
 
   users.extraUsers.eike = {
