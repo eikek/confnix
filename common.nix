@@ -36,6 +36,7 @@
   environment.shells = [
     "${pkgs.bash}/bin/bash"
     "${pkgs.zsh}/bin/zsh"
+    "${pkgs.elvish}/bin/elvish"
   ];
 
   environment.systemPackages = with pkgs; [
@@ -95,7 +96,7 @@
     uid = 1000;
     createHome = true;
     home = "/home/eike";
-    shell = "/run/current-system/sw/bin/zsh";
+    shell = "${pkgs.elvish}/bin/elvish";
     extraGroups = [ "wheel" "audio" "messagebus" "systemd-journal" "cdrom" ];
   };
 }
