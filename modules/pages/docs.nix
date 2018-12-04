@@ -14,9 +14,9 @@ pkgs:
   { name = "Java 8 Api Docs";
     location = "javadocs8";
     root = "${pkgs.javadocs.jdk8}/api/";}
-  { name = "Java 10 Api Docs";
-    location = "javadocs10";
-    root = "${pkgs.javadocs.jdk10}/api/";}
+  { name = "Java 11 Api Docs";
+    location = "javadocs11";
+    root = "${pkgs.javadocs.jdk11}/api/";}
   { name = "Clojure 1.7 Api Docs";
     location = "clojure17";
     root = "${pkgs.clojuredocs}/"; }
