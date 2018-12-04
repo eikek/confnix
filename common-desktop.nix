@@ -176,7 +176,6 @@
     ffmpeg
     alsaUtils
     mediainfo
-    beets
 #    calibre doesn't build atm
 
   # x-window
