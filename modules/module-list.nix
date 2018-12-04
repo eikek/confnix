@@ -5,7 +5,7 @@
  ./exim
  ./gitblit
  ./pages
- ./roundcube
+# ./roundcube
  ./sitebag
  ./shelter
  ./hinclient
