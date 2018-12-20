@@ -118,12 +118,10 @@ in
       allowedTCPPorts = [ 9000 ];
     };
     extraHosts = ''
-      127.0.0.1 macnix bluecare-n46
+      127.0.0.1 bluecare-n46 localhost
 
-      # https://intranet/x/HIGkAQ
       192.168.13.27 larnags.int
       192.168.13.28 larnags.int.backend
-      192.168.13.73 larnags.hii
       192.168.13.75 larnags.sta larnags.sta1
       192.168.13.76 larnags.sta2
       192.168.13.77 larnags.sta.backend larnags.sta.backend1
@@ -135,6 +133,8 @@ in
       192.168.13.72 patstamm.int2
       192.168.13.83 patstamm.sta patstamm.sta1
       192.168.13.88 patstamm.sta2
+      192.168.13.73 zrla.sta
+      192.168.13.85 zrc.sta
     '';
     hostName = "bluecare-n46";
     wireless = {
