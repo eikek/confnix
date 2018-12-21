@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = https://www.openprinting.org/ppd-o-matic.php?driver=Postscript-Lexmark&printer=Lexmark-C544;
     name = "openprinting-c544.ppd";
-    sha256 = "08mjg7p53ifl8is2vhqgvpnishadk4mhw9pln99aip2fcnzkzwx8";
+    sha256 = "0mdqa9w1p6cmli6976v4wi0sw9r4p5prkj7lzfd1877wk11c9c73";
   };
 
   phases = [ "installPhase" ];
