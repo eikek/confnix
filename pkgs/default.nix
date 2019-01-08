@@ -2,6 +2,7 @@ pkgs:
 let
   nixos1709 = (import <nixos1709> {}).pkgs;
   nixos1803 = (import <nixos1803> {}).pkgs;
+  nixos1809 = (import <nixos1809> {}).pkgs;
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   custom = {
     blueimpGallery = callPackage ./blueimp-gallery {};
@@ -16,6 +17,7 @@ let
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
 #    elexis = callPackage ./elexis {};
+    elmPackages.elm = nixos1809.elmPackages.elm;
     # elmPackages = pkgs.elmPackages // {
     #   elm-oracle = callPackage ./elm-oracle {};
     #   elm-test = callPackage ./elm-test {};
