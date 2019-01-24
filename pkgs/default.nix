@@ -17,7 +17,6 @@ let
     drip = callPackage ./drip {};
     ejabberd15 = callPackage ./ejabberd {};
 #    elexis = callPackage ./elexis {};
-    elmPackages.elm = nixos1809.elmPackages.elm;
     # elmPackages = pkgs.elmPackages // {
     #   elm-oracle = callPackage ./elm-oracle {};
     #   elm-test = callPackage ./elm-test {};
