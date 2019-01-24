@@ -1,6 +1,7 @@
 { fetchurl, lib, makemkv }:
 
-# test key is T-aOOAOSdZWjJvlEAkqTMx@FmIUDQ9Uw5gNT2t0HYlnR3M7MpMj4EcvPPV3rImuagWuo
+# test key is T-SU3Ielax7aeMLkvrsQ1FPuoljvaUF7wEg6hr2HSAxSbW4l59h65EHknI5uQmC4FqAG
+#             T-aOOAOSdZWjJvlEAkqTMx@FmIUDQ9Uw5gNT2t0HYlnR3M7MpMj4EcvPPV3rImuagWuo
 #             T-NFjyvOeJ_y4pyiTEUKgI5bQMpms@HwygOuilHIWNV6_l3Z3su9psCLBHraoFktxO4O
 #             T-97pzDZ1bt6gLQbt9KpzffjEI0pRF_MjHnzDHBI@nwQIQpFmCmzpTlyzHfbI1ghXsR7
 #             T-Rj9dmR37zXFQlCz2ljQzy8tKHPasVYXIyREZwfDSi8uwRQjo1xw7Kzdr2iDGL@4QoW
@@ -9,7 +10,7 @@
 # if optical drive is not recognized try `modprobe sg` before starting makemkv
 
 let
-  version = "1.12.3";
+  version = "1.14.1";
 in
 lib.overrideDerivation makemkv (attrs: {
   name = "makemkv-${version}";

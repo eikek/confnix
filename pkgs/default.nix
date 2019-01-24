@@ -35,7 +35,7 @@ let
     jquery2 = callPackage ./jquery2 {};
     kube = callPackage ./kube {};
     lsdvd = callPackage ./lsdvd {};
-    makemkv = callPackage ./makemkv {};
+#    makemkv = callPackage ./makemkv {};
     markdown = callPackage ./markdown {};
     mediathekview = callPackage ./mediathekview {};
     mongodex = callPackage ./dex {};
