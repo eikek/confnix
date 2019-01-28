@@ -190,6 +190,8 @@
     xclip
     autorandr
     i3lock
+    i3lock-fancy
+    stumpish
 
   # web/email
     firefox
