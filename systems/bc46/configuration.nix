@@ -198,7 +198,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-    tesseract304
+    tesseract_4
     mongodb
     mongodb-tools
     ansible
@@ -207,7 +207,7 @@ in
     yarn
     vagrant
 #    libreoffice
-    wpsoffice
+#    wpsoffice
     subversion
     mpc_cli
     ncmpc
