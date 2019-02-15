@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
 
-  version = "1.5.1-23";
+  version = "1.5.5-73";
   name = "hinclient-${version}";
 
   src = fetchurl {
-    url = https://download.hin.ch/download/distribution/install/1.5.1-23/HINClient_unix_1_5_1-23.tar.gz;
-    sha256 = "1f1kkpfmcyz3iw7rky8d6pj9lbqfb6hvabdljs59sd41pd9r9bcd";
+    url = https://download.hin.ch/download/distribution/install/1.5.5-73/HINClient_unix_1_5_5-73.tar.gz;
+    sha256 = "0l775a09bs4m2hdyjry7nra713vyavp1xjkzvhyamwziz9rvyyi8";
   };
 
   buildPhase = "true";
