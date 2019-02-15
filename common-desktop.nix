@@ -240,5 +240,6 @@
     aspellDicts.en
     aspellDicts.de
     orgHtmlThemes
+    tesseract_4
   ];
 }
