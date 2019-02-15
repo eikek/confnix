@@ -61,6 +61,7 @@ let
     storeBackup = callPackage ./storebackup {};
     stumpwmdocs = callPackage ./stumpwm/docs.nix {};
     tesseract304 = callPackage ./tesseract {};
+    tmm = callPackage ./tmm {};
     twitterBootstrap3 = callPackage ./twbs {};
     utaxccdclp = callPackage ./utaxccdclp {};
     visualvm = callPackage ./visualvm {};
