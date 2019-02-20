@@ -32,7 +32,10 @@
     };
   };
 
-  environment.shellAliases = { l = "exa -la --git"; };
+  environment.shellAliases = {
+    l = "exa -la --git";
+    cat = "bat";
+  };
   environment.shells = [
     "${pkgs.bash}/bin/bash"
     "${pkgs.zsh}/bin/zsh"
@@ -86,6 +89,7 @@
     jq
     pciutils
     exa
+    bat
     elvish
   ];
 

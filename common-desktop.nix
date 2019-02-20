@@ -196,6 +196,7 @@
   # web/email
     firefox
     conkeror
+    qutebrowser
     chromium
     surfraw
     mu
