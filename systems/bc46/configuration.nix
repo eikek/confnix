@@ -6,12 +6,12 @@ let
      password to mount the fileserver and add it to the NIX_PATH
      variable with key "serverpass".
    '' ;
-  hinpass = if (builtins.tryEval <hinpass>).success then
-   builtins.readFile <hinpass>
+  hinpass = let val = builtins.tryEval <hinpass>; in
+   if (val.success) then builtins.toPath val.value
    else builtins.throw ''Please specify a file that contains the
      password to mount the fileserver and add it to the NIX_PATH
      variable with key "hinpass".
-   '' ;
+  '' ;
   fileServer = "bluecare-s54";
 in
 {
@@ -81,7 +81,7 @@ in
   services.hinclient = {
     enable = true;
     identities = "ekettne1";
-    passphrase = pkgs.writeText "hinpass" hinpass;
+    passphrase = hinpass;
     keystore = /root/ekettne1.hin;
     httpProxyPort = 6016;
     clientapiPort = 6017;
