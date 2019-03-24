@@ -15,12 +15,12 @@ let
   '';
 in
 stdenv.mkDerivation rec {
-  version = "2.9.15_69b6104";
+  version = "2.9.16_42413ce";
   name = "tinymediamanager-${version}";
 
   src = fetchurl {
     url = "http://release.tinymediamanager.org/v2/dist/tmm_${version}_linux.tar.gz";
-    sha256 = "0cnf5imqp0047cgvikd5b50yk49lbq1kf84nmap9pw8mv2wp93zq";
+    sha256 = "1wf32zr1c667jfgp57y4c35rl5llbslc1xdmfalizaqlma621d4b";
   };
 
   buildInputs = [ ];
