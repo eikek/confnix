@@ -98,12 +98,6 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
 
   nixpkgs.config = {
     allowUnfree = true;
-    firefox = {
-      icedtea = true;
-    };
-    chromium = {
-      icedtea = true;
-    };
   };
 
   nix = {

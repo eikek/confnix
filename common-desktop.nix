@@ -82,17 +82,6 @@
     };
   };
 
-  nixpkgs = {
-    config = {
-      firefox = {
-        icedtea = true;
-      };
-      chromium = {
-        icedtea = true;
-      };
-    };
-  };
-
   system.activationScripts = {
     gpgAgentOptions = let cacheTime = builtins.toString (4 * 60 * 60); in ''
       cat > /home/eike/.gnupg/gpg-agent.conf <<-"EOF"
