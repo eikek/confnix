@@ -40,6 +40,9 @@ in
   users.groups.kvm = {
     members = [ "eike" ];
   };
+  users.groups.docker = {
+    members = [ "eike" ];
+  };
 
   services.ntp = {
     servers = [ "192.168.10.1" ];
@@ -91,13 +94,7 @@ in
   };
 
   services.xserver = {
-    synaptics = {
-      enable = true;
-      twoFingerScroll = true;
-      accelFactor = "0.001";
-      buttonsMap = [ 1 3 2 ];
-    };
-
+    libinput.enable = true;
     displayManager = {
       sessionCommands = ''
         if [ $(${pkgs.xlibs.xrandr}/bin/xrandr --listmonitors --verbose | grep "^[^[:blank:]]" | grep "1920x1200" | wc -l) -eq 2 ]; then
@@ -162,17 +159,15 @@ in
 
   environment.pathsToLink = [ "/" ];
 
+  virtualisation.docker = {
+    enable = true;
+    autoPrune.enable = true;
+  };
+
   nix.maxJobs = lib.mkOverride 20 4;
 
   nixpkgs.config = {
     allowUnfree = true;
-    firefox = {
-      icedtea = true;
-      enableAdobeFlash = false;
-    };
-    chromium = {
-      icedtea = true;
-    };
   };
 
   # refer to the osx manual here https://intranet/x/EQNxAg
