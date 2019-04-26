@@ -14,4 +14,5 @@
  ./fileshelter
  ./sharry
  ./sharry/demo.nix
+ ./webact
 ]

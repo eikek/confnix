@@ -13,6 +13,7 @@
       gitea = 392;
       fileshelter = 391;
       sharry = 390;
+      webact = 389;
     };
 
     ids.gids = {
@@ -26,6 +27,7 @@
       gitea = 392;
       fileshelter = 391;
       sharry = 390;
+      webact = 389;
     };
   };
 }

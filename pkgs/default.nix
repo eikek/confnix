@@ -66,6 +66,7 @@ let
     utaxccdclp = callPackage ./utaxccdclp {};
     visualvm = callPackage ./visualvm {};
     imagemagick695 = callPackage ./imagick{};
+    webact = callPackage ./webact {};
   };
   osxcollection = import ./osxcollection/default.nix (custom // pkgs);
 in custom // { inherit osxcollection; }
