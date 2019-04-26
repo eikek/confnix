@@ -7,11 +7,11 @@
   fileSystems = builtins.listToAttrs (map (mp:
     { name = "/mnt/nas/" + mp;
       value = {
-        device = "//nas/" + mp;
+        device = "//files.home/" + mp;
         fsType = "cifs";
-        options = ["noauto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" "vers=1.0" ];
+        options = ["noauto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" "vers=2.0" ];
         noCheck = true;
       };
-    }) ["backups" "dokumente" "downloads" "home" "music" "photo" "safe" "video"]);
+    }) ["data" "eike"]);
 
 }
