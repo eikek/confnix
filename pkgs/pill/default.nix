@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   name = "pill-${version}";
 
   src = fetchurl {
-    url = "https://eknet.org/main/projects/pill/pill-${version}.tar.gz";
+    url = "https://github.com/eikek/pill/releases/download/release%2F${version}/pill-${version}.tar.gz";
     sha256 = "1aag8dkwcwb72ayqpdk6msia5qlwiwzxf47zi717lcwrv7v40847";
   };
 
