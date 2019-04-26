@@ -44,6 +44,18 @@ in
     members = [ "eike" ];
   };
 
+  services.webact = {
+    enable = true;
+    userService = true;
+    baseDir = "/home/eike/webact";
+    extraPackages = [ pkgs.bash pkgs.ammonite pkgs.coreutils ];
+    extraPaths = [ "/home/eike/bin" ];
+    extraEnv = {
+      "DISPLAY" = ":0";
+    };
+    bindHost = "localhost";
+  };
+
   services.ntp = {
     servers = [ "192.168.10.1" ];
   };
