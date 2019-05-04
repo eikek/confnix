@@ -24,10 +24,6 @@
 
   security.pam.enableSSHAgentAuth = true;
 
-  services.pill = {
-    enable = true;
-  };
-
   services.redshift = {
     enable = true;
     brightness.night = "0.8";
