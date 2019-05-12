@@ -62,6 +62,18 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
   services.logind.lidSwitch = "ignore";
 
+  services.webact = {
+    enable = true;
+    userService = true;
+    baseDir = "/home/eike/.webact";
+    extraPackages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.elvish ];
+    extraPaths = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
+    extraEnv = {
+      "DISPLAY" = ":0";
+    };
+    bindHost = "localhost";
+  };
+
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     synaptics = {

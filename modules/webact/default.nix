@@ -30,6 +30,8 @@ let
         port = ${toString cfg.smtpPort}
         user = "${cfg.smtpUser}"
         password = "${cfg.smtpPassword}"
+        start-tls = ${if cfg.smtpStartTls then "true" else "false"}
+        use-ssl = ${if cfg.smtpUseSsl then "true" else "false"}
         sender = "${cfg.smtpSender}"
       }
     }
@@ -135,6 +137,16 @@ in {
         type = types.string;
         default = "";
         description = "The password to use for authentication on smtp server";
+      };
+      smtpStartTls = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether to connect via SartTLS";
+      };
+      smtpUseSsl = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether to connect via SSL";
       };
       smtpSender = mkOption {
         type = types.string;
