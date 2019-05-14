@@ -175,8 +175,12 @@ in {
 
     systemd.user.services.webact = mkIf config.services.webact.userService {
       description = "Webact User Service";
-      after = [ "networking.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "default.target" ];
+      restartIfChanged = true;
+      serviceConfig = {
+        RestartSec = 3;
+        Restart = "always";
+      };
       path = [ pkgs.gawk ];
       preStart = ''
         mkdir -p ${cfg.baseDir}
