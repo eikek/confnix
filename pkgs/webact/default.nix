@@ -1,12 +1,12 @@
 {stdenv, fetchurl, jre8_headless, unzip, bash}:
 
 stdenv.mkDerivation rec {
-  version = "0.2.0";
+  version = "0.3.0";
   name = "webact-${version}";
 
    src = fetchurl {
      url = "https://github.com/eikek/webact/releases/download/v${version}/webact-${version}.zip";
-     sha256 = "0gba4lzdh2r5rhn6q62iy8hp6w2zx9h8cd590s80w9mjxrnxcjx2";
+     sha256 = "1x5yfmw8897d8kx9r36qfqich6r42nkw181510rxd9r84lz2xf2h";
    };
 
   buildInputs = [ jre8_headless ];

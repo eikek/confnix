@@ -63,6 +63,7 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
   services.logind.lidSwitch = "ignore";
 
   services.webact = {
+    appName = "Webact Kythira";
     enable = true;
     userService = true;
     baseDir = "/home/eike/.webact";
