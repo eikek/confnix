@@ -4,6 +4,7 @@
  ./dovecot2imap
  ./exim
  ./gitblit
+ ./mpc4s
  ./pages
 # ./roundcube
  ./sitebag
@@ -12,6 +13,7 @@
  ./pill
  ./gitbucket
  ./fileshelter
+ ./pickup
  ./sharry
  ./sharry/demo.nix
  ./webact

@@ -39,10 +39,12 @@ let
     mediathekview = callPackage ./mediathekview {};
     mongodex = callPackage ./dex {};
     mongodb-tools = callPackage ./mongodb-tools {};
+    mpc4s = callPackage ./mpc4s {};
     msgconvert = callPackage ./msgconvert {};
     neomodmap = callPackage ./neomodmap {};
     nginx =  callPackage ./nginx {};
     odt2org = callPackage ./odt2org {};
+    pickup = callPackage ./pickup {};
     jdk7 = nixos1803.jdk7;
     orgHtmlThemes = callPackage ./org-html-themes {};
     pam_script = callPackage ./pam-script {};

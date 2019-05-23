@@ -199,6 +199,22 @@ in
       }
     '';
   };
+  services.mpc4s = {
+    enable = true;
+    userService = true;
+    musicDirectory = "/home/music";
+    mpdConfigs = {
+      default = {
+        host = "127.0.0.1";
+        port = 6600;
+        max-connections = 10;
+        title = "BC46";
+      };
+    };
+    coverThumbDir = "/home/eike/.mpd/thumbnails";
+    bindHost = "localhost";
+    bindPort = 9600;
+  };
 
   fonts.fonts = with pkgs; [
     corefonts #unfree
@@ -216,6 +232,8 @@ in
 #    libreoffice
 #    wpsoffice
     subversion
+    slack
+    peek
     mpc_cli
     ncmpc
     ncmpcpp

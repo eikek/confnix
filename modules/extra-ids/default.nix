@@ -14,6 +14,8 @@
       fileshelter = 391;
       sharry = 390;
       webact = 389;
+      mpc4s = 388;
+      pickup = 387;
     };
 
     ids.gids = {
@@ -28,6 +30,8 @@
       fileshelter = 391;
       sharry = 390;
       webact = 389;
+      mpc4s = 388;
+      pickup = 387;
     };
   };
 }
