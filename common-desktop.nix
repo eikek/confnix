@@ -7,7 +7,6 @@
   time.timeZone = "Europe/Berlin";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_4_14;
     cleanTmpDir = true;
   };
 

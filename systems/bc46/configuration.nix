@@ -31,7 +31,6 @@ in
     initrd.luks.devices = [
       { device = "/dev/sda4"; name = "crootfs"; preLVM = true; }
     ];
-    kernelPackages = pkgs.linuxPackages_4_14;
     cleanTmpDir = true;
   };
 
@@ -42,6 +41,11 @@ in
   };
   users.groups.docker = {
     members = [ "eike" ];
+  };
+
+  services.openssh = {
+   enable = true;
+   forwardX11 = true;
   };
 
   services.webact = {
@@ -58,6 +62,10 @@ in
 
   services.ntp = {
     servers = [ "192.168.10.1" ];
+  };
+
+  services.openvpn.servers = {
+    officeVPN = { config = " config /root/openvpn/vpfwblue.bluecare.ch.ovpn "; };
   };
 
   # needed for the `user` option below
@@ -147,10 +155,9 @@ in
     '';
     hostName = "bluecare-n46";
     wireless = {
-      enable = false;
+      enable = true;
     };
     useDHCP = true;
-    wicd.enable = true;
 
     # enable networking in qemu vms
     localCommands = ''
