@@ -34,7 +34,7 @@ in
     cleanTmpDir = true;
   };
 
-  system.stateVersion = "18.09";
+  system.stateVersion = "19.03";
 
   users.groups.kvm = {
     members = [ "eike" ];
@@ -65,7 +65,10 @@ in
   };
 
   services.openvpn.servers = {
-    officeVPN = { config = " config /root/openvpn/vpfwblue.bluecare.ch.ovpn "; };
+    officeVPN = {
+      config = " config /root/openvpn/vpfwblue.bluecare.ch.ovpn ";
+      autoStart = false;
+    };
   };
 
   # needed for the `user` option below
@@ -90,11 +93,11 @@ in
       options = ["user=eik" "password=${serverpass}" "uid=1000" "user" "vers=2.0"];
     };
 
-    # "/home/music/usb" = {
-    #   device = "/dev/disks/by-label/media512";
-    #   fsType = "ext4";
-    #   options = [ "uid=${toString config.ids.uids.mpd}" "gid=${toString config.ids.gids.mpd}" ];
-    # };
+    "/home/music/usb" = {
+      device = "/dev/disks/by-label/media512";
+      fsType = "ext4";
+      options = [ "uid=${toString config.ids.uids.mpd}" "gid=${toString config.ids.gids.mpd}" "nofail" "user" ];
+    };
   };
 
   services.acpid.enable = true;
@@ -125,6 +128,8 @@ in
           ${pkgs.xlibs.xrandr}/bin/xrandr --output HDMI-0 --left-of DisplayPort-0
           ${pkgs.xlibs.xrandr}/bin/xrandr --output DisplayPort-0 --rotation left
         fi
+        # systemd --user won't work without correct xdg_runtime_dir
+        export XDG_RUNTIME_DIR=/run/user/$(id -u)
       '';
     };
 
