@@ -97,15 +97,52 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
     };
   };
 
-  services.postgresql = {
-    enable = true;
+  containers.dbmysql =
+  { config = { config, pkgs, ... }:
+    { services.mysql = {
+        enable = true;
+        package = pkgs.mariadb;
+        initialScript = pkgs.writeText "devmysql-init.sql" ''
+          CREATE USER IF NOT EXISTS 'dev' IDENTIFIED BY 'dev';
+          GRANT ALL ON *.* TO 'dev'@'%';
+        '';
+        extraOptions = ''
+          skip-networking=0
+          skip-bind-address
+       '';
+      };
+    };
+    autoStart = false;
+  };
+  containers.dbpostgres =
+  { config = { config, pkgs, ... }:
+    { services.postgresql =
+      let
+        pginit = pkgs.writeText "pginit.sql" ''
+          CREATE USER dev WITH PASSWORD 'dev' LOGIN CREATEDB;
+          GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dev;
+          GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO dev;
+        '';
+      in {
+        enable = true;
+        package = pkgs.postgresql_11;
+        enableTCPIP = true;
+        initialScript = pginit;
+        port = 5432;
+      };
+    };
+    autoStart = false;
   };
 
   environment.pathsToLink = [ "/" ];
 
+  environment.systemPackages = with pkgs; [
+    mariadb postgresql_11
+  ];
+
   system.activationScripts = {
     kworkerbug = ''
-      echo "disable" > /sys/firmware/acpi/interrupts/gpe6F
+      echo "disable" > /sys/firmware/acpi/interrupts/gpe6F || true
     '';
   };
 
@@ -124,5 +161,4 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
     cpu.intel.updateMicrocode = true;  #needs unfree
     opengl.driSupport32Bit = true;
   };
-
 }
