@@ -137,7 +137,7 @@ in {
         mkdir -p ${cfg.coverThumbDir}
       '';
 
-      script = "${pkgs.mpc4s}/bin/mpc4s ${configFile}";
+      script = "${pkgs.mpc4s}/bin/mpc4s -J-Xmx50m ${configFile}";
     };
 
     systemd.services.mpc4s = mkIf (!config.services.mpc4s.userService) {
@@ -150,7 +150,7 @@ in {
         chown mpc4s:mpc4s ${cfg.coverThumbDir}
       '';
 
-      script = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh mpc4s -c \"${pkgs.mpc4s}/bin/mpc4s ${configFile}\"";
+      script = "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh mpc4s -c \"${pkgs.mpc4s}/bin/mpc4s -J-Xmx50m ${configFile}\"";
     };
   };
 }

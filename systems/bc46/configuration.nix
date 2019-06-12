@@ -93,11 +93,11 @@ in
       options = ["user=eik" "password=${serverpass}" "uid=1000" "user" "vers=2.0"];
     };
 
-    "/home/music/usb" = {
-      device = "/dev/disks/by-label/media512";
-      fsType = "ext4";
-      options = [ "uid=${toString config.ids.uids.mpd}" "gid=${toString config.ids.gids.mpd}" "nofail" "user" ];
-    };
+    # "/home/music/usb" = {
+    #   device = "/dev/disks/by-label/media512";
+    #   fsType = "ext4";
+    #   options = [ "uid=${toString config.ids.uids.mpd}" "gid=${toString config.ids.gids.mpd}" "nofail" "user" ];
+    # };
   };
 
   services.acpid.enable = true;
