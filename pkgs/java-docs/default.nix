@@ -22,7 +22,7 @@ let
 in {
 
  # http://ftp.de.debian.org/debian/pool/main/o/openjdk-11/
- jdk11 = mkJavaDoc "11" "11.0.3+7-2" "1ji81dvfi3372l7gw5p0v6wvhqijv2fnvqy2flp5mcwjmzip5l5i";
+ jdk11 = mkJavaDoc "11" "11.0.4+10-1" "1q71s3wapqyn8iyxmrgqdjb8ranvrk7phh2bg8gkim6fmrxm72sj";
  jdk8 = mkJavaDoc "8" "8u212-b01-1~deb9u1" "14zi75dg4d6fypjbl4p46rir9jf8plmd57npsm90x1j846aj4f5y";
  jee7 = stdenv.mkDerivation rec {
    name = "javaee-7.0-doc";

@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = https://github.com/stumpwm/stumpwm.github.io.git;
     rev = "refs/heads/master";
-    sha256 = "0hz389k0v0jm9ncjqfh3jfpli1l7hhvljx04ihxmb08nc8ymrad8";
+    sha256 = "1qwffn8v7s25dr4rp0mp54f7hcf090y0crsf07q0x6jxm610rcaw";
     name = "stumpwm-docs-${version}-git";
   };
 
