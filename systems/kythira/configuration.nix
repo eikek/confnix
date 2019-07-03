@@ -39,10 +39,9 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
   networking = {
     hostName = "kythira";
     wireless = {
-      enable = false;
+      enable = true;
     };
     useDHCP = true;
-    wicd.enable = true;
 
     nat = {
       enable = true;
@@ -137,7 +136,7 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
   environment.pathsToLink = [ "/" ];
 
   environment.systemPackages = with pkgs; [
-    mariadb postgresql_11
+    mariadb postgresql_11 wpa_supplicant
   ];
 
   system.activationScripts = {
