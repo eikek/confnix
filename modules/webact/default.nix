@@ -186,7 +186,7 @@ in {
         mkdir -p ${cfg.baseDir}
       '';
 
-      script = "${pkgs.webact}/bin/webact ${configFile}";
+      script = "${pkgs.webact}/bin/webact -J-Xmx100m ${configFile}";
     };
 
     systemd.services.webact = mkIf (!config.services.webact.userService) {
@@ -201,7 +201,7 @@ in {
 
       script =
         if user == "root" then "${pkgs.webact}/bin/webact ${configFile}"
-        else "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${user} -c \"${pkgs.webact}/bin/webact ${configFile}\"";
+        else "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${user} -c \"${pkgs.webact}/bin/webact -J-Xmx100m ${configFile}\"";
     };
   };
 }
