@@ -232,6 +232,44 @@ in
     corefonts #unfree
   ];
 
+  containers.dbmysql =
+  { config = { config, pkgs, ... }:
+    { services.mysql = {
+        enable = true;
+        package = pkgs.mariadb;
+        initialScript = pkgs.writeText "devmysql-init.sql" ''
+          CREATE USER IF NOT EXISTS 'dev' IDENTIFIED BY 'dev';
+          GRANT ALL ON *.* TO 'dev'@'%';
+        '';
+        extraOptions = ''
+          skip-networking=0
+          skip-bind-address
+       '';
+      };
+    };
+    autoStart = false;
+  };
+
+  containers.dbpostgres =
+  { config = { config, pkgs, ... }:
+    { services.postgresql =
+      let
+        pginit = pkgs.writeText "pginit.sql" ''
+          CREATE USER dev WITH PASSWORD 'dev' LOGIN CREATEDB;
+          GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dev;
+          GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO dev;
+        '';
+      in {
+        enable = true;
+        package = pkgs.postgresql_11;
+        enableTCPIP = true;
+        initialScript = pginit;
+        port = 5432;
+      };
+    };
+    autoStart = false;
+  };
+
   environment.systemPackages = with pkgs; [
     tesseract_4
     mongodb
@@ -241,7 +279,7 @@ in
     nodePackages.gulp
     yarn
     vagrant
-#    libreoffice
+    libreoffice
 #    wpsoffice
     subversion
     slack
