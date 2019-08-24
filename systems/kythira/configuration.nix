@@ -136,7 +136,7 @@ let mykey = builtins.readFile /home/eike/.ssh/id_rsa.pub; in
   environment.pathsToLink = [ "/" ];
 
   environment.systemPackages = with pkgs; [
-    mariadb postgresql_11 wpa_supplicant
+    mariadb postgresql_11 wpa_supplicant unpaper
   ];
 
   system.activationScripts = {
