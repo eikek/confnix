@@ -3,6 +3,9 @@
 These are the configuration file for some of my
 [NixOs](http://nixos.org) installations.
 
+Note: Branch `nixos-19.03` starts all over. Previous branches have
+been "archived" and can be reached by archived/ tags.
+
 ## Setup
 
     cd /etc/nixos
