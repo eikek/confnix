@@ -6,10 +6,13 @@ let
     c544ppd = callPackage ./c544ppd {};
     chee = callPackage ./chee {};
     gossa = callPackage ./gossa {};
+    hinclient = callPackage ./hinclient {};
     meth = callPackage ./meth {};
     mpc4s = callPackage ./mpc4s {};
+    msgconvert = callPackage ./msgconvert {};
     pickup = callPackage ./pickup {};
     sharry = callPackage ./sharry {};
+    tmm = callPackage ./tmm {};
     webact = callPackage ./webact {};
   };
 in custom

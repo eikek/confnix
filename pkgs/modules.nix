@@ -1,5 +1,6 @@
 [ ./attentive/module.nix
   ./gossa/module.nix
+  ./hinclient/module.nix
   ./mpc4s/module.nix
   ./mpdscribble/module.nix
   ./pickup/module.nix
