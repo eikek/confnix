@@ -5,7 +5,7 @@ let
   cfg = config.services.webact;
   user = if cfg.runAs == null then "webact" else cfg.runAs;
   paths = with builtins;
-    (concatMap (p: ["${p}/bin" "${p}/sbin" ]) cfg.extraPackages) ++ (cfg.extraPaths);
+    (map (p: "${p}/bin") cfg.extraPackages) ++ (cfg.extraPaths);
 
   configFile = pkgs.writeText "webact.conf" ''
     webact {
@@ -55,6 +55,11 @@ in {
           must exist.
         '';
       };
+      userService = mkOption {
+        type = types.bool;
+        default = false;
+        description = "If true, then webact is a systemd-user service and the runAs option is ignored.";
+      };
 
       baseDir = mkOption {
         type = types.path;
@@ -78,8 +83,8 @@ in {
         type = types.listOf types.package;
         default = [];
         description = ''
-          A list of packages whose bin/ and sbin/ directory are added
-          to the PATH variable available in scripts.
+          A list of packages where their bin/ directory are added to
+          the PATH variable available in scripts.
 
           This and `extraPaths` are concatenated.
         '';
@@ -168,8 +173,24 @@ in {
 
     networking.firewall.allowedTCPPorts = [ cfg.bindPort ];
 
-    systemd.services.webact = {
-      description = "Webact server";
+    systemd.user.services.webact = mkIf config.services.webact.userService {
+      description = "Webact User Service";
+      wantedBy = [ "default.target" ];
+      restartIfChanged = true;
+      serviceConfig = {
+        RestartSec = 3;
+        Restart = "always";
+      };
+      path = [ pkgs.gawk ];
+      preStart = ''
+        mkdir -p ${cfg.baseDir}
+      '';
+
+      script = "${pkgs.webact}/bin/webact -J-Xmx100m ${configFile}";
+    };
+
+    systemd.services.webact = mkIf (!config.services.webact.userService) {
+      description = "Webact Service";
       after = [ "networking.target" ];
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.gawk ];
@@ -180,7 +201,7 @@ in {
 
       script =
         if user == "root" then "${pkgs.webact}/bin/webact ${configFile}"
-        else "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${user} -c \"${pkgs.webact}/bin/webact ${configFile}\"";
+        else "${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${user} -c \"${pkgs.webact}/bin/webact -J-Xmx100m ${configFile}\"";
     };
   };
 }

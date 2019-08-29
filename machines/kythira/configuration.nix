@@ -2,8 +2,17 @@
 let mykey = builtins.readFile <sshpubkey>; in
 {
   imports =
-    [ ./hw-kythira.nix ] ++
-    (import ../../modules/all.nix) ++
+    [ ./hw-kythira.nix
+      ../../modules/accounts.nix
+      ../../modules/docker.nix
+      ../../modules/ids.nix
+      ../../modules/latex.nix
+      ../../modules/packages.nix
+      ../../modules/redshift.nix
+      ../../modules/region-neo.nix
+      ../../modules/user.nix
+      ../../modules/vbox-host.nix
+    ] ++
     (import ../../pkgs/modules.nix);
 
   boot = {
@@ -48,14 +57,6 @@ let mykey = builtins.readFile <sshpubkey>; in
     wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
   };
 
-  services.redshift = {
-    enable = true;
-    brightness.night = "0.8";
-    temperature.night = 3500;
-    latitude = "47.5";
-    longitude = "8.75";
-  };
-
   services.printing = {
     enable = true;
     drivers = [ pkgs.c544ppd ];
@@ -71,7 +72,7 @@ let mykey = builtins.readFile <sshpubkey>; in
     autorun = true;
     layout = "de";
     exportConfiguration = true;
-
+    libinput.enable = true;
     xkbVariant = "neo";
 
     videoDrivers = [ "nvidia" ];
@@ -105,7 +106,6 @@ let mykey = builtins.readFile <sshpubkey>; in
       '';
     };
   };
-
 
   fonts = {
     fontconfig = {
@@ -153,9 +153,9 @@ let mykey = builtins.readFile <sshpubkey>; in
   services.logind.lidSwitch = "ignore";
 
   services.webact = {
-    appName = "Webact Kythira";
+    appName = "Webact " + config.networking.hostName;
     enable = true;
-    runAs = "eike";
+    userService = true;
     baseDir = "/home/eike/.webact";
     extraPackages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.elvish ];
     extraPaths = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
@@ -165,41 +165,12 @@ let mykey = builtins.readFile <sshpubkey>; in
     bindHost = "localhost";
   };
 
-
   containers.dbmysql =
-  { config = { config, pkgs, ... }:
-    { services.mysql = {
-        enable = true;
-        package = pkgs.mariadb;
-        initialScript = pkgs.writeText "devmysql-init.sql" ''
-          CREATE USER IF NOT EXISTS 'dev' IDENTIFIED BY 'dev';
-          GRANT ALL ON *.* TO 'dev'@'%';
-        '';
-        extraOptions = ''
-          skip-networking=0
-          skip-bind-address
-       '';
-      };
-    };
+  { config = import ../../modules/devdb-mariadb.nix;
     autoStart = false;
   };
   containers.dbpostgres =
-  { config = { config, pkgs, ... }:
-    { services.postgresql =
-      let
-        pginit = pkgs.writeText "pginit.sql" ''
-          CREATE USER dev WITH PASSWORD 'dev' LOGIN CREATEDB;
-          GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dev;
-          GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO dev;
-        '';
-      in {
-        enable = true;
-        package = pkgs.postgresql_11;
-        enableTCPIP = true;
-        initialScript = pginit;
-        port = 5432;
-      };
-    };
+  { config = import ../../modules/devdb-postgres.nix;
     autoStart = false;
   };
 
@@ -224,124 +195,107 @@ let mykey = builtins.readFile <sshpubkey>; in
   environment.systemPackages = with pkgs;
   [
   # base
-    binutils
-    file
-    gitAndTools.gitFull
+    cifs_utils
+    direnv
+    fzf
     git-crypt
-    tig
-    zsh
-    pass
+    gitAndTools.gitFull
+    iptables
+    jq
     mr
+    nix-prefetch-scripts
+    nixops
+    openssl
+    pass
+    pinentry
+    recutils
     rlwrap
     sqlite
-    nix-prefetch-scripts
-    openssl
-    which
-    recutils
+    tig
     tmuxinator
-    direnv
     tree
-    jq
-    elvish
+    which
     wpa_supplicant
-    iptables
-    cifs_utils
-    aumix
-    nixops
-    emacs
-    gnupg
+    zsh
 
   # images
     feh
-    viewnior
+    gimp
+    gnuplot
+    graphviz
     imagemagick
     jhead
     libjpeg
-    gimp
-    graphviz
-    gnuplot
     plantuml
+    viewnior
 
   # multimedia
+    alsaUtils
+    cdparanoia
+    ffmpeg
+    flac
+    mediainfo
     mplayer
     mpv
-    vlc
-    cdparanoia
     sox
-    flac
+    vlc
     vorbisTools
-    ffmpeg
-    alsaUtils
-    mediainfo
-#    calibre doesn't build atm
 
   # x-window
-    xlibs.xrandr
-    xlibs.xmodmap
-    xlibs.xwd
-    xlibs.xdpyinfo
-    xsel
-    xorg.xwininfo
-    xfce.terminal
     alacritty
-    xclip
     autorandr
     i3lock
     i3lock-fancy
     stumpish
+    xclip
+    xfce.terminal
+    xlibs.xdpyinfo
+    xlibs.xmodmap
+    xlibs.xrandr
+    xlibs.xwd
+    xorg.xwininfo
+    xsel
 
   # web/email
-    firefox
-    qutebrowser
     chromium
+    firefox
     mu
     offlineimap
+    qutebrowser
 
   # devel
-    sbcl
-    python
-    scala
-    sbt
-    clojure
-    leiningen
-    jdk
-    maven
-    ant
-    idea.idea-community
-    silver-searcher
-    global
-    visualvm
-    tex
     R
     ammonite-repl
+    ant
+    clojure
     elmPackages.elm
+    global
+    idea.idea-community
+    jdk
+    leiningen
     mariadb
+    maven
     postgresql_11
+    python
+    sbcl
+    sbt
+    scala
+    silver-searcher
+    visualvm
 
   # other tools
-    unpaper
-    zathura
-    ghostscript
-    sqliteman
-    pandoc
-    youtube-dl
     drip
+    ghostscript
+    pandoc
+    sqliteman
     tesseract_4
+    unpaper
+    youtube-dl
+    zathura
 
   ];
 
   system.activationScripts = {
-    gpgAgentOptions = let cacheTime = builtins.toString (4 * 60 * 60); in ''
-      cat > /home/eike/.gnupg/gpg-agent.conf <<-"EOF"
-      enable-ssh-support
-      default-cache-ttl ${cacheTime}
-      max-cache-ttl ${cacheTime}
-      default-cache-ttl-ssh ${cacheTime}
-      max-cache-ttl-ssh ${cacheTime}
-      allow-emacs-pinentry
-      pinentry-program "${pkgs.pinentry}/bin/pinentry-gtk-2"
-      EOF
-    '';
     kworkerbug = ''
       echo "disable" > /sys/firmware/acpi/interrupts/gpe6F || true
     '';

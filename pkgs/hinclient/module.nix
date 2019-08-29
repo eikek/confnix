@@ -4,7 +4,6 @@ with lib;
 let
   cfg = config.services.hinclient;
   str = e: if (builtins.typeOf e) == "bool" then (if e then "true" else "false") else (builtins.toString e);
-  oldpkgs = import <nixos1703> {};
 in {
 
   ## interface
@@ -89,7 +88,7 @@ in {
       after = [ "networking.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
-        JAVA_HOME = "${oldpkgs.jre8}";
+        JAVA_HOME = "${pkgs.jre8}";
         HOME = "${cfg.baseDir}";
         INSTALL4J_ADD_VM_PARAMS = "-Djava.io.tmpdir=${cfg.baseDir}/tmp";
       };

@@ -1,24 +1,24 @@
 { config, pkgs, ... }:
-let
- serverpass = if (builtins.tryEval <serverpass>).success then
-   builtins.readFile <serverpass>
-   else builtins.throw ''Please specify a file that contains the
-     password to mount the fileserver and add it to the NIX_PATH
-     variable with key "serverpass".
-   '' ;
-  hinpass = let val = builtins.tryEval <hinpass>; in
-   if (val.success) then builtins.toPath val.value
-   else builtins.throw ''Please specify a file that contains the
-     password to mount the fileserver and add it to the NIX_PATH
-     variable with key "hinpass".
-  '' ;
-  fileServer = "bluecare-s54";
-in
+
 {
   imports =
-    [ ./hw-n76.nix ./mpd.nix ] ++
-    (import ../../modules/all.nix) ++
+    [ ./hw-n76.nix
+      ./mpd.nix
+      ./fileserver.nix
+      ./hinclient.nix
+      ./vpn.nix
+      ../../modules/accounts.nix
+      ../../modules/docker.nix
+      ../../modules/ids.nix
+      ../../modules/latex.nix
+      ../../modules/packages.nix
+      ../../modules/redshift.nix
+      ../../modules/region-neo.nix
+      ../../modules/user.nix
+      ../../modules/vbox-host.nix
+    ] ++
     (import ../../pkgs/modules.nix);
+
 
   boot = {
     loader.systemd-boot.enable = true;
@@ -53,106 +53,119 @@ in
 
   environment.systemPackages = with pkgs;
   [
-    tesseract_4
-    mongodb
-    mongodb-tools
-    ansible
-    nodePackages.grunt-cli
-    nodePackages.gulp
-    yarn
-    vagrant
-    libreoffice
-    slack
-    peek
-    gitAndTools.gitFull
+    cifs_utils
+    direnv
+    fzf
     git-crypt
-    tig
-    zsh
-    pass
+    gitAndTools.gitFull
+    iptables
+    jq
     mr
+    nix-prefetch-scripts
+    nixops
+    openssl
+    pass
+    pinentry
+    recutils
     rlwrap
     sqlite
-    nix-prefetch-scripts
-    guile
-    openssl
-    which
-    recutils
+    tig
     tmuxinator
-    direnv
     tree
-    jq
-    elvish
+    which
     wpa_supplicant
-    iptables
-    nixops
+    zsh
 
   # images
     feh
-    viewnior
+    gimp
+    gnuplot
+    graphviz
     imagemagick
     jhead
     libjpeg
-    gimp
-    graphviz
-    gnuplot
     plantuml
+    viewnior
 
   # multimedia
+    alsaUtils
+    cdparanoia
+    ffmpeg
+    flac
+    mediainfo
     mplayer
     mpv
-    vlc
-    cdparanoia
     sox
-    flac
+    vlc
     vorbisTools
-    ffmpeg
-    alsaUtils
-    mediainfo
-#    calibre doesn't build atm
 
   # x-window
-    xlibs.xrandr
-    xlibs.xmodmap
-    xlibs.xwd
-    xlibs.xdpyinfo
-    xsel
-    xorg.xwininfo
-    xfce.terminal
     alacritty
-    xclip
     autorandr
     i3lock
     i3lock-fancy
     stumpish
+    xclip
+    xfce.terminal
+    xlibs.xdpyinfo
+    xlibs.xmodmap
+    xlibs.xrandr
+    xlibs.xwd
+    xorg.xwininfo
+    xsel
 
   # web/email
-    firefox
-    qutebrowser
     chromium
+    firefox
     mu
     offlineimap
+    qutebrowser
 
   # devel
-    sbcl
-    python
-    scala
-    sbt
-    clojure
-    leiningen
-    jdk
-    maven
-    idea.idea-community
-    silver-searcher
-    global
-    visualvm
     R
     ammonite-repl
+    ansible
+    clojure
     elmPackages.elm
+    git-crypt
+    gitAndTools.gitFull
+    global
+    guile
+    idea.idea-community
+    jdk
+    jq
+    leiningen
+    maven
+    mongodb
+    mongodb-tools
+    nodePackages.grunt-cli
+    nodePackages.gulp
+    python
+    sbcl
+    sbt
+    scala
+    silver-searcher
+    visualvm
 
   # other tools
-    zathura
-    ghostscript
+    direnv
     drip
+    ghostscript
+    iptables
+    libreoffice
+    mr
+    nix-prefetch-scripts
+    nixops
+    openssl
+    pass
+    peek
+    recutils
+    rlwrap
+    slack
+    tesseract_4
+    vagrant
+    yarn
+    zathura
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -184,14 +197,6 @@ in
 
   security.pam.enableSSHAgentAuth = true;
 
-  services.redshift = {
-    enable = true;
-    brightness.night = "0.8";
-    temperature.night = 3500;
-    latitude = "47.5";
-    longitude = "8.75";
-  };
-
   services.locate = {
     enable = true;
     interval = "13:00";
@@ -203,7 +208,7 @@ in
     autorun = true;
     layout = "de";
     exportConfiguration = true;
-
+    libinput.enable = true;
     xkbVariant = "neo";
 
     desktopManager = {
@@ -230,76 +235,35 @@ in
     };
   };
 
+  services.webact = {
+    appName = "Webact " + config.networking.hostName;
+    enable = true;
+    userService = true;
+    baseDir = "/home/eike/.webact";
+    extraPackages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.elvish ];
+    extraPaths = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
+    extraEnv = {
+      "DISPLAY" = ":0";
+    };
+    bindHost = "localhost";
+  };
 
   services.ntp = {
     enable = true;
     servers = [ "192.168.10.1" ];
   };
 
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
-
   fonts.fonts = with pkgs; [
     corefonts #unfree
   ];
 
   containers.dbmysql =
-  { config = { config, pkgs, ... }:
-    { services.mysql = {
-        enable = true;
-        package = pkgs.mariadb;
-        initialScript = pkgs.writeText "devmysql-init.sql" ''
-          CREATE USER IF NOT EXISTS 'dev' IDENTIFIED BY 'dev';
-          GRANT ALL ON *.* TO 'dev'@'%';
-        '';
-        extraOptions = ''
-          skip-networking=0
-          skip-bind-address
-       '';
-      };
-    };
+  { config = import ../../modules/devdb-mariadb.nix;
     autoStart = false;
   };
-
   containers.dbpostgres =
-  { config = { config, pkgs, ... }:
-    { services.postgresql =
-      let
-        pginit = pkgs.writeText "pginit.sql" ''
-          CREATE USER dev WITH PASSWORD 'dev' LOGIN CREATEDB;
-          GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dev;
-          GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO dev;
-        '';
-      in {
-        enable = true;
-        package = pkgs.postgresql_11;
-        enableTCPIP = true;
-        initialScript = pginit;
-        port = 5432;
-      };
-    };
+  { config = import ../../modules/devdb-postgres.nix;
     autoStart = false;
-  };
-
-  system.activationScripts = {
-    gpgAgentOptions = let cacheTime = builtins.toString (4 * 60 * 60); in ''
-      cat > /home/eike/.gnupg/gpg-agent.conf <<-"EOF"
-      enable-ssh-support
-      default-cache-ttl ${cacheTime}
-      max-cache-ttl ${cacheTime}
-      default-cache-ttl-ssh ${cacheTime}
-      max-cache-ttl-ssh ${cacheTime}
-      allow-emacs-pinentry
-      pinentry-program "${pkgs.pinentry}/bin/pinentry-gtk-2"
-      EOF
-    '';
-  };
-
-  services.openvpn.servers = {
-    officeVPN = {
-      config = " config /root/openvpn/vpfwblue.bluecare.ch.ovpn ";
-      autoStart = false;
-    };
   };
 
   # This value determines the NixOS release with which your system is to be
