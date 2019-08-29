@@ -15,8 +15,13 @@ in
       max_connections "15"
       audio_output {
         type "alsa"
-        name "FIIO X5"
-        device "iec958:CARD=X5,DEV=0"
+        name "USB Audio"
+        device "hw:2,0"
+        # find the mixer_conrtol value via amxier --card X
+        mixer_control "Lenovo USB Audio"
+        mixer_device "hw:2"
+        auto_resample "no"
+        enabled "yes"
       }
     '';
   };
