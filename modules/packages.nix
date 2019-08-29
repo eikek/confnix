@@ -9,7 +9,27 @@
   };
 
   environment.systemPackages = with pkgs; [
-    curl wget rsync telnet htop iftop iotop mc zip unzip exa bat elvish coreutils gnused dmidecode pciutils ffmpeg
+    curl
+    wget
+    rsync
+    telnet
+    htop
+    iftop
+    iotop
+    mc
+    zip
+    unzip
+    exa
+    bat
+    elvish
+    coreutils
+    gnused
+    dmidecode
+    pciutils
+    tmux
+    gnupg
+    cryptsetup
+    psmisc
   ];
 
   environment.shellAliases = {

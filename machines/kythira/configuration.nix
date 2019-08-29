@@ -41,7 +41,6 @@ let mykey = builtins.readFile <sshpubkey>; in
       };
     }) ["data" "eike"]));
 
-  virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
 
   security = {
@@ -223,45 +222,14 @@ let mykey = builtins.readFile <sshpubkey>; in
   };
 
   environment.systemPackages = with pkgs;
-  let
-    # see https://nixos.org/wiki/TexLive_HOWTO
-    tex = texlive.combine {
-      inherit (texlive)
-      scheme-medium
-      collection-basic
-       collection-fontsrecommended
-       collection-latexextra
-       collection-latexrecommended
-        beamer
-         moderncv
-          fontawesome
-           moderntimeline
-            cm-super
-             inconsolata
-              libertine;
-    };
-  in
   [
   # base
     binutils
-    coreutils
-    psmisc
     file
-    wget
     gitAndTools.gitFull
     git-crypt
     tig
-    curl
-    tmux
-    htop
-    iotop
-    iftop
-    zip
-    unzip
     zsh
-    mc
-    telnet
-    cryptsetup
     pass
     mr
     rlwrap
@@ -274,9 +242,6 @@ let mykey = builtins.readFile <sshpubkey>; in
     direnv
     tree
     jq
-    pciutils
-    exa
-    bat
     elvish
     wpa_supplicant
     iptables
