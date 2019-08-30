@@ -26,7 +26,7 @@ in {
 
       passphrase = mkOption {
         default = "";
-        description = "The file containing the passphrase";
+        description = "The passphrase";
       };
 
       keystore = mkOption {
@@ -98,6 +98,7 @@ in {
           ln -nfs ${cfg.hinClientPackage}/$name ${cfg.baseDir}/
         done
         cp ${cfg.hinClientPackage}/hinclient.*.properties ${cfg.baseDir}/
+        echo "${cfg.passphrase}" > ${cfg.baseDir}/tmp/.passphrase
 
         chown -R ${cfg.user} ${cfg.baseDir}
       '';
@@ -105,7 +106,7 @@ in {
         ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${cfg.user} -c "cd ${cfg.baseDir} && ./hinclient headless \
           identities=${cfg.identities} \
           keystore=${cfg.keystore} \
-          passphrase=${cfg.passphrase} \
+          passphrase=${cfg.baseDir}/tmp/.passphrase \
           hinclient.httpproxy.port=${builtins.toString cfg.httpProxyPort} \
           hinclient.clientapi.port=${builtins.toString cfg.clientapiPort} \
           hinclient.smtpproxy.port=${builtins.toString cfg.smtpProxyPort} \
