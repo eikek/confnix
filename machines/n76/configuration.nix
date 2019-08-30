@@ -165,6 +165,7 @@
     rlwrap
     slack
     tesseract_4
+    unpaper
     vagrant
     yarn
     zathura
