@@ -135,11 +135,13 @@
     jdk
     jq
     leiningen
+    mariadb
     maven
     mongodb
     mongodb-tools
     nodePackages.grunt-cli
     nodePackages.gulp
+    postgresql_11
     python
     sbcl
     sbt
