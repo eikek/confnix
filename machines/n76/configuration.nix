@@ -3,10 +3,6 @@
 {
   imports =
     [ ./hw-n76.nix
-      ./mpd.nix
-      ./fileserver.nix
-      ./hinclient.nix
-      ./vpn.nix
       ../../modules/accounts.nix
       ../../modules/docker.nix
       ../../modules/ids.nix
@@ -16,6 +12,10 @@
       ../../modules/region-neo.nix
       ../../modules/user.nix
       ../../modules/vbox-host.nix
+      ./mpd.nix
+      ./fileserver.nix
+      ./hinclient.nix
+      ./vpn.nix
     ] ++
     (import ../../pkgs/modules.nix);
 
