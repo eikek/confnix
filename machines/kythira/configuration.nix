@@ -173,6 +173,23 @@ let mykey = builtins.readFile <sshpubkey>; in
   { config = import ../../modules/devdb-postgres.nix;
     autoStart = false;
   };
+  containers.devmail =
+  { config = {config ,pkgs, ... }:
+      { imports = [ ../../modules/devmail.nix ];
+        services.devmail = {
+          enable = true;
+          primaryHostname = "devmail";
+          localDomains = [ "devmail.org" "test.com" ];
+        };
+      };
+    privateNetwork = true;
+    hostAddress = "10.231.2.1";
+    localAddress = "10.231.2.2";
+    autoStart = false;
+  };
+  networking.extraHosts = ''
+    10.231.2.2 devmail
+  '';
 
   environment.pathsToLink = [ "/" ];
 
