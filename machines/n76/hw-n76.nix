@@ -15,7 +15,7 @@
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3d23fab9-16b1-48a2-93cd-60d0e68e2029";
+    { device = "/dev/mapper/vgnixos-root";
       fsType = "ext4";
     };
 
@@ -25,7 +25,7 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/39f67062-8d97-487a-b841-b5b87e10a3ee"; }
+    [ { device = "/dev/mapper/vgnixos-swap"; }
     ];
 
   nix.maxJobs = lib.mkDefault 12;
