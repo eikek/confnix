@@ -10,8 +10,6 @@ in
     fileServer = "bluecare-s54";
   in
   {
-    "/".device = pkgs.lib.mkForce "/dev/mapper/vg-root";
-
     "/mnt/fileserver/homes" = {
       device = "//${fileServer}/home";
       fsType = "cifs";
@@ -27,7 +25,6 @@ in
       fsType = "cifs";
       options = ["user=${acc.username}" "password=${acc.password}" "uid=1000" "user" "vers=2.0"];
     };
-
   };
 
 }
