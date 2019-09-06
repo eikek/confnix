@@ -21,6 +21,7 @@
 
 
   boot = {
+    cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     initrd.luks.devices = [
