@@ -275,7 +275,7 @@ let mykey = builtins.readFile <sshpubkey>; in
 
   # web/email
     chromium
-    firefox
+    firefox-esr
     mu
     offlineimap
     qutebrowser

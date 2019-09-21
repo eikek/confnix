@@ -117,7 +117,7 @@
 
   # web/email
     chromium
-    firefox
+    firefox-esr
     mu
     offlineimap
     qutebrowser
