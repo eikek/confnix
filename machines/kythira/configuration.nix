@@ -309,6 +309,7 @@ let mykey = builtins.readFile <sshpubkey>; in
     unpaper
     youtube-dl
     zathura
+    docspell.tools
 
   ];
 

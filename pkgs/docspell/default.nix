@@ -70,8 +70,8 @@ in
     name = "docspell-tool-${version}";
 
     src = fetchzip {
-      url = "https://github.com/eikek/docspell/archive/master.zip";
-      sha256 = "06mjf5dl3cqqaaxhb4vj0195i0j8p5gkrwzw0pj2snlq7z4s3lk6";
+      url = "https://github.com/eikek/docspell/archive/v${version}.zip";
+      sha256 = "1zy9s1r25c7clmnhgj61cglh04vjns1h33bsis2an5ws94pc8k3b";
       name = "docspell-source";
     };
 

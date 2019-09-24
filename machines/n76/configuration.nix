@@ -170,6 +170,7 @@
     vagrant
     yarn
     zathura
+    docspell.tools
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
