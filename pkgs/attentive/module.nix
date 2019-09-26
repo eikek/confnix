@@ -51,13 +51,13 @@ in {
       };
 
       appName = mkOption {
-        type = types.string;
+        type = types.str;
         default = "Attentive";
         description = "The name used in the web ui and in notification mails.";
       };
 
       bindHost = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "The address to bind the webserver";
       };
@@ -68,13 +68,13 @@ in {
       };
 
       baseUrl = mkOption {
-        type = types.string;
+        type = types.str;
         default = "http://localhost:8771";
         description = "The base url where attentive is deployed.";
       };
 
       serverSecret = mkOption {
-        type = types.string;
+        type = types.str;
         default = "";
         description = ''
           A secret used to encrypt cookie data. If empty a random value is
@@ -86,7 +86,7 @@ in {
         type = types.submodule ({
           options = {
             url = mkOption {
-              type = types.nullOr types.string;
+              type = types.nullOr types.str;
               default = null;
               description = ''
                 The URL to the database. By default a file-based database is
@@ -104,7 +104,7 @@ in {
               '';
             };
             dataDir = mkOption {
-              type = types.string;
+              type = types.str;
               default = "/var/data/attentive";
               description = ''
                 If jdbc.url is null, then a SQLite database URL is
@@ -113,17 +113,17 @@ in {
               '';
             };
             user = mkOption {
-              type = types.string;
+              type = types.str;
               default = "sa";
               description = "The user name to connect to the database.";
             };
             password = mkOption {
-              type = types.string;
+              type = types.str;
               default = "";
               description = "The password to connect to the database.";
             };
             driver = mkOption {
-              type = types.string;
+              type = types.str;
               default = "org.sqlite.JDBC";
               description = ''
                 The driver class name.
@@ -155,12 +155,12 @@ in {
         type = types.submodule ({
           options = {
             tokenValid = mkOption {
-              type = types.string;
+              type = types.str;
               default = "3 minutes";
               description = "The time a login is valid";
             };
             sessionValid = mkOption {
-              type = types.string;
+              type = types.str;
               default = "6 hours";
               description = "The time the session is valid.";
             };
@@ -177,7 +177,7 @@ in {
         type = types.submodule ({
           options = {
             mode = mkOption {
-              type = types.string;
+              type = types.str;
               default = "closed";
               description = ''
                 Registration of new accounts may be one of:
@@ -187,7 +187,7 @@ in {
               '';
             };
             invitationKey = mkOption {
-              type = types.string;
+              type = types.str;
               default = "";
               description = ''
                 The "super" invitation password used to generate new invitations.
@@ -195,7 +195,7 @@ in {
               '';
             };
             invitationValid = mkOption {
-              type = types.string;
+              type = types.str;
               default = "6 days";
               description = "How long a generated invitation key is valid.";
             };
@@ -213,7 +213,7 @@ in {
         type = types.submodule({
           options = {
             cacheTime = mkOption {
-              type = types.string;
+              type = types.str;
               default = "3 minutes";
               description = ''
                 How long statistic values are cached. Longer times results in

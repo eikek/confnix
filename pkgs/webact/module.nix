@@ -47,7 +47,7 @@ in {
       };
 
       runAs = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = null;
         description = ''
           The user that runs the webact server process. If this is
@@ -68,7 +68,7 @@ in {
       };
 
       appName = mkOption {
-        type = types.string;
+        type = types.str;
         default = "Webact";
         description = "The name used in the web ui and in notification mails.";
       };
@@ -91,7 +91,7 @@ in {
       };
 
       extraPaths = mkOption {
-        type = types.listOf types.string;
+        type = types.listOf types.str;
         default = [];
         description = ''
            A list of paths that is added to the PATH variable avaiable
@@ -108,7 +108,7 @@ in {
       };
 
       bindHost = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "The address to bind the webserver";
       };
@@ -119,7 +119,7 @@ in {
       };
 
       smtpHost = mkOption {
-        type = types.string;
+        type = types.str;
         default = "";
         description = "The smtp host to use for sending notification mails. If empty, the MX host of each recipient is used.";
       };
@@ -129,12 +129,12 @@ in {
         description = "The smtp port to use for sending notification mails.";
       };
       smtpUser = mkOption {
-        type = types.string;
+        type = types.str;
         default = "";
         description = "The username to use for authentication on smtp server";
       };
       smtpPassword = mkOption {
-        type = types.string;
+        type = types.str;
         default = "";
         description = "The password to use for authentication on smtp server";
       };
@@ -149,7 +149,7 @@ in {
         description = "Whether to connect via SSL";
       };
       smtpSender = mkOption {
-        type = types.string;
+        type = types.str;
         default = "noreply@localhost";
         description = "The sender email address to use.";
       };

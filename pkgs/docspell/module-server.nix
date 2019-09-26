@@ -104,7 +104,7 @@ in {
       };
 
       runAs = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = "docspell";
         description = ''
           The user that runs the docspell server process.
@@ -112,25 +112,25 @@ in {
       };
 
       appName = mkOption {
-        type = types.string;
+        type = types.str;
         default = "Docspell";
         description = "The name used in the web ui and in notification mails.";
       };
 
       appId = mkOption {
-        type = types.string;
+        type = types.str;
         default = "docspell-restserver1";
         description = "The node id. Must be unique across all docspell nodes.";
       };
 
       baseUrl = mkOption {
-        type = types.string;
+        type = types.str;
         default = "http://localhost:7880";
         description = "The base url where attentive is deployed.";
       };
 
       bindHost = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "The address to bind the webserver";
       };
@@ -140,12 +140,12 @@ in {
         description = "The port to bind the web server";
       };
       sessionTime = mkOption {
-        type = types.string;
+        type = types.str;
         default = "3 days";
         description = "How long a generated invitation key is valid.";
       };
       serverSecret = mkOption {
-        type = types.string;
+        type = types.str;
         default = "hex:caffee";
         description = "The server secret used to sign cookies/authentication tokens.";
       };
@@ -154,7 +154,7 @@ in {
         type = types.submodule ({
           options = {
             url = mkOption {
-              type = types.string;
+              type = types.str;
               default = "jdbc:h2:///tmp/docspell-demo.db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;AUTO_SERVER=TRUE";
               description = ''
                 The URL to the database. By default a file-based database is
@@ -168,12 +168,12 @@ in {
               '';
             };
             user = mkOption {
-              type = types.string;
+              type = types.str;
               default = "sa";
               description = "The user name to connect to the database.";
             };
             password = mkOption {
-              type = types.string;
+              type = types.str;
               default = "";
               description = "The password to connect to the database.";
             };
@@ -196,7 +196,7 @@ in {
         type = types.submodule ({
           options = {
             mode = mkOption {
-              type = types.string;
+              type = types.str;
               default = "closed";
               description = ''
                 Registration of new accounts may be one of:
@@ -206,7 +206,7 @@ in {
               '';
             };
             newInvitePassword = mkOption {
-              type = types.string;
+              type = types.str;
               default = "";
               description = ''
                 The "super" invitation password used to generate new invitations.
@@ -214,7 +214,7 @@ in {
               '';
             };
             inviteTime = mkOption {
-              type = types.string;
+              type = types.str;
               default = "3 days";
               description = "How long a generated invitation key is valid.";
             };

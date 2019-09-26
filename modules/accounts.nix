@@ -14,7 +14,7 @@ with pkgs.lib;
 
   options = {
     accounts = mkOption {
-      type = types.attrsOf (types.attrsOf types.string);
+      type = types.attrsOf (types.attrsOf types.str);
       default = {};
       example = { account1 = { username = "johndoe"; password = "x123"; }; };
     };

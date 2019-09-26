@@ -94,13 +94,13 @@ in {
       };
 
       appName = mkOption {
-        type = types.string;
+        type = types.str;
         default = "Mpc4s";
         description = "The name used in the web ui.";
       };
 
       bindHost = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "The address to bind the webserver";
       };

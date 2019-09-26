@@ -10,6 +10,7 @@ with lib;
 
 let
   cfg = config.services.roundcubedev;
+  fpm = config.services.phpfpm.pools.roundcubedev;
 in {
 
 ### interface
@@ -67,7 +68,7 @@ in {
             extraConfig = ''
               location ~* \.php$ {
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass unix:/run/phpfpm/roundcubedev;
+                fastcgi_pass unix:${fpm.socket};
                 include ${pkgs.nginx}/conf/fastcgi_params;
                 include ${pkgs.nginx}/conf/fastcgi.conf;
               }
@@ -77,24 +78,28 @@ in {
       };
     };
 
-    services.phpfpm.poolConfigs.roundcubedev = ''
-      listen = /run/phpfpm/roundcubedev
-      listen.owner = nginx
-      listen.group = nginx
-      listen.mode = 0660
-      user = nginx
-      pm = dynamic
-      pm.max_children = 75
-      pm.start_servers = 2
-      pm.min_spare_servers = 1
-      pm.max_spare_servers = 20
-      pm.max_requests = 500
-      php_admin_value[error_log] = 'stderr'
-      php_admin_flag[log_errors] = on
-      php_admin_value[post_max_size] = 25M
-      php_admin_value[upload_max_filesize] = 25M
-      catch_workers_output = yes
-    '';
+    services.phpfpm.pools.roundcubedev = {
+      user = "nginx";
+      phpOptions = ''
+        error_log = 'stderr'
+        log_errors = on
+        post_max_size = 25M
+        upload_max_filesize = 25M
+      '';
+      settings = mapAttrs (name: mkDefault) {
+        "listen.owner" = "nginx";
+        "listen.group" = "nginx";
+        "listen.mode" = "0660";
+        "pm" = "dynamic";
+        "pm.max_children" = 75;
+        "pm.start_servers" = 2;
+        "pm.min_spare_servers" = 1;
+        "pm.max_spare_servers" = 20;
+        "pm.max_requests" = 500;
+        "catch_workers_output" = true;
+      };
+    };
+    systemd.services.phpfpm-roundcubedev.after = [ "roundcubedev-setup.service" ];
 
     environment.etc."roundcube/config.inc.php".text = ''
       <?php

@@ -125,7 +125,7 @@ in {
       };
 
       runAs = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = null;
         description = ''
           The user that runs the docspell server process.
@@ -133,19 +133,19 @@ in {
       };
 
       appId = mkOption {
-        type = types.string;
+        type = types.str;
         default = "docspell-joex1";
         description = "The node id. Must be unique across all docspell nodes.";
       };
 
       baseUrl = mkOption {
-        type = types.string;
+        type = types.str;
         default = "http://localhost:7878";
         description = "The base url where attentive is deployed.";
       };
 
       bindHost = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "The address to bind the webserver";
       };
@@ -155,7 +155,7 @@ in {
         description = "The port to bind the web server";
       };
       extractionTmpDir = mkOption {
-        type = types.string;
+        type = types.str;
         default = "/tmp/docspell-extraction";
         description = "Directory where the extraction processes can put their temp files";
       };
@@ -171,12 +171,12 @@ in {
         type = types.submodule ({
           options = {
             command = mkOption {
-              type = types.string;
+              type = types.str;
               default = "${pkgs.ghostscript}/bin/gs";
               description = "The path to the ghostscript executable";
             };
             timeout = mkOption {
-              type = types.string;
+              type = types.str;
               default = "5 minutes";
               description = "The timeout when running ghostscript.";
             };
@@ -191,12 +191,12 @@ in {
         type = types.submodule ({
           options = {
             command = mkOption {
-              type = types.string;
+              type = types.str;
               default = "${pkgs.unpaper}/bin/unpaper";
               description = "The path to the unpaper executable";
             };
             timeout = mkOption {
-              type = types.string;
+              type = types.str;
               default = "5 minutes";
               description = "The timeout when running unpaper.";
             };
@@ -211,12 +211,12 @@ in {
         type = types.submodule ({
           options = {
             command = mkOption {
-              type = types.string;
+              type = types.str;
               default = "${pkgs.tesseract4}/bin/tesseract";
               description = "The path to the tesseract executable";
             };
             timeout = mkOption {
-              type = types.string;
+              type = types.str;
               default = "5 minutes";
               description = "The timeout when running tesseract.";
             };
@@ -231,7 +231,7 @@ in {
         type = types.submodule ({
           options = {
             url = mkOption {
-              type = types.string;
+              type = types.str;
               default = "jdbc:h2:///tmp/docspell-demo.db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;AUTO_SERVER=TRUE";
               description = ''
                 The URL to the database. By default a file-based database is
@@ -245,12 +245,12 @@ in {
               '';
             };
             user = mkOption {
-              type = types.string;
+              type = types.str;
               default = "sa";
               description = "The user name to connect to the database.";
             };
             password = mkOption {
-              type = types.string;
+              type = types.str;
               default = "";
               description = "The password to connect to the database.";
             };
@@ -280,7 +280,7 @@ in {
         description = "The number of retry attempts.";
       };
       countingScheme = mkOption {
-        type = types.string;
+        type = types.str;
         default = "4,1";
         description = "The counting scheme for the job scheduler.";
       };

@@ -16,7 +16,7 @@ in {
       };
 
       runAs = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = null;
         description = ''
           The user that runs the consumedir process.
@@ -24,7 +24,7 @@ in {
       };
 
       watchDirs = mkOption {
-        type = types.listOf types.string;
+        type = types.listOf types.str;
         description = "The directories to watch for new files.";
       };
 
@@ -41,13 +41,13 @@ in {
       };
 
       memorize = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = null;
         description = "Set a writable directory to enable memorizing which files have been uploaded to enable skipping duplicates.";
       };
 
       urls = mkOption {
-        type = types.listOf types.string;
+        type = types.listOf types.str;
         example = [ "http://localhost:7880/api/v1/open/upload/item/abced-12345-abcde-12345" ];
         description = "A list of upload urls.";
       };

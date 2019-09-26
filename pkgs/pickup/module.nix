@@ -96,7 +96,7 @@ in {
       };
 
       runAs = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         default = null;
         description = ''
           The user that runs the pickup server process. If this is
@@ -112,13 +112,13 @@ in {
       };
 
       appName = mkOption {
-        type = types.string;
+        type = types.str;
         default = "Pickup";
         description = "The name used in the web ui and in notification mails.";
       };
 
       bindHost = mkOption {
-        type = types.string;
+        type = types.str;
         default = "localhost";
         description = "The address to bind the webserver";
       };
@@ -145,17 +145,17 @@ in {
       };
 
       backupArgs = mkOption {
-        type = types.listOf types.string;
+        type = types.listOf types.str;
         default = [ "--full-if-older-than" "1M" ];
         description = "Additional arguments to duplicity when running the backup";
       };
       cleanupArgs = mkOption {
-        type = types.listOf types.string;
+        type = types.listOf types.str;
         default = [ "remove-all-but-n-full" "2" ];
         description = "Additional arguments to duplicity when running the cleanup";
       };
       restoreArgs = mkOption {
-        type = types.listOf types.string;
+        type = types.listOf types.str;
         default = [ "-vI" ];
         description = "Additional arguments to duplicity when running the restore";
       };
@@ -169,12 +169,12 @@ in {
               description = "Whether to enable the personal sftp endpoint";
             };
             root = mkOption {
-              type = types.string;
+              type = types.str;
               default = "${cfg.baseDir}/ssh-personal";
               description = "The root folder of this sftp endpoint";
             };
             bindHost = mkOption {
-              type = types.string;
+              type = types.str;
               default = "localhost";
               description = "The address to bind the sftp endpoint";
             };
@@ -184,12 +184,12 @@ in {
               description = "The port to bind the sftp endpoint";
             };
             defaultUser = mkOption {
-              type = types.string;
+              type = types.str;
               default = "backup";
               description = "The user for logging into the personal sftp endpoint";
             };
             connectionUri = mkOption {
-              type = types.string;
+              type = types.str;
               default = "${cfg.personalSsh.defaultUser}@${cfg.personalSsh.bindHost}:${toString cfg.personalSsh.bindPort}";
               description = "The exposed endpoint url to the personal sftp";
             };
@@ -209,12 +209,12 @@ in {
         type = types.submodule ({
           options = {
             root = mkOption {
-              type = types.string;
+              type = types.str;
               default = "${cfg.baseDir}/ssh-remote";
               description = "The root folder of this sftp endpoint";
             };
             bindHost = mkOption {
-              type = types.string;
+              type = types.str;
               default = "localhost";
               description = "The address to bind the sftp endpoint";
             };
@@ -224,7 +224,7 @@ in {
               description = "The port to bind the sftp endpoint";
             };
             connectionUri = mkOption {
-              type = types.string;
+              type = types.str;
               default = "${cfg.remoteSsh.bindHost}:${toString cfg.remoteSsh.bindPort}";
               description = "The exposed endpoint url to the personal sftp";
             };
@@ -248,7 +248,7 @@ in {
               description = "Whether to notify via mail when a backup fails";
             };
             recipients = mkOption {
-              type = types.listOf types.string;
+              type = types.listOf types.str;
               default = [];
               description = "A list of email addresses that receive notifications.";
             };
@@ -265,7 +265,7 @@ in {
         type = types.submodule({
           options = {
             host = mkOption {
-              type = types.string;
+              type = types.str;
               description = "The smtp host to use for sending notification mails. If empty, the MX host of each recipient is used.";
             };
             port = mkOption {
@@ -273,11 +273,11 @@ in {
               description = "The smtp port to use for sending notification mails.";
             };
             user = mkOption {
-              type = types.string;
+              type = types.str;
               description = "The username to use for authentication on smtp server";
             };
             password = mkOption {
-              type = types.string;
+              type = types.str;
               description = "The password to use for authentication on smtp server";
             };
             startTls = mkOption {
@@ -291,7 +291,7 @@ in {
               description = "Whether to connect via SSL";
             };
             sender = mkOption {
-              type = types.string;
+              type = types.str;
               description = "The sender email address to use.";
             };
           };
