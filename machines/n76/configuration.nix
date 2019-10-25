@@ -21,6 +21,7 @@
 
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_5_2;
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -171,6 +172,7 @@
     yarn
     zathura
     docspell.tools
+    miraclecast
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
