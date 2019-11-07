@@ -6,10 +6,12 @@
       ../../modules/accounts.nix
       ../../modules/docker.nix
       ../../modules/ids.nix
+      ../../modules/java.nix
       ../../modules/latex.nix
       ../../modules/packages.nix
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
+      ../../modules/software.nix
       ../../modules/user.nix
       ../../modules/vbox-host.nix
       ./mpd.nix
@@ -53,133 +55,17 @@
     members = [ "eike" ];
   };
 
-  environment.systemPackages = with pkgs;
+  software.extra = with pkgs;
   [
-    cifs_utils
-    direnv
-    fzf
-    git-crypt
-    gitAndTools.gitFull
-    iptables
-    jq
-    mr
-    nix-prefetch-scripts
-    nixops
-    openssl
-    pass
-    pinentry
-    recutils
-    rlwrap
-    sqlite
-    tig
-    tmuxinator
-    tree
-    which
-    wpa_supplicant
-    zsh
-
-  # images
-    feh
-    gimp
-    gnuplot
-    graphviz
-    imagemagick
-    jhead
-    libjpeg
-    plantuml
-    viewnior
-
-  # multimedia
-    alsaUtils
-    cdparanoia
-    ffmpeg
-    flac
-    mediainfo
-    mplayer
-    mpv
-    sox
-    vlc
-    vorbisTools
-
-  # x-window
-    alacritty
-    autorandr
-    i3lock
-    i3lock-fancy
-    stumpish
-    xclip
-    xfce.terminal
-    xlibs.xdpyinfo
-    xlibs.xmodmap
-    xlibs.xrandr
-    xlibs.xwd
-    xorg.xwininfo
-    xsel
-    scrot
-
-  # web/email
-    chromium
-    firefox-esr
-    mu
-    offlineimap
-    qutebrowser
-
-  # devel
-    R
-    ammonite-repl
     ansible
-    clojure
-    elmPackages.elm
-    elmPackages.elm-language-server
-    elmPackages.elm-format
-    elmPackages.elm-analyse
-    elmPackages.elm-live
-    elmPackages.elm-test
-    elmPackages.elm-xref
-    git-crypt
-    gitAndTools.gitFull
-    global
-    guile
-    idea.idea-community
-    jdk
-    jq
-    leiningen
-    mariadb
-    maven
+    libreoffice
     mongodb
     mongodb-tools
     nodePackages.grunt-cli
     nodePackages.gulp
-    postgresql_11
-    python
-    sbcl
-    sbt
-    scala
-    silver-searcher
-    visualvm
-
-  # other tools
-    direnv
-    drip
-    ghostscript
-    iptables
-    libreoffice
-    mr
-    nix-prefetch-scripts
-    nixops
-    openssl
-    pass
-    peek
-    recutils
-    rlwrap
     slack
-    tesseract_4
-    unpaper
     vagrant
     yarn
-    zathura
-    docspell.tools
-    miraclecast
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -236,15 +122,9 @@
     };
     displayManager = {
       sessionCommands = ''
-        export JAVA_HOME=${pkgs.jdk}/lib/openjdk
-        export JDK_HOME=${pkgs.jdk}/lib/openjdk
         ${pkgs.compton}/bin/compton &
 
         ${pkgs.xlibs.xrandr}/bin/xrandr --dpi 110
-
-        gpg-connect-agent /bye
-        unset SSH_AGENT_PID
-        export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/gnupg/S.gpg-agent.ssh"
       '';
     };
   };
@@ -307,6 +187,6 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.03"; # Did you read the comment?
+  system.stateVersion = "19.09"; # Did you read the comment?
 
 }

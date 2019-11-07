@@ -18,12 +18,16 @@
     elvish
     exa
     file
+    gitAndTools.gitFull
     gnupg
     gnused
     htop
     iftop
     iotop
+    iptables
+    jq
     mc
+    openssl
     pciutils
     psmisc
     rsync
@@ -31,6 +35,7 @@
     tmux
     unzip
     wget
+    which
     zip
   ];
 

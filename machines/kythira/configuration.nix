@@ -7,9 +7,11 @@ let mykey = builtins.readFile <sshpubkey>; in
       ../../modules/docker.nix
       ../../modules/ids.nix
       ../../modules/latex.nix
+      ../../modules/java.nix
       ../../modules/packages.nix
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
+      ../../modules/software.nix
       ../../modules/user.nix
       ../../modules/vbox-host.nix
     ] ++
@@ -89,13 +91,7 @@ let mykey = builtins.readFile <sshpubkey>; in
     displayManager = {
       #lightdm.enable = true; //the default
       sessionCommands = ''
-        export JAVA_HOME=${pkgs.jdk}/lib/openjdk
-        export JDK_HOME=${pkgs.jdk}/lib/openjdk
         ${pkgs.compton}/bin/compton &
-
-        gpg-connect-agent /bye
-        unset SSH_AGENT_PID
-        export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/gnupg/S.gpg-agent.ssh"
 
         if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
           xrandr --output DP-0 --off
@@ -211,120 +207,17 @@ let mykey = builtins.readFile <sshpubkey>; in
     opengl.driSupport32Bit = true;
   };
 
-  environment.systemPackages = with pkgs;
-  [
-  # base
-    cifs_utils
-    direnv
-    fzf
-    git-crypt
-    gitAndTools.gitFull
-    iptables
-    jq
-    mr
-    nix-prefetch-scripts
-    nixops
-    openssl
-    pass
-    pinentry
-    recutils
-    rlwrap
-    sqlite
-    tig
-    tmuxinator
-    tree
-    which
-    wpa_supplicant
-    zsh
-
-  # images
-    feh
-    gimp
-    gnuplot
-    graphviz
-    imagemagick
-    jhead
-    libjpeg
-    plantuml
-    viewnior
-
-  # multimedia
-    alsaUtils
-    cdparanoia
-    ffmpeg
-    flac
-    mediainfo
-    mplayer
-    mpv
-    sox
-    vlc
-    vorbisTools
-
-  # x-window
-    alacritty
-    autorandr
-    i3lock
-    i3lock-fancy
-    stumpish
-    xclip
-    xfce.terminal
-    xlibs.xdpyinfo
-    xlibs.xmodmap
-    xlibs.xrandr
-    xlibs.xwd
-    xorg.xwininfo
-    xsel
-    scrot
-
-  # web/email
-    chromium
-    firefox-esr
-    mu
-    offlineimap
-    qutebrowser
-
-  # devel
-    R
-    ammonite-repl
-    ant
-    clojure
-    elmPackages.elm
-    elmPackages.elm-language-server
-    elmPackages.elm-format
-    elmPackages.elm-analyse
-    elmPackages.elm-live
-    elmPackages.elm-test
-    global
-    idea.idea-community
-    jdk
-    leiningen
-    mariadb
-    maven
-    postgresql_11
-    python
-    sbcl
-    sbt
-    scala
-    silver-searcher
-    visualvm
-
-  # other tools
-    drip
-    ghostscript
-    pandoc
-    sqliteman
-    tesseract_4
-    unpaper
-    youtube-dl
-    zathura
-    docspell.tools
-
-  ];
 
   system.activationScripts = {
     kworkerbug = ''
       echo "disable" > /sys/firmware/acpi/interrupts/gpe6F || true
     '';
   };
+
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system.stateVersion = "19.09"; # Did you read the comment?
 
 }
