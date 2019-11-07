@@ -121,6 +121,7 @@ let mykey = builtins.readFile <sshpubkey>; in
       dejavu_fonts
       ttf_bitstream_vera
       terminus_font
+      hack-font
     ];
   };
 
@@ -273,6 +274,7 @@ let mykey = builtins.readFile <sshpubkey>; in
     xlibs.xwd
     xorg.xwininfo
     xsel
+    scrot
 
   # web/email
     chromium
@@ -287,6 +289,11 @@ let mykey = builtins.readFile <sshpubkey>; in
     ant
     clojure
     elmPackages.elm
+    elmPackages.elm-language-server
+    elmPackages.elm-format
+    elmPackages.elm-analyse
+    elmPackages.elm-live
+    elmPackages.elm-test
     global
     idea.idea-community
     jdk

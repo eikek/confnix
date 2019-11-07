@@ -115,6 +115,7 @@
     xlibs.xwd
     xorg.xwininfo
     xsel
+    scrot
 
   # web/email
     chromium
@@ -129,6 +130,12 @@
     ansible
     clojure
     elmPackages.elm
+    elmPackages.elm-language-server
+    elmPackages.elm-format
+    elmPackages.elm-analyse
+    elmPackages.elm-live
+    elmPackages.elm-test
+    elmPackages.elm-xref
     git-crypt
     gitAndTools.gitFull
     global
@@ -262,6 +269,12 @@
 
   fonts.fonts = with pkgs; [
     corefonts #unfree
+    inconsolata
+    source-code-pro
+    dejavu_fonts
+    ttf_bitstream_vera
+    terminus_font
+    hack-font
   ];
 
   containers.dbmysql =
