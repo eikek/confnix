@@ -5,6 +5,7 @@
     [ ./hw-n76.nix
       ../../modules/accounts.nix
       ../../modules/docker.nix
+      ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix
       ../../modules/latex.nix
@@ -149,12 +150,6 @@
 
   fonts.fonts = with pkgs; [
     corefonts #unfree
-    inconsolata
-    source-code-pro
-    dejavu_fonts
-    ttf_bitstream_vera
-    terminus_font
-    hack-font
   ];
 
   containers.dbmysql =

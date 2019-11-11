@@ -5,6 +5,7 @@ let mykey = builtins.readFile <sshpubkey>; in
     [ ./hw-kythira.nix
       ../../modules/accounts.nix
       ../../modules/docker.nix
+      ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/latex.nix
       ../../modules/java.nix
@@ -102,23 +103,6 @@ let mykey = builtins.readFile <sshpubkey>; in
         fi
       '';
     };
-  };
-
-  fonts = {
-    fontconfig = {
-      enable = true;
-      dpi = 140;
-    };
-    enableFontDir = true;
-    fonts = with pkgs; [
-      #corefonts #unfree
-      inconsolata
-      source-code-pro
-      dejavu_fonts
-      ttf_bitstream_vera
-      terminus_font
-      hack-font
-    ];
   };
 
   users.groups.kvm = {

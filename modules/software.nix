@@ -115,7 +115,7 @@ with pkgs.lib;
           pandoc
           peek
           recutils
-          sqliteman
+          sqlitebrowser
           tesseract_4
           unpaper
           youtube-dl
@@ -132,6 +132,7 @@ with pkgs.lib;
         type = types.listOf types.package;
         default = [];
       };
+
     };
   };
 
