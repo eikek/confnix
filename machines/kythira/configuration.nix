@@ -19,7 +19,7 @@ let mykey = builtins.readFile <sshpubkey>; in
     (import ../../pkgs/modules.nix);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_2;
+    kernelPackages = pkgs.linuxPackages_5_3;
     cleanTmpDir = true;
     initrd.luks.devices = [
       { device = "/dev/vgroot/root"; name = "rootfs"; preLVM = false; }
