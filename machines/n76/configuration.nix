@@ -24,7 +24,7 @@
 
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_2;
+    kernelPackages = pkgs.linuxPackages_5_3;
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -104,7 +104,7 @@
   };
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidia" "displaylink" "modesetting" ];
     enable = true;
     autorun = true;
     layout = "de";
