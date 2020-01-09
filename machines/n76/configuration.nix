@@ -104,7 +104,7 @@
   };
 
   services.xserver = {
-    videoDrivers = [ "nvidia" "displaylink" "modesetting" ];
+    videoDrivers = [ "nvidia" "displaylink" ];
     enable = true;
     autorun = true;
     layout = "de";
@@ -124,7 +124,6 @@
     displayManager = {
       sessionCommands = ''
         ${pkgs.compton}/bin/compton &
-
         ${pkgs.xlibs.xrandr}/bin/xrandr --dpi 110
       '';
     };
