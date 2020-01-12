@@ -1,6 +1,6 @@
 {stdenv, fetchzip, file, curl, inotifyTools, fetchurl, jre8_headless, unzip, bash}:
 let
-  version = "0.1.0";
+  version = "0.2.0";
   meta = with stdenv.lib; {
     description = "Docspell helps to organize and archive your paper documents.";
     homepage = https://github.com/eikek/docspell;
@@ -13,7 +13,7 @@ in
 
      src = fetchurl {
        url = "https://github.com/eikek/docspell/releases/download/v${version}/docspell-restserver-${version}.zip";
-       sha256 = "16acil5yrsi5lkldzx52wpg6p7fjzq3xnpyqrcmwml0rf0qrf1jd";
+       sha256 = "1q6128wqbm9nvlp34wf1fgv4hwjjvn2nzqr954sdswqs926d0jvh";
      };
 
     buildInputs = [ jre8_headless ];
@@ -42,7 +42,7 @@ in
 
      src = fetchurl {
        url = "https://github.com/eikek/docspell/releases/download/v${version}/docspell-joex-${version}.zip";
-       sha256 = "02rpi35hdj333pjh56ik3r8cx5nawlkijbidrjl6ksbs065ynnfj";
+       sha256 = "0ar2347zf3a2w3x52bcawpvi348zabplrfyb9k7i7ssv7ggji546";
      };
 
     buildInputs = [ jre8_headless ];
@@ -67,11 +67,11 @@ in
   };
 
   tools = stdenv.mkDerivation rec {
-    name = "docspell-tool-${version}";
+    name = "docspell-tools-${version}";
 
     src = fetchzip {
       url = "https://github.com/eikek/docspell/archive/v${version}.zip";
-      sha256 = "1zy9s1r25c7clmnhgj61cglh04vjns1h33bsis2an5ws94pc8k3b";
+      sha256 = "0kam7hyn9624w8br4nd64p6r9vh9jq3mpk95h75iz32h4i32l20f";
       name = "docspell-source";
     };
 

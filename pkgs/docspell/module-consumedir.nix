@@ -40,10 +40,10 @@ in {
         description = "Whether to delete successfully uploaded files.";
       };
 
-      memorize = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "Set a writable directory to enable memorizing which files have been uploaded to enable skipping duplicates.";
+      distinct = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Check for duplicates and update only if the file is not already present.";
       };
 
       urls = mkOption {
@@ -62,7 +62,7 @@ in {
       args = (builtins.concatMap (a: ["--path" ("'" + a + "'")]) cfg.watchDirs) ++
              (if cfg.verbose then ["-v"] else []) ++
              (if cfg.deleteFiles then ["-d"] else []) ++
-             (if cfg.memorize == null then [] else ["-m" ("'" + cfg.memorize + "'")]) ++
+             (if cfg.distinct then [ "-m" ] else []) ++
              (map (a: "'" + a + "'") cfg.urls);
       cmd = "${pkgs.docspell.tools}/bin/consumedir.sh " + (builtins.concatStringsSep " " args);
     in
@@ -70,11 +70,6 @@ in {
       description = "Docspell Consumedir";
       after = [ "networking.target" ];
       wantedBy = [ "multi-user.target" ];
-      preStart = if cfg.memorize == null then ""
-        else ''
-          mkdir -p ${cfg.memorize}
-          chown -R ${user} ${cfg.memorize}
-        '';
       path = [ pkgs.utillinux pkgs.curl pkgs.coreutils ];
 
       script =
