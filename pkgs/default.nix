@@ -1,6 +1,7 @@
 pkgs:
 let
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
+  sbts = callPackage ./sbt {};
   custom = {
     attentive = callPackage ./attentive {};
     c544ppd = callPackage ./c544ppd {};
@@ -15,5 +16,9 @@ let
     sharry = callPackage ./sharry {};
     tmm = callPackage ./tmm {};
     webact = callPackage ./webact {};
+
+    # Overriding
+    sbt = sbts.sbt;
+    sbt11 = sbts.sbt11;
   };
 in custom
