@@ -14,7 +14,7 @@ let
     mpc4s = callPackage ./mpc4s {};
     msgconvert = callPackage ./msgconvert {};
     pickup = callPackage ./pickup {};
-    sharry = callPackage ./sharry {};
+    sharry = callPackage ifds.sharry.currentPkg {};
     tmm = callPackage ./tmm {};
     webact = callPackage ./webact {};
 
