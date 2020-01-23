@@ -7,6 +7,5 @@ in
   ./mpc4s/module.nix
   ./mpdscribble/module.nix
   ./pickup/module.nix
-  ./sharry/module.nix
   ./webact/module.nix
-] ++ (ifds.docspell.modules)
+] ++ (ifds.docspell.modules) ++ (ifds.sharry.modules)
