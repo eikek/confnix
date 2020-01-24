@@ -24,13 +24,13 @@
 
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_3;
+    kernelPackages = pkgs.linuxPackages_5_4;
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    initrd.luks.devices = [
-      { device = "/dev/nvme0n1p1"; name = "crootfs"; preLVM = true; }
-    ];
+    initrd.luks.devices = {
+      crootfs = { device = "/dev/nvme0n1p1"; preLVM = true; };
+    };
   };
 
   services.openssh.enable = true;

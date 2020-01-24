@@ -19,11 +19,11 @@ let mykey = builtins.readFile <sshpubkey>; in
     (import ../../pkgs/modules.nix);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_3;
+    kernelPackages = pkgs.linuxPackages_5_4;
     cleanTmpDir = true;
-    initrd.luks.devices = [
-      { device = "/dev/vgroot/root"; name = "rootfs"; preLVM = false; }
-    ];
+    initrd.luks.devices = {
+      rootfs = { device = "/dev/vgroot/root"; preLVM = false; };
+    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -83,13 +83,12 @@ let mykey = builtins.readFile <sshpubkey>; in
 
     desktopManager = {
       xterm.enable = false;
-      default = "none";
     };
     windowManager = {
       stumpwm.enable = true;
-      default = "stumpwm";
     };
     displayManager = {
+      defaultSession = "none+stumpwm";
       #lightdm.enable = true; //the default
       sessionCommands = ''
         ${pkgs.compton}/bin/compton &
