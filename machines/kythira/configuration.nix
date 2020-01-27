@@ -144,6 +144,7 @@ let mykey = builtins.readFile <sshpubkey>; in
       "DISPLAY" = ":0";
     };
     bindHost = "localhost";
+    bindPort = 8011;
   };
 
   containers.dbmysql =

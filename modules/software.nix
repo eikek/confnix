@@ -32,6 +32,7 @@ with pkgs.lib;
           gnuplot
           graphviz
           imagemagick
+          gifsicle
           jhead
           libjpeg
           plantuml
