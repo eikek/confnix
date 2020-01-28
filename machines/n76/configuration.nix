@@ -24,7 +24,7 @@
 
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_4_19;
+    kernelPackages = pkgs.linuxPackages_5_4;
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -87,7 +87,6 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-#      packageOverrides = import ./pkgs;
     };
   };
 
@@ -104,7 +103,7 @@
   };
 
   services.xserver = {
-    videoDrivers = [ "nvidia" "displaylink" ];
+    videoDrivers = [ "nvidia" ];
     enable = true;
     autorun = true;
     layout = "de";
