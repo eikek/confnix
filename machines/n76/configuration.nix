@@ -24,7 +24,7 @@
 
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_4;
+    kernelPackages = pkgs.linuxPackages_4_19;
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -114,14 +114,13 @@
 
     desktopManager = {
       xterm.enable = false;
-      default = "none";
     };
     windowManager = {
       awesome.enable = false;
       stumpwm.enable = true;
-      default = "stumpwm";
     };
     displayManager = {
+      defaultSession = "none+stumpwm";
       sessionCommands = ''
         ${pkgs.compton}/bin/compton &
         ${pkgs.xlibs.xrandr}/bin/xrandr --dpi 110
