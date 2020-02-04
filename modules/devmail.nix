@@ -27,8 +27,11 @@ let
    if [ "$CREDENTIALS_LOOKUP" = 1 ]; then
      exit $ERR_FAIL
    else
-     #       if $USER = $PASS; then
-         exec $REPLY
+     if [ "$USER" == "$PASS" ]; then
+       exec $REPLY
+     else
+       exit $ERR_FAIL
+     fi
    fi
   '';
   checkpasswordScript = pkgs.writeScript "checkpassword-dovecot.sh" checkPassword;
@@ -109,8 +112,9 @@ with lib;
 
         begin acl
         acl_check_rcpt:
-        accept hosts = :
-        accept
+        accept  authenticated = *
+        #accept hosts = :
+        #accept
 
         acl_check_data:
         accept
@@ -158,8 +162,15 @@ with lib;
           driver                  = plaintext
           server_set_id           = $auth2
           server_prompts          = :
-          server_condition        = true
+          server_condition        = ''${if eq{$auth3}{$auth2}}
           server_advertise_condition = true
+
+        LOGIN:
+          driver = plaintext
+          public_name = LOGIN
+          server_prompts = User Name : Password
+          server_condition = ''${if eq{$auth1}{$auth2}}
+          server_set_id = $auth1
 
       '';
     };
