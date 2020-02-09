@@ -3,7 +3,8 @@ let
   ifds = import ../ifd;
   callPackage = pkgs.lib.callPackageWith(custom // pkgs);
   sbts = callPackage ./sbt {};
-  custom = {
+  p = import ../nixversions.nix {};
+  custom = p // {
     attentive = callPackage ./attentive {};
     c544ppd = callPackage ./c544ppd {};
     chee = callPackage ./chee {};
