@@ -19,6 +19,7 @@
       ./fileserver.nix
       ./hinclient.nix
       ./vpn.nix
+      ./printer.nix
     ] ++
     (import ../../pkgs/modules.nix);
 
