@@ -95,6 +95,7 @@ with pkgs.lib;
           leiningen
           mariadb
           maven
+          openscad
           postgresql_11
           python
           sbcl
@@ -119,6 +120,8 @@ with pkgs.lib;
           sqlitebrowser
           tesseract_4
           unpaper
+          wkhtmltopdf
+          unoconv
           youtube-dl
           zathura
         ];
