@@ -109,6 +109,8 @@ in {
       $config['imap_auth_type'] = 'LOGIN';
       $config['imap_cache'] = 'db';
       $config['smtp_server'] = '${cfg.smtpServer}';
+      $config['smtp_user'] = '%u';
+      $config['smtp_pass'] = '%p';
       $config['smtp_port'] = ${builtins.toString cfg.smtpPort};
       $config['product_name'] = '${cfg.productName}';
       $config['des_key'] = '$RC_KEY';
