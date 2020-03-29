@@ -18,6 +18,16 @@ let mykey = builtins.readFile <sshpubkey>; in
     ] ++
     (import ../../pkgs/modules.nix);
 
+  users.users.oth = {
+    name = "oth";
+    isNormalUser = true;
+    uid = 1002;
+    createHome = true;
+    home = "/home/oth";
+    shell = pkgs.fish;
+    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "networkmanager" ];
+  };
+
   boot = {
 #    kernelPackages = pkgs.linuxPackages_5_4;
     cleanTmpDir = true;
@@ -33,22 +43,6 @@ let mykey = builtins.readFile <sshpubkey>; in
   powerManagement = {
     enable = true;
   };
-
-  fileSystems =
-  let
-    mounts = {
-    };
-  in mounts // (builtins.listToAttrs (map (mp:
-    { name = "/mnt/nas/" + mp;
-      value = {
-        device = "//files.home/" + mp;
-        fsType = "cifs";
-        options = ["noauto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" "vers=2.0" ];
-        noCheck = true;
-      };
-    }) ["data" "eike"]));
-
-#  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   security = {
     pam.enableSSHAgentAuth = true;
@@ -77,38 +71,41 @@ let mykey = builtins.readFile <sshpubkey>; in
 
     desktopManager = {
       xterm.enable = false;
-      xfce.enable = true;
+      xfce.enable = false;
+      gnome3.enable = true;
+      plasma5.enable = false;
     };
     windowManager = {
       stumpwm.enable = false;
     };
     displayManager = {
-#      defaultSession = "none+stumpwm";
+      lightdm.autoLogin = {
+        enable = true;
+        user = "oth";
+      };
+      defaultSession = "gnome";
       #lightdm.enable = true; //the default
       sessionCommands = ''
         ${pkgs.compton}/bin/compton &
 
-        if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
-          xrandr --output DP-0 --off
-          xrandr --dpi 140
-        else
-          xrandr --dpi 220
-          echo 'Xft.dpi: 220' | xrdb -merge
-        fi
+        xrandr --dpi 200
+        echo 'Xft.dpi: 200' | xrdb -merge
       '';
     };
   };
 
   users.groups.kvm = {
-    members = [ "eike" ];
+    members = [ "eike" "oth" ];
   };
 
   networking = {
     hostName = "othoni";
     wireless = {
-      enable = true;
+      enable = false; #networkmanager is true
     };
-    useDHCP = true;
+    useDHCP = false; # networkmanager is true
+    firewall.allowedTCPPorts = [ 4443 8000 ];
+    firewall.allowedUDPPorts = [ 10000 ];
 
     # nat = {
     #   enable = true;
@@ -169,6 +166,21 @@ let mykey = builtins.readFile <sshpubkey>; in
   '';
 
   environment.pathsToLink = [ "/" ];
+  environment.systemPackages = with pkgs; [
+    okular
+    gnome3.evince
+    calibre
+    gnome3.gnome-calendar
+    gnome3.gnome-clocks
+    gnome3.gnome-power-manager
+    gnome3.gnome-weather
+    gnome3.gnome-themes-standard
+    gnome3.shotwell
+    vlc
+    sambaFull
+    smbclient
+    libreoffice
+  ];
 
   nixpkgs.config = {
     allowUnfree = true;
