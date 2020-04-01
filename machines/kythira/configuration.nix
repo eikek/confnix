@@ -134,17 +134,18 @@ let mykey = builtins.readFile <sshpubkey>; in
   services.logind.lidSwitch = "ignore";
 
   services.webact = {
-    appName = "Webact " + config.networking.hostName;
+    app-name = "Webact " + config.networking.hostName;
     enable = true;
     userService = true;
-    baseDir = "/home/eike/.webact";
-    extraPackages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.elvish ];
-    extraPaths = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
-    extraEnv = {
+    extra-packages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.elvish ];
+    extra-path = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
+    env = {
       "DISPLAY" = ":0";
     };
-    bindHost = "localhost";
-    bindPort = 8011;
+    bind = {
+      address = "localhost";
+      port = 8011;
+    };
   };
 
   containers.dbmysql =

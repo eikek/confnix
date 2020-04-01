@@ -10,6 +10,12 @@ let
     sha256 = "0cssc3ryfsa788plvfmmvxfd121ppnp9q0lbf7qw8qwhi881kpgw";
   };
   sharry = import "${sharrysrc}/nix/release.nix";
+
+  webactsrc = builtins.fetchTarball {
+    url = "https://github.com/eikek/webact/archive/fa527408ed27f03fdfdda447eed66a3d04e99f5c.tar.gz";
+    sha256 = "1zknhbj6rk01phsds8hy9yw70dyx4wm9f93dfc7wqdsv6bk2b0zy";
+  };
+  webact = import "${webactsrc}/nix/release.nix";
 in {
-  inherit docspell sharry;
+  inherit docspell sharry webact;
 }

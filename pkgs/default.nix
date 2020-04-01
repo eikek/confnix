@@ -17,7 +17,7 @@ let
     pickup = callPackage ./pickup {};
     sharry = callPackage ifds.sharry.currentPkg {};
     tmm = callPackage ./tmm {};
-    webact = callPackage ./webact {};
+    webact = callPackage ifds.webact.currentPkg {};
 
     # Overriding
     sbt = sbts.sbt;
