@@ -8,4 +8,9 @@
   users.groups.docker = {
     members = [ "eike" ];
   };
+
+  environment.systemPackages = [
+    pkgs.docker
+    pkgs.docker-compose
+  ];
 }
