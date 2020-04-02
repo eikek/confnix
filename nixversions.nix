@@ -12,12 +12,12 @@ let
   pkgs1809 = import nixpkgs1809 { config = config; };
   nixpkgs1903 = builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.03.tar.gz";
-    sha256 = "1b3h4mwpi10blzpvgsc0191k4shaw3nw0qd2p82hygbr8vv4g9dv";
+    sha256 = "11z6ajj108fy2q5g8y4higlcaqncrbjm3dnv17pvif6avagw4mcb";
   };
   pkgs1903 = import nixpkgs1903 { config = config; };
   nixpkgs1909 = builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.09.tar.gz";
-    sha256 = "17zsqhaf098bvcfarnq0h9601z6smkfd1kz1px6xfg6xqfmr80r7";
+    sha256 = "01dsh9932x6xcba2p0xg4n563b85i3p7s2sakj7yf2ws8pgmwhq9";
   };
   pkgs1909 = import nixpkgs1909 { config = config; };
 in
