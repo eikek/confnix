@@ -12,8 +12,8 @@ let
   sharry = import "${sharrysrc}/nix/release.nix";
 
   webactsrc = builtins.fetchTarball {
-    url = "https://github.com/eikek/webact/archive/fa527408ed27f03fdfdda447eed66a3d04e99f5c.tar.gz";
-    sha256 = "1zknhbj6rk01phsds8hy9yw70dyx4wm9f93dfc7wqdsv6bk2b0zy";
+    url = "https://github.com/eikek/webact/archive/bf68e8d1ffa6a70d1ae8179b2cbc826cbe452a42.tar.gz";
+    sha256 = "197plafinzp4l7id16gl8471ra4j99bjw7dds3a71m69jp08iif5";
   };
   webact = import "${webactsrc}/nix/release.nix";
 in {
