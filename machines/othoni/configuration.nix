@@ -10,7 +10,6 @@ let mykey = builtins.readFile <sshpubkey>; in
       ../../modules/latex.nix
       ../../modules/java.nix
       ../../modules/packages.nix
-      ../../modules/redshift.nix
       ../../modules/region-neo.nix
       ../../modules/software.nix
       ../../modules/user.nix
