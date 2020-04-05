@@ -180,6 +180,8 @@ let mykey = builtins.readFile <sshpubkey>; in
     sambaFull
     smbclient
     libreoffice
+    emacs
+    signal-desktop
   ];
 
   nixpkgs.config = {
