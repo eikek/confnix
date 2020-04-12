@@ -16,6 +16,7 @@ let
     msgconvert = callPackage ./msgconvert {};
     pickup = callPackage ./pickup {};
     sharry = callPackage ifds.sharry.currentPkg {};
+    sig = callPackage ./sig {};
     tmm = callPackage ./tmm {};
     webact = callPackage ifds.webact.currentPkg {};
 
