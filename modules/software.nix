@@ -97,11 +97,13 @@ with pkgs.lib;
           maven
           openscad
           postgresql_11
+          purescript
           python
           sbcl
           sbt
           scala
           silver-searcher
+          spago
           visualvm
         ];
       };
