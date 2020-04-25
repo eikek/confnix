@@ -22,10 +22,16 @@ in
   security.pam.enableSSHAgentAuth = true;
 
   programs = {
+    fish.enable = true;
     ssh.startAgent = false;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
+      pinentryFlavor = "emacs";
     };
+  };
+
+  environment = {
+    homeBinInPath = true;
   };
 }
