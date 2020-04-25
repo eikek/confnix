@@ -15,6 +15,7 @@ let mykey = builtins.readFile <sshpubkey>; in
       ../../modules/software.nix
       ../../modules/user.nix
       ../../modules/vbox-host.nix
+      ../../modules/xserver.nix
     ] ++
     (import ../../pkgs/modules.nix);
 
@@ -72,37 +73,16 @@ let mykey = builtins.readFile <sshpubkey>; in
   };
 
   services.xserver = {
-    enable = true;
-    autorun = true;
-    layout = "de";
-    exportConfiguration = true;
-    libinput.enable = true;
-    xkbVariant = "neo";
-
     videoDrivers = [ "nvidia" ];
-
-    desktopManager = {
-      xterm.enable = false;
-    };
-    windowManager = {
-      stumpwm.enable = false;
-      herbstluftwm.enable = true;
-    };
-    displayManager = {
-      defaultSession = "none+herbstluftwm";
-      #lightdm.enable = true; //the default
-      sessionCommands = ''
-        ${pkgs.compton}/bin/compton &
-
-        if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
-          xrandr --output DP-0 --off
-          xrandr --dpi 140
-        else
-          xrandr --dpi 220
-          echo 'Xft.dpi: 220' | xrdb -merge
-        fi
+    displayManager.sessionCommands = ''
+      if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
+        xrandr --output DP-0 --off
+        xrandr --dpi 140
+      else
+        xrandr --dpi 220
+        echo 'Xft.dpi: 220' | xrdb -merge
+      fi
       '';
-    };
   };
 
   users.groups.kvm = {

@@ -15,6 +15,7 @@
       ../../modules/software.nix
       ../../modules/user.nix
       ../../modules/vbox-host.nix
+      ../../modules/xserver.nix
       ./mpd.nix
       ./fileserver.nix
       ./hinclient.nix
@@ -106,33 +107,15 @@
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    enable = true;
-    autorun = true;
-    layout = "de";
-    exportConfiguration = true;
-    libinput.enable = true;
-    xkbVariant = "neo";
-
-    desktopManager = {
-      xterm.enable = false;
-    };
-    windowManager = {
-      herbstluftwm.enable = true;
-      stumpwm.enable = false;
-    };
-    displayManager = {
-      defaultSession = "none+herbstluftwm";
-      sessionCommands = ''
-        ${pkgs.compton}/bin/compton &
-        if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
-          xrandr --output DP-0 --off
-          xrandr --dpi 140
-        else
-          xrandr --dpi 110
-          echo 'Xft.dpi: 110' | xrdb -merge
-        fi
-      '';
-    };
+    displayManager.sessionCommands = ''
+      if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
+        xrandr --output DP-0 --off
+        xrandr --dpi 140
+      else
+        xrandr --dpi 110
+        echo 'Xft.dpi: 110' | xrdb -merge
+      fi
+    '';
   };
 
   services.webact = {
