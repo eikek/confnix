@@ -14,6 +14,7 @@ let
     meth = callPackage ./meth {};
     mpc4s = callPackage ./mpc4s {};
     msgconvert = callPackage ./msgconvert {};
+    myemacs = callPackage ./emacs {};
     pickup = callPackage ./pickup {};
     sharry = callPackage ifds.sharry.currentPkg {};
     sig = callPackage ./sig {};

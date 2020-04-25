@@ -5,6 +5,7 @@
     [ ./hw-n76.nix
       ../../modules/accounts.nix
       ../../modules/docker.nix
+      ../../modules/emacs.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix

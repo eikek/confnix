@@ -5,10 +5,11 @@ let mykey = builtins.readFile <sshpubkey>; in
     [ ./hw-kythira.nix
       ../../modules/accounts.nix
       ../../modules/docker.nix
+      ../../modules/emacs.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
-      ../../modules/latex.nix
       ../../modules/java.nix
+      ../../modules/latex.nix
       ../../modules/packages.nix
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
