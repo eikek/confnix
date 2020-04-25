@@ -23,5 +23,6 @@ let
     # Overriding
     sbt = sbts.sbt;
     sbt11 = sbts.sbt11;
+    herbstluftwm = callPackage ./hlwm {};
   };
 in custom

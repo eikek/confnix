@@ -117,14 +117,20 @@
       xterm.enable = false;
     };
     windowManager = {
-      awesome.enable = false;
-      stumpwm.enable = true;
+      herbstluftwm.enable = true;
+      stumpwm.enable = false;
     };
     displayManager = {
-      defaultSession = "none+stumpwm";
+      defaultSession = "none+herbstluftwm";
       sessionCommands = ''
         ${pkgs.compton}/bin/compton &
-        ${pkgs.xlibs.xrandr}/bin/xrandr --dpi 110
+        if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
+          xrandr --output DP-0 --off
+          xrandr --dpi 140
+        else
+          xrandr --dpi 110
+          echo 'Xft.dpi: 110' | xrdb -merge
+        fi
       '';
     };
   };

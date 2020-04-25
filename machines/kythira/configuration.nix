@@ -85,10 +85,11 @@ let mykey = builtins.readFile <sshpubkey>; in
       xterm.enable = false;
     };
     windowManager = {
-      stumpwm.enable = true;
+      stumpwm.enable = false;
+      herbstluftwm.enable = true;
     };
     displayManager = {
-      defaultSession = "none+stumpwm";
+      defaultSession = "none+herbstluftwm";
       #lightdm.enable = true; //the default
       sessionCommands = ''
         ${pkgs.compton}/bin/compton &

@@ -21,6 +21,7 @@ with pkgs.lib;
           sqlite
           tmuxinator
           wpa_supplicant
+          stow
         ];
       };
 
@@ -73,6 +74,8 @@ with pkgs.lib;
           xlibs.xwd
           xorg.xwininfo
           xsel
+          polybar
+          dmenu
         ];
       };
 

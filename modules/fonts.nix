@@ -10,6 +10,7 @@
     fonts = with pkgs; [
       #corefonts #unfree
       anonymousPro
+      siji
       dejavu_fonts
       hack-font
       inconsolata
