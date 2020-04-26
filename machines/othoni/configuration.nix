@@ -182,6 +182,7 @@ let mykey = builtins.readFile <sshpubkey>; in
     libreoffice
     emacs
     signal-desktop
+    zoom-us
   ];
 
   nixpkgs.config = {
