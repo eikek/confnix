@@ -73,13 +73,11 @@ in {
 
   ## implementation
   config = mkIf config.services.mpdscribble.enable {
-    users.extraGroups = singleton {
-      name = "mpdscribble";
+    users.groups.mpdscribble = {
       gid = config.ids.gids.mpdscribble;
     };
 
-    users.extraUsers = singleton {
-      name = "mpdscribble";
+    users.users.mpdscribble = {
       uid = config.ids.uids.mpdscribble;
       extraGroups = [ "mpdscribble" ];
       description = "Mpdscribble daemon user.";

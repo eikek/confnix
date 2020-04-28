@@ -114,13 +114,11 @@ in {
 
   ## implementation
   config = mkIf config.services.mpc4s.enable {
-    users.extraGroups = singleton {
-      name = "mpc4s";
+    users.groups.mpc4s = {
       gid = config.ids.gids.mpc4s;
     };
 
-    users.extraUsers = singleton {
-      name = "mpc4s";
+    users.users.mpc4s = {
       uid = config.ids.uids.mpc4s;
       extraGroups = [ "mpc4s" ];
       description = "Mpc4s daemon user.";

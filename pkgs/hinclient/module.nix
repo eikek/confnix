@@ -78,8 +78,7 @@ in {
 
   ## implementation
   config = mkIf cfg.enable {
-    users.extraUsers = singleton {
-      name = cfg.user;
+    users.users."${cfg.user}" = {
       home = cfg.baseDir;
     };
 
