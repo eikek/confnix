@@ -29,6 +29,7 @@
       "100:fullscreen"
       "100:class_g = 'dmenu'"
       "100:name *= 'i3lock'"
+      "100:name *= 'Teams'"
       "95:class_g = 'Alacritty' && focused"
     ];
   };
