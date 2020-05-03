@@ -64,9 +64,8 @@ with pkgs.lib;
           firefox-esr
           i3lock
           i3lock-fancy
-          # qutebrowser
+          qutebrowser
           scrot
-          stumpish
           xclip
           xlibs.xdpyinfo
           xlibs.xmodmap
