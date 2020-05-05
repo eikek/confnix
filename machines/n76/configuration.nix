@@ -111,9 +111,9 @@ in
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     displayManager.sessionCommands = ''
-      if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
-        xrandr --output DP-0 --off
+      if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 1 ]; then
         xrandr --dpi 140
+        echo 'Xft.dpi: 140' | xrdb -merge
       else
         xrandr --dpi 110
         echo 'Xft.dpi: 110' | xrdb -merge
