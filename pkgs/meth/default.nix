@@ -1,12 +1,12 @@
 {stdenv, fetchurl, jre8_headless, makeWrapper, bash, curl, coreutils, gnugrep, unzip}:
 
 stdenv.mkDerivation rec {
-  version = "0.0.2";
+  version = "0.0.3";
   name = "meth-${version}";
 
    src = fetchurl {
      url = "https://github.com/eikek/meth/releases/download/v${version}/meth-${version}";
-     sha256 = "0px1x61ywdyiryzgkfwapcld19ys94n500lrfwxl1rlmms65pl3y";
+     sha256 = "0qd26i33hm59rc6x3gbgpyq85pgf3n6dwpqc2sppa8wpgj3v92jh";
    };
 
   buildInputs = [ jre8_headless makeWrapper ];
