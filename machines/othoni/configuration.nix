@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
-let mykey = builtins.readFile <sshpubkey>; in
+let
+  mykey = builtins.readFile <sshpubkey>;
+  printer = import ../../modules/printer.nix;
+in
 {
   imports =
     [ ./hw-othoni.nix
@@ -14,6 +17,7 @@ let mykey = builtins.readFile <sshpubkey>; in
       ../../modules/software.nix
       ../../modules/user.nix
       ../../modules/vbox-host.nix
+      printer.home
     ] ++
     (import ../../pkgs/modules.nix);
 
@@ -46,11 +50,6 @@ let mykey = builtins.readFile <sshpubkey>; in
   security = {
     pam.enableSSHAgentAuth = true;
     wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
-  };
-
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.c544ppd ];
   };
 
   services.locate = {

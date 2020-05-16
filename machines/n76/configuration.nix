@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let
+  printer = import ../../modules/printer.nix;
+in
 {
   imports =
     [ ./hw-n76.nix
@@ -21,7 +23,7 @@
       ./fileserver.nix
       ./hinclient.nix
       ./vpn.nix
-      ./printer.nix
+      printer.work
     ] ++
     (import ../../pkgs/modules.nix);
 
