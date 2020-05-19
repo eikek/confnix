@@ -57,6 +57,7 @@ in
     boron-theme
     darktooth-theme
     doom-themes
+    darcula-theme
     doom-modeline
     eziam-theme
     gruvbox-theme
