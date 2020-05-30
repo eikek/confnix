@@ -14,6 +14,8 @@
       dejavu_fonts
       hack-font
       inconsolata
+      iosevka
+      iosevka-bin
       source-code-pro
       terminus_font
       ttf-envy-code-r
