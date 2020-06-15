@@ -138,6 +138,10 @@ in
   { config = import ../../modules/devdb-postgres.nix;
     autoStart = false;
   };
+  containers.dbsolr =
+  { config = import ../../modules/devdb-solr.nix;
+    autoStart = false;
+  };
   containers.devmail =
   { config = {config ,pkgs, ... }:
       { imports = [ ../../modules/devmail.nix ];
