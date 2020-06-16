@@ -12,6 +12,10 @@ stdenv.mkDerivation rec {
 
   buildPhase = "true";
 
+  patchPhase = ''
+    sed -i 's/hinclient.httpproxy.serverthreads=10/hinclient.httpproxy.serverthreads=100/g' hinclient.system.properties
+    sed -i 's/hinclient.httpproxy.handlerthreads=10/hinclient.httpproxy.handlerthreads=100/g' hinclient.system.properties
+  '';
   installPhase = ''
     mkdir -p $out
     mv * $out

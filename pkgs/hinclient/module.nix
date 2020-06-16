@@ -100,6 +100,9 @@ in {
         echo "${cfg.passphrase}" > ${cfg.baseDir}/tmp/.passphrase
 
         chown -R ${cfg.user} ${cfg.baseDir}
+        cd ${cfg.baseDir}
+        sed -i 's/hinclient.httpproxy.serverthreads=10/hinclient.httpproxy.serverthreads=200/g' hinclient.system.properties
+        sed -i 's/hinclient.httpproxy.handlerthreads=10/hinclient.httpproxy.handlerthreads=200/g' hinclient.system.properties
       '';
       script = ''
         ${pkgs.su}/bin/su -s ${pkgs.bash}/bin/sh ${cfg.user} -c "cd ${cfg.baseDir} && ./hinclient headless \
