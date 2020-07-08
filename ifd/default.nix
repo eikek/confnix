@@ -6,8 +6,8 @@ let
   docspell = import "${docspellsrc}/nix/release.nix";
 
   sharrysrc = builtins.fetchTarball {
-    url = "https://github.com/eikek/sharry/archive/d9cbb2bb5c818d807d9f5259021a774a499c6cb9.tar.gz";
-    sha256 = "111hvx0y093rqibja3d65vim9pq9ck1mhjs17cg7jhsb4z8fijwh";
+    url = "https://github.com/eikek/sharry/archive/2da6b9ae78064d86c743fcbdb95daf08ccf675ef.tar.gz";
+    sha256 = "081idn9m0xhx22ii1nwipybfsh28wgpnp2dknqqrmhjpw68mwc4y";
   };
   sharry = import "${sharrysrc}/nix/release.nix";
 
