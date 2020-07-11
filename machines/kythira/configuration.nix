@@ -77,7 +77,12 @@ in
     videoDrivers = [ "nvidia" ];
     displayManager.sessionCommands = ''
       if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
-        xrandr --output DP-0 --off
+        ##xrandr --output DP-0 --off
+        xrandr --output DP-3 --off \
+          --output DP-2 --off \
+          --output DP-4 --off \
+          --output DP-0 --mode 3840x2160 --pos 0x0 \
+          --output DP-1 --mode 3840x2160 --pos 3840x0
         xrandr --dpi 140
       else
         xrandr --dpi 220
