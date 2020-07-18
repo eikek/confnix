@@ -128,6 +128,7 @@ with pkgs.lib;
           unoconv
           youtube-dl
           zathura
+          ocrmypdf
         ];
       };
 
