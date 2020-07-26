@@ -38,6 +38,8 @@ with pkgs.lib;
           libjpeg
           plantuml
           viewnior
+          inkscape
+          shutter
         ];
       };
 
