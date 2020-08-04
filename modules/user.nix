@@ -13,7 +13,7 @@ in
     home = "/home/${username}";
     shell = pkgs.fish;
     openssh.authorizedKeys.keyFiles = [ keyFile ];
-    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" ];
+    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" ];
   };
   users.users.root = {
     openssh.authorizedKeys.keyFiles = [ keyFile ];

@@ -20,6 +20,7 @@ in
       ../../modules/user.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
+      ../../modules/androiddev.nix
       printer.home
     ] ++
     (import ../../pkgs/modules.nix);
