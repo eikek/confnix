@@ -9,14 +9,17 @@
   };
 
   environment.systemPackages = with pkgs; [
+    bandwhich
     bat
     binutils
     coreutils
     cryptsetup
     curl
     dmidecode
+    dust
     elvish
     exa
+    fd
     file
     gitAndTools.gitFull
     gnupg
@@ -31,11 +34,13 @@
     pciutils
     psmisc
     rsync
+    starship
     telnet
     tmux
     unzip
     wget
     which
+    ytop
     zip
   ];
 
