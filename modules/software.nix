@@ -95,6 +95,7 @@ with pkgs.lib;
           elmPackages.elm-xref
           global
           guile
+          gradle
           idea.idea-community
           leiningen
           mariadb
