@@ -73,6 +73,7 @@ in
     vagrant
     yarn
     teams
+    zoom-us
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
