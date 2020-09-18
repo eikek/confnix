@@ -10,12 +10,13 @@
     fonts = with pkgs; [
       #corefonts #unfree
       anonymousPro
-      siji
       dejavu_fonts
+      fantasque-sans-mono
       hack-font
       inconsolata
       iosevka
       iosevka-bin
+      siji
       source-code-pro
       terminus_font
       ttf-envy-code-r
