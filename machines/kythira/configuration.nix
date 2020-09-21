@@ -21,6 +21,7 @@ in
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
       ../../modules/androiddev.nix
+      ../../modules/localssl
       printer.home
     ] ++
     (import ../../pkgs/modules.nix);
