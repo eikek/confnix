@@ -1,12 +1,12 @@
 {stdenv, fetchurl, jre8, unzip, bash}:
 
 stdenv.mkDerivation rec {
-  version = "0.3.1";
+  version = "0.3.2";
   name = "mpc4s-player-${version}";
 
    src = fetchurl {
      url = "https://github.com/eikek/mpc4s/releases/download/v${version}/mpc4s-player-${version}.zip";
-     sha256 = "0f6pq03alb2rl8q37jwjkm2sa39m2p1g4biq8f4frj90zy1r34sb";
+     sha256 = "0ssy5yzhnx5li4h8wgdbrv6jlgyx7qz4323a7qfhbnw1qvqnrapy";
    };
 
   buildInputs = [ jre8 ];

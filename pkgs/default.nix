@@ -22,6 +22,7 @@ let
     webact = callPackage ifds.webact.currentPkg {};
 
     # Overriding
+    mpd = p.pkgs1909.mpd; # must upgrade mpc4s :(
     sbt = sbts.sbt;
     sbt11 = sbts.sbt11;
     herbstluftwm = callPackage ./hlwm {};
