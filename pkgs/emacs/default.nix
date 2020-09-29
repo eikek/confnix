@@ -178,4 +178,5 @@ in
     haskell-mode
     nix-haskell-mode
     lsp-haskell
+    dashboard
   ]))
