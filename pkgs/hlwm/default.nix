@@ -1,11 +1,11 @@
 { stdenv, fetchurl, pkgconfig, glib, xorg, cmake, asciidoc-full, libxslt }:
 
 stdenv.mkDerivation rec {
-  name = "herbstluftwm-0.8.1";
+  name = "herbstluftwm-0.8.3";
 
   src = fetchurl {
     url = "https://herbstluftwm.org/tarballs/${name}.tar.gz";
-    sha256 = "0c1lf82z6a56g8asin91cmqhzk3anw0xwc44b31bpjixadmns57y";
+    sha256 = "1qmb4pjf2f6g0dvcg11cw9njwmxblhqzd70ai8qnlgqw1iz3nkm1";
   };
 
   patchPhase = ''
