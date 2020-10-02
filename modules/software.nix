@@ -63,7 +63,7 @@ with pkgs.lib;
           alacritty
           autorandr
           chromium
-          firefox-devedition-bin
+          firefox
           i3lock
           i3lock-fancy
           qutebrowser
