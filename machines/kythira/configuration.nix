@@ -7,12 +7,15 @@ in
   imports =
     [ ./hw-kythira.nix
       ../../modules/accounts.nix
+      ../../modules/androiddev.nix
+      ../../modules/bluetooth.nix
       ../../modules/docker.nix
       ../../modules/emacs.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix
       ../../modules/latex.nix
+      ../../modules/localssl
       ../../modules/packages.nix
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
@@ -20,8 +23,6 @@ in
       ../../modules/user.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
-      ../../modules/androiddev.nix
-      ../../modules/localssl
       printer.home
     ] ++
     (import ../../pkgs/modules.nix);
@@ -180,7 +181,6 @@ in
 
   hardware = {
     enableAllFirmware = true;
-    bluetooth.enable = false;
     cpu.intel.updateMicrocode = true;  #needs unfree
     opengl.driSupport32Bit = true;
   };

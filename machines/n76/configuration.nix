@@ -6,6 +6,7 @@ in
   imports =
     [ ./hw-n76.nix
       ../../modules/accounts.nix
+      ../../modules/bluetooth.nix
       ../../modules/docker.nix
       ../../modules/emacs.nix
       ../../modules/fonts.nix
@@ -86,7 +87,6 @@ in
 
   hardware = {
     enableAllFirmware = true;
-    bluetooth.enable = false;
     cpu.intel.updateMicrocode = true;  #needs unfree
     opengl.driSupport32Bit = true;
   };
