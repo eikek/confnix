@@ -17,7 +17,7 @@ let
   pkgs1903 = import nixpkgs1903 { config = config; };
   nixpkgs1909 = builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.09.tar.gz";
-    sha256 = "0r5ja052s86fr54fm1zlhld3fwawz2w1d1gd6vbvpjrpjfyajibn";
+    sha256 = "157c64220lf825ll4c0cxsdwg7cxqdx4z559fdp7kpz0g6p8fhhr";
   };
   pkgs1909 = import nixpkgs1909 { config = config; };
   nixpkgsUnstable = builtins.fetchTarball {

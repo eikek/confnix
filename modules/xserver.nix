@@ -22,8 +22,8 @@
 
   services.picom = {
     enable = true;
-    activeOpacity = "1.0";
-    inactiveOpacity = "0.9";
+    activeOpacity = 1.0;
+    inactiveOpacity = 0.9;
     shadow = false;
     opacityRules = [
       "100:fullscreen"

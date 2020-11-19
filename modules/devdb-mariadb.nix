@@ -18,9 +18,11 @@
         TO 'dev'@'%'
         WITH GRANT OPTION;
     '';
-    extraOptions = ''
-      skip-networking=0
-      skip-bind-address
-   '';
+    settings = {
+      mysqld = {
+      skip_networking = 0;
+      skip_bind_address = true;
+      };
+    };
   };
 }
