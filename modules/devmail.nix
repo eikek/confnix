@@ -134,9 +134,9 @@ with lib;
 
         local_delivery:
           driver = appendfile
-          current_directory = ${usersdir}/''${lc:$local_part}
+          current_directory = ${usersdir}/''${lc:$local_part_data}
           maildir_format = true
-          directory = ${usersdir}/''${lc:$local_part}/Maildir
+          directory = ${usersdir}/''${lc:$local_part_data}/Maildir
           delivery_date_add
           envelope_to_add
           return_path_add

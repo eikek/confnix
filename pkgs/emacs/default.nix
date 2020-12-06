@@ -151,6 +151,7 @@ in
     ansible
     fish-mode
     lsp-mode
+    lsp-metals
     lsp-java
     lsp-ui
     lsp-treemacs
