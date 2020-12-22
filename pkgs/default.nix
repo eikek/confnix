@@ -11,6 +11,7 @@ let
     docspell = callPackage ifds.docspell.currentPkg {};
     gossa = callPackage ./gossa {};
     hinclient = callPackage ./hinclient {};
+    mc2425ppd = callPackage ./mc2425ppd {};
     meth = callPackage ./meth {};
     mpc4s = callPackage ./mpc4s {};
     msgconvert = callPackage ./msgconvert {};

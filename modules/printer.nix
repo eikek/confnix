@@ -5,18 +5,18 @@
       hardware.printers = {
         ensurePrinters = [
           {
-            name = "LexmarkC544";
+            name = "LexmarkMC2425";
             location = "Home";
             description = "Laserprinter";
             deviceUri = "socket://lexi.home";
-            model = "lexmark/c544.ppd";
+            model = "lexmark/mc2425.ppd";
           }
         ];
-        ensureDefaultPrinter = "LexmarkC544";
+        ensureDefaultPrinter = "LexmarkMC2425";
       };
       services.printing = {
         enable = true;
-        drivers = [ pkgs.c544ppd ];
+        drivers = [ pkgs.mc2425ppd ];
       };
     };
 
