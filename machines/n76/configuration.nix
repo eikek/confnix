@@ -24,7 +24,6 @@ in
       ./fileserver.nix
       ./hinclient.nix
       ./vpn.nix
-      printer.work
     ] ++
     (import ../../pkgs/modules.nix);
 
