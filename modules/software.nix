@@ -101,7 +101,7 @@ with pkgs.lib;
           mariadb
           maven
           openscad
-          postgresql_11
+          postgresql_12
           purescript
           python
           sbcl

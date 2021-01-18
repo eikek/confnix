@@ -9,7 +9,7 @@
     '';
   in {
     enable = true;
-    package = pkgs.postgresql_11;
+    package = pkgs.postgresql_12;
     enableTCPIP = true;
     initialScript = pginit;
     port = 5432;
