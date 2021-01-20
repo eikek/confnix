@@ -187,8 +187,31 @@ in
     localAddress = "10.231.2.2";
     autoStart = false;
   };
+
+  containers.docspell =
+    { config = import ../../modules/docspell.nix;
+      autoStart = false;
+      privateNetwork = true;
+      hostAddress = "10.231.2.1";
+      localAddress = "10.231.2.3";
+    };
+
+  services.docspell-consumedir = {
+    enable = true;
+    integration-endpoint = {
+      enabled = true;
+      header = "Docspell-Integration:test123";
+    };
+    verbose = true;
+    distinct = true;
+    deleteFiles = true;
+    watchDirs = ["/home/docspell-local"];
+    urls = ["http://docspell:7880/api/v1/open/integration/item"];
+  };
+
   networking.extraHosts = ''
     10.231.2.2 devmail
+    10.231.2.3 docspell
   '';
 
   # This value determines the NixOS release with which your system is to be
