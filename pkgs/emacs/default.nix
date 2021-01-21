@@ -179,4 +179,7 @@ in
     nix-haskell-mode
     lsp-haskell
     dashboard
+    visual-fill-column
+    fill-column-indicator
+    hl-fill-column
   ]))
