@@ -98,6 +98,7 @@ with pkgs.lib;
           gradle
           idea.idea-community
           leiningen
+          nodejs
           mariadb
           maven
           openscad
