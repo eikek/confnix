@@ -96,7 +96,9 @@ with pkgs.lib;
           global
           guile
           gradle
+          nodejs
           idea.idea-community
+          inotify-tools
           leiningen
           nodejs
           mariadb
