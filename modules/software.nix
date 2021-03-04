@@ -85,6 +85,7 @@ with pkgs.lib;
         default = with pkgs; [
           R
           ammonite-repl
+          nodePackages.bash-language-server
           clojure
           elmPackages.elm
           elmPackages.elm-analyse

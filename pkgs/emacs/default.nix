@@ -183,4 +183,5 @@ in
     visual-fill-column
     fill-column-indicator
     hl-fill-column
+    edit-server
   ]))
