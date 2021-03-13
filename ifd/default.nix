@@ -1,7 +1,7 @@
 let
   docspellsrc = builtins.fetchTarball {
-    url = "https://github.com/eikek/docspell/archive/b57ceb67641617a0f3f7885c7f93ae0fa33d2e06.tar.gz";
-    sha256 = "11xdk17vnyyh4jyd890w926albl5fmwbpkk5gbsnl9jnkc2wh2h8";
+    url = "https://github.com/eikek/docspell/archive/7d513dce0b5727af8617c1402bf072183506bad0.tar.gz";
+    sha256 = "0pab677r4qagsxmrmd097fkqmz8m3zlyk5xw7vmvjb0wibdgm18q";
   };
   docspell = import "${docspellsrc}/nix/release.nix";
 
