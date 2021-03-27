@@ -12,6 +12,7 @@ in
       ../../modules/consumedir-main.nix
       ../../modules/docker.nix
       ../../modules/emacs.nix
+      ../../modules/ergodox.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix

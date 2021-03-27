@@ -6,7 +6,7 @@
     layout = "de";
     exportConfiguration = true;
     libinput.enable = true;
-    xkbVariant = "neo";
+#    xkbVariant = "neo";
 
     desktopManager = {
       xterm.enable = false;
