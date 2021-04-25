@@ -20,6 +20,7 @@
       libertine;
     };
   in
-  [ tex ];
+    [ texlive.combined.scheme-full
+    ];
 
 }

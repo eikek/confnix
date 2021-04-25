@@ -19,7 +19,7 @@ in
 
     rainbow-mode
 #    auctex
-    excorporate
+#    excorporate
 
   ]) ++ (with epkgs.melpaPackages; [
     use-package
@@ -184,4 +184,7 @@ in
     fill-column-indicator
     hl-fill-column
     edit-server
+    polymode
+    poly-markdown
+    poly-R
   ]))

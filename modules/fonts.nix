@@ -21,6 +21,7 @@
       terminus_font
       ttf-envy-code-r
       ttf_bitstream_vera
+      roboto-mono
     ];
   };
 

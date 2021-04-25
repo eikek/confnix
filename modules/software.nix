@@ -80,42 +80,54 @@ with pkgs.lib;
         ];
       };
 
-      devel = mkOption {
-        type = types.listOf types.package;
-        default = with pkgs; [
-          R
-          ammonite-repl
-          nodePackages.bash-language-server
-          clojure
-          elmPackages.elm
-          elmPackages.elm-analyse
-          elmPackages.elm-format
-          elmPackages.elm-language-server
-          elmPackages.elm-live
-          elmPackages.elm-test
-          elmPackages.elm-xref
-          global
-          guile
-          gradle
-          nodejs
-          idea.idea-community
-          inotify-tools
-          leiningen
-          nodejs
-          mariadb
-          maven
-          openscad
-          postgresql_12
-          purescript
-          python
-          sbcl
-          sbt
-          scala
-          silver-searcher
-          spago
-          visualvm
-        ];
-      };
+      devel =
+        let
+          myR = pkgs.rWrapper.override {
+            packages = with pkgs.rPackages;
+              [ ggplot2 dplyr xts rmarkdown evaluate
+                digest highr markdown stringr yaml Rcpp
+                htmltools knitr jsonlite base64enc mime
+                lmtest tidyverse reshape2 broom
+              ];
+          };
+        in
+        mkOption
+        {
+          type = types.listOf types.package;
+          default = with pkgs; [
+            myR
+            ammonite-repl
+            nodePackages.bash-language-server
+            clojure
+            elmPackages.elm
+            elmPackages.elm-analyse
+            elmPackages.elm-format
+            elmPackages.elm-language-server
+            elmPackages.elm-live
+            elmPackages.elm-test
+            elmPackages.elm-xref
+            global
+            guile
+            gradle
+            nodejs
+            idea.idea-community
+            inotify-tools
+            leiningen
+            nodejs
+            mariadb
+            maven
+            openscad
+            postgresql_12
+            purescript
+            python
+            sbcl
+            sbt
+            scala
+            silver-searcher
+            spago
+            visualvm
+          ];
+        };
 
       tools = mkOption {
         type = types.listOf types.package;
