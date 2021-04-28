@@ -157,7 +157,7 @@ in
     treemacs
     company-lsp
     dap-mode
-    eglot
+#    eglot
     vterm
     vterm-toggle
     solaire-mode
