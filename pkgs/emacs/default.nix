@@ -143,7 +143,7 @@ in
     elfeed
     beacon
     nameless
-    slack
+#    slack
     play-routes-mode
     logview
     scad-mode
