@@ -6,6 +6,7 @@ in
 {
   imports =
     [ ./hw-kalamos.nix
+      ./nvidia-offload.nix
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
@@ -39,6 +40,12 @@ in
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+  };
+
+  hardware = {
+    enableAllFirmware = true;
+    cpu.intel.updateMicrocode = true;  #needs unfree
+    opengl.driSupport32Bit = true;
   };
 
   powerManagement = {
@@ -76,10 +83,6 @@ in
   services.locate = {
     enable = true;
     interval = "13:00";
-  };
-
-  services.xserver = {
-    videoDrivers = [ "nvidia" ];
   };
 
   users.groups.kvm = {
@@ -166,13 +169,6 @@ in
     sshServe.enable = true;
     sshServe.keys = [ mykey ];
   };
-
-  hardware = {
-    enableAllFirmware = true;
-    cpu.intel.updateMicrocode = true;  #needs unfree
-    opengl.driSupport32Bit = true;
-  };
-
 
   system.activationScripts = {
     kworkerbug = ''
