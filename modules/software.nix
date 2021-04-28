@@ -13,7 +13,7 @@ with pkgs.lib;
           git-crypt
           mr
           nix-prefetch-scripts
-          nixops
+#          nixops
           pass
           pinentry
           recutils
@@ -84,10 +84,7 @@ with pkgs.lib;
         let
           myR = pkgs.rWrapper.override {
             packages = with pkgs.rPackages;
-              [ ggplot2 dplyr xts rmarkdown evaluate
-                digest highr markdown stringr yaml Rcpp
-                htmltools knitr jsonlite base64enc mime
-                lmtest tidyverse reshape2 broom
+              [ ggplot2
               ];
           };
         in
@@ -119,7 +116,7 @@ with pkgs.lib;
             openscad
             postgresql_12
             purescript
-            python
+#            python
             sbcl
             sbt
             scala
@@ -147,7 +144,7 @@ with pkgs.lib;
           unoconv
           youtube-dl
           zathura
-          ocrmypdf
+#          ocrmypdf
         ];
       };
 

@@ -40,7 +40,7 @@
     unzip
     wget
     which
-    ytop
+    bottom
     zip
   ];
 

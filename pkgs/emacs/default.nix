@@ -117,7 +117,7 @@ in
     yaml-mode
     sass-mode
     goto-chg
-    geiser
+#    geiser
     markdown-mode
     flymd
     flycheck
@@ -155,13 +155,13 @@ in
     lsp-ui
     lsp-treemacs
     treemacs
-    company-lsp
+#    company-lsp
     dap-mode
 #    eglot
     vterm
     vterm-toggle
     solaire-mode
-    gif-screencast
+#    gif-screencast
     clipetty
     exec-path-from-shell
     fish-completion
