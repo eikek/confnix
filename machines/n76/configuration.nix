@@ -69,6 +69,7 @@ in
     mongodb-tools
     nodePackages.grunt-cli
     nodePackages.gulp
+    openshift
     slack
     vagrant
     yarn
@@ -218,6 +219,6 @@ in
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09"; # Did you read the comment?
+  system.stateVersion = "20.09"; # Did you read the comment?
 
 }
