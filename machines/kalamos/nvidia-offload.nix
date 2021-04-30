@@ -11,6 +11,7 @@ let
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
     export __VK_LAYER_NV_optimus=NVIDIA_only
+    export DRI_PRIME=1
     exec -a "$0" "$@"
   '';
 in
@@ -22,7 +23,8 @@ in
   };
 
   hardware.nvidia.prime = {
-    offload.enable = true;
+    #    offload.enable = true;
+    sync.enable = true;
 
     # Bus ID of the AMD GPU. You can find it using lspci, either under 3D or VGA
     amdgpuBusId = "PCI:6:0:0";
