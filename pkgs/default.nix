@@ -26,6 +26,6 @@ let
     mpd = p.pkgs1909.mpd; # must upgrade mpc4s :(
     sbt = sbts.sbt;
     sbt11 = sbts.sbt11;
-    herbstluftwm = callPackage ./hlwm {};
+    #herbstluftwm = callPackage ./hlwm {};
   };
 in custom
