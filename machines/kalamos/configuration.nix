@@ -1,42 +1,40 @@
 { config, pkgs, ... }:
 let
   mykey = builtins.readFile <sshpubkey>;
-  printer = import ../../modules/printer.nix;
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    export DRI_PRIME=1
+    exec -a "$0" "$@"
+  '';
 in
 {
   imports =
     [ ./hw-kalamos.nix
       ./nvidia-offload.nix
       ../../modules/accounts.nix
-      ../../modules/androiddev.nix
-      ../../modules/bluetooth.nix
-      ../../modules/consumedir-main.nix
-      ../../modules/docker.nix
-      ../../modules/emacs.nix
-      ../../modules/ergodox.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix
-      ../../modules/latex.nix
-#      ../../modules/localssl
       ../../modules/packages.nix
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
       ../../modules/software.nix
       ../../modules/user.nix
-      ../../modules/vbox-host.nix
       ../../modules/xserver.nix
-      printer.home
-    ] ++
-    (import ../../pkgs/modules.nix);
+    ];
+
+  services.openssh.enable = true;
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_11;
+    #    kernelPackages = pkgs.linuxPackages_5_11;
     cleanTmpDir = true;
     initrd.luks.devices = {
       crootfs = { device = "/dev/nvme0n1p1"; preLVM = true; };
     };
-   loader = {
+    loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
@@ -44,36 +42,16 @@ in
 
   hardware = {
     enableAllFirmware = true;
-    cpu.intel.updateMicrocode = true;  #needs unfree
-    opengl.driSupport32Bit = true;
+    cpu.amd.updateMicrocode = true;  #needs unfree
+    opengl.enable = true;
+##    opengl.driSupport32Bit = true; #
   };
+
+  environment.systemPackages = [ nvidia-offload ];
 
   powerManagement = {
     enable = true;
   };
-
-  fileSystems =
-  let
-    mounts = {
-      "/mnt/data" = {
-        device = "/dev/disk/by-label/data";
-        fsType = "xfs";
-        options = ["noauto" "user" "rw" "exec" "suid" "async"];
-        noCheck = true;
-      };
-    };
-  in mounts // (builtins.listToAttrs (map (mp:
-    { name = "/mnt/nas/" + mp;
-      value = {
-        device = "//files.home/" + mp;
-        fsType = "cifs";
-        options = ["noauto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" "vers=2.0" ];
-        noCheck = true;
-      };
-    }) ["data" "eike"]));
-
-#Requires recompile of virtualbox
-#  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   security = {
     pam.enableSSHAgentAuth = true;
@@ -83,10 +61,6 @@ in
   services.locate = {
     enable = true;
     interval = "13:00";
-  };
-
-  users.groups.kvm = {
-    members = [ "eike" ];
   };
 
   networking = {
@@ -102,7 +76,7 @@ in
       internalInterfaces = [ "ve-+" ];
     };
 
-   localCommands = ''
+    localCommands = ''
      ${pkgs.vde2}/bin/vde_switch -tap tap0 -mod 660 -group kvm -daemon
      ip addr add 10.0.2.1/24 dev tap0
      ip link set dev tap0 up
@@ -114,66 +88,10 @@ in
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
   services.logind.lidSwitch = "ignore";
 
-  services.webact = {
-    app-name = "Webact " + config.networking.hostName;
-    enable = true;
-    userService = true;
-    extra-packages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.elvish ];
-    extra-path = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
-    env = {
-      "DISPLAY" = ":0";
-    };
-    bind = {
-      address = "localhost";
-      port = 8011;
-    };
-  };
-
-  containers.dbmysql =
-  { config = import ../../modules/devdb-mariadb.nix;
-    autoStart = false;
-  };
-  containers.dbpostgres =
-  { config = import ../../modules/devdb-postgres.nix;
-    autoStart = false;
-  };
-  containers.dbsolr =
-  { config = import ../../modules/devdb-solr.nix;
-    autoStart = false;
-  };
-  containers.devmail =
-  { config = {config ,pkgs, ... }:
-      { imports = [ ../../modules/devmail.nix ];
-        services.devmail = {
-          enable = true;
-          primaryHostname = "devmail";
-          localDomains = [ "devmail.org" "test.com" ];
-        };
-      };
-    privateNetwork = true;
-    hostAddress = "10.231.2.1";
-    localAddress = "10.231.2.2";
-    autoStart = false;
-  };
-  networking.extraHosts = ''
-    10.231.2.2 devmail
-  '';
-
   environment.pathsToLink = [ "/" ];
 
   nixpkgs.config = {
     allowUnfree = true;
-  };
-
-  nix = {
-    sshServe.enable = true;
-    sshServe.keys = [ mykey ];
-  };
-
-  system.activationScripts = {
-    kworkerbug = ''
-      echo "disable" > /sys/firmware/acpi/interrupts/gpe6F || true
-    '';
   };
 
   # This value determines the NixOS release with which your system is to be

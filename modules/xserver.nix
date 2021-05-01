@@ -6,7 +6,7 @@
     layout = "de";
     exportConfiguration = true;
     libinput.enable = true;
-#    xkbVariant = "neo";
+    xkbVariant = "neo";
 
     desktopManager = {
       xterm.enable = false;
@@ -16,6 +16,9 @@
       stumpwm.enable = false;
     };
     displayManager = {
+      gdm = {
+        enable = true;
+      };
       defaultSession = "none+herbstluftwm";
     };
   };

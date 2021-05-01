@@ -16,20 +16,44 @@ let
   '';
 in
 {
-  environment.systemPackages = [ nvidia-offload ];
+  environment.systemPackages = [
+    config.boot.kernelPackages.nvidia_x11.bin
+    config.boot.kernelPackages.nvidia_x11.settings
+  ];
+
+  boot = {
+    kernelParams = [
+      "nvidia-drm.modeset=1"
+    ];
+    extraModulePackages =
+      [ config.boot.kernelPackages.nvidia_x11
+        #      config.boot.kernelPackages.amdgpu-pro #doesn't build
+      ];
+    blacklistedKernelModules =
+      [ "nouveau"
+        "rivafb"
+        "nvidiafb"
+        "rivatv"
+        "nv"
+        "uvcvideo"
+      ];
+  };
+
+  hardware.opengl = {
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages =
+      [config.boot.kernelPackages.nvidia_x11.out
+      ];
+    extraPackages32 =
+      [ config.boot.kernelPackages.nvidia_x11.lib32
+      ];
+  };
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
+    useGlamor = true;
+    logFile = null;
   };
 
-  hardware.nvidia.prime = {
-    #    offload.enable = true;
-    sync.enable = true;
-
-    # Bus ID of the AMD GPU. You can find it using lspci, either under 3D or VGA
-    amdgpuBusId = "PCI:6:0:0";
-
-    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-    nvidiaBusId = "PCI:1:0:0";
-  };
 }
