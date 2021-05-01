@@ -1,6 +1,6 @@
 { stdenv, fetchurl, unzip, jre8  }:
 
-with stdenv.lib;
+with lib;
 
 stdenv.mkDerivation rec {
   version = "0.3.0";

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     chmod 755 $out/bin/mpc4s
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = ''
       Scala client library for MPD, HTTP interface to MPD via
       REST/Websockets, finally a Webclient for MPD.
