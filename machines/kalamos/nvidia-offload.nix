@@ -24,6 +24,7 @@ in
   boot = {
     kernelParams = [
       "nvidia-drm.modeset=1"
+      "amdgpu.modeset=1"
     ];
     extraModulePackages =
       [ config.boot.kernelPackages.nvidia_x11
@@ -44,16 +45,33 @@ in
     driSupport32Bit = true;
     extraPackages =
       [config.boot.kernelPackages.nvidia_x11.out
+       pkgs.amdvlk
+       pkgs.rocm-opencl-icd
       ];
     extraPackages32 =
       [ config.boot.kernelPackages.nvidia_x11.lib32
+        pkgs.driversi686Linux.amdvlk
       ];
   };
 
+  environment.variables.VK_ICD_FILENAMES =
+    "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
+
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "amdgpu" "nvidia" ];
+    modules = [ pkgs.xorg.xf86videoamdgpu
+              ];
     useGlamor = true;
+    dpi = 150;
     logFile = null;
+    deviceSection = ''
+      Option "TearFree" "true"
+      Option "DRI" "3"
+      BusID "PCI:6:0:0"
+    '';
+    monitorSection = ''
+      Option "Primary" "true"
+    '';
   };
 
 }
