@@ -30,43 +30,45 @@ in
     (import ../../pkgs/modules.nix);
 
 
-  environment.systemPackages = [
-    pkgs.rstudioWrapper.override {
-      packages = with rPackages;
-        [ tidyr
-          ggplot2
-          dplyr
-          xts
-          rmarkdown
-          evaluate
-          digest
-          highr
-          markdown
-          stringr
-          yaml
-          Rcpp
-          htmltools
-          knitr
-          jsonlite
-          base64enc
-          mime
-          lmtest
-          tidyverse
-          reshape2
-          broom
-        ];
-    }
-  ];
+  environment.systemPackages =
+    let
+      rstudioPkg = pkgs.rstudioWrapper.override {
+        packages = with pkgs.rPackages;
+          [ tidyr
+            ggplot2
+            dplyr
+            xts
+            rmarkdown
+            evaluate
+            digest
+            highr
+            markdown
+            stringr
+            yaml
+            Rcpp
+            htmltools
+            knitr
+            jsonlite
+            base64enc
+            mime
+            lmtest
+            tidyverse
+            reshape2
+            broom
+          ];
+      };
+    in
+      [ rstudioPkg
+      ];
 
   services.xserver = {
-    xkbVariant = lib.mkForce "";
+    xkbVariant = pkgs.lib.mkForce "";
     desktopManager = {
       gnome3 = {
         enable = true;
       };
     };
   };
-  program.gnupg.agent.pinentryFlavor = "gnome3"
 
   users.users.linda = {
     name = "linda";
