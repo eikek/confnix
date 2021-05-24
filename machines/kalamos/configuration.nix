@@ -29,6 +29,17 @@ in
     ] ++
     (import ../../pkgs/modules.nix);
 
+  users.users.linda = {
+    name = "linda";
+    isNormalUser = true;
+    uid = 1001;
+    createHome = true;
+    home = "/home/linda";
+    shell = pkgs.fish;
+    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" ];
+  };
+
+
   services.openssh.enable = true;
 
   boot = {
