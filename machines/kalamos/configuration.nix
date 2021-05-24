@@ -29,6 +29,17 @@ in
     ] ++
     (import ../../pkgs/modules.nix);
 
+
+  services.xserver = {
+    xkbVariant = lib.mkForce "";
+    desktopManager = {
+      gnome3 = {
+        enable = true;
+      };
+    };
+  };
+  program.gnupg.agent.pinentryFlavor = "gnome3"
+
   users.users.linda = {
     name = "linda";
     isNormalUser = true;
