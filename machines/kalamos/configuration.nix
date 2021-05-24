@@ -30,6 +30,34 @@ in
     (import ../../pkgs/modules.nix);
 
 
+  environment.systemPackages = [
+    pkgs.rstudioWrapper.override {
+      packages = with rPackages;
+        [ tidyr
+          ggplot2
+          dplyr
+          xts
+          rmarkdown
+          evaluate
+          digest
+          highr
+          markdown
+          stringr
+          yaml
+          Rcpp
+          htmltools
+          knitr
+          jsonlite
+          base64enc
+          mime
+          lmtest
+          tidyverse
+          reshape2
+          broom
+        ];
+    }
+  ];
+
   services.xserver = {
     xkbVariant = lib.mkForce "";
     desktopManager = {
