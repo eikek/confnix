@@ -61,6 +61,8 @@ in
       };
     in
       [ rstudioPkg
+        okular
+        zoom-us
       ];
 
   services.xserver = {
