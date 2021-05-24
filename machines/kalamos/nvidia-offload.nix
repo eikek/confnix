@@ -30,8 +30,8 @@ in
   };
 
   hardware.nvidia.prime = {
-    #    offload.enable = true;
-    sync.enable = true;
+    offload.enable = true;
+    #sync.enable = true;
 
     # Bus ID of the AMD GPU. You can find it using lspci, either under 3D or VGA
     amdgpuBusId = "PCI:6:0:0";
