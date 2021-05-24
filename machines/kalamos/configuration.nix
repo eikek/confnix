@@ -55,6 +55,8 @@ in
             tidyverse
             reshape2
             broom
+            AER
+            pscl
           ];
       };
     in
