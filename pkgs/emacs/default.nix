@@ -32,7 +32,7 @@ in
     buffer-move
     eyebrowse
     rainbow-delimiters
-    hide-lines
+#    hide-lines
 
     company
 #    company-auctex
