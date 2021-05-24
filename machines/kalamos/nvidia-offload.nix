@@ -16,62 +16,34 @@ let
   '';
 in
 {
-  environment.systemPackages = [
-    config.boot.kernelPackages.nvidia_x11.bin
-    config.boot.kernelPackages.nvidia_x11.settings
-  ];
-
   boot = {
     kernelParams = [
       "nvidia-drm.modeset=1"
       "amdgpu.modeset=1"
     ];
-    extraModulePackages =
-      [ config.boot.kernelPackages.nvidia_x11
-        #      config.boot.kernelPackages.amdgpu-pro #doesn't build
-      ];
-    blacklistedKernelModules =
-      [ "nouveau"
-        "rivafb"
-        "nvidiafb"
-        "rivatv"
-        "nv"
-        "uvcvideo"
-      ];
   };
+
+  environment.systemPackages = [ nvidia-offload ];
+
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+  };
+
+  hardware.nvidia.prime = {
+    #    offload.enable = true;
+    sync.enable = true;
+
+    # Bus ID of the AMD GPU. You can find it using lspci, either under 3D or VGA
+    amdgpuBusId = "PCI:6:0:0";
+
+    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+    nvidiaBusId = "PCI:1:0:0";
+  };
+
 
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages =
-      [config.boot.kernelPackages.nvidia_x11.out
-       pkgs.amdvlk
-       pkgs.rocm-opencl-icd
-      ];
-    extraPackages32 =
-      [ config.boot.kernelPackages.nvidia_x11.lib32
-        pkgs.driversi686Linux.amdvlk
-      ];
-  };
-
-  environment.variables.VK_ICD_FILENAMES =
-    "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
-
-  services.xserver = {
-    videoDrivers = [ "amdgpu" "nvidia" ];
-    modules = [ pkgs.xorg.xf86videoamdgpu
-              ];
-    useGlamor = true;
-    dpi = 150;
-    logFile = null;
-    deviceSection = ''
-      Option "TearFree" "true"
-      Option "DRI" "3"
-      BusID "PCI:6:0:0"
-    '';
-    monitorSection = ''
-      Option "Primary" "true"
-    '';
   };
 
 }

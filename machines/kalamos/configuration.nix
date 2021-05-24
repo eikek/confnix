@@ -1,30 +1,33 @@
 { config, pkgs, ... }:
 let
   mykey = builtins.readFile <sshpubkey>;
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    export DRI_PRIME=1
-    exec -a "$0" "$@"
-  '';
+  printer = import ../../modules/printer.nix;
 in
 {
   imports =
     [ ./hw-kalamos.nix
       ./nvidia-offload.nix
       ../../modules/accounts.nix
+      ../../modules/androiddev.nix
+      ../../modules/bluetooth.nix
+      ../../modules/consumedir-main.nix
+      ../../modules/docker.nix
+      ../../modules/emacs.nix
+      ../../modules/ergodox.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix
+      ../../modules/latex.nix
       ../../modules/packages.nix
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
       ../../modules/software.nix
       ../../modules/user.nix
+      ../../modules/vbox-host.nix
       ../../modules/xserver.nix
-    ];
+      printer.home
+    ] ++
+    (import ../../pkgs/modules.nix);
 
   services.openssh.enable = true;
 
@@ -46,8 +49,6 @@ in
     opengl.enable = true;
 ##    opengl.driSupport32Bit = true; #
   };
-
-  environment.systemPackages = [ nvidia-offload ];
 
   powerManagement = {
     enable = true;
