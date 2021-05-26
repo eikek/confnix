@@ -34,30 +34,33 @@ in
     let
       rstudioPkg = pkgs.rstudioWrapper.override {
         packages = with pkgs.rPackages;
-          [ tidyr
-            ggplot2
-            dplyr
-            xts
-            rmarkdown
-            evaluate
-            digest
-            highr
-            markdown
-            stringr
-            yaml
-            Rcpp
-            htmltools
-            knitr
-            jsonlite
-            base64enc
-            mime
-            lmtest
-            tidyverse
-            reshape2
-            broom
+          [
             AER
-            pscl
+            Rcpp
+            base64enc
+            broom
+            digest
+            dplyr
+            evaluate
+            foreign
+            ggplot2
+            highr
+            htmltools
+            jsonlite
+            knitr
             likert
+            lmtest
+            markdown
+            MASS
+            mime
+            pscl
+            reshape2
+            rmarkdown
+            stringr
+            tidyverse
+            xts
+            yaml
+            tidyr
           ];
       };
     in
@@ -124,9 +127,9 @@ in
   networking = {
     hostName = "kalamos";
     wireless = {
-      enable = true;
+      enable = false;
     };
-    useDHCP = true;
+    useDHCP = false;
 
     nat = {
       enable = true;
