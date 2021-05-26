@@ -57,12 +57,13 @@ in
             broom
             AER
             pscl
+            likert
           ];
       };
     in
       [ rstudioPkg
-        okular
-        zoom-us
+        pkgs.okular
+        pkgs.zoom-us
       ];
 
   services.xserver = {
