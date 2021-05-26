@@ -12,14 +12,14 @@
       xterm.enable = false;
     };
     windowManager = {
-      herbstluftwm.enable = true;
+ #     herbstluftwm.enable = true;
       stumpwm.enable = false;
     };
     displayManager = {
       gdm = {
         enable = true;
       };
-      defaultSession = "none+herbstluftwm";
+#      defaultSession = "none+herbstluftwm";
     };
   };
 
