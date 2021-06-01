@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     chmod 755 $out/bin/attentive
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A personal audio scrobble daemon.";
     homepage = https://github.com/eikek/attentive;
     license = licenses.gpl3;

@@ -5,8 +5,11 @@
     fontconfig = {
       enable = true;
     };
+    fontDir = {
+      enable = true;
+    };
     enableDefaultFonts = true;
-    enableFontDir = true;
+
     fonts = with pkgs; [
       #corefonts #unfree
       anonymousPro

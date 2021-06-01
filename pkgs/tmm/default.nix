@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
       tinyMediaManager is a full featured media manager to organize and clean up your media library.
     '';
     homepage = http://www.tinymediamanager.org;
-    license = stdenv.lib.licenses.asl20;
+    license = lib.licenses.asl20;
   };
 }

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     makeWrapper ${jre8_headless}/bin/java $out/bin/meth --add-flags "-jar $out/program/meth-${version}"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Commandline client for mediathekview.";
     homepage = https://github.com/eikek/meth;
     license = licenses.gpl3;

@@ -20,7 +20,7 @@ in
       ../../modules/user.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
-      ./mpd.nix
+#      ./mpd.nix
       ./fileserver.nix
       ./hinclient.nix
       ./vpn.nix
@@ -189,26 +189,26 @@ in
     autoStart = false;
   };
 
-  containers.docspell =
-    { config = import ../../modules/docspell.nix;
-      autoStart = false;
-      privateNetwork = true;
-      hostAddress = "10.231.2.1";
-      localAddress = "10.231.2.3";
-    };
+  # containers.docspell =
+  #   { config = import ../../modules/docspell.nix;
+  #     autoStart = false;
+  #     privateNetwork = true;
+  #     hostAddress = "10.231.2.1";
+  #     localAddress = "10.231.2.3";
+  #   };
 
-  services.docspell-consumedir = {
-    enable = true;
-    integration-endpoint = {
-      enabled = true;
-      header = "Docspell-Integration:test123";
-    };
-    verbose = true;
-    distinct = true;
-    deleteFiles = true;
-    watchDirs = ["/home/docspell-local"];
-    urls = ["http://docspell:7880/api/v1/open/integration/item"];
-  };
+  # services.docspell-consumedir = {
+  #   enable = true;
+  #   integration-endpoint = {
+  #     enabled = true;
+  #     header = "Docspell-Integration:test123";
+  #   };
+  #   verbose = true;
+  #   distinct = true;
+  #   deleteFiles = true;
+  #   watchDirs = ["/home/docspell-local"];
+  #   urls = ["http://docspell:7880/api/v1/open/integration/item"];
+  # };
 
   networking.extraHosts = ''
     10.231.2.2 devmail

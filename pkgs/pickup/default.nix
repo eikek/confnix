@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     chmod 755 $out/bin/pickup-admin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Pickup is a simple personal backup solution utilising duplicity.";
     homepage = https://github.com/eikek/pickup;
     license = licenses.gpl3;

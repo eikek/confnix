@@ -80,6 +80,7 @@ in {
 
   # This is needed to run solr script as user solr
   users.users.solr.useDefaultShell = true;
+  users.users.docspell.isSystemUser = pkgs.lib.mkForce true;
 
   systemd.services.solr-init =
     let
