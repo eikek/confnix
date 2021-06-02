@@ -13,7 +13,7 @@ with pkgs.lib;
           git-crypt
           mr
           nix-prefetch-scripts
-#          nixops
+          nixops
           pass
           pinentry
           recutils
@@ -95,6 +95,8 @@ with pkgs.lib;
             myR
             ammonite-repl
             nodePackages.bash-language-server
+            cargo
+            clippy
             clojure
             elmPackages.elm
             elmPackages.elm-analyse
@@ -116,7 +118,12 @@ with pkgs.lib;
             openscad
             postgresql_12
             purescript
-#            python
+            python3
+            rls
+            rust-analyzer
+            rustfmt
+            rustracer
+            rustup
             sbcl
             sbt
             scala
@@ -144,7 +151,7 @@ with pkgs.lib;
           unoconv
           youtube-dl
           zathura
-#          ocrmypdf
+          ocrmypdf
         ];
       };
 

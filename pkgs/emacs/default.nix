@@ -89,6 +89,7 @@ in
     ob-restclient
     ob-elvish
     ob-mongo
+    ob-rust
     ox-asciidoc
     ox-gfm
     ox-jira
@@ -121,13 +122,17 @@ in
     markdown-mode
     flymd
     flycheck
+    flycheck-rust
     plantuml-mode
     groovy-mode
+    kotlin-mode
+    flycheck-kotlin
     js2-mode
     scala-mode
     sbt-mode
     elm-mode
     clojure-mode
+    rustic
     elvish-mode
     monroe
     cider
@@ -144,18 +149,11 @@ in
     beacon
     nameless
 #    slack
-    play-routes-mode
     logview
     scad-mode
     ansible
     fish-mode
-    lsp-mode
-    lsp-metals
-    lsp-java
-    lsp-ui
-    lsp-treemacs
     treemacs
-#    company-lsp
     dap-mode
     eglot
     vterm
@@ -187,4 +185,5 @@ in
     polymode
     poly-markdown
     poly-R
+    direnv
   ]))
