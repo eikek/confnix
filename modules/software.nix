@@ -152,6 +152,7 @@ with pkgs.lib;
           youtube-dl
           zathura
           ocrmypdf
+          q-text-as-data
         ];
       };
 
