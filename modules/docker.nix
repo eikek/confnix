@@ -10,7 +10,7 @@
   };
 
   environment.systemPackages = [
-    pkgs.docker
+    (pkgs.docker.override(args: { buildxSupport = true; }))
     pkgs.docker-compose
   ];
 }
