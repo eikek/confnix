@@ -14,35 +14,22 @@ let
     export DRI_PRIME=1
     exec -a "$0" "$@"
   '';
-  nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.stable;
+
 in
 {
-  environment.systemPackages = [ nvidia-offload nvidia_x11.bin nvidia_x11.settings ];
+
+  environment.systemPackages = [ nvidia-offload ];
 
   services.xserver = {
-    videoDrivers = [ "nvidia"  ];
+    videoDrivers = [ "nvidia" ];
     logFile = null;
     defaultDepth = 24;
     useGlamor = true;
-    extraConfig = ''
-      Section "OutputClass"
-         Identifier "NVIDIA"
-         MatchDriver "nvidia"
-         Driver "nvidia"
-         Option "PrimaryGPU" "yes"
-      EndSection
-    '';
   };
 
-  # hardware.opengl.package = pkgs.lib.mkForce nvidia_x11.out;
-  # hardware.opengl.package32 = pkgs.lib.mkForce nvidia_x11.lib32;
-
-  hardware.nvidia.modesetting = {
-    enable = true;
-  };
   hardware.nvidia.prime = {
-    #offload.enable = true;
-    sync.enable = true;
+    offload.enable = true;
+    sync.enable = false;
 
     # Bus ID of the AMD GPU. You can find it using lspci, either under 3D or VGA
     amdgpuBusId = "PCI:6:0:0";
