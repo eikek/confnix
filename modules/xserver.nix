@@ -13,7 +13,6 @@
     };
     windowManager = {
       herbstluftwm.enable = true;
-      stumpwm.enable = false;
     };
     displayManager = {
       defaultSession = "none+herbstluftwm";

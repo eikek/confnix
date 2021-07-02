@@ -13,18 +13,20 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  networking.wireless.interfaces = [ "wlo1" ];
+
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/a2fadd0c-f2f9-4567-a37c-9280a36dfad3";
+    { device = "/dev/disk/by-label/nixos-root";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/33AD-33C2";
+    { device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/cd0e3c41-2fea-47cf-9518-90ec3f0c903a"; }
+    [ { device = "/dev/disk/by-label/swap"; }
     ];
 
 }

@@ -18,7 +18,7 @@ in
   ]) ++ (with epkgs.elpaPackages; [
 
     rainbow-mode
-    auctex
+#    auctex
 #    excorporate
 
   ]) ++ (with epkgs.melpaPackages; [
@@ -35,7 +35,7 @@ in
     hide-lines
 
     company
-    company-auctex
+#    company-auctex
     company-nixos-options
     company-quickhelp
 

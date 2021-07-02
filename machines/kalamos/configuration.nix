@@ -6,7 +6,6 @@ in
 {
   imports =
     [ ./hw-kalamos.nix
-      ./nvidia-offload.nix
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
@@ -26,26 +25,21 @@ in
       ../../modules/user.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
+      <monitor>
       printer.home
     ] ++
     (import ../../pkgs/modules.nix);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_11;
+    kernelPackages = pkgs.linuxPackages_5_12;
     cleanTmpDir = true;
     initrd.luks.devices = {
       crootfs = { device = "/dev/nvme0n1p1"; preLVM = true; };
     };
-   loader = {
+    loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-  };
-
-  hardware = {
-    enableAllFirmware = true;
-    cpu.intel.updateMicrocode = true;  #needs unfree
-    opengl.driSupport32Bit = true;
   };
 
   powerManagement = {
@@ -85,6 +79,12 @@ in
     interval = "13:00";
   };
 
+  # services.xserver = {
+  #   videoDrivers = [ "nvidia" ];
+  #   # displayManager.sessionCommands = ''
+  #   # '';
+  # };
+
   users.groups.kvm = {
     members = [ "eike" ];
   };
@@ -98,7 +98,7 @@ in
 
     nat = {
       enable = true;
-      externalInterface = "enp109s0f1";
+      externalInterface = "enp2s0";
       internalInterfaces = [ "ve-+" ];
     };
 
@@ -170,16 +170,17 @@ in
     sshServe.keys = [ mykey ];
   };
 
-  system.activationScripts = {
-    kworkerbug = ''
-      echo "disable" > /sys/firmware/acpi/interrupts/gpe6F || true
-    '';
+  hardware = {
+    enableAllFirmware = true;
+    cpu.amd.updateMicrocode = true;  #needs unfree
+    opengl.driSupport32Bit = true;
   };
+
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "21.05"; # Did you read the comment?
 
 }
