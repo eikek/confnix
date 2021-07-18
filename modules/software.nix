@@ -138,6 +138,7 @@ with pkgs.lib;
         default = with pkgs; [
           direnv
           docspell.tools
+          dsc
           ghostscript
           mu
           offlineimap

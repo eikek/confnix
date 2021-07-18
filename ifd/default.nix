@@ -5,6 +5,11 @@ let
   };
   docspell = import "${docspellsrc}/nix/release.nix";
 
+  dsc = builtins.fetchGit {
+    url = "https://github.com/docspell/dsc";
+    ref = "refs/heads/master";
+  };
+
   sharrysrc = builtins.fetchTarball {
     url = "https://github.com/eikek/sharry/archive/f984c34bd03ac844b9792b0338747ee632c93512.tar.gz";
     sha256 = "0062hzg27mzdbd69nxwjvrpaa6286gv39gh2mnpazak73bllgc6m";
@@ -17,5 +22,5 @@ let
   };
   webact = import "${webactsrc}/nix/release.nix";
 in {
-  inherit docspell sharry webact;
+  inherit docspell sharry webact dsc;
 }

@@ -9,6 +9,7 @@ let
     c544ppd = callPackage ./c544ppd {};
     chee = callPackage ./chee {};
     docspell = callPackage ifds.docspell.currentPkg {};
+    dsc = callPackage ifds.dsc {};
     gossa = callPackage ./gossa {};
     hinclient = callPackage ./hinclient {};
     mc2425ppd = callPackage ./mc2425ppd {};
