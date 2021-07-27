@@ -137,7 +137,6 @@ with pkgs.lib;
         type = types.listOf types.package;
         default = with pkgs; [
           direnv
-          docspell.tools
           dsc
           ghostscript
           mu
