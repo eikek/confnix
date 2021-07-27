@@ -12,7 +12,7 @@ in
       header = "Docspell-Integration:${dsInt}";
     };
     verbose = false;
-    deleteFiles = true;
+    delete-files = true;
     watchDirs = ["/home/docspell"];
     docspell-url = dsSite;
   };

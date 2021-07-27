@@ -7,7 +7,7 @@ let
 
   dsc = builtins.fetchGit {
     url = "https://github.com/docspell/dsc";
-    rev = "7e173a87180ceaa4093e81b5988bbeba6923a439";
+    rev = "acee43852629516df6847368b9b115f854405a8f";
 #    ref = "refs/heads/master";
   };
 
