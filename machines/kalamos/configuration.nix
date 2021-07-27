@@ -9,7 +9,7 @@ in
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
-      ../../modules/consumedir-main.nix
+      ../../modules/dsc-watch.nix
       ../../modules/docker.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
