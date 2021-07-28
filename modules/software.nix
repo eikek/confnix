@@ -95,6 +95,7 @@ with pkgs.lib;
             myR
             ammonite-repl
             nodePackages.bash-language-server
+            bloop
             cargo
             clippy
             clojure
