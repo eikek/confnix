@@ -29,7 +29,7 @@ in
 
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_4;
+    kernelPackages = pkgs.linuxPackages_5_12;
     cleanTmpDir = true;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
