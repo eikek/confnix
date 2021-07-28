@@ -3,10 +3,28 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
+  spinner-file = "spinner-1.7.3.el.lz";
+
+  spinner-lzip = builtins.fetchurl {
+    url = "https://elpa.gnu.org/packages/${spinner-file}";
+    sha256 = "188i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc4i4";
+  };
+
+  emacsOverrides = self: super: rec {
+    spinner = super.spinner.override {
+      elpaBuild = args: super.elpaBuild (args // {
+        src = pkgs.runCommandLocal "spinner-1.7.3.el" {} ''
+          echo "FILE: ${spinner-lzip} -->  $out"
+          ${pkgs.lzip}/bin/lzip -d -c ${spinner-lzip} > $out
+        '';
+      });
+    };
+  };
+
   myEmacs = pkgs.emacs.override {
     withXwidgets = true;
   };
-  emacsPackagesNg = (pkgs.emacsPackagesNgGen myEmacs);
+  emacsPackagesNg = (pkgs.emacsPackagesNgGen myEmacs).overrideScope' emacsOverrides;
   emacsWithPackages = emacsPackagesNg.emacsWithPackages;
   customPackages = import ./extras.nix { inherit pkgs emacsPackagesNg; };
 in
@@ -148,13 +166,12 @@ in
     elfeed
     beacon
     nameless
-#    slack
     logview
     scad-mode
     ansible
     fish-mode
     treemacs
-    dap-mode
+#    dap-mode
     eglot
     vterm
     vterm-toggle
@@ -174,9 +191,9 @@ in
     psci
     psc-ide
     dhall-mode
-    haskell-mode
-    nix-haskell-mode
-    lsp-haskell
+#    haskell-mode
+#    nix-haskell-mode
+#    lsp-haskell
     dashboard
     visual-fill-column
     fill-column-indicator
