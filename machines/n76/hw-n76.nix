@@ -14,6 +14,8 @@
   boot.extraModulePackages = [
   ];
 
+  networking.wireless.interfaces = [ "wlp82s0" ];
+
   fileSystems."/" =
     { device = "/dev/mapper/vgnixos-root";
       fsType = "ext4";
