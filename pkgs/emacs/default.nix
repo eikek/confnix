@@ -3,20 +3,37 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  spinner-file = "spinner-1.7.3.el.lz";
-
   spinner-lzip = builtins.fetchurl {
-    url = "https://elpa.gnu.org/packages/${spinner-file}";
+    url = "https://elpa.gnu.org/packages/spinner-1.7.3.el.lz";
     sha256 = "188i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc4i4";
+  };
+  excorporate-tar = builtins.fetchurl {
+    url = "https://elpa.gnu.org/packages/excorporate-1.0.0.tar";
+    sha256 = "088i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc401";
+  };
+  project-tar = builtins.fetchurl {
+    url = "https://elpa.gnu.org/packages/project-0.6.1.tar";
+    sha256 = "174fli3swbn67qcs9isv70vwrf6r41mak6dbs98gia89rlb71c8v";
   };
 
   emacsOverrides = self: super: rec {
     spinner = super.spinner.override {
       elpaBuild = args: super.elpaBuild (args // {
         src = pkgs.runCommandLocal "spinner-1.7.3.el" {} ''
-          echo "FILE: ${spinner-lzip} -->  $out"
           ${pkgs.lzip}/bin/lzip -d -c ${spinner-lzip} > $out
         '';
+      });
+    };
+
+    excorporate = super.excorporate.override {
+      elpaBuild = args: super.elpaBuild (args // {
+        src = excorporate-tar;
+      });
+    };
+
+    project = super.project.override {
+      elpaBuild = args: super.elpaBuild (args // {
+        src = project-tar;
       });
     };
   };
