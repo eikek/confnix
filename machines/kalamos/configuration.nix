@@ -31,7 +31,7 @@ in
     (import ../../pkgs/modules.nix);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_12;
+#    kernelPackages = pkgs.linuxPackages_5_12;
     cleanTmpDir = true;
     initrd.luks.devices = {
       crootfs = { device = "/dev/nvme0n1p1"; preLVM = true; };
