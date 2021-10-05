@@ -1,14 +1,14 @@
 let
   docspellsrc = builtins.fetchTarball {
-    url = "https://github.com/eikek/docspell/archive/cb522ee6eb9a1db125767d4a91059b8feaa694f4.tar.gz";
-    sha256 = "1dxl9fpmcbyhwn6dgwrfb93648139l4pn86sqm4h2y7vqgkv847a";
+    url = "https://github.com/eikek/docspell/archive/7301da901c2b7c28ab87c75c0002b2181892b225.tar.gz";
+    sha256 = "1y9d1y64060rkim598rn7i8r62gjcn40y216s7xrgp25xpbggzl5";
   };
   docspell = import "${docspellsrc}/nix/release.nix";
 
   dsc = builtins.fetchGit {
     url = "https://github.com/docspell/dsc";
     #rev = "acee43852629516df6847368b9b115f854405a8f";
-    ref = "refs/tags/v0.4.0";
+    ref = "refs/tags/v0.5.0";
   };
 
   sharrysrc = builtins.fetchTarball {
