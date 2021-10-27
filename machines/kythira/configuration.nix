@@ -24,6 +24,7 @@ in
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
       ./vpn.nix
+      ./keybase.nix
     ] ++
     (import ../../pkgs/modules.nix);
 
@@ -86,18 +87,14 @@ in
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     displayManager.sessionCommands = ''
-      if [ $(xrandr --listmonitors | grep "^ .*3840/.*x2160/.*" | wc -l) -eq 2 ]; then
-        ##xrandr --output DP-0 --off
-        xrandr --output DP-3 --off \
-          --output DP-2 --off \
-          --output DP-4 --off \
-          --output DP-0 --mode 3840x2160 --pos 0x0 \
-          --output DP-1 --mode 3840x2160 --pos 3840x0
-        xrandr --dpi 140
+      if [ $(xrandr --listmonitors | grep "^ .*3840" | wc -l) -eq 2 ]; then
+        xrandr --dpi 120
+        echo 'Xft.dpi: 120' | xrdb -merge
       else
         xrandr --dpi 220
         echo 'Xft.dpi: 220' | xrdb -merge
       fi
+      ${pkgs.stalonetray}/bin/stalonetray &
       '';
   };
 
@@ -151,6 +148,10 @@ in
     ansible
     libreoffice
     slack
+    keybase-gui
+    aws
+    gopass
+    python3Packages.pip
   ];
 
   containers.dbpostgres =
@@ -192,11 +193,11 @@ in
   };
 
 
-  system.activationScripts = {
-    kworkerbug = ''
-      echo "disable" > /sys/firmware/acpi/interrupts/gpe6F || true
-    '';
-  };
+  # system.activationScripts = {
+  #   kworkerbug = ''
+  #     echo "disable" > /sys/firmware/acpi/interrupts/gpe6F || true
+  #   '';
+  # };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
