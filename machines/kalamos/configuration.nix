@@ -6,6 +6,7 @@ in
 {
   imports =
     [ ./hw-kalamos.nix
+      ./vpn.nix
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix

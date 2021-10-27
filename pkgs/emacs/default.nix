@@ -120,7 +120,7 @@ in
     org-bullets
     org-tree-slide
     org-journal
-    org-jira
+#    org-jira
     ob-restclient
     ob-elvish
     ob-mongo
