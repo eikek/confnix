@@ -9,7 +9,6 @@ in
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
-      ../../modules/consumedir-main.nix
       ../../modules/docker.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
@@ -17,7 +16,6 @@ in
       ../../modules/ids.nix
       ../../modules/java.nix
       ../../modules/latex.nix
-      ../../modules/localssl
       ../../modules/packages.nix
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
@@ -25,12 +23,12 @@ in
       ../../modules/user.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
-      printer.home
+      ./vpn.nix
     ] ++
     (import ../../pkgs/modules.nix);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_4;
+    kernelPackages = pkgs.linuxPackages_5_14;
     cleanTmpDir = true;
     initrd.luks.devices = {
       rootfs = { device = "/dev/vgroot/root"; preLVM = false; };
@@ -39,6 +37,13 @@ in
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+  };
+
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "no";
+    openFirewall = true;
+    passwordAuthentication = false;
   };
 
   powerManagement = {
@@ -104,6 +109,7 @@ in
     hostName = "kythira";
     wireless = {
       enable = true;
+      interfaces = ["wlp110s0"];
     };
     useDHCP = true;
 
@@ -140,10 +146,13 @@ in
     };
   };
 
-  containers.dbmysql =
-  { config = import ../../modules/devdb-mariadb.nix;
-    autoStart = false;
-  };
+  software.extra = with pkgs;
+  [
+    ansible
+    libreoffice
+    slack
+  ];
+
   containers.dbpostgres =
   { config = import ../../modules/devdb-postgres.nix;
     autoStart = false;
@@ -176,11 +185,6 @@ in
     allowUnfree = true;
   };
 
-  nix = {
-    sshServe.enable = true;
-    sshServe.keys = [ mykey ];
-  };
-
   hardware = {
     enableAllFirmware = true;
     cpu.intel.updateMicrocode = true;  #needs unfree
@@ -198,6 +202,6 @@ in
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "21.05"; # Did you read the comment?
 
 }

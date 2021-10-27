@@ -11,9 +11,13 @@ let
     url = "https://elpa.gnu.org/packages/excorporate-1.0.0.tar";
     sha256 = "088i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc401";
   };
-  project-tar = builtins.fetchurl {
-    url = "https://elpa.gnu.org/packages/project-0.6.1.tar";
-    sha256 = "174fli3swbn67qcs9isv70vwrf6r41mak6dbs98gia89rlb71c8v";
+  org-tar = builtins.fetchurl {
+    url = "https://elpa.gnu.org/packages/org-9.5.tar";
+    sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb5y3ky";
+  };
+  org-contrib-tar = builtins.fetchurl {
+    url = "https://orgmode.org/elpa/org-plus-contrib-20210920.tar";
+    sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb5y3k0";
   };
 
   emacsOverrides = self: super: rec {
@@ -31,9 +35,19 @@ let
       });
     };
 
-    project = super.project.override {
+    org = super.org.override {
       elpaBuild = args: super.elpaBuild (args // {
-        src = project-tar;
+        src = org-tar;
+      });
+    };
+    org-plus-contrib = super.orgPackages.org-plus-contrib.override {
+      elpaBuild = args: super.elpaBuild (args // {
+        version = "20210920";
+        src = pkgs.fetchurl {
+          url = "https://orgmode.org/elpa/org-plus-contrib-20210920.tar";
+          sha256 = "0g765fsc7ssn779xnhjzrxy1sz5b019h7dk1q26yk2w6i540ybf0";
+        };
+
       });
     };
   };
@@ -48,7 +62,7 @@ in
   emacsWithPackages (epkgs: customPackages ++ (with epkgs.melpaStablePackages; [
   ]) ++ (with epkgs.orgPackages; [
 
-    org-plus-contrib
+#    org-plus-contrib
 
   ]) ++ (with epkgs.elpaPackages; [
 
