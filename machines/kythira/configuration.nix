@@ -149,9 +149,10 @@ in
     libreoffice
     slack
     keybase-gui
-    aws
+    awscli2
     gopass
     python3Packages.pip
+    coursier
   ];
 
   containers.dbpostgres =
