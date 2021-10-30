@@ -1,8 +1,7 @@
 let
   keyFile = builtins.toPath <sshpubkey>;
-  username = "eike";
 in
-{pkgs, config, ...}:
+username: {pkgs, config, ...}:
 {
 
   users.users.${username} = {
@@ -13,7 +12,7 @@ in
     home = "/home/${username}";
     shell = pkgs.fish;
     openssh.authorizedKeys.keyFiles = [ keyFile ];
-    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" ];
+    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" ];
   };
   users.users.root = {
     openssh.authorizedKeys.keyFiles = [ keyFile ];
