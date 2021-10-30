@@ -2,6 +2,7 @@
 let
   mykey = builtins.readFile <sshpubkey>;
   printer = import ../../modules/printer.nix;
+  usermod = import ../../modules/user.nix "eike";
 in
 {
   imports =
@@ -20,11 +21,11 @@ in
       ../../modules/redshift.nix
       ../../modules/region-neo.nix
       ../../modules/software.nix
-      ../../modules/user.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
       ./vpn.nix
       ./keybase.nix
+      usermod
     ] ++
     (import ../../pkgs/modules.nix);
 
@@ -49,6 +50,8 @@ in
 
   powerManagement = {
     enable = true;
+    powertop.enable = true;
+    cpuFreqGovernor = "ondemand";
   };
 
   fileSystems =
