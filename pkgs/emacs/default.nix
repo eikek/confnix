@@ -7,10 +7,6 @@ let
     url = "https://elpa.gnu.org/packages/spinner-1.7.3.el.lz";
     sha256 = "188i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc4i4";
   };
-  excorporate-tar = builtins.fetchurl {
-    url = "https://elpa.gnu.org/packages/excorporate-1.0.0.tar";
-    sha256 = "088i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc401";
-  };
   org-tar = builtins.fetchurl {
     url = "https://elpa.gnu.org/packages/org-9.5.tar";
     sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb5y3ky";
@@ -28,13 +24,6 @@ let
         '';
       });
     };
-
-    excorporate = super.excorporate.override {
-      elpaBuild = args: super.elpaBuild (args // {
-        src = excorporate-tar;
-      });
-    };
-
     org = super.org.override {
       elpaBuild = args: super.elpaBuild (args // {
         src = org-tar;
@@ -65,8 +54,7 @@ in
   ]) ++ (with epkgs.elpaPackages; [
 
     rainbow-mode
-#    auctex
-#    excorporate
+    auctex
 
   ]) ++ (with epkgs.melpaPackages; [
     use-package
@@ -82,7 +70,7 @@ in
     hide-lines
 
     company
-#    company-auctex
+    company-auctex
     company-nixos-options
     company-quickhelp
 
@@ -165,7 +153,7 @@ in
     yaml-mode
     sass-mode
     goto-chg
-#    geiser
+    geiser
     markdown-mode
     flymd
     flycheck
@@ -192,7 +180,6 @@ in
     magnatune
     chee
     dictcc
-    elfeed
     beacon
     nameless
     logview
@@ -220,8 +207,8 @@ in
     psci
     psc-ide
     dhall-mode
-#    haskell-mode
-#    nix-haskell-mode
+    haskell-mode
+    nix-haskell-mode
 #    lsp-haskell
     dashboard
     visual-fill-column
