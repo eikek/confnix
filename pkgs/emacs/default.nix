@@ -52,9 +52,7 @@ let
     };
   };
 
-  myEmacs = pkgs.emacs.override {
-    withXwidgets = true;
-  };
+  myEmacs = pkgs.emacs;
   emacsPackagesNg = (pkgs.emacsPackagesNgGen myEmacs).overrideScope' emacsOverrides;
   emacsWithPackages = emacsPackagesNg.emacsWithPackages;
   customPackages = import ./extras.nix { inherit pkgs emacsPackagesNg; };
