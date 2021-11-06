@@ -8,6 +8,7 @@ in
   imports =
     [ ./hw-kalamos.nix
       ./vpn.nix
+      ./work.nix
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
@@ -33,7 +34,6 @@ in
     (import ../../pkgs/modules.nix);
 
   boot = {
-#    kernelPackages = pkgs.linuxPackages_5_12;
     cleanTmpDir = true;
     initrd.luks.devices = {
       crootfs = { device = "/dev/nvme0n1p1"; preLVM = true; };

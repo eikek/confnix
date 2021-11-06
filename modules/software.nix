@@ -66,6 +66,7 @@ with pkgs.lib;
           firefox
           i3lock
           i3lock-fancy
+          signal-desktop
           qutebrowser
           scrot
           xclip
@@ -87,6 +88,16 @@ with pkgs.lib;
               [ ggplot2
               ];
           };
+          sbt8 =
+            pkgs.writeShellScriptBin "sbt8" ''
+              export SBT_OPTS="-Xms512M -Xmx4G -Xss32M -Duser.timezone=GMT"
+              ${pkgs.sbt8}/bin/sbt "$@"
+           '';
+          sbt11 =
+            pkgs.writeShellScriptBin "sbt11" ''
+              export SBT_OPTS="-Xms512M -Xmx4G -Xss32M -Duser.timezone=GMT"
+              ${pkgs.sbt11}/bin/sbt "$@"
+           '';
         in
         mkOption
         {
@@ -127,6 +138,8 @@ with pkgs.lib;
             rustup
             sbcl
             sbt
+            sbt8
+            sbt11
             scala
             silver-searcher
             spago

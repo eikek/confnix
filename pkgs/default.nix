@@ -25,7 +25,7 @@ let
 
     # Overriding
     mpd = p.pkgs1909.mpd; # must upgrade mpc4s :(
-    sbt = sbts.sbt;
+    sbt8 = sbts.sbt8;
     sbt11 = sbts.sbt11;
     #herbstluftwm = callPackage ./hlwm {};
   };
