@@ -3,6 +3,7 @@ let
   mykey = builtins.readFile <sshpubkey>;
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix "eike";
+  dockermod = import ../../modules/docker.nix [ "eike" "tundra" ];
 in
 {
   imports =
@@ -13,7 +14,6 @@ in
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
       ../../modules/dsc-watch.nix
-      ../../modules/docker.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
       ../../modules/fonts.nix
@@ -30,6 +30,7 @@ in
       <monitor>
       printer.home
       usermod
+      dockermod
     ] ++
     (import ../../pkgs/modules.nix);
 

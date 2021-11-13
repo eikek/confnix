@@ -188,7 +188,7 @@ in
     fish-mode
     treemacs
 #    dap-mode
-    eglot
+#    eglot
     vterm
     vterm-toggle
     solaire-mode
@@ -209,7 +209,12 @@ in
     dhall-mode
     haskell-mode
     nix-haskell-mode
-#    lsp-haskell
+    #    lsp-haskell
+    lsp-metals
+    lsp-mode
+    lsp-java
+    lsp-ui
+    lsp-treemacs
     dashboard
     visual-fill-column
     fill-column-indicator

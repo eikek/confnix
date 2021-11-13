@@ -1,26 +1,11 @@
 let
   username = "tundra";
   keyFile = builtins.toPath <sshpubkey>;
-  vpn =
-    {pkgs, config, ...}:
-    {
-      services.openvpn.servers = {
-        dev = {
-          config = " config /root/openvpn/tundra_dev.ovpn ";
-          autoStart = false;
-        };
-        stage = {
-          config = " config /root/openvpn/tundra_stage.ovpn ";
-          autoStart = false;
-        };
-      };
-    };
 in
 { config, pkgs, ... }:
 {
   imports =
     [ ./keybase.nix
-      vpn
     ];
 
   users.users.${username} = {
@@ -52,6 +37,11 @@ in
         coursier
         dynamodb-start
       ];
+  };
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 
   services.openvpn.servers = {

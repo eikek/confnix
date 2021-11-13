@@ -1,4 +1,4 @@
-{pkgs, config, ...}:
+users: {pkgs, config, ...}:
 {
   virtualisation.docker = {
     enable = true;
@@ -6,7 +6,7 @@
   };
 
   users.groups.docker = {
-    members = [ "eike" ];
+    members = users;
   };
 
   environment.systemPackages = [
