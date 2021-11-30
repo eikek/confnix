@@ -104,6 +104,10 @@ in
     spacemacs-theme
     sublime-themes
     zenburn-theme
+    kaolin-themes
+    inkpot-theme
+    modus-themes
+    humanoid-themes
     all-the-icons
     all-the-icons-ivy
     all-the-icons-dired
@@ -215,6 +219,7 @@ in
     lsp-java
     lsp-ui
     lsp-treemacs
+    lsp-ivy
     dashboard
     visual-fill-column
     fill-column-indicator
