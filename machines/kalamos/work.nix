@@ -33,6 +33,7 @@ in
         keybase-gui
         awscli2
         gopass
+        papertrail
         python3Packages.pip
         coursier
         dynamodb-start
