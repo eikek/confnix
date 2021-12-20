@@ -18,8 +18,8 @@ let
   sharry = import "${sharrysrc}/nix/release.nix";
 
   webactsrc = builtins.fetchTarball {
-    url = "https://github.com/eikek/webact/archive/bf68e8d1ffa6a70d1ae8179b2cbc826cbe452a42.tar.gz";
-    sha256 = "197plafinzp4l7id16gl8471ra4j99bjw7dds3a71m69jp08iif5";
+    url = "https://github.com/eikek/webact/archive/05bccd47e8b31bbc3ce2fcaa0f97481a1508a7a8.tar.gz";
+    sha256 = "0lb920b0bdbg5r4489cc1y9lf88g05zbb8imcswsiml8ih6h38iw";
   };
   webact = import "${webactsrc}/nix/release.nix";
 in {

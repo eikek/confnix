@@ -134,7 +134,7 @@ with pkgs.lib;
             rls
             rust-analyzer
             rustfmt
-            rustracer
+            #rustracer
             rustup
             sbcl
             sbt

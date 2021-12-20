@@ -1,4 +1,4 @@
-{stdenv, fetchurl, jre, libmediainfo, libzen, coreutils-full }:
+{stdenv, lib, fetchurl, jre, libmediainfo, libzen, coreutils-full }:
 let
   wrapper = script: ''
     #!/usr/bin/env bash
