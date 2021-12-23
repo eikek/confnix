@@ -142,8 +142,9 @@ in
     dired-subtree
     dired-rainbow
     dired-filter
+    dired-ranger
+    dired-sidebar
     editorconfig
-    stripe-buffer
     whitespace-cleanup-mode
     move-text
     yasnippet
@@ -229,4 +230,5 @@ in
     poly-markdown
     poly-R
     direnv
+    thrift
   ]))
