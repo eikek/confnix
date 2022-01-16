@@ -1,4 +1,4 @@
-{stdenv, lib, fetchurl, jre, libmediainfo, libzen, coreutils-full }:
+{stdenv, lib, fetchurl, openjdk11, libmediainfo, libzen, coreutils-full }:
 let
   wrapper = script: ''
     #!/usr/bin/env bash
@@ -8,19 +8,19 @@ let
       ln -nsf "\$f" "\$HOME/.tmm/\$(basename \$f)"
     done
 
-    export PATH="${jre}/bin:${coreutils-full}/bin:\$PATH"
+    export PATH="${openjdk11}/bin:${coreutils-full}/bin:\$PATH"
     export LD_LIBRARY_PATH="${libzen}/lib:${libmediainfo}/lib:\$LD_LIBRARY_PATH"
     cd \$HOME/.tmm
     ${script}
   '';
 in
 stdenv.mkDerivation rec {
-  version = "2.9.17.1_bf18047";
+  version = "2.9.17_a55d726";
   name = "tinymediamanager-${version}";
 
   src = fetchurl {
-    url = "http://release.tinymediamanager.org/v2/dist/tmm_${version}_linux.tar.gz";
-    sha256 = "0h90xzyz7yq6if9bdrwn3924xn1c4mzf7dw05pf0vzy1y0m9p7ha";
+    url = "https://eknet.org/pkgs/tmm_${version}_linux.tar.gz";
+    sha256 = "0l0rilpqp3gy4a6jnbdmj0cs8ri66q7sp528fpy5isxjfqvcrxrs";
   };
 
   buildInputs = [ ];
