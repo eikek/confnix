@@ -70,6 +70,7 @@ with pkgs.lib;
           qutebrowser
           scrot
           xclip
+          xdotool
           xlibs.xdpyinfo
           xlibs.xmodmap
           xlibs.xrandr
@@ -144,6 +145,7 @@ with pkgs.lib;
             silver-searcher
             spago
             visualvm
+            yarn
           ];
         };
 
