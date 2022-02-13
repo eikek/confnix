@@ -8,7 +8,7 @@ let
   dsc = builtins.fetchGit {
     url = "https://github.com/docspell/dsc";
     #rev = "acee43852629516df6847368b9b115f854405a8f";
-    ref = "refs/tags/v0.6.1";
+    ref = "refs/tags/v0.6.2";
   };
 
   sharrysrc = builtins.fetchTarball {

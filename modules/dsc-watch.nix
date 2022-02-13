@@ -10,7 +10,6 @@ in
     integration-endpoint = {
       enabled = true;
       header = "Docspell-Integration:${dsInt}";
-      basic = ""; #fixed in next dsc version
     };
     verbose = false;
     delete-files = true;
