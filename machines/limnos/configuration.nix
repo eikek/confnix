@@ -204,6 +204,7 @@ in
     signal-desktop
     smbclient
     smbnetfs
+    thunderbird
     virtualbox
     vlc
     wpsoffice
