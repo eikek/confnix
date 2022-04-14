@@ -16,6 +16,7 @@ in
       ../../modules/dsc-watch.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
+      ../../modules/flakes.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix

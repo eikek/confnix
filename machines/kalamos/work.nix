@@ -50,5 +50,13 @@ in
       config = " config /root/openvpn/${username}/dev.ovpn ";
       autoStart = false;
     };
+    tundraprod = {
+      config = " config /root/openvpn/${username}/tundra-prod.ovpn ";
+      autoStart = false;
+    };
+    aeggdev = {
+      config = " config /root/openvpn/${username}/aegg-dev.ovpn ";
+      autoStart = false;
+    };
   };
 }

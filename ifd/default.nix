@@ -8,8 +8,14 @@ let
   dsc = builtins.fetchGit {
     url = "https://github.com/docspell/dsc";
     #rev = "acee43852629516df6847368b9b115f854405a8f";
-    ref = "refs/tags/v0.8.0";
+    ref = "refs/tags/v0.9.0";
   };
+
+  ds4esrc = builtins.fetchGit {
+    url = "https://github.com/docspell/ds4e";
+    ref = "master";
+  };
+  ds4e = import "${ds4esrc}/nix/ds4e.nix";
 
   sharrysrc = builtins.fetchTarball {
     url = "https://github.com/eikek/sharry/archive/f984c34bd03ac844b9792b0338747ee632c93512.tar.gz";
@@ -23,5 +29,5 @@ let
   };
   webact = import "${webactsrc}/nix/release.nix";
 in {
-  inherit docspell sharry webact dsc;
+  inherit docspell sharry webact dsc ds4e;
 }

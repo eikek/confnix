@@ -9,6 +9,7 @@ in
       ../../modules/bluetooth.nix
       ../../modules/docker.nix
       ../../modules/emacs.nix
+      ../../modules/flakes.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix

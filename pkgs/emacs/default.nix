@@ -8,12 +8,12 @@ let
     sha256 = "188i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc4i4";
   };
   org-tar = builtins.fetchurl {
-    url = "https://elpa.gnu.org/packages/org-9.5.tar";
-    sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb5y3ky";
+    url = "https://elpa.gnu.org/packages/org-9.5.2.tar";
+    sha256 = "12pvr47b11pq5rncpb3x8y11fhnakk5bi73j9l9w4d4ss3swcrnh";
   };
   org-contrib-tar = builtins.fetchurl {
-    url = "https://orgmode.org/elpa/org-plus-contrib-20210920.tar";
-    sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb5y3k0";
+    url = "https://orgmode.org/elpa/org-plus-contrib-20210929.tar";
+    sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb50000";
   };
 
   emacsOverrides = self: super: rec {

@@ -10,6 +10,7 @@ in
       ./hw-limnos.nix
       ../../modules/accounts.nix
       ../../modules/bluetooth.nix
+      ../../modules/flakes.nix
       ../../modules/fonts.nix
       ../../modules/ids.nix
       ../../modules/java.nix
