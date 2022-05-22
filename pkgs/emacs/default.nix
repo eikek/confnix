@@ -159,6 +159,7 @@ in
     sass-mode
     goto-chg
     geiser
+    geiser-guile
     markdown-mode
     flymd
     flycheck
@@ -231,4 +232,6 @@ in
     poly-R
     direnv
     thrift
+    imenu-list
+    imenu-extra
   ]))
