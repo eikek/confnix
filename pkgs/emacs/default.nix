@@ -17,39 +17,41 @@ let
   };
 
   emacsOverrides = self: super: rec {
-    spinner = super.spinner.override {
-      elpaBuild = args: super.elpaBuild (args // {
-        src = pkgs.runCommandLocal "spinner-1.7.3.el" {} ''
-          ${pkgs.lzip}/bin/lzip -d -c ${spinner-lzip} > $out
-        '';
-      });
-    };
-    org = super.org.override {
-      elpaBuild = args: super.elpaBuild (args // {
-        src = org-tar;
-      });
-    };
-    org-plus-contrib = super.orgPackages.org-plus-contrib.override {
-      elpaBuild = args: super.elpaBuild (args // {
-        version = "20210920";
-        src = pkgs.fetchurl {
-          url = "https://orgmode.org/elpa/org-plus-contrib-20210920.tar";
-          sha256 = "0g765fsc7ssn779xnhjzrxy1sz5b019h7dk1q26yk2w6i540ybf0";
-        };
+    # spinner = super.spinner.override {
+    #   elpaBuild = args: super.elpaBuild (args // {
+    #     src = pkgs.runCommandLocal "spinner-1.7.3.el" {} ''
+    #       ${pkgs.lzip}/bin/lzip -d -c ${spinner-lzip} > $out
+    #     '';
+    #   });
+    # };
+    # org = super.org.override {
+    #   elpaBuild = args: super.elpaBuild (args // {
+    #     src = org-tar;
+    #   });
+    # };
+    # org-plus-contrib = super.orgPackages.org-plus-contrib.override {
+    #   elpaBuild = args: super.elpaBuild (args // {
+    #     version = "20210920";
+    #     src = pkgs.fetchurl {
+    #       url = "https://orgmode.org/elpa/org-plus-contrib-20210920.tar";
+    #       sha256 = "0g765fsc7ssn779xnhjzrxy1sz5b019h7dk1q26yk2w6i540ybf0";
+    #     };
 
-      });
-    };
+    #   });
+    # };
   };
 
   myEmacs = pkgs.emacs;
-  emacsPackagesNg = (pkgs.emacsPackagesNgGen myEmacs).overrideScope' emacsOverrides;
+  emacsPackagesNg = (pkgs.emacsPackagesFor myEmacs).overrideScope' emacsOverrides;
   emacsWithPackages = emacsPackagesNg.emacsWithPackages;
   customPackages = import ./extras.nix { inherit pkgs emacsPackagesNg; };
 in
-  emacsWithPackages (epkgs: customPackages ++ (with epkgs.melpaStablePackages; [
-  ]) ++ (with epkgs.orgPackages; [
+emacsWithPackages (epkgs: customPackages ++
+                          [ epkgs.org ] ++
+  (with epkgs.melpaStablePackages; []) ++
+  (with epkgs.nongnuPackages; [
 
-#    org-plus-contrib
+    org-contrib
 
   ]) ++ (with epkgs.elpaPackages; [
 

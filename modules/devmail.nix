@@ -80,7 +80,7 @@ with lib;
       name = pkgs.lib.mkForce "exim";
     };
 
-    environment.systemPackages = [pkgs.telnet pkgs.sqlite];
+    environment.systemPackages = [pkgs.inetutils pkgs.sqlite];
 
     services.nginx.enable = true;
     services.roundcubedev = {

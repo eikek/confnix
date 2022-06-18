@@ -87,7 +87,7 @@ in {
       solrPort = toString config.services.solr.port;
       initSolr = ''
         if [ ! -f ${config.services.solr.stateDir}/docspell_core ]; then
-          while ! echo "" | ${pkgs.telnet}/bin/telnet localhost ${solrPort}
+          while ! echo "" | ${pkgs.inetutils}/bin/telnet localhost ${solrPort}
           do
              echo "Waiting for SOLR become ready..."
              sleep 1.5

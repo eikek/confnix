@@ -16,7 +16,6 @@
     cryptsetup
     curl
     dmidecode
-    dust
     elvish
     exa
     fd
@@ -36,7 +35,7 @@
     psmisc
     rsync
     starship
-    telnet
+    inetutils
     tmux
     unzip
     wget

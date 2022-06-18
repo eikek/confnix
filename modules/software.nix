@@ -7,7 +7,7 @@ with pkgs.lib;
       base = mkOption {
         type = types.listOf types.package;
         default = with pkgs; [
-          cifs_utils
+          cifs-utils
           direnv
           fzf
           git-crypt
@@ -53,7 +53,7 @@ with pkgs.lib;
           mediainfo
           mpv
           sox
-          vorbisTools
+          vorbis-tools
         ];
       };
 
@@ -71,10 +71,10 @@ with pkgs.lib;
           scrot
           xclip
           xdotool
-          xlibs.xdpyinfo
-          xlibs.xmodmap
-          xlibs.xrandr
-          xlibs.xwd
+          xorg.xdpyinfo
+          xorg.xmodmap
+          xorg.xrandr
+          xorg.xwd
           xorg.xwininfo
           xsel
           polybar
@@ -105,7 +105,7 @@ with pkgs.lib;
           type = types.listOf types.package;
           default = with pkgs; [
             myR
-            ammonite-repl
+            ammonite
             nodePackages.bash-language-server
             bloop
             cargo
@@ -122,7 +122,7 @@ with pkgs.lib;
             guile
             gradle
             nodejs
-            idea.idea-community
+            jetbrains.idea-community
             inotify-tools
             leiningen
             nodejs
@@ -161,7 +161,7 @@ with pkgs.lib;
           peek
           recutils
           sqlitebrowser
-          tesseract_4
+          tesseract4
           unpaper
           wkhtmltopdf
           unoconv
@@ -189,7 +189,7 @@ with pkgs.lib;
   config = {
     nixpkgs.config.permittedInsecurePackages = [
       "python2.7-urllib3-1.26.2"
-      "python2.7-PyJWT-1.7.1"
+      "python2.7-pyjwt-1.7.1"
     ];
 
     environment.systemPackages =
