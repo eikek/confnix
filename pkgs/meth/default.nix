@@ -1,15 +1,15 @@
-{stdenv, fetchurl, jre8_headless, makeWrapper, bash, curl, coreutils, gnugrep, unzip}:
+{stdenv, lib, fetchurl, jdk11_headless, makeWrapper, bash, curl, coreutils, gnugrep, unzip}:
 
 stdenv.mkDerivation rec {
-  version = "0.0.3";
+  version = "0.0.4";
   name = "meth-${version}";
 
    src = fetchurl {
      url = "https://github.com/eikek/meth/releases/download/v${version}/meth-${version}";
-     sha256 = "0qd26i33hm59rc6x3gbgpyq85pgf3n6dwpqc2sppa8wpgj3v92jh";
+     sha256 = "sha256-LjLUrA8ZKvNmyrTB/8D4Q42wxDroAtU31rucA4ttgJ0=";
    };
 
-  buildInputs = [ jre8_headless makeWrapper ];
+  buildInputs = [ jdk11_headless makeWrapper ];
 
   unpackPhase = "true";
   buildPhase = "true";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/{bin,program}
     cp $src $out/program/meth-${version}
-    makeWrapper ${jre8_headless}/bin/java $out/bin/meth --add-flags "-jar $out/program/meth-${version}"
+    makeWrapper ${jdk11_headless}/bin/java $out/bin/meth --add-flags "-jar $out/program/meth-${version}"
   '';
 
   meta = with lib; {
