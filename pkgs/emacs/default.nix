@@ -3,18 +3,18 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  spinner-lzip = builtins.fetchurl {
-    url = "https://elpa.gnu.org/packages/spinner-1.7.3.el.lz";
-    sha256 = "188i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc4i4";
-  };
-  org-tar = builtins.fetchurl {
-    url = "https://elpa.gnu.org/packages/org-9.5.2.tar";
-    sha256 = "12pvr47b11pq5rncpb3x8y11fhnakk5bi73j9l9w4d4ss3swcrnh";
-  };
-  org-contrib-tar = builtins.fetchurl {
-    url = "https://orgmode.org/elpa/org-plus-contrib-20210929.tar";
-    sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb50000";
-  };
+  # spinner-lzip = builtins.fetchurl {
+  #   url = "https://elpa.gnu.org/packages/spinner-1.7.3.el.lz";
+  #   sha256 = "188i2r7ixva78qd99ksyh3jagnijpvzzjvvx37n57x8nkp8jc4i4";
+  # };
+  # org-tar = builtins.fetchurl {
+  #   url = "https://elpa.gnu.org/packages/org-9.5.2.tar";
+  #   sha256 = "12pvr47b11pq5rncpb3x8y11fhnakk5bi73j9l9w4d4ss3swcrnh";
+  # };
+  # org-contrib-tar = builtins.fetchurl {
+  #   url = "https://orgmode.org/elpa/org-plus-contrib-20210929.tar";
+  #   sha256 = "16cflg5nms5nb8w86nvwkg49zkl0rvdhigkf4xpvbs0v7zb50000";
+  # };
 
   emacsOverrides = self: super: rec {
     # spinner = super.spinner.override {
@@ -46,194 +46,200 @@ let
   emacsWithPackages = emacsPackagesNg.emacsWithPackages;
   customPackages = import ./extras.nix { inherit pkgs emacsPackagesNg; };
 in
-emacsWithPackages (epkgs: customPackages ++
-                          [ epkgs.org ] ++
-  (with epkgs.melpaStablePackages; []) ++
-  (with epkgs.nongnuPackages; [
+emacsWithPackages
+  (epkgs: customPackages ++
+          (with epkgs; [
+            use-package
+            diminish
+            dash
+            s
+            f
+            hydra
 
-    org-contrib
+            buffer-move
+            eyebrowse
+            rainbow-delimiters
+            hide-lines
 
-  ]) ++ (with epkgs.elpaPackages; [
+            rainbow-mode
+            auctex
 
-    rainbow-mode
-    auctex
+            company
+            company-auctex
+            company-nixos-options
+            company-quickhelp
 
-  ]) ++ (with epkgs.melpaPackages; [
-    use-package
-    diminish
-    dash
-    s
-    f
-    hydra
+            ivy
+            ivy-hydra
+            counsel
+            swiper
 
-    buffer-move
-    eyebrowse
-    rainbow-delimiters
-    hide-lines
+            which-key
+            golden-ratio
+            nyan-mode
+            keycast
 
-    company
-    company-auctex
-    company-nixos-options
-    company-quickhelp
+            #    moody
+            minions
+            autumn-light-theme
+            badger-theme
+            boron-theme
+            darktooth-theme
+            doom-themes
+            darcula-theme
+            doom-modeline
+            eziam-theme
+            gruvbox-theme
+            leuven-theme
+            reykjavik-theme
+            sexy-monochrome-theme
+            soft-charcoal-theme
+            soft-stone-theme
+            solarized-theme
+            spacemacs-theme
+            sublime-themes
+            zenburn-theme
+            kaolin-themes
+            inkpot-theme
+            modus-themes
+            humanoid-themes
+            all-the-icons
+            all-the-icons-ivy
+            all-the-icons-dired
 
-    ivy
-    ivy-hydra
-    counsel
-    swiper
+            magit
+            forge
+            git-gutter
+            git-gutter-fringe
+            git-timemachine
 
-    which-key
-    golden-ratio
-    nyan-mode
-    keycast
+            htmlize
+            restclient
 
-#    moody
-    minions
-    autumn-light-theme
-    badger-theme
-    boron-theme
-    darktooth-theme
-    doom-themes
-    darcula-theme
-    doom-modeline
-    eziam-theme
-    gruvbox-theme
-    leuven-theme
-    reykjavik-theme
-    sexy-monochrome-theme
-    soft-charcoal-theme
-    soft-stone-theme
-    solarized-theme
-    spacemacs-theme
-    sublime-themes
-    zenburn-theme
-    kaolin-themes
-    inkpot-theme
-    modus-themes
-    humanoid-themes
-    all-the-icons
-    all-the-icons-ivy
-    all-the-icons-dired
+            org-bullets
+            org-tree-slide
+            org-journal
+            #    org-jira
+            ob-restclient
+            ob-elvish
+            ob-mongo
+            ob-rust
+            ox-asciidoc
+            ox-gfm
+            ox-jira
+            ox-pandoc
+            ox-twbs
+            counsel-org-clock
 
-    magit
-    forge
-    git-gutter
-    git-gutter-fringe
-    git-timemachine
+            projectile
+            counsel-projectile
 
-    htmlize
-    restclient
+            dired-subtree
+            dired-rainbow
+            dired-filter
+            dired-ranger
+            dired-sidebar
+            editorconfig
+            whitespace-cleanup-mode
+            move-text
+            yasnippet
+            expand-region
+            multiple-cursors
+            paredit
+            ggtags
+            emmet-mode
+            web-mode
+            adoc-mode
+            yaml-mode
+            sass-mode
+            goto-chg
+            geiser
+            geiser-guile
+            markdown-mode
+            flymd
+            flycheck
+            flycheck-rust
+            plantuml-mode
+            groovy-mode
+            kotlin-mode
+            flycheck-kotlin
+            js2-mode
+            scala-mode
+            sbt-mode
+            elm-mode
+            clojure-mode
+            rustic
+            elvish-mode
+            monroe
+            cider
+            slime
+            nix-mode
+            ess
+            stumpwm-mode
+            password-store
+            pass
+            magnatune
+            chee
+            dictcc
+            beacon
+            nameless
+            logview
+            scad-mode
+            ansible
+            fish-mode
+            treemacs
+            #    dap-mode
+            #    eglot
+            vterm
+            vterm-toggle
+            solaire-mode
+            #    gif-screencast
+            clipetty
+            exec-path-from-shell
+            fish-completion
+            eshell-git-prompt
+            vue-mode
+            vue-html-mode
+            docker
+            docker-compose-mode
+            dockerfile-mode
+            impatient-mode
+            purescript-mode
+            psci
+            psc-ide
+            dhall-mode
+            haskell-mode
+            nix-haskell-mode
+            #    lsp-haskell
+            lsp-metals
+            lsp-mode
+            lsp-java
+            lsp-ui
+            lsp-treemacs
+            lsp-ivy
+            dashboard
+            visual-fill-column
+            fill-column-indicator
+            hl-fill-column
+            edit-server
+            polymode
+            poly-markdown
+            poly-R
+            direnv
+            thrift
+            imenu-list
+            imenu-extra
 
-    org-bullets
-    org-tree-slide
-    org-journal
-#    org-jira
-    ob-restclient
-    ob-elvish
-    ob-mongo
-    ob-rust
-    ox-asciidoc
-    ox-gfm
-    ox-jira
-    ox-pandoc
-    ox-twbs
-    counsel-org-clock
+          ]) ++
+          (with epkgs.melpaStablePackages; [
 
-    projectile
-    counsel-projectile
+          ]) ++
+          (with epkgs.nongnuPackages; [
 
-    dired-subtree
-    dired-rainbow
-    dired-filter
-    dired-ranger
-    dired-sidebar
-    editorconfig
-    whitespace-cleanup-mode
-    move-text
-    yasnippet
-    expand-region
-    multiple-cursors
-    paredit
-    ggtags
-    emmet-mode
-    web-mode
-    adoc-mode
-    yaml-mode
-    sass-mode
-    goto-chg
-    geiser
-    geiser-guile
-    markdown-mode
-    flymd
-    flycheck
-    flycheck-rust
-    plantuml-mode
-    groovy-mode
-    kotlin-mode
-    flycheck-kotlin
-    js2-mode
-    scala-mode
-    sbt-mode
-    elm-mode
-    clojure-mode
-    rustic
-    elvish-mode
-    monroe
-    cider
-    slime
-    nix-mode
-    ess
-    stumpwm-mode
-    password-store
-    pass
-    magnatune
-    chee
-    dictcc
-    beacon
-    nameless
-    logview
-    scad-mode
-    ansible
-    fish-mode
-    treemacs
-#    dap-mode
-#    eglot
-    vterm
-    vterm-toggle
-    solaire-mode
-#    gif-screencast
-    clipetty
-    exec-path-from-shell
-    fish-completion
-    eshell-git-prompt
-    vue-mode
-    vue-html-mode
-    docker
-    docker-compose-mode
-    dockerfile-mode
-    impatient-mode
-    purescript-mode
-    psci
-    psc-ide
-    dhall-mode
-    haskell-mode
-    nix-haskell-mode
-    #    lsp-haskell
-    lsp-metals
-    lsp-mode
-    lsp-java
-    lsp-ui
-    lsp-treemacs
-    lsp-ivy
-    dashboard
-    visual-fill-column
-    fill-column-indicator
-    hl-fill-column
-    edit-server
-    polymode
-    poly-markdown
-    poly-R
-    direnv
-    thrift
-    imenu-list
-    imenu-extra
-  ]))
+            org-contrib
+
+          ]) ++ (with epkgs.elpaPackages; [
+
+
+          ]) ++ (with epkgs.melpaPackages; [
+          ]))
