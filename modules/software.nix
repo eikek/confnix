@@ -11,6 +11,7 @@ with pkgs.lib;
           direnv
           fzf
           git-crypt
+          git-lfs
           mr
           nix-prefetch-scripts
           nixops
