@@ -139,6 +139,7 @@ emacsWithPackages
             dired-filter
             dired-ranger
             dired-sidebar
+            dirvish
             editorconfig
             whitespace-cleanup-mode
             move-text
