@@ -3,7 +3,7 @@ let
   mykey = builtins.readFile <sshpubkey>;
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix "eike";
-  dockermod = import ../../modules/docker.nix [ "eike" "tundra" ];
+  dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
 in
 {
   imports =
