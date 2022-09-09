@@ -13,6 +13,7 @@ in
       JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
       JDK_HOME = "${pkgs.openjdk11}/lib/openjdk";
       JDK11_HOME = "${pkgs.openjdk11}/lib/openjdk";
+      JDK17_HOME = "${pkgs.openjdk17}/lib/openjdk";
     };
   };
 
