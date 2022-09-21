@@ -1,4 +1,4 @@
-{stdenv, fetchurl, jre8_headless, unzip, bash}:
+{stdenv, lib, fetchurl, jre8_headless, unzip, bash}:
 
 stdenv.mkDerivation rec {
   version = "0.1.0";

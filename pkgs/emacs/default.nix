@@ -169,6 +169,7 @@ emacsWithPackages
             sbt-mode
             elm-mode
             clojure-mode
+            sparql-mode
             rustic
             elvish-mode
             monroe

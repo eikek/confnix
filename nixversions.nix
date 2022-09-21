@@ -16,16 +16,16 @@ let
   };
   pkgs1903 = import nixpkgs1903 { config = config; };
   nixpkgs1909 = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.09.tar.gz";
+    url = "channels/nixos-19.09";
     sha256 = "157c64220lf825ll4c0cxsdwg7cxqdx4z559fdp7kpz0g6p8fhhr";
   };
   pkgs1909 = import nixpkgs1909 { config = config; };
   nixpkgsUnstable = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
   };
   pkgsUnstable = import nixpkgsUnstable { config = config; };
 in
 {
-  inherit pkgs1803 pkgs1809 pkgs1903 pkgs1909 pkgsUnstable;
+  inherit pkgs1909;
 
 }
