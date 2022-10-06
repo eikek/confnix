@@ -25,6 +25,9 @@ in
         coursier
         zoom-us
         squirrel-sql
+        kubectl
+        kubernetes
+        openjdk17
       ];
   };
 
@@ -32,11 +35,4 @@ in
     enable = true;
     enableSSHSupport = true;
   };
-
-  # services.openvpn.servers = {
-  #   dev = {
-  #     config = " config /root/openvpn/${username}/dev.ovpn ";
-  #     autoStart = false;
-  #   };
-  # };
 }
