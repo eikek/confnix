@@ -156,6 +156,10 @@ with pkgs.lib;
           direnv
           dsc
           ghostscript
+          (hunspellWithDicts [ "de_DE" "de_CH" "en_US-large" "en_GB-large" ])
+          hunspellDicts."de_DE"
+          hunspellDicts."en_GB-large"
+          hunspellDicts."en_US-large"
           mu
           offlineimap
           pandoc
