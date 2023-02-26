@@ -11,7 +11,6 @@
     videoDrivers = [ "nvidia"  ];
     logFile = null;
     defaultDepth = 24;
-    useGlamor = true;
   };
 
   hardware.nvidia.modesetting = {

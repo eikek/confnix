@@ -133,7 +133,6 @@ with pkgs.lib;
             postgresql_12
             purescript
             python3
-            rls
             rust-analyzer
             rustfmt
             #rustracer

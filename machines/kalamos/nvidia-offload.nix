@@ -23,7 +23,6 @@ in
     videoDrivers = [ "nvidia"  ];
     logFile = null;
     defaultDepth = 24;
-    useGlamor = true;
     extraConfig = ''
       Section "OutputClass"
          Identifier "NVIDIA"
