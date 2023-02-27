@@ -120,6 +120,11 @@ in
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
   services.logind.lidSwitch = "ignore";
 
+
+  services.udisks2 = {
+    enable = true;
+  };
+
   services.openssh = {
     enable = true;
     forwardX11 = true;
