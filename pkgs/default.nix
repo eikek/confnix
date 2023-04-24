@@ -12,7 +12,6 @@ let
     ds4e = callPackage ifds.ds4e {};
     dsc = callPackage ifds.dsc {};
     gossa = callPackage ./gossa {};
-    hinclient = callPackage ./hinclient {};
     mc2425ppd = callPackage ./mc2425ppd {};
     meth = callPackage ./meth {};
     mpc4s = callPackage ./mpc4s {};
@@ -28,6 +27,7 @@ let
     mpd = p.pkgs1909.mpd; # must upgrade mpc4s :(
     sbt8 = sbts.sbt8;
     sbt11 = sbts.sbt11;
+    jetbrains.idea-community = p.pkgsUnstable.jetbrains.idea-community;
     #herbstluftwm = callPackage ./hlwm {};
   };
 in custom

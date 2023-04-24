@@ -26,6 +26,6 @@ let
   pkgsUnstable = import nixpkgsUnstable { config = config; };
 in
 {
-  inherit pkgs1909;
+  inherit pkgs1909 pkgsUnstable;
 
 }
