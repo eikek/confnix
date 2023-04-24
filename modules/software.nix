@@ -167,7 +167,7 @@ with pkgs.lib;
           sqlitebrowser
           tesseract4
           unpaper
-          wkhtmltopdf
+          python3Packages.weasyprint
           unoconv
           youtube-dl
           zathura
