@@ -28,6 +28,7 @@ in
         kubectl
         kubernetes
         openjdk17
+        sops
       ];
   };
 
