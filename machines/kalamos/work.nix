@@ -25,6 +25,8 @@ in
         coursier
         zoom-us
         squirrel-sql
+        kind
+        kubectx
         kubectl
         kubernetes
         openjdk17
