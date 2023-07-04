@@ -88,7 +88,6 @@ emacsWithPackages
             doom-themes
             darcula-theme
             doom-modeline
-            eziam-theme
             gruvbox-theme
             leuven-theme
             reykjavik-theme
@@ -222,7 +221,6 @@ emacsWithPackages
             dashboard
             visual-fill-column
             fill-column-indicator
-            hl-fill-column
             edit-server
             polymode
             poly-markdown

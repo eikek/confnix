@@ -14,7 +14,7 @@ with pkgs.lib;
           git-lfs
           mr
           nix-prefetch-scripts
-          nixops
+#          nixops
           pass
           pinentry
           recutils
@@ -130,12 +130,11 @@ with pkgs.lib;
             mariadb
             maven
             openscad
-            postgresql_12
+            postgresql
             purescript
             python3
             rust-analyzer
             rustfmt
-            #rustracer
             rustup
             sbcl
             sbt

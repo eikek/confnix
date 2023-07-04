@@ -24,5 +24,5 @@
 
   swapDevices = [ ];
 
-  nix.maxJobs = lib.mkDefault 6;
+  nix.settings.max-jobs = lib.mkDefault 6;
 }

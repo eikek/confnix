@@ -3,6 +3,7 @@ let
   mykey = builtins.readFile <sshpubkey>;
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix "eike";
+  dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
 in
 {
   imports =
@@ -10,7 +11,6 @@ in
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
-      ../../modules/docker.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
       ../../modules/flakes.nix
@@ -27,12 +27,13 @@ in
       ./vpn.nix
       ./keybase.nix
       usermod
+      dockermod
     ] ++
     (import ../../pkgs/modules.nix);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_14;
-    cleanTmpDir = true;
+#    kernelPackages = pkgs.linuxPackages_5_14;
+    tmp.cleanOnBoot = true;
     initrd.luks.devices = {
       rootfs = { device = "/dev/vgroot/root"; preLVM = false; };
     };
@@ -44,9 +45,11 @@ in
 
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";
     openFirewall = true;
-    passwordAuthentication = false;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
   };
 
   powerManagement = {
@@ -80,7 +83,7 @@ in
 
   security = {
     pam.enableSSHAgentAuth = true;
-    wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
+    #wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
   };
 
   services.locate = {
@@ -149,41 +152,34 @@ in
 
   software.extra = with pkgs;
   [
-    ansible
     libreoffice
     slack
-    keybase-gui
-    awscli2
     gopass
     python3Packages.pip
     coursier
   ];
 
-  containers.dbpostgres =
-  { config = import ../../modules/devdb-postgres.nix;
-    autoStart = false;
-  };
-  containers.dbsolr =
-  { config = import ../../modules/devdb-solr.nix;
-    autoStart = false;
-  };
-  containers.devmail =
-  { config = {config ,pkgs, ... }:
-      { imports = [ ../../modules/devmail.nix ];
-        services.devmail = {
-          enable = true;
-          primaryHostname = "devmail";
-          localDomains = [ "devmail.org" "test.com" ];
-        };
-      };
-    privateNetwork = true;
-    hostAddress = "10.231.2.1";
-    localAddress = "10.231.2.2";
-    autoStart = false;
-  };
-  networking.extraHosts = ''
-    10.231.2.2 devmail
-  '';
+  # containers.dbpostgres =
+  # { config = import ../../modules/devdb-postgres.nix;
+  #   autoStart = false;
+  # };
+  # containers.devmail =
+  # { config = {config ,pkgs, ... }:
+  #     { imports = [ ../../modules/devmail.nix ];
+  #       services.devmail = {
+  #         enable = true;
+  #         primaryHostname = "devmail";
+  #         localDomains = [ "devmail.org" "test.com" ];
+  #       };
+  #     };
+  #   privateNetwork = true;
+  #   hostAddress = "10.231.2.1";
+  #   localAddress = "10.231.2.2";
+  #   autoStart = false;
+  # };
+  # networking.extraHosts = ''
+  #   10.231.2.2 devmail
+  # '';
 
   environment.pathsToLink = [ "/" ];
 
@@ -208,6 +204,6 @@ in
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 
 }

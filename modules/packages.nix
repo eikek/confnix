@@ -24,7 +24,7 @@
     gnupg
     gnused
     htop
-    bpytop
+    btop
     iftop
     iotop
     iptables
