@@ -64,12 +64,15 @@ with pkgs.lib;
           alacritty
           autorandr
           chromium
+          dmenu
           firefox
           i3lock
           i3lock-fancy
-          signal-desktop
+          polybar
           qutebrowser
           scrot
+          signal-desktop
+          threema-desktop
           xclip
           xdotool
           xorg.xdpyinfo
@@ -78,8 +81,6 @@ with pkgs.lib;
           xorg.xwd
           xorg.xwininfo
           xsel
-          polybar
-          dmenu
         ];
       };
 
