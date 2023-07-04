@@ -36,7 +36,7 @@ in
     (import ../../pkgs/modules.nix);
 
   boot = {
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
     initrd.luks.devices = {
       crootfs = { device = "/dev/nvme0n1p1"; preLVM = true; };
     };
@@ -127,7 +127,7 @@ in
 
   services.openssh = {
     enable = true;
-    forwardX11 = true;
+    settings.X11Forwarding = true;
   };
 
   services.webact = {
@@ -151,10 +151,6 @@ in
   };
   containers.dbpostgres =
   { config = import ../../modules/devdb-postgres.nix;
-    autoStart = false;
-  };
-  containers.dbsolr =
-  { config = import ../../modules/devdb-solr.nix;
     autoStart = false;
   };
   containers.devmail =
