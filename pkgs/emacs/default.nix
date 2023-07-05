@@ -60,6 +60,7 @@ emacsWithPackages
             eyebrowse
             rainbow-delimiters
             hide-lines
+            sqlite3
 
             rainbow-mode
             auctex
