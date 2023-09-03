@@ -134,6 +134,7 @@ with pkgs.lib;
             postgresql
             purescript
             python3
+            ripgrep
             rust-analyzer
             rustfmt
             rustup
@@ -159,6 +160,7 @@ with pkgs.lib;
           hunspellDicts."de_DE"
           hunspellDicts."en_GB-large"
           hunspellDicts."en_US-large"
+          localsend
           mu
           offlineimap
           pandoc

@@ -96,6 +96,7 @@ emacsWithPackages
             soft-charcoal-theme
             soft-stone-theme
             solarized-theme
+            stimmung-themes
             spacemacs-theme
             sublime-themes
             zenburn-theme
