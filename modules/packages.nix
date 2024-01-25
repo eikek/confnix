@@ -17,7 +17,7 @@
     curl
     dmidecode
     elvish
-    exa
+    eza
     fd
     file
     gitAndTools.gitFull

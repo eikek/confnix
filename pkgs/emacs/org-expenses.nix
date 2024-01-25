@@ -1,4 +1,4 @@
-{ pkgs, emacsPackagesNg }:
+{ pkgs, emacsPackages }:
 
 pkgs.stdenv.mkDerivation rec {
 
@@ -14,7 +14,7 @@ pkgs.stdenv.mkDerivation rec {
   };
 
   buildInputs = [ pkgs.emacs ];
-  propagatedUserEnvPkgs = with emacsPackagesNg; [ dash s org ];
+  propagatedUserEnvPkgs = with emacsPackages; [ dash s org ];
 
   unpackPhase = "true";
 
@@ -24,8 +24,8 @@ pkgs.stdenv.mkDerivation rec {
   # is in emacs load-path.
   buildPhase = ''
     cp -r $src/* .
-    LDASH=$(find ${emacsPackagesNg.dash}/share/emacs/site-lisp -type d | tail -n1)
-    LES=$(find ${emacsPackagesNg.s}/share/emacs/site-lisp -type d | tail -n1)
+    LDASH=$(find ${emacsPackages.dash}/share/emacs/site-lisp -type d | tail -n1)
+    LES=$(find ${emacsPackages.s}/share/emacs/site-lisp -type d | tail -n1)
     emacs -L . -L $LDASH -L $LES --batch -f batch-byte-compile *.el
   '';
 

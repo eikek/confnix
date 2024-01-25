@@ -13,7 +13,7 @@ let
 
   ds4esrc = builtins.fetchGit {
     url = "https://github.com/docspell/ds4e";
-    ref = "master";
+    rev = "4d6bb3052d02e028870bc613c14095fccc42c46a";
   };
   ds4e = import "${ds4esrc}/nix/ds4e.nix";
 

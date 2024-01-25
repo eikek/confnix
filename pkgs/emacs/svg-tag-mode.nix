@@ -1,6 +1,6 @@
-{ pkgs, emacsPackagesNg }:
+{ pkgs, emacsPackages }:
 
-emacsPackagesNg.trivialBuild rec {
+emacsPackages.trivialBuild rec {
 
   pname = "svg-tag-mode";
 
@@ -13,5 +13,5 @@ emacsPackagesNg.trivialBuild rec {
     sha256 = "0nc0y2dn67gy9cly3yamskfd9dd028xbask8gjxql934bq0ads2i";
   };
 
-  packageRequires = with emacsPackagesNg; [ svg-lib ];
+  packageRequires = with emacsPackages; [ svg-lib ];
 }

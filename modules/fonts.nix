@@ -8,9 +8,9 @@
     fontDir = {
       enable = true;
     };
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       #corefonts #unfree
       anonymousPro
       dejavu_fonts

@@ -144,7 +144,6 @@ with pkgs.lib;
             sbt11
             scala
             silver-searcher
-            spago
             visualvm
             yarn
           ];

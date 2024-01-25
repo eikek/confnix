@@ -42,9 +42,9 @@ let
   };
 
   myEmacs = pkgs.emacs;
-  emacsPackagesNg = (pkgs.emacsPackagesFor myEmacs).overrideScope' emacsOverrides;
-  emacsWithPackages = emacsPackagesNg.emacsWithPackages;
-  customPackages = import ./extras.nix { inherit pkgs emacsPackagesNg; };
+  emacsPackages = (pkgs.emacsPackagesFor myEmacs).overrideScope' emacsOverrides;
+  emacsWithPackages = emacsPackages.emacsWithPackages;
+  customPackages = import ./extras.nix { inherit pkgs emacsPackages; };
 in
 emacsWithPackages
   (epkgs: customPackages ++

@@ -1,6 +1,6 @@
-{ pkgs, emacsPackagesNg }:
+{ pkgs, emacsPackages }:
 
-emacsPackagesNg.trivialBuild rec {
+emacsPackages.trivialBuild rec {
 
   pname = "swagger-mode";
 
@@ -13,5 +13,5 @@ emacsPackagesNg.trivialBuild rec {
     sha256 = "0cljc0yrhg8mw3alfmzigjl96q847pr69qii0dxraiqf5gjyjy53";
   };
 
-  packageRequires = with emacsPackagesNg; [ ];
+  packageRequires = with emacsPackages; [ ];
 }

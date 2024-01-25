@@ -1,7 +1,7 @@
-{ pkgs, emacsPackagesNg }:
+{ pkgs, emacsPackages }:
 [
-  (import ./org-expenses.nix {inherit pkgs emacsPackagesNg;})
-  (import ./swagger-mode.nix {inherit pkgs emacsPackagesNg;})
-  (import ./svg-tag-mode.nix {inherit pkgs emacsPackagesNg;})
+  (import ./org-expenses.nix {inherit pkgs emacsPackages;})
+  (import ./swagger-mode.nix {inherit pkgs emacsPackages;})
+  (import ./svg-tag-mode.nix {inherit pkgs emacsPackages;})
   pkgs.ds4e
 ]
