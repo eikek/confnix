@@ -41,7 +41,7 @@ let
     # };
   };
 
-  myEmacs = pkgs.emacs;
+  myEmacs = pkgs.emacs29;
   emacsPackages = (pkgs.emacsPackagesFor myEmacs).overrideScope' emacsOverrides;
   emacsWithPackages = emacsPackages.emacsWithPackages;
   customPackages = import ./extras.nix { inherit pkgs emacsPackages; };
@@ -49,6 +49,7 @@ in
 emacsWithPackages
   (epkgs: customPackages ++
           (with epkgs; [
+            svg-tag-mode
             use-package
             diminish
             dash
@@ -120,16 +121,16 @@ emacsWithPackages
             org-bullets
             org-tree-slide
             org-journal
-            #    org-jira
+            org-modern
             ob-restclient
             ob-elvish
             ob-mongo
             ob-rust
             ox-asciidoc
             ox-gfm
-            ox-jira
-            ox-pandoc
-            ox-twbs
+            #ox-jira
+            #ox-pandoc
+            #ox-twbs
             counsel-org-clock
 
             projectile
