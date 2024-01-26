@@ -214,7 +214,6 @@ emacsWithPackages
             dhall-mode
             haskell-mode
             nix-haskell-mode
-            #    lsp-haskell
             lsp-metals
             lsp-mode
             lsp-java
@@ -230,6 +229,8 @@ emacsWithPackages
             poly-R
             direnv
             envrc
+            tree-sitter
+            tree-sitter-indent
             thrift
             imenu-list
             imenu-extra
