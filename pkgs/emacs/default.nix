@@ -229,6 +229,7 @@ emacsWithPackages
             poly-markdown
             poly-R
             direnv
+            envrc
             thrift
             imenu-list
             imenu-extra
