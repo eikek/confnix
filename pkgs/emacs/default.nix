@@ -171,6 +171,7 @@ emacsWithPackages
             sbt-mode
             elm-mode
             clojure-mode
+            clojure-ts-mode
             sparql-mode
             rustic
             elvish-mode
@@ -178,6 +179,7 @@ emacsWithPackages
             cider
             slime
             nix-mode
+            nix-ts-mode
             ess
             stumpwm-mode
             password-store
@@ -229,8 +231,6 @@ emacsWithPackages
             poly-R
             direnv
             envrc
-            tree-sitter
-            tree-sitter-indent
             thrift
             imenu-list
             imenu-extra

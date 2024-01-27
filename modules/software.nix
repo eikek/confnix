@@ -161,6 +161,7 @@ with pkgs.lib;
           hunspellDicts."en_US-large"
           localsend
           mu
+          mu.mu4e
           offlineimap
           pandoc
           peek
