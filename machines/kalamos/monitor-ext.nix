@@ -8,9 +8,9 @@
 {
 
   services.xserver = {
+    enable = true;
     videoDrivers = [ "nvidia"  ];
     logFile = null;
-    defaultDepth = 24;
   };
 
   hardware.nvidia.modesetting = {

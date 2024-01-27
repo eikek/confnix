@@ -15,7 +15,22 @@
       herbstluftwm.enable = true;
     };
     displayManager = {
-      defaultSession = "none+herbstluftwm";
+      lightdm = {
+        enable = true;
+      };
+      startx = {
+        enable = true;
+      };
+      session = [
+        { manage = "desktop";
+          name = "herbstluft";
+          start = ''
+            ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
+            waitPID=$!
+          '';
+        }
+      ];
+      defaultSession = "herbstluft";
     };
   };
 

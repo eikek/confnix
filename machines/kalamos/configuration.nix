@@ -85,12 +85,6 @@ in
     interval = "13:00";
   };
 
-  # services.xserver = {
-  #   videoDrivers = [ "nvidia" ];
-  #   # displayManager.sessionCommands = ''
-  #   # '';
-  # };
-
   users.groups.kvm = {
     members = [ "eike" ];
   };
@@ -134,7 +128,7 @@ in
     app-name = "Webact " + config.networking.hostName;
     enable = true;
     userService = true;
-    extra-packages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.elvish ];
+    extra-packages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.scala-cli ];
     extra-path = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
     env = {
       "DISPLAY" = ":0";
@@ -171,14 +165,10 @@ in
     10.231.2.2 devmail
   '';
 
-  environment.pathsToLink = [ "/" ];
+  # environment.pathsToLink = [ "/" ];
 
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [
-      "python2.7-certifi-2021.10.8" #???
-      "python2.7-pyjwt-1.7.1" #???
-    ];
   };
 
   nix = {
@@ -192,11 +182,5 @@ in
     opengl.driSupport32Bit = true;
   };
 
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "23.05"; # Did you read the comment?
-
+  system.stateVersion = "23.11";
 }
