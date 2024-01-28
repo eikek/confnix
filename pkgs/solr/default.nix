@@ -5,23 +5,24 @@ stdenv.mkDerivation rec {
   version = "9.4.1";
 
   src = fetchurl {
-    url = "mirror://apache/solr/${pname}/${version}/${pname}-${version}-slim.tgz";
-    sha256 = "sha256-+nxsIxYM3PapkFGMY9zIANvx3wovw8U4jToVIWcsQ6k=";
+    url = "mirror://apache/solr/${pname}/${version}/${pname}-${version}.tgz";
+    sha256 = "sha256-QQFdemk/76S4pTf10Jgq2ujxPzgu3znJSjSX+bN4MlA=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
-      mkdir -p $out $out/bin
+    mkdir -p $out
+    cp -r * $out/
+    rm -rf $out/bin/init.d
+    rm $out/bin/postlogs
+    rm $out/bin/install_solr_service.sh
+    rm $out/bin/solr.in.sh
+    rm $out/bin/*.cmd
 
-      cp -r bin/solr bin/post $out/bin/
-      cp -r docs $out/
-      cp -r example $out/
-      cp -r server $out/
-
-      wrapProgram $out/bin/solr --set JAVA_HOME "${jre}"
-      wrapProgram $out/bin/post --set JAVA_HOME "${jre}"
-    '';
+    wrapProgram $out/bin/solr --set JAVA_HOME "${jre}"
+    wrapProgram $out/bin/post --set JAVA_HOME "${jre}"
+  '';
 
   meta = with lib; {
     homepage = "https://lucene.apache.org/solr/";
