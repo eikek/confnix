@@ -19,6 +19,7 @@ let
     myemacs = callPackage ./emacs {};
     pickup = callPackage ./pickup {};
     sharry = callPackage ifds.sharry.currentPkg {};
+    solr = callPackage ./solr {};
     sig = callPackage ./sig {};
     tmm = callPackage ./tmm {};
     webact = callPackage ifds.webact.currentPkg {};
