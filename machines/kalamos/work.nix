@@ -22,14 +22,14 @@ in
       [ libreoffice
         slack
         python3Packages.pip
-        coursier
         zoom-us
         squirrel-sql
         kind
         kubectx
         kubectl
         kubernetes
-        openjdk17
+        kubernetes-helm
+        jdk17
         sops
       ];
   };

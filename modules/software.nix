@@ -14,7 +14,6 @@ with pkgs.lib;
           git-lfs
           mr
           nix-prefetch-scripts
-#          nixops
           pass
           pinentry
           recutils
@@ -113,6 +112,7 @@ with pkgs.lib;
             cargo
             clippy
             clojure
+            coursier
             elmPackages.elm
             elmPackages.elm-analyse
             elmPackages.elm-format
