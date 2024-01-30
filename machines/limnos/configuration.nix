@@ -56,7 +56,15 @@ in
 
   security = {
     pam.enableSSHAgentAuth = true;
-    wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
+    wrappers = {
+      "mount.cifs" = {
+        source = "${pkgs.cifs-utils}/bin/mount.cifs";
+        setuid = true;
+        setgid = true;
+        owner = "root";
+        group = "root";
+      };
+    };
   };
 
   services.locate = {
@@ -167,7 +175,6 @@ in
     emacs
     ghostscript
     gnome-icon-theme
-    gnome-themes-standard
     gnome.evince
     gnome.gnome-calendar
     gnome.gnome-clocks
@@ -177,22 +184,15 @@ in
     gnome.gnome-power-manager
     gnome.gnome-shell-extensions
     gnome.gnome-themes-extra
-    gnome.gnome-themes-standard
-    gnome.gnome-themes-standard
-    gnome.gnome-tweak-tool
     gnome.gnome-tweaks
-    gnome.gnome-usage
     gnome.gnome-weather
     gnome.nautilus
-    gnome.shotwell
     gnome.sushi
     gnomeExtensions.appindicator
     gnomeExtensions.cpufreq
     gnomeExtensions.gtile
-    gnomeExtensions.mounter
-    gnomeExtensions.tweaks-in-system-menu
     gphoto2
-    keepassx2
+    keepassxc
     libreoffice
     mediathekview
     myR
@@ -203,7 +203,8 @@ in
     rstudio
     sambaFull
     signal-desktop
-    smbclient
+    shotwell
+    samba
     smbnetfs
     thunderbird
     virtualbox
@@ -222,5 +223,5 @@ in
     opengl.driSupport32Bit = true;
   };
 
-  system.stateVersion = "21.05";
+  system.stateVersion = "23.11";
 }
