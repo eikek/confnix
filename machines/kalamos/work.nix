@@ -29,6 +29,8 @@ in
         kubectl
         kubernetes
         kubernetes-helm
+        k9s
+        kail
         jdk17
         sops
       ];
