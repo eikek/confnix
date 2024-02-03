@@ -77,7 +77,13 @@ in
 
   security = {
     pam.enableSSHAgentAuth = true;
-    #wrappers."mount.cifs".source = "${pkgs.cifs-utils}/bin/mount.cifs";
+    wrappers = {
+      "mount.cifs" = {
+        source = "${pkgs.cifs-utils}/bin/mount.cifs";
+        owner = "root";
+        group = "root";
+      };
+    };
   };
 
   services.locate = {
