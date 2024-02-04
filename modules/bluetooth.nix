@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   services.blueman.enable = true;
@@ -19,7 +19,7 @@
 
     pulseaudio = {
       enable = true;
-      package = pkgs.pulseaudioFull;
+      package = lib.mkForce pkgs.pulseaudioFull;
       extraModules = [ ];
     };
   };
