@@ -10,7 +10,7 @@ let
       src = pkgs.requireFile {
         name = "firmware.tar";
         url = "file:///etc/nixos/firmware.tar";
-        sha256 = "1byfksgrsiqswlpjr6qdlw7syhap794h3wk036w0rnpkilnb12jc";
+        sha256 = "10gnnqnyiizmzvyx0lbrdahx4x5m58xpgadpgdq6m40qy3ijzd4f";
       };
       buildCommand = ''
         dir="$out/lib/firmware"

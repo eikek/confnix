@@ -12,7 +12,7 @@ in
       nixos-hardware.nixosModules.apple-t2
       agenix.nixosModules.default
       ../../modules/accounts.nix
-      ../../modules/bluetooth.nix
+      ./bluetooth.nix
       ../../modules/dsc-watch.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
