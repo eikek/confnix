@@ -27,6 +27,7 @@ in
       ../../modules/software.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
+      ../../modules/zsa.nix
       printer.home
       usermod
       dockermod

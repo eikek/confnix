@@ -28,6 +28,7 @@ in
       ../../modules/software.nix
       ../../modules/vbox-host.nix
       ../../modules/xserver.nix
+      ../../modules/zsa.nix
       <monitor>
       printer.home
       usermod
