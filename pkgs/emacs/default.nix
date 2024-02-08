@@ -44,10 +44,20 @@ let
   myEmacs = pkgs.emacs29;
   emacsPackages = (pkgs.emacsPackagesFor myEmacs).overrideScope' emacsOverrides;
   emacsWithPackages = emacsPackages.emacsWithPackages;
-  customPackages = import ./extras.nix { inherit pkgs emacsPackages; };
-in
-emacsWithPackages
-  (epkgs: customPackages ++
+
+  eaf = import ./eaf.nix { inherit pkgs emacsPackages; };
+  extras = import ./extras.nix { inherit pkgs emacsPackages; };
+  customPackages = extras ++ [ eaf.elisp ];
+
+  # binary packages that are brought into emacs' scope
+  binPackages = eaf.binaryPackages;
+
+  # additional env variables to set
+  envVars = eaf.env;
+
+  myEmacsWithPkgs =
+    emacsWithPackages
+      (epkgs: customPackages ++
           (with epkgs; [
             svg-tag-mode
             use-package
@@ -247,4 +257,20 @@ emacsWithPackages
 
 
           ]) ++ (with epkgs.melpaPackages; [
-          ]))
+          ]));
+in
+  pkgs.symlinkJoin {
+    name = "my-emacs";
+    meta.mainProgram = "emacs";
+    paths = [ myEmacsWithPkgs ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild =
+      let
+        envSet =
+          builtins.concatStringsSep " "
+            (builtins.concatLists (pkgs.lib.mapAttrsToList (name: value: [ "--set" name ''"${value}"'' ]) envVars));
+      in
+      ''
+      wrapProgram $out/bin/emacs --prefix PATH : "${pkgs.lib.makeBinPath (binPackages)}" ${envSet}
+      '';
+  }
