@@ -1,12 +1,17 @@
-{pkgs, config, ...}:
-{
-  imports = import ../pkgs/modules.nix;
+{ pkgs, config, dsc, ... }: {
+  imports =
+    # legacy
+    import ../pkgs/modules.nix ++
+    # flakes
+    [ dsc.nixosModules.default ];
 
-  nixpkgs = {
-    config = {
-      packageOverrides = import ../pkgs;
-    };
-  };
+  nixpkgs = { config = { packageOverrides = import ../pkgs; }; };
+
+  nixpkgs.overlays = let system = pkgs.stdenv.hostPlatform.system;
+  in [
+    #dsc.overlays.default <- this tries to rebuild dsc with default nixpkgs (that is 23.11) and an outdated cargo
+    (final: prev: { dsc = dsc.packages.${system}.default; })
+  ];
 
   environment.systemPackages = with pkgs; [
     bandwhich
@@ -45,7 +50,7 @@
   ];
 
   environment.shellAliases = {
-    l = "exa -la --git";
+    l = "eza -la --git";
     cat = "bat";
   };
 
@@ -56,4 +61,20 @@
     "${pkgs.fish}/bin/fish"
   ];
 
+  security.pam.enableSSHAgentAuth = true;
+
+  programs = {
+    direnv.enable = true;
+    fish.enable = true;
+    ssh.startAgent = false;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+  };
+
+  environment = { homeBinInPath = true; };
+
+  users.users.root = let sshkeys = import ../secrets/ssh-keys.nix;
+  in { openssh.authorizedKeys.keys = [ sshkeys.eike ]; };
 }

@@ -1,3 +1,4 @@
 result
 /modules/localssl/certs/
+.direnv/
 accounts.nix

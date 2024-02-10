@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
-{ services.mysql = {
+{
+  boot.isContainer = true;
+  networking.firewall.allowedTCPPorts = config.services.mysql.settings.mysqld.port;
+  services.mysql = {
     enable = true;
     package = pkgs.mariadb;
     initialScript = pkgs.writeText "devmysql-init.sql" ''
@@ -20,8 +23,8 @@
     '';
     settings = {
       mysqld = {
-      skip_networking = 0;
-      skip_bind_address = true;
+        skip_networking = 0;
+        skip_bind_address = true;
       };
     };
   };

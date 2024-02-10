@@ -125,8 +125,10 @@ in
 
   services.openssh = {
     enable = true;
-    forwardX11 = true;
-    passwordAuthentication = false;
+    settings = {
+      X11Forwarding = true;
+      PasswordAuthentication = false;
+    };
     openFirewall = true;
   };
 

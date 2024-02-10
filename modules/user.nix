@@ -1,5 +1,5 @@
 let
-  keyFile = builtins.toPath <sshpubkey>;
+  sshkeys = import ../secrets/ssh-keys.nix;
 in
 username: {pkgs, config, ...}:
 {
@@ -11,25 +11,8 @@ username: {pkgs, config, ...}:
     createHome = true;
     home = "/home/${username}";
     shell = pkgs.fish;
-    openssh.authorizedKeys.keyFiles = [ keyFile ];
+    openssh.authorizedKeys.keys = [ sshkeys.${username} ];
     extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" ];
   };
-  users.users.root = {
-    openssh.authorizedKeys.keyFiles = [ keyFile ];
-  };
 
-  security.pam.enableSSHAgentAuth = true;
-
-  programs = {
-    fish.enable = true;
-    ssh.startAgent = false;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-  };
-
-  environment = {
-    homeBinInPath = true;
-  };
 }

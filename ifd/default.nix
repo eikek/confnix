@@ -5,15 +5,9 @@ let
   };
   docspell = import "${docspellsrc}/nix/release.nix";
 
-  dsc = builtins.fetchGit {
-    url = "https://github.com/docspell/dsc";
-    #rev = "acee43852629516df6847368b9b115f854405a8f";
-    ref = "refs/tags/v0.9.0";
-  };
-
-  ds4esrc = builtins.fetchGit {
-    url = "https://github.com/docspell/ds4e";
-    rev = "4d6bb3052d02e028870bc613c14095fccc42c46a";
+  ds4esrc = builtins.fetchTarball {
+    url = "https://github.com/docspell/ds4e/archive/master.tar.gz";
+    sha256 = "sha256:13dydc0l3nr44ig37jvzn3aww3zm53809aks5brh92ywpd0ahfky";
   };
   ds4e = import "${ds4esrc}/nix/ds4e.nix";
 
@@ -29,5 +23,5 @@ let
   };
   webact = import "${webactsrc}/nix/release.nix";
 in {
-  inherit docspell sharry webact dsc ds4e;
+  inherit docspell sharry webact ds4e;
 }

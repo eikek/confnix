@@ -1,6 +1,6 @@
 let
   username = "sdsc";
-  keyFile = builtins.toPath <sshpubkey>;
+  sshkeys = import ../../secrets/ssh-keys.nix;
 in
 { config, pkgs, ... }:
 {
@@ -15,13 +15,12 @@ in
     createHome = true;
     home = "/home/${username}";
     shell = pkgs.fish;
-    openssh.authorizedKeys.keyFiles = [ keyFile ];
+    openssh.authorizedKeys.keys = [ sshkeys.eike ];
     extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" ];
     packages =
       with pkgs;
       [ libreoffice
         slack
-        python3Packages.pip
         zoom-us
         squirrel-sql
         kind

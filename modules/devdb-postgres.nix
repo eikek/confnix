@@ -1,6 +1,10 @@
  { config, pkgs, ... }:
 
-{ services.postgresql =
+{
+  boot.isContainer = true;
+  networking.firewall.allowedTCPPorts = [ config.services.postgresql.port ];
+
+  services.postgresql =
   let
     pginit = pkgs.writeText "pginit.sql" ''
       CREATE USER dev WITH PASSWORD 'dev' LOGIN CREATEDB;

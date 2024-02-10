@@ -1,6 +1,5 @@
 { config, nixos-hardware, agenix, lib, pkgs, ... }:
 let
-  mykey = builtins.readFile <sshpubkey>;
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix "eike";
   dockermod = import ../../modules/docker.nix [ "eike" ];
@@ -83,12 +82,6 @@ in
   nixpkgs.config = {
     allowUnfree = true;
   };
-
-  nix = {
-    sshServe.enable = true;
-    sshServe.keys = [ mykey ];
-  };
-
 
   environment.systemPackages = with pkgs; [
     libreoffice

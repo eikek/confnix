@@ -10,6 +10,9 @@
     };
   };
 
+  boot.isContainer = true;
+  networking.firewall.allowedTCPPorts = [ config.services.solr.port ];
+
   services.solr = {
     enable = true;
   };

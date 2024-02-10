@@ -2,29 +2,61 @@
   description = "NixOS configurations";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+#    flake-compat.url = "github:edolstra/flake-compat";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     #nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    dsc = {
+      #url = "path:///home/eike/workspace/projects/dsc";
+      url = "github:docspell/dsc/0a19edc4116e94fb7128ce168cdf6c2276babe07";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.naersk.follows = "naersk";
+    };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, agenix }@attrs: {
-    nixosConfigurations.poros = nixpkgs.lib.nixosSystem {
-      system = "x84_64-linux";
-      specialArgs = attrs;
-      modules = [
-        ./machines/poros/configuration.nix
-      ];
+  outputs = { self, nixpkgs, dsc, ... }@attrs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+      };
+    in {
+      nixosConfigurations.poros = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = attrs;
+        modules = [ ./machines/poros/configuration.nix ];
+      };
+      nixosConfigurations.kalamos = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = attrs;
+        modules = [
+          ./machines/kalamos/configuration.nix
+          ./machines/kalamos/monitor-ext.nix
+        ];
+      };
+      nixosConfigurations.kalamos-amd = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = attrs;
+        modules = [
+          ./machines/kalamos/configuration.nix
+          ./machines/kalamos/monitor-int.nix
+        ];
+      };
+      nixosConfigurations.limnos = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = attrs;
+        modules = [
+          ./machines/limnos/configuration.nix
+        ];
+      };
+
+      devShells.${system}.default =
+        pkgs.mkShellNoCC { buildInputs = with pkgs; [ nixfmt ]; };
     };
-    nixosConfigurations.kalamos = nixpkgs.lib.nixosSystem {
-      system = "x84_64-linux";
-      specialArgs = attrs;
-      modules = [
-        ./machines/kalamos/configuration.nix
-      ];
-    };
-  };
 }

@@ -8,7 +8,6 @@ with pkgs.lib;
         type = types.listOf types.package;
         default = with pkgs; [
           cifs-utils
-          direnv
           fzf
           git-crypt
           git-lfs
@@ -152,7 +151,6 @@ with pkgs.lib;
       tools = mkOption {
         type = types.listOf types.package;
         default = with pkgs; [
-          direnv
           dsc
           ghostscript
           (hunspellWithDicts [ "de_DE" "de_CH" "en_US-large" "en_GB-large" ])
@@ -193,11 +191,6 @@ with pkgs.lib;
 
 
   config = {
-    nixpkgs.config.permittedInsecurePackages = [
-      "python2.7-urllib3-1.26.2"
-      "python2.7-pyjwt-1.7.1"
-    ];
-
     environment.systemPackages =
       let
         ff = p: ! builtins.elem p config.software.blacklist;
