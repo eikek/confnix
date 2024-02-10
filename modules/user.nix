@@ -1,17 +1,18 @@
 let
   sshkeys = import ../secrets/ssh-keys.nix;
 in
-username: {pkgs, config, ...}:
+{ username, uid ? 1000}: {pkgs, config, ...}:
 {
 
   users.users.${username} = {
     name = username;
     isNormalUser = true;
-    uid = 1000;
+    uid = uid;
     createHome = true;
     home = "/home/${username}";
     shell = pkgs.fish;
-    openssh.authorizedKeys.keys = [ sshkeys.${username} ];
+    openssh.authorizedKeys.keys =
+      if sshkeys.${username} != null then [ sshkeys.${username} ] else [];
     extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" ];
   };
 

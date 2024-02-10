@@ -1,18 +1,16 @@
-{ config, nixos-hardware, agenix, lib, pkgs, ... }:
+{ config, nixos-hardware, lib, pkgs, ... }:
 let
   printer = import ../../modules/printer.nix;
-  usermod = import ../../modules/user.nix "eike";
+  usermod = import ../../modules/user.nix { username = "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" ];
   macOsFirmware = import ./firmware.nix;
+  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
 in
 {
   imports =
     [ ./hw-config.nix
       nixos-hardware.nixosModules.apple-t2
-      agenix.nixosModules.default
-      ../../modules/accounts.nix
       ./bluetooth.nix
-      ../../modules/dsc-watch.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
       ../../modules/flakes.nix
@@ -29,6 +27,7 @@ in
       ../../modules/zsa.nix
       printer.home
       usermod
+      dscwatchmod
       dockermod
       macOsFirmware
     ];
@@ -96,7 +95,6 @@ in
     kail
     jdk17
     sops
-    agenix.packages.x86_64-linux.default
   ];
 
   system.stateVersion = "23.11";

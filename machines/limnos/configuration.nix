@@ -1,6 +1,6 @@
 let
   username = "linda";
-  usermod = (import ../../modules/user.nix username);
+  usermod = import ../../modules/user.nix { inherit username; };
   printer = import ../../modules/printer.nix;
 in
 { config, pkgs, ... }:
@@ -8,7 +8,6 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hw-limnos.nix
-      ../../modules/accounts.nix
       ../../modules/bluetooth.nix
       ../../modules/flakes.nix
       ../../modules/fonts.nix
@@ -20,6 +19,7 @@ in
       ../../modules/software.nix
       ../../modules/vbox-host.nix
       usermod
+      (import ../../modules/user.nix { username = "eike"; uid = 1020; })
       printer.home
     ] ++
     (import ../../pkgs/modules.nix);
@@ -33,6 +33,9 @@ in
       efi.canTouchEfiVariables = true;
     };
   };
+
+  age.secrets.eike.file = ../../secrets/eike.age;
+  users.users.eike.hashedPasswordFile = config.age.secrets.eike.path;
 
   fileSystems =
   let

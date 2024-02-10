@@ -1,4 +1,6 @@
 result
 /modules/localssl/certs/
 .direnv/
+local/
 accounts.nix
+*.qcow2

@@ -2,18 +2,17 @@
 let
   sshkeys = import ../../secrets/ssh-keys.nix;
   printer = import ../../modules/printer.nix;
-  usermod = import ../../modules/user.nix "eike";
+  usermod = import ../../modules/user.nix { username =  "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
+  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
 in {
   # note: one of monitor-int or monitor-ext modules is required
   imports = [
     ./hw-kalamos.nix
     ./vpn.nix
     ./work.nix
-    ../../modules/accounts.nix
     ../../modules/androiddev.nix
     ../../modules/bluetooth.nix
-    ../../modules/dsc-watch.nix
     ../../modules/emacs.nix
     ../../modules/ergodox.nix
     ../../modules/flakes.nix
@@ -29,9 +28,13 @@ in {
     ../../modules/xserver.nix
     ../../modules/zsa.nix
     printer.home
+    dscwatchmod
     usermod
     dockermod
   ] ++ (import ../../pkgs/modules.nix);
+
+  age.secrets.eike.file = ../../secrets/eike.age;
+  users.users.eike.hashedPasswordFile = config.age.secrets.eike.path;
 
   boot = {
     tmp.cleanOnBoot = true;

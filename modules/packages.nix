@@ -1,9 +1,9 @@
-{ pkgs, config, dsc, ... }: {
+{ pkgs, config, dsc, agenix, ... }: {
   imports =
     # legacy
     import ../pkgs/modules.nix ++
     # flakes
-    [ dsc.nixosModules.default ];
+    [ dsc.nixosModules.default agenix.nixosModules.default ];
 
   nixpkgs = { config = { packageOverrides = import ../pkgs; }; };
 

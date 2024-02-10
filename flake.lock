@@ -73,17 +73,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1707587737,
-        "narHash": "sha256-Atw1rEaq40GI6M2H/MztWSNBMfMLYWVLNOexZ73HG1A=",
+        "lastModified": 1707600147,
+        "narHash": "sha256-56o2zf07BC4mxwSOaP7xzUizFkj8ZDN91FyT3bqSQwk=",
         "owner": "docspell",
         "repo": "dsc",
-        "rev": "0a19edc4116e94fb7128ce168cdf6c2276babe07",
+        "rev": "2fd98862949d2658c16c21b194cdf40054c9f5f6",
         "type": "github"
       },
       "original": {
         "owner": "docspell",
         "repo": "dsc",
-        "rev": "0a19edc4116e94fb7128ce168cdf6c2276babe07",
         "type": "github"
       }
     },
