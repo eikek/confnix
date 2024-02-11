@@ -1,9 +1,10 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.gossa;
-in {
+in
+{
 
   ## interface
   options = {

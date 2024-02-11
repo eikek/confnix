@@ -8,7 +8,8 @@
   # for firefox/chromium you must import this in their "certificate
   # authority" settings
   security.pki.certificateFiles =
-    [ ./certs/rootCA.pem
+    [
+      ./certs/rootCA.pem
     ];
 
   services.nginx = {
@@ -36,15 +37,15 @@
         sslCertificate = ./certs/server.crt;
         sslCertificateKey = ./certs/server.key;
         locations."/" = {
-           proxyPass = "http://127.0.0.1:7880";
-           proxyWebsockets = true;
-           extraConfig = ''
-             client_max_body_size 105M;
-             proxy_send_timeout   300s;
-             proxy_read_timeout   300s;
-             proxy_buffering off;
-             send_timeout         300s;
-           '';
+          proxyPass = "http://127.0.0.1:7880";
+          proxyWebsockets = true;
+          extraConfig = ''
+            client_max_body_size 105M;
+            proxy_send_timeout   300s;
+            proxy_read_timeout   300s;
+            proxy_buffering off;
+            send_timeout         300s;
+          '';
         };
       };
     };

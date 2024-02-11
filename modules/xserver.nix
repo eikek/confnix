@@ -6,7 +6,7 @@
     layout = "de";
     exportConfiguration = true;
     libinput.enable = true;
-#    xkbVariant = "neo";
+    #    xkbVariant = "neo";
 
     desktopManager = {
       xterm.enable = false;
@@ -22,7 +22,8 @@
         enable = true;
       };
       session = [
-        { manage = "desktop";
+        {
+          manage = "desktop";
           name = "herbstluft";
           start = ''
             ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &

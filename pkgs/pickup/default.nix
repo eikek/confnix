@@ -1,13 +1,13 @@
-{stdenv, lib, fetchurl, jre8_headless, unzip, bash}:
+{ stdenv, lib, fetchurl, jre8_headless, unzip, bash }:
 
 stdenv.mkDerivation rec {
   version = "0.1.0";
   name = "pickup-${version}";
 
-   src = fetchurl {
-     url = "https://github.com/eikek/pickup/releases/download/v${version}/pickup-admin-${version}.zip";
-     sha256 = "08b81n52ljgrk3j03schixi83x8phqm80h4x7xjbbmxx94zvg10b";
-   };
+  src = fetchurl {
+    url = "https://github.com/eikek/pickup/releases/download/v${version}/pickup-admin-${version}.zip";
+    sha256 = "08b81n52ljgrk3j03schixi83x8phqm80h4x7xjbbmxx94zvg10b";
+  };
 
   buildInputs = [ jre8_headless ];
 

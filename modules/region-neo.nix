@@ -1,4 +1,4 @@
-{pkgs, config, ...}:
+{ pkgs, config, ... }:
 {
   # Select internationalisation properties.
   console.keyMap = "neo";

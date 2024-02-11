@@ -20,7 +20,7 @@ in
   environment.systemPackages = [ nvidia-offload nvidia_x11.bin nvidia_x11.settings ];
 
   services.xserver = {
-    videoDrivers = [ "nvidia"  ];
+    videoDrivers = [ "nvidia" ];
     logFile = null;
     defaultDepth = 24;
     extraConfig = ''

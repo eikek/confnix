@@ -2,10 +2,11 @@
 let
   sshkeys = import ../../secrets/ssh-keys.nix;
   printer = import ../../modules/printer.nix;
-  usermod = import ../../modules/user.nix { username =  "eike"; };
+  usermod = import ../../modules/user.nix { username = "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
   dscwatchmod = import ../../modules/dsc-watch.nix "eike";
-in {
+in
+{
   # note: one of monitor-int or monitor-ext modules is required
   imports = [
     ./hw-kalamos.nix
@@ -56,32 +57,35 @@ in {
     cpuFreqGovernor = "ondemand";
   };
 
-  fileSystems = let
-    mounts = {
-      "/mnt/data" = {
-        device = "/dev/disk/by-label/data";
-        fsType = "xfs";
-        options = [ "noauto" "user" "rw" "exec" "suid" "async" ];
-        noCheck = true;
+  fileSystems =
+    let
+      mounts = {
+        "/mnt/data" = {
+          device = "/dev/disk/by-label/data";
+          fsType = "xfs";
+          options = [ "noauto" "user" "rw" "exec" "suid" "async" ];
+          noCheck = true;
+        };
       };
-    };
-  in mounts // (builtins.listToAttrs (map (mp: {
-    name = "/mnt/nas/" + mp;
-    value = {
-      device = "//files.home/" + mp;
-      fsType = "cifs";
-      options = [
-        "noauto"
-        "user"
-        "username=eike"
-        "password=eike"
-        "uid=1000"
-        "gid=100"
-        "vers=2.0"
-      ];
-      noCheck = true;
-    };
-  }) [ "data" "eike" ]));
+    in
+    mounts // (builtins.listToAttrs (map
+      (mp: {
+        name = "/mnt/nas/" + mp;
+        value = {
+          device = "//files.home/" + mp;
+          fsType = "cifs";
+          options = [
+            "noauto"
+            "user"
+            "username=eike"
+            "password=eike"
+            "uid=1000"
+            "gid=100"
+            "vers=2.0"
+          ];
+          noCheck = true;
+        };
+      }) [ "data" "eike" ]));
 
   #Requires recompile of virtualbox
   #  virtualisation.virtualbox.host.enableExtensionPack = true;

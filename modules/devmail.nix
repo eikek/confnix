@@ -11,28 +11,28 @@
 #
 let
   checkPassword = ''
-   #!/bin/sh
+    #!/bin/sh
 
-   REPLY="$1"
-   INPUT_FD=3
-   ERR_FAIL=1
-   ERR_NOUSER=3
-   ERR_TEMP=111
+    REPLY="$1"
+    INPUT_FD=3
+    ERR_FAIL=1
+    ERR_NOUSER=3
+    ERR_TEMP=111
 
-   read -d ''$'\x0' -r -u $INPUT_FD USER
-   read -d ''$'\x0' -r -u $INPUT_FD PASS
+    read -d ''$'\x0' -r -u $INPUT_FD USER
+    read -d ''$'\x0' -r -u $INPUT_FD PASS
 
-   [ "$AUTHORIZED" != 1 ] || export AUHORIZED=2
+    [ "$AUTHORIZED" != 1 ] || export AUHORIZED=2
 
-   if [ "$CREDENTIALS_LOOKUP" = 1 ]; then
-     exit $ERR_FAIL
-   else
-     if [ "$USER" == "$PASS" ]; then
-       exec $REPLY
-     else
-       exit $ERR_FAIL
-     fi
-   fi
+    if [ "$CREDENTIALS_LOOKUP" = 1 ]; then
+      exit $ERR_FAIL
+    else
+      if [ "$USER" == "$PASS" ]; then
+        exec $REPLY
+      else
+        exit $ERR_FAIL
+      fi
+    fi
   '';
   checkpasswordScript = pkgs.writeScript "checkpassword-dovecot.sh" checkPassword;
   usersdir = "/var/data/devmail/users";
@@ -80,7 +80,7 @@ with lib;
       name = pkgs.lib.mkForce "exim";
     };
 
-    environment.systemPackages = [pkgs.inetutils pkgs.sqlite];
+    environment.systemPackages = [ pkgs.inetutils pkgs.sqlite ];
 
     services.nginx.enable = true;
     services.roundcubedev = {
@@ -89,91 +89,91 @@ with lib;
     };
 
     services.exim =
-    let
-      names = [ cfg.primaryHostname "@" ] ++ cfg.localDomains;
-    in
-    {
-      enable = true;
-      config = ''
-        primary_hostname = ${cfg.primaryHostname}
-        domainlist local_domains = ${builtins.concatStringsSep ":" names}
+      let
+        names = [ cfg.primaryHostname "@" ] ++ cfg.localDomains;
+      in
+      {
+        enable = true;
+        config = ''
+          primary_hostname = ${cfg.primaryHostname}
+          domainlist local_domains = ${builtins.concatStringsSep ":" names}
 
-        acl_smtp_rcpt = acl_check_rcpt
-        acl_smtp_data = acl_check_data
-        never_users = root
+          acl_smtp_rcpt = acl_check_rcpt
+          acl_smtp_data = acl_check_data
+          never_users = root
 
-        daemon_smtp_ports = 25 : 587
+          daemon_smtp_ports = 25 : 587
 
-        split_spool_directory = true
-        host_lookup =
+          split_spool_directory = true
+          host_lookup =
 
-        tls_advertise_hosts =
-        message_size_limit = 30m
+          tls_advertise_hosts =
+          message_size_limit = 30m
 
-        begin acl
-        acl_check_rcpt:
-        accept  authenticated = *
-        #accept hosts = :
-        #accept
+          begin acl
+          acl_check_rcpt:
+          accept  authenticated = *
+          #accept hosts = :
+          #accept
 
-        acl_check_data:
-        accept
+          acl_check_data:
+          accept
 
-        begin routers
-        localuser:
-          driver = accept
-          transport = local_delivery
-          router_home_directory =
-          cannot_route_message = Unknown user
+          begin routers
+          localuser:
+            driver = accept
+            transport = local_delivery
+            router_home_directory =
+            cannot_route_message = Unknown user
 
 
-        begin transports
-        remote_smtp:
-          driver = smtp
-          hosts_try_prdr = *
+          begin transports
+          remote_smtp:
+            driver = smtp
+            hosts_try_prdr = *
 
-        local_delivery:
-          driver = appendfile
-          current_directory = ${usersdir}
-          maildir_format = true
-          directory = ${usersdir}/all/Maildir
-          delivery_date_add
-          envelope_to_add
-          return_path_add
-          create_directory
-          directory_mode = 0755
-          mode = 0660
-          user = exim
-          group = exim
+          local_delivery:
+            driver = appendfile
+            current_directory = ${usersdir}
+            maildir_format = true
+            directory = ${usersdir}/all/Maildir
+            delivery_date_add
+            envelope_to_add
+            return_path_add
+            create_directory
+            directory_mode = 0755
+            mode = 0660
+            user = exim
+            group = exim
 
-        address_pipe:
-          driver = pipe
-          return_output
+          address_pipe:
+            driver = pipe
+            return_output
 
-        begin retry
-        # Address or Domain    Error       Retries
-        # -----------------    -----       -------
-        *                      *           F,2h,15m; G,16h,1h,1.5; F,4d,6h
+          begin retry
+          # Address or Domain    Error       Retries
+          # -----------------    -----       -------
+          *                      *           F,2h,15m; G,16h,1h,1.5; F,4d,6h
 
-        begin rewrite
+          begin rewrite
 
-        begin authenticators
-        PLAIN:
-          driver                  = plaintext
-          server_set_id           = $auth2
-          server_prompts          = :
-          server_condition        = ''${if eq{$auth3}{$auth2}}
-          server_advertise_condition = true
+          begin authenticators
+          PLAIN:
+            driver                  = plaintext
+            server_set_id           = $auth2
+            server_prompts          = :
+            server_condition        = ''${if eq{$auth3}{$auth2}}
+            server_advertise_condition = true
 
-        LOGIN:
-          driver = plaintext
-          public_name = LOGIN
-          server_prompts = User Name : Password
-          server_condition = ''${if eq{$auth1}{$auth2}}
-          server_set_id = $auth1
+          LOGIN:
+            driver = plaintext
+            public_name = LOGIN
+            server_prompts = User Name : Password
+            server_condition = ''${if eq{$auth1}{$auth2}}
+            server_set_id = $auth1
 
-      '';
-    };
+        '';
+      };
 
     services.dovecot2 = {
       enable = true;
@@ -183,15 +183,15 @@ with lib;
       mailGroup = "exim";
       enablePAM = false;
       extraConfig = ''
-       first_valid_uid = 172
-       userdb {
-         driver = static
-         args = uid=exim gid=exim home=${usersdir}/%u
-       }
-       passdb {
-         driver = checkpassword
-         args = ${checkpasswordScript}
-       }
+        first_valid_uid = 172
+        userdb {
+          driver = static
+          args = uid=exim gid=exim home=${usersdir}/%u
+        }
+        passdb {
+          driver = checkpassword
+          args = ${checkpasswordScript}
+        }
       '';
     };
 

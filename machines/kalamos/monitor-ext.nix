@@ -9,7 +9,7 @@
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia"  ];
+    videoDrivers = [ "nvidia" ];
     logFile = null;
   };
 

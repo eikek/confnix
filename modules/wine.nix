@@ -1,4 +1,4 @@
-users: {pkgs, config, ...}:
+users: { pkgs, config, ... }:
 {
   environment.systemPackages = [
     pkgs.wineWowPackages.stable

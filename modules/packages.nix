@@ -7,12 +7,13 @@
 
   nixpkgs = { config = { packageOverrides = import ../pkgs; }; };
 
-  nixpkgs.overlays = let system = pkgs.stdenv.hostPlatform.system;
-  in [
-    #dsc.overlays.default <- this tries to rebuild dsc with default nixpkgs (that is 23.11) and an outdated cargo
-    (final: prev: { dsc = dsc.packages.${system}.default; })
-    (final: prev: { ds4e = ds4e.packages.${system}.default; })
-  ];
+  nixpkgs.overlays =
+    let system = pkgs.stdenv.hostPlatform.system;
+    in [
+      #dsc.overlays.default <- this tries to rebuild dsc with default nixpkgs (that is 23.11) and an outdated cargo
+      (final: prev: { dsc = dsc.packages.${system}.default; })
+      (final: prev: { ds4e = ds4e.packages.${system}.default; })
+    ];
 
   environment.systemPackages = with pkgs; [
     bandwhich
@@ -76,6 +77,7 @@
 
   environment = { homeBinInPath = true; };
 
-  users.users.root = let sshkeys = import ../secrets/ssh-keys.nix;
-  in { openssh.authorizedKeys.keys = [ sshkeys.eike ]; };
+  users.users.root =
+    let sshkeys = import ../secrets/ssh-keys.nix;
+    in { openssh.authorizedKeys.keys = [ sshkeys.eike ]; };
 }

@@ -1,13 +1,13 @@
-{lib, stdenv, fetchurl, jre8_headless, unzip, bash}:
+{ lib, stdenv, fetchurl, jre8_headless, unzip, bash }:
 
 stdenv.mkDerivation rec {
   version = "0.1.0";
   name = "attentive-${version}";
 
-   src = fetchurl {
-     url = "https://github.com/eikek/attentive/releases/download/v${version}/attentive-${version}.zip";
-     sha256 = "03jyxnrjzd95phyq40j3spwwn8s3xgf2ddlx6q2l4jb1srd2an29";
-   };
+  src = fetchurl {
+    url = "https://github.com/eikek/attentive/releases/download/v${version}/attentive-${version}.zip";
+    sha256 = "03jyxnrjzd95phyq40j3spwwn8s3xgf2ddlx6q2l4jb1srd2an29";
+  };
 
   buildInputs = [ jre8_headless ];
 

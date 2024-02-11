@@ -4,7 +4,8 @@ let
     enabled = true;
     solr.url = "http://localhost:${toString config.services.solr.port}/solr/docspell";
   };
-in {
+in
+{
 
   imports = import ../pkgs/modules.nix;
 
@@ -54,16 +55,17 @@ in {
     allowedTCPPorts = [ 7880 7878 ];
   };
 
-# install postgresql and initially create user/database
+  # install postgresql and initially create user/database
   services.postgresql =
-  let
-    pginit = pkgs.writeText "pginit.sql" ''
-      CREATE USER docspell WITH PASSWORD 'docspell' LOGIN CREATEDB;
-      GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO docspell;
-      GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO docspell;
-      CREATE DATABASE DOCSPELL OWNER 'docspell';
-    '';
-  in {
+    let
+      pginit = pkgs.writeText "pginit.sql" ''
+        CREATE USER docspell WITH PASSWORD 'docspell' LOGIN CREATEDB;
+        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO docspell;
+        GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO docspell;
+        CREATE DATABASE DOCSPELL OWNER 'docspell';
+      '';
+    in
+    {
       enable = true;
       package = pkgs.postgresql_12;
       enableTCPIP = true;
@@ -72,7 +74,7 @@ in {
       authentication = ''
         host  all  all 0.0.0.0/0 md5
       '';
-  };
+    };
 
   services.solr = {
     enable = true;
@@ -97,15 +99,17 @@ in {
         fi
       '';
     in
-      { script = initSolr;
-        after = [ "solr.target" ];
-        wantedBy = [ "multi-user.target" ];
-        requires = [ "solr.target" ];
-        description = "Create a core at solr";
-      };
+    {
+      script = initSolr;
+      after = [ "solr.target" ];
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "solr.target" ];
+      description = "Create a core at solr";
+    };
 
   environment.systemPackages =
-    [ pkgs.docspell.tools
+    [
+      pkgs.docspell.tools
     ];
 
 }

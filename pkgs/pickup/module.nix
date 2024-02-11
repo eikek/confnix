@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -85,7 +85,8 @@ let
       }
     }
   '';
-in {
+in
+{
 
   ## interface
   options = {
@@ -249,20 +250,20 @@ in {
             };
             recipients = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               description = "A list of email addresses that receive notifications.";
             };
           };
         });
         default = {
           enable = false;
-          recipients = [];
+          recipients = [ ];
         };
         description = "Settings for mail notify";
       };
 
       smtp = mkOption {
-        type = types.submodule({
+        type = types.submodule ({
           options = {
             host = mkOption {
               type = types.str;

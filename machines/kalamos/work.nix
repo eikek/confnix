@@ -19,7 +19,8 @@ in
     extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" ];
     packages =
       with pkgs;
-      [ libreoffice
+      [
+        libreoffice
         slack
         zoom-us
         squirrel-sql

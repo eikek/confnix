@@ -1,26 +1,27 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.mpdscribble;
   mkAccount = name: val: ''
-  [${name}]
-  url = ${val.url}
-  username = ${val.user}
-  password = ${val.pass}
-  journal = ${cfg.baseDir}/${name}.journal
+    [${name}]
+    url = ${val.url}
+    username = ${val.user}
+    password = ${val.pass}
+    journal = ${cfg.baseDir}/${name}.journal
   '';
   configFile = pkgs.writeText "mpdscribble.conf" ''
-    [mpdscribble]
-    host = ${cfg.mpdHost}
-    port = ${toString cfg.mpdPort}
+     [mpdscribble]
+     host = ${cfg.mpdHost}
+     port = ${toString cfg.mpdPort}
 
-    log = syslog
-    verbose = 2
+     log = syslog
+     verbose = 2
 
-   ${builtins.concatStringsSep "\n\n" (builtins.attrValues (builtins.mapAttrs mkAccount cfg.accounts))}
+    ${builtins.concatStringsSep "\n\n" (builtins.attrValues (builtins.mapAttrs mkAccount cfg.accounts))}
   '';
-in {
+in
+{
 
   ## interface
   options = {

@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.solr;
 in
@@ -47,7 +47,8 @@ in
 
     environment.etc = {
       solr =
-        { source = "${pkgs.solr}/server/solr";
+        {
+          source = "${pkgs.solr}/server/solr";
         };
     };
 
@@ -72,7 +73,7 @@ in
       ];
       environment = {
         SOLR_PORT = toString cfg.port;
-        SOLR_HEAP= "${toString cfg.heap}m";
+        SOLR_HEAP = "${toString cfg.heap}m";
         SOLR_PID_DIR = "/var/solr";
         SOLR_HOME = "${cfg.home-dir}";
         SOLR_LOGS_DIR = "/var/solr/logs";

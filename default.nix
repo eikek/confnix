@@ -1,1 +1,1 @@
-import pkgs/default.nix (import <nixpkgs> {})
+import pkgs/default.nix (import <nixpkgs> { })

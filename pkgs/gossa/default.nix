@@ -1,4 +1,4 @@
-{stdenv, fetchgit, buildGoPackage, perl, go}:
+{ stdenv, fetchgit, buildGoPackage, perl, go }:
 
 stdenv.mkDerivation rec {
   version = "0.0.8";

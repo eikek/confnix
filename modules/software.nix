@@ -86,67 +86,68 @@ with pkgs.lib;
         let
           myR = pkgs.rWrapper.override {
             packages = with pkgs.rPackages;
-              [ ggplot2
+              [
+                ggplot2
               ];
           };
           sbt8 =
             pkgs.writeShellScriptBin "sbt8" ''
               export SBT_OPTS="-Xms512M -Xmx4G -Xss32M -Duser.timezone=GMT"
               ${pkgs.sbt8}/bin/sbt "$@"
-           '';
+            '';
           sbt11 =
             pkgs.writeShellScriptBin "sbt11" ''
               export SBT_OPTS="-Xms512M -Xmx4G -Xss32M -Duser.timezone=GMT"
               ${pkgs.sbt11}/bin/sbt "$@"
-           '';
+            '';
         in
         mkOption
-        {
-          type = types.listOf types.package;
-          default = with pkgs; [
-            myR
-            ammonite
-            nodePackages.bash-language-server
-            bloop
-            cargo
-            clippy
-            clojure
-            coursier
-            elmPackages.elm
-            elmPackages.elm-analyse
-            elmPackages.elm-format
-            elmPackages.elm-language-server
-            elmPackages.elm-live
-            elmPackages.elm-test
-            elmPackages.elm-xref
-            global
-            guile
-            gradle
-            nodejs
-            jetbrains.idea-community
-            inotify-tools
-            leiningen
-            nodejs
-            mariadb
-            maven
-            openscad
-            postgresql
-            purescript
-            python3
-            ripgrep
-            rust-analyzer
-            rustfmt
-            rustup
-            sbcl
-            sbt
-            sbt8
-            sbt11
-            scala
-            silver-searcher
-            visualvm
-            yarn
-          ];
-        };
+          {
+            type = types.listOf types.package;
+            default = with pkgs; [
+              myR
+              ammonite
+              nodePackages.bash-language-server
+              bloop
+              cargo
+              clippy
+              clojure
+              coursier
+              elmPackages.elm
+              elmPackages.elm-analyse
+              elmPackages.elm-format
+              elmPackages.elm-language-server
+              elmPackages.elm-live
+              elmPackages.elm-test
+              elmPackages.elm-xref
+              global
+              guile
+              gradle
+              nodejs
+              jetbrains.idea-community
+              inotify-tools
+              leiningen
+              nodejs
+              mariadb
+              maven
+              openscad
+              postgresql
+              purescript
+              python3
+              ripgrep
+              rust-analyzer
+              rustfmt
+              rustup
+              sbcl
+              sbt
+              sbt8
+              sbt11
+              scala
+              silver-searcher
+              visualvm
+              yarn
+            ];
+          };
 
       tools = mkOption {
         type = types.listOf types.package;
@@ -178,12 +179,12 @@ with pkgs.lib;
 
       extra = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
       };
 
       blacklist = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
       };
 
     };
@@ -195,13 +196,13 @@ with pkgs.lib;
       let
         ff = p: ! builtins.elem p config.software.blacklist;
         all = config.software.base ++
-              config.software.image ++
-              config.software.multimedia ++
-              config.software.xorg ++
-              config.software.devel ++
-              config.software.tools ++
-              config.software.extra;
+          config.software.image ++
+          config.software.multimedia ++
+          config.software.xorg ++
+          config.software.devel ++
+          config.software.tools ++
+          config.software.extra;
       in
-        builtins.filter ff all;
+      builtins.filter ff all;
   };
 }

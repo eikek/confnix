@@ -8,7 +8,8 @@ let
     p.pyqt6
     p.pyqt6-sip
     p.pyqt6-webengine
-    p.epc p.lxml # for eaf
+    p.epc
+    p.lxml # for eaf
     #p.qrcode # eaf-file-browser
     p.pysocks # eaf-browser
     p.pymupdf # eaf-pdf-viewer
@@ -145,6 +146,9 @@ in
   };
 
   binaryPackages = with pkgs; [
-    pyDeps wmctrl xdotool aria
+    pyDeps
+    wmctrl
+    xdotool
+    aria
   ];
 }

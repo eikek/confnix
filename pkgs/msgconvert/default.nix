@@ -1,4 +1,4 @@
-{ perlPackages, fetchurl } :
+{ perlPackages, fetchurl }:
 
 perlPackages.buildPerlModule rec {
   version = "0.918";

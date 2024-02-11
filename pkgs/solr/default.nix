@@ -1,4 +1,4 @@
-{lib, stdenv, fetchurl, makeWrapper, jre }:
+{ lib, stdenv, fetchurl, makeWrapper, jre }:
 # https://discourse.nixos.org/t/solr-has-been-removed-what-are-my-options/33504/3
 stdenv.mkDerivation rec {
   pname = "solr";

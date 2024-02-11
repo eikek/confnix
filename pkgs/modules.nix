@@ -1,7 +1,8 @@
 let
   ifds = import ../ifd;
 in
-[ ./attentive/module.nix
+[
+  ./attentive/module.nix
   ./gossa/module.nix
   ./mpc4s/module.nix
   ./pickup/module.nix

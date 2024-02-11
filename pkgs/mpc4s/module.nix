@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -27,7 +27,8 @@ let
       }
     }
   '';
-in {
+in
+{
 
   ## interface
   options = {

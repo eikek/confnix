@@ -1,4 +1,4 @@
-users: {pkgs, config, ...}:
+users: { pkgs, config, ... }:
 {
   virtualisation.docker = {
     enable = true;
@@ -10,7 +10,7 @@ users: {pkgs, config, ...}:
   };
 
   environment.systemPackages = [
-    (pkgs.docker.override(args: { buildxSupport = true; }))
+    (pkgs.docker.override (args: { buildxSupport = true; }))
     pkgs.docker-compose
   ];
 }

@@ -4,6 +4,7 @@ let
     sha256 = "0lb920b0bdbg5r4489cc1y9lf88g05zbb8imcswsiml8ih6h38iw";
   };
   webact = import "${webactsrc}/nix/release.nix";
-in {
+in
+{
   inherit webact;
 }

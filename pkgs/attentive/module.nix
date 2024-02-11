@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -40,7 +40,8 @@ let
       }
     }
   '';
-in {
+in
+{
 
   ## interface
   options = {
@@ -210,7 +211,7 @@ in {
       };
 
       stats = mkOption {
-        type = types.submodule({
+        type = types.submodule ({
           options = {
             cacheTime = mkOption {
               type = types.str;

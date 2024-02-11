@@ -1,6 +1,6 @@
 # from https://nixos.org/nixos/manual/index.html#module-services-emacs
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   # spinner-lzip = builtins.fetchurl {
@@ -58,219 +58,219 @@ let
   myEmacsWithPkgs =
     emacsWithPackages
       (epkgs: customPackages ++
-          (with epkgs; [
-            svg-tag-mode
-            use-package
-            diminish
-            dash
-            s
-            f
-            hydra
+        (with epkgs; [
+          svg-tag-mode
+          use-package
+          diminish
+          dash
+          s
+          f
+          hydra
 
-            buffer-move
-            eyebrowse
-            rainbow-delimiters
-            hide-lines
-            sqlite3
+          buffer-move
+          eyebrowse
+          rainbow-delimiters
+          hide-lines
+          sqlite3
 
-            rainbow-mode
-            auctex
+          rainbow-mode
+          auctex
 
-            company
-            company-auctex
-            company-nixos-options
-            company-quickhelp
+          company
+          company-auctex
+          company-nixos-options
+          company-quickhelp
 
-            ivy
-            ivy-hydra
-            counsel
-            swiper
+          ivy
+          ivy-hydra
+          counsel
+          swiper
 
-            which-key
-            golden-ratio
-            nyan-mode
-            keycast
+          which-key
+          golden-ratio
+          nyan-mode
+          keycast
 
-            #    moody
-            minions
-            autumn-light-theme
-            badger-theme
-            boron-theme
-            darktooth-theme
-            doom-themes
-            darcula-theme
-            doom-modeline
-            gruvbox-theme
-            leuven-theme
-            reykjavik-theme
-            sexy-monochrome-theme
-            soft-charcoal-theme
-            soft-stone-theme
-            solarized-theme
-            stimmung-themes
-            spacemacs-theme
-            sublime-themes
-            zenburn-theme
-            kaolin-themes
-            inkpot-theme
-            modus-themes
-            humanoid-themes
-            all-the-icons
-            all-the-icons-ivy
-            all-the-icons-dired
+          #    moody
+          minions
+          autumn-light-theme
+          badger-theme
+          boron-theme
+          darktooth-theme
+          doom-themes
+          darcula-theme
+          doom-modeline
+          gruvbox-theme
+          leuven-theme
+          reykjavik-theme
+          sexy-monochrome-theme
+          soft-charcoal-theme
+          soft-stone-theme
+          solarized-theme
+          stimmung-themes
+          spacemacs-theme
+          sublime-themes
+          zenburn-theme
+          kaolin-themes
+          inkpot-theme
+          modus-themes
+          humanoid-themes
+          all-the-icons
+          all-the-icons-ivy
+          all-the-icons-dired
 
-            magit
-            forge
-            git-gutter
-            git-gutter-fringe
-            git-timemachine
+          magit
+          forge
+          git-gutter
+          git-gutter-fringe
+          git-timemachine
 
-            htmlize
-            restclient
+          htmlize
+          restclient
 
-            org-bullets
-            org-tree-slide
-            org-journal
-            org-modern
-            ob-restclient
-            ob-elvish
-            ob-mongo
-            ob-rust
-            ox-asciidoc
-            ox-gfm
-            #ox-jira
-            #ox-pandoc
-            #ox-twbs
-            counsel-org-clock
+          org-bullets
+          org-tree-slide
+          org-journal
+          org-modern
+          ob-restclient
+          ob-elvish
+          ob-mongo
+          ob-rust
+          ox-asciidoc
+          ox-gfm
+          #ox-jira
+          #ox-pandoc
+          #ox-twbs
+          counsel-org-clock
 
-            projectile
-            counsel-projectile
+          projectile
+          counsel-projectile
 
-            dired-subtree
-            dired-rainbow
-            dired-filter
-            dired-ranger
-            dired-sidebar
-            dirvish
-            editorconfig
-            whitespace-cleanup-mode
-            move-text
-            yasnippet
-            expand-region
-            multiple-cursors
-            paredit
-            ggtags
-            emmet-mode
-            web-mode
-            adoc-mode
-            yaml-mode
-            sass-mode
-            goto-chg
-            geiser
-            geiser-guile
-            markdown-mode
-            flymd
-            flycheck
-            flycheck-rust
-            plantuml-mode
-            groovy-mode
-            kotlin-mode
-            flycheck-kotlin
-            js2-mode
-            scala-mode
-            sbt-mode
-            elm-mode
-            clojure-mode
-            clojure-ts-mode
-            sparql-mode
-            rustic
-            elvish-mode
-            monroe
-            cider
-            slime
-            nix-mode
-            nix-ts-mode
-            ess
-            stumpwm-mode
-            password-store
-            pass
-            magnatune
-            chee
-            dictcc
-            beacon
-            nameless
-            logview
-            scad-mode
-            ansible
-            fish-mode
-            treemacs
-            #    dap-mode
-            #    eglot
-            vterm
-            vterm-toggle
-            solaire-mode
-            #    gif-screencast
-            clipetty
-            exec-path-from-shell
-            fish-completion
-            eshell-git-prompt
-            vue-mode
-            vue-html-mode
-            docker
-            docker-compose-mode
-            dockerfile-mode
-            impatient-mode
-            purescript-mode
-            psci
-            psc-ide
-            dhall-mode
-            haskell-mode
-            nix-haskell-mode
-            lsp-metals
-            lsp-mode
-            lsp-java
-            lsp-ui
-            lsp-treemacs
-            lsp-ivy
-            dashboard
-            visual-fill-column
-            fill-column-indicator
-            edit-server
-            polymode
-            poly-markdown
-            poly-R
-            direnv
-            envrc
-            thrift
-            imenu-list
-            imenu-extra
+          dired-subtree
+          dired-rainbow
+          dired-filter
+          dired-ranger
+          dired-sidebar
+          dirvish
+          editorconfig
+          whitespace-cleanup-mode
+          move-text
+          yasnippet
+          expand-region
+          multiple-cursors
+          paredit
+          ggtags
+          emmet-mode
+          web-mode
+          adoc-mode
+          yaml-mode
+          sass-mode
+          goto-chg
+          geiser
+          geiser-guile
+          markdown-mode
+          flymd
+          flycheck
+          flycheck-rust
+          plantuml-mode
+          groovy-mode
+          kotlin-mode
+          flycheck-kotlin
+          js2-mode
+          scala-mode
+          sbt-mode
+          elm-mode
+          clojure-mode
+          clojure-ts-mode
+          sparql-mode
+          rustic
+          elvish-mode
+          monroe
+          cider
+          slime
+          nix-mode
+          nix-ts-mode
+          ess
+          stumpwm-mode
+          password-store
+          pass
+          magnatune
+          chee
+          dictcc
+          beacon
+          nameless
+          logview
+          scad-mode
+          ansible
+          fish-mode
+          treemacs
+          #    dap-mode
+          #    eglot
+          vterm
+          vterm-toggle
+          solaire-mode
+          #    gif-screencast
+          clipetty
+          exec-path-from-shell
+          fish-completion
+          eshell-git-prompt
+          vue-mode
+          vue-html-mode
+          docker
+          docker-compose-mode
+          dockerfile-mode
+          impatient-mode
+          purescript-mode
+          psci
+          psc-ide
+          dhall-mode
+          haskell-mode
+          nix-haskell-mode
+          lsp-metals
+          lsp-mode
+          lsp-java
+          lsp-ui
+          lsp-treemacs
+          lsp-ivy
+          dashboard
+          visual-fill-column
+          fill-column-indicator
+          edit-server
+          polymode
+          poly-markdown
+          poly-R
+          direnv
+          envrc
+          thrift
+          imenu-list
+          imenu-extra
 
-          ]) ++
-          (with epkgs.melpaStablePackages; [
+        ]) ++
+        (with epkgs.melpaStablePackages; [
 
-          ]) ++
-          (with epkgs.nongnuPackages; [
+        ]) ++
+        (with epkgs.nongnuPackages; [
 
-            org-contrib
+          org-contrib
 
-          ]) ++ (with epkgs.elpaPackages; [
+        ]) ++ (with epkgs.elpaPackages; [
 
 
-          ]) ++ (with epkgs.melpaPackages; [
-          ]));
+      ]) ++ (with epkgs.melpaPackages; [
+      ]));
 in
-  pkgs.symlinkJoin {
-    name = "my-emacs";
-    meta.mainProgram = "emacs";
-    paths = [ myEmacsWithPkgs ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postBuild =
-      let
-        envSet =
-          builtins.concatStringsSep " "
-            (builtins.concatLists (pkgs.lib.mapAttrsToList (name: value: [ "--set" name ''"${value}"'' ]) envVars));
-      in
-      ''
+pkgs.symlinkJoin {
+  name = "my-emacs";
+  meta.mainProgram = "emacs";
+  paths = [ myEmacsWithPkgs ];
+  nativeBuildInputs = [ pkgs.makeWrapper ];
+  postBuild =
+    let
+      envSet =
+        builtins.concatStringsSep " "
+          (builtins.concatLists (pkgs.lib.mapAttrsToList (name: value: [ "--set" name ''"${value}"'' ]) envVars));
+    in
+    ''
       wrapProgram $out/bin/emacs --prefix PATH : "${pkgs.lib.makeBinPath (binPackages)}" ${envSet}
-      '';
-  }
+    '';
+}

@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
@@ -16,17 +17,18 @@
   networking.wireless.interfaces = [ "wlo1" ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos-root";
+    {
+      device = "/dev/disk/by-label/nixos-root";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
+    {
+      device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
-    ];
+    [{ device = "/dev/disk/by-label/swap"; }];
 
 }

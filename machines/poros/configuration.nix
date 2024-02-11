@@ -8,7 +8,8 @@ let
 in
 {
   imports =
-    [ ./hw-config.nix
+    [
+      ./hw-config.nix
       nixos-hardware.nixosModules.apple-t2
       ./bluetooth.nix
       ../../modules/emacs.nix
@@ -36,7 +37,8 @@ in
     tmp.cleanOnBoot = true;
     initrd.luks.devices = {
       crootfs = {
-        device = "/dev/nvme0n1p4"; preLVM = true;
+        device = "/dev/nvme0n1p4";
+        preLVM = true;
       };
     };
 
@@ -54,7 +56,7 @@ in
 
   networking = {
     hostName = "poros";
-    wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    wireless.enable = true; # Enables wireless support via wpa_supplicant.
     useDHCP = true;
   };
 
@@ -70,11 +72,13 @@ in
   };
 
   containers.dbpostgres =
-    { config = import ../../modules/devdb-postgres.nix;
+    {
+      config = import ../../modules/devdb-postgres.nix;
       autoStart = false;
     };
   containers.dbsolr =
-    { config = import ../../modules/devdb-solr.nix;
+    {
+      config = import ../../modules/devdb-solr.nix;
       autoStart = false;
     };
 

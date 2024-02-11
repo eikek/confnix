@@ -7,7 +7,8 @@ let
 in
 {
   imports =
-    [ ./hw-kythira.nix
+    [
+      ./hw-kythira.nix
       ../../modules/accounts.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
@@ -32,7 +33,7 @@ in
     (import ../../pkgs/modules.nix);
 
   boot = {
-#    kernelPackages = pkgs.linuxPackages_5_14;
+    #    kernelPackages = pkgs.linuxPackages_5_14;
     tmp.cleanOnBoot = true;
     initrd.luks.devices = {
       rootfs = { device = "/dev/vgroot/root"; preLVM = false; };
@@ -59,27 +60,30 @@ in
   };
 
   fileSystems =
-  let
-    mounts = {
-      "/mnt/data" = {
-        device = "/dev/disk/by-label/data";
-        fsType = "xfs";
-        options = ["noauto" "user" "rw" "exec" "suid" "async"];
-        noCheck = true;
+    let
+      mounts = {
+        "/mnt/data" = {
+          device = "/dev/disk/by-label/data";
+          fsType = "xfs";
+          options = [ "noauto" "user" "rw" "exec" "suid" "async" ];
+          noCheck = true;
+        };
       };
-    };
-  in mounts // (builtins.listToAttrs (map (mp:
-    { name = "/mnt/nas/" + mp;
-      value = {
-        device = "//files.home/" + mp;
-        fsType = "cifs";
-        options = ["noauto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" "vers=2.0" ];
-        noCheck = true;
-      };
-    }) ["data" "eike"]));
+    in
+    mounts // (builtins.listToAttrs (map
+      (mp:
+        {
+          name = "/mnt/nas/" + mp;
+          value = {
+            device = "//files.home/" + mp;
+            fsType = "cifs";
+            options = [ "noauto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" "vers=2.0" ];
+            noCheck = true;
+          };
+        }) [ "data" "eike" ]));
 
-#Requires recompile of virtualbox
-#  virtualisation.virtualbox.host.enableExtensionPack = true;
+  #Requires recompile of virtualbox
+  #  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   security = {
     pam.enableSSHAgentAuth = true;
@@ -102,7 +106,7 @@ in
         echo 'Xft.dpi: 220' | xrdb -merge
       fi
       ${pkgs.stalonetray}/bin/stalonetray &
-      '';
+    '';
   };
 
   users.groups.kvm = {
@@ -113,7 +117,7 @@ in
     hostName = "kythira";
     wireless = {
       enable = true;
-      interfaces = ["wlp110s0"];
+      interfaces = [ "wlp110s0" ];
     };
     useDHCP = true;
 
@@ -123,13 +127,13 @@ in
       internalInterfaces = [ "ve-+" ];
     };
 
-   localCommands = ''
-     ${pkgs.vde2}/bin/vde_switch -tap tap0 -mod 660 -group kvm -daemon
-     ip addr add 10.0.2.1/24 dev tap0
-     ip link set dev tap0 up
-     ${pkgs.procps}/sbin/sysctl -w net.ipv4.ip_forward=1
-     ${pkgs.iptables}/sbin/iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -j MASQUERADE
-   '';
+    localCommands = ''
+      ${pkgs.vde2}/bin/vde_switch -tap tap0 -mod 660 -group kvm -daemon
+      ip addr add 10.0.2.1/24 dev tap0
+      ip link set dev tap0 up
+      ${pkgs.procps}/sbin/sysctl -w net.ipv4.ip_forward=1
+      ${pkgs.iptables}/sbin/iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -j MASQUERADE
+    '';
   };
 
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
@@ -151,13 +155,13 @@ in
   };
 
   software.extra = with pkgs;
-  [
-    libreoffice
-    slack
-    gopass
-    python3Packages.pip
-    coursier
-  ];
+    [
+      libreoffice
+      slack
+      gopass
+      python3Packages.pip
+      coursier
+    ];
 
   # containers.dbpostgres =
   # { config = import ../../modules/devdb-postgres.nix;
@@ -189,7 +193,7 @@ in
 
   hardware = {
     enableAllFirmware = true;
-    cpu.intel.updateMicrocode = true;  #needs unfree
+    cpu.intel.updateMicrocode = true; #needs unfree
     opengl.driSupport32Bit = true;
   };
 

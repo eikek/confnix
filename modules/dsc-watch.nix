@@ -1,4 +1,4 @@
-user: {pkgs, config, ... }:
+user: { pkgs, config, ... }:
 {
 
   age.secrets.dsc-watch-config = {
@@ -19,7 +19,7 @@ user: {pkgs, config, ... }:
     };
     verbose = false;
     delete-files = true;
-    watchDirs = ["/home/docspell"];
+    watchDirs = [ "/home/docspell" ];
     configFile = config.age.secrets.dsc-watch-config.path;
   };
 

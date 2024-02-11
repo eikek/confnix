@@ -13,5 +13,5 @@ emacsPackages.trivialBuild rec {
     sha256 = "sha256-PoCtklyRrP9HsivhzF3a4IpdlMpDxgPdH63eG0PHveE=";
   };
 
-  packageRequires = with emacsPackages; [  ];
+  packageRequires = with emacsPackages; [ ];
 }
