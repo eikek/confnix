@@ -1,4 +1,4 @@
-{ pkgs, config, dsc, agenix, ... }: {
+{ pkgs, config, dsc, agenix, ds4e, ... }: {
   imports =
     # legacy
     import ../pkgs/modules.nix ++
@@ -11,6 +11,7 @@
   in [
     #dsc.overlays.default <- this tries to rebuild dsc with default nixpkgs (that is 23.11) and an outdated cargo
     (final: prev: { dsc = dsc.packages.${system}.default; })
+    (final: prev: { ds4e = ds4e.packages.${system}.default; })
   ];
 
   environment.systemPackages = with pkgs; [

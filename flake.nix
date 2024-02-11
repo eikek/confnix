@@ -18,6 +18,7 @@
       # inputs.nixpkgs.follows = "nixpkgs-unstable";
       # inputs.naersk.follows = "naersk";
     };
+    ds4e.url = "github:docspell/ds4e";
   };
 
   outputs = { self, nixpkgs, agenix, ... }@attrs:

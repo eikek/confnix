@@ -8,8 +8,6 @@ let
     attentive = callPackage ./attentive {};
     c544ppd = callPackage ./c544ppd {};
     chee = callPackage ./chee {};
-    docspell = callPackage ifds.docspell.currentPkg {};
-    ds4e = callPackage ifds.ds4e {};
     gossa = callPackage ./gossa {};
     mc2425ppd = callPackage ./mc2425ppd {};
     meth = callPackage ./meth {};
@@ -17,7 +15,6 @@ let
     msgconvert = callPackage ./msgconvert {};
     myemacs = callPackage ./emacs {};
     pickup = callPackage ./pickup {};
-    sharry = callPackage ifds.sharry.currentPkg {};
     solr = callPackage ./solr {};
     sig = callPackage ./sig {};
     tmm = callPackage ./tmm {};
