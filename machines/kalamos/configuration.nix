@@ -183,7 +183,7 @@ in
 
   # environment.pathsToLink = [ "/" ];
 
-  nixpkgs.config = { allowUnfree = true; };
+  #  nixpkgs.config = { allowUnfree = true; };
 
   nix = {
     sshServe.enable = true;

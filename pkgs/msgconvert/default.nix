@@ -2,7 +2,7 @@
 
 perlPackages.buildPerlModule rec {
   version = "0.918";
-  name = "msgconvert-${version}";
+  pname = "msgconvert";
   src = fetchurl {
     url = "https://github.com/mvz/email-outlook-message-perl/archive/dist-${version}.tar.gz";
     sha256 = "14szla163qb6xzm9kql74n0vn0zzgqhyiw8vdl0v6ja84wsxlj91";

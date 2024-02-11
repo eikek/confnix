@@ -13,21 +13,22 @@ These are the configuration file for some of my
 
 ## Try out packages
 
-Try out some packages defined [here](pkgs/) using `nix-build`:
+Try out some packages defined [here](pkgs/) using `nix build` or `nix
+run`:
 
-    nix-build -A <package>
-
-The `default.nix` file returns the original packages set of your
-current nixos plus all packages from this repo. The packages will use
-dependencies from current nixos, so it might not work out depending on
-the version of nixpkgs.
+    nix build .#chee
 
 
 ## Build a machines configuration
 
-To test build a machine configuration, the `configuration.nix` can be
-given to `nixos-rebuild` command:
+To test build a machine configuration, the machine can be given to
+`nixos-rebuild` command:
 
 ``` bash
-NIXOS_CONFIG=$(pwd)/machines/kythira/configuration.nix nixos-rebuild build
+nixos-rebuild build --flake .#kalamos
+```
+
+To create vm of some machine's config:
+```
+nixos-rebuild build-vm --flake .#kalamos
 ```

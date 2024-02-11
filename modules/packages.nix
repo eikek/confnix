@@ -1,19 +1,9 @@
-{ pkgs, config, dsc, agenix, ds4e, ... }: {
+{ pkgs, config, dsc, agenix, ds4e, webact, ... }: {
   imports =
     # legacy
     import ../pkgs/modules.nix ++
     # flakes
-    [ dsc.nixosModules.default agenix.nixosModules.default ];
-
-  nixpkgs = { config = { packageOverrides = import ../pkgs; }; };
-
-  nixpkgs.overlays =
-    let system = pkgs.stdenv.hostPlatform.system;
-    in [
-      #dsc.overlays.default <- this tries to rebuild dsc with default nixpkgs (that is 23.11) and an outdated cargo
-      (final: prev: { dsc = dsc.packages.${system}.default; })
-      (final: prev: { ds4e = ds4e.packages.${system}.default; })
-    ];
+    [ dsc.nixosModules.default agenix.nixosModules.default webact.nixosModules.default ];
 
   environment.systemPackages = with pkgs; [
     bandwhich

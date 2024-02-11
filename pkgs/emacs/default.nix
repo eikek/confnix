@@ -1,6 +1,6 @@
 # from https://nixos.org/nixos/manual/index.html#module-services-emacs
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs }:
 
 let
   # spinner-lzip = builtins.fetchurl {
@@ -47,7 +47,7 @@ let
 
   eaf = import ./eaf.nix { inherit pkgs emacsPackages; };
   extras = import ./extras.nix { inherit pkgs emacsPackages; };
-  customPackages = extras ++ [ eaf.elisp ];
+  customPackages = extras ++ [ eaf.elisp pkgs.ds4e ];
 
   # binary packages that are brought into emacs' scope
   binPackages = eaf.binaryPackages;

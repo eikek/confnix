@@ -7,12 +7,11 @@
     #    flake-compat.url = "github:edolstra/flake-compat";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    #nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      #inputs.darwin.follows = ""; #pulls in home-manager otherwise
+      #inputs.darwin.follows = "";
     };
 
     home-manager = {
@@ -25,52 +24,94 @@
       url = "github:docspell/dsc";
     };
     ds4e.url = "github:docspell/ds4e";
+    webact = {
+      url = "github:eikek/webact";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, flake-parts, nixpkgs, agenix, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } ({ withSytem, ... }:
-      let system = "x86_64-linux";
-      in {
-        systems = [ system ];
+  outputs = inputs@{ self, flake-parts, nixpkgs, agenix, dsc, ds4e, webact, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }:
+      let
+        defaultSystem = "x86_64-linux";
 
-        perSystem = { config, system, pkgs, ... }: {
-          _module.args.pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ agenix.overlays.default ];
-          };
+        # taken from here: https://github.com/buntec/nix-config/blob/27d463989a19eff56adc4154c86d3cda01bc8dbf/flake.nix#L74
+        overlays = [
+          (final: prev: {
+            unstable = import inputs.nixpkgs-unstable {
+              inherit (prev) system;
+              config = { allowUnfree = true; };
+            };
+          })
+          # pick packages from unstable
+          (final: prev: {
+            inherit (final.unstable) jetbrains scala-cli;
+          }
+          )
+          self.overlays.default
+          webact.overlays.default
+          ds4e.overlays.default
+          #          dsc.overlays.default <- this makes dsc compile under 23.11 and not using nixpkgs from dsc flake
+          (final: prev: {
+            dsc = dsc.packages.${final.system}.default;
+          })
+        ];
 
-          devShells.default = with pkgs;
-            mkShell { buildInputs = [ nixfmt pkgs.agenix ]; };
-
-          formatter = pkgs.nixpkgs-fmt;
+        pkgsBySystem = system: import nixpkgs {
+          inherit system;
+          inherit overlays;
+          config = { allowUnfree = true; };
         };
+
+        mkNixos = modules: nixpkgs.lib.nixosSystem {
+          system = defaultSystem;
+          specialArgs = inputs;
+          modules = [{ nixpkgs.pkgs = pkgsBySystem defaultSystem; }] ++ modules;
+        };
+      in
+      {
+        systems = [ defaultSystem "i686-linux" ];
+
+        perSystem = { config, system, pkgs, ... }:
+          {
+            _module.args.pkgs = import nixpkgs {
+              inherit system;
+              overlays = [
+                agenix.overlays.default
+                (final: prev: { ds4e = ds4e.packages.${system}.default; })
+              ];
+            };
+
+            packages = (import ./pkgs) pkgs;
+
+            devShells.default = with pkgs;
+              mkShell { buildInputs = [ nixfmt pkgs.agenix ]; };
+
+            formatter = pkgs.nixpkgs-fmt;
+          };
+
         flake = {
-          nixosConfigurations.poros = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = inputs;
-            modules = [ ./machines/poros/configuration.nix ];
-          };
-          nixosConfigurations.kalamos = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = inputs;
-            modules = [
-              ./machines/kalamos/configuration.nix
-              ./machines/kalamos/monitor-ext.nix
-            ];
-          };
-          nixosConfigurations.kalamos-amd = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = inputs;
-            modules = [
-              ./machines/kalamos/configuration.nix
-              ./machines/kalamos/monitor-int.nix
-            ];
-          };
-          nixosConfigurations.limnos = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = inputs;
-            modules = [ ./machines/limnos/configuration.nix ];
-          };
+          overlays.default = final: prev: withSystem prev.stdenv.hostPlatform.system (
+            { config, ... }: config.packages
+          );
+
+          nixosConfigurations.kalamos = mkNixos [
+            ./machines/kalamos/configuration.nix
+            ./machines/kalamos/monitor-ext.nix
+          ];
+
+          nixosConfigurations.kalamos-amd = mkNixos [
+            ./machines/kalamos/configuration.nix
+            ./machines/kalamos/monitor-int.nix
+          ];
+
+          nixosConfigurations.poros = mkNixos [
+            ./machines/poros/configuration.nix
+          ];
+
+          nixosConfigurations.limnos = mkNixos [
+            ./machines/limnos/configuration.nix
+          ];
         };
       });
 }

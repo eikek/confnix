@@ -82,10 +82,6 @@ in
       autoStart = false;
     };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
   environment.systemPackages = with pkgs; [
     libreoffice
     slack

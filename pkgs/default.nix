@@ -1,12 +1,9 @@
 pkgs:
 let
-  ifds = import ../ifd;
   callPackage = pkgs.lib.callPackageWith (custom // pkgs);
-  sbts = callPackage ./sbt { };
-  p = import ../nixversions.nix { };
-  custom = p // {
+  sbts = pkgs.callPackage ./sbt { };
+  custom = {
     attentive = callPackage ./attentive { };
-    c544ppd = callPackage ./c544ppd { };
     chee = callPackage ./chee { };
     gossa = callPackage ./gossa { };
     mc2425ppd = callPackage ./mc2425ppd { };
@@ -18,13 +15,10 @@ let
     solr = callPackage ./solr { };
     sig = callPackage ./sig { };
     tmm = callPackage ./tmm { };
-    webact = callPackage ifds.webact.currentPkg { };
 
-    # Overriding
-    mpd = p.pkgs1909.mpd; # must upgrade mpc4s :(
     sbt8 = sbts.sbt8;
     sbt11 = sbts.sbt11;
-    jetbrains.idea-community = p.pkgsUnstable.jetbrains.idea-community;
+    sbt17 = sbts.sbt17;
   };
 in
 custom

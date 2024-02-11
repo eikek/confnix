@@ -121,10 +121,6 @@ in
   environment.pathsToLink = [ "/" ];
   time.timeZone = "Europe/Berlin";
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
   powerManagement = {
     enable = true;
     powertop.enable = true;
