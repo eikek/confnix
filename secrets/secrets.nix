@@ -6,6 +6,7 @@ let
   machines = {
     kalamos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO+827p9t8sfeogQpE5uX/OY7h2/yuEmuTGvSQg2qjgp";
     poros = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdBVWc3Y6DElS2urnfC5l0gwLX+dSheIQhkZI6Q3Jjk";
+    limnos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJN+u9NtD+TQpK22raOl9dUtbQZH8xBPSXokCicMrXZf";
   };
 
   sshkeys = import ./ssh-keys.nix;
