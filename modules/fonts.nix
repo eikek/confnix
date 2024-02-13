@@ -19,12 +19,13 @@
       inconsolata
       iosevka
       iosevka-bin
-      siji
       source-code-pro
       terminus_font
       ttf-envy-code-r
       ttf_bitstream_vera
       roboto-mono
+      quivira
+      nerdfonts
     ];
   };
 

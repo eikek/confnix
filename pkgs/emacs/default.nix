@@ -118,6 +118,8 @@ let
           all-the-icons
           all-the-icons-ivy
           all-the-icons-dired
+          nerd-icons
+          nerd-icons-dired
 
           magit
           forge

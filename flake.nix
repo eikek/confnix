@@ -45,7 +45,7 @@
           })
           # pick packages from unstable
           (final: prev: {
-            inherit (final.unstable) jetbrains scala-cli;
+            inherit (final.unstable) jetbrains scala-cli quivira;
           }
           )
           self.overlays.default
