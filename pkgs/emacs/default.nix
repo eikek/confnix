@@ -50,7 +50,7 @@ let
   customPackages = extras ++ [ eaf.elisp pkgs.ds4e ];
 
   # binary packages that are brought into emacs' scope
-  binPackages = eaf.binaryPackages;
+  binPackages = eaf.binaryPackages ++ [ pkgs.multimarkdown ];
 
   # additional env variables to set
   envVars = eaf.env;

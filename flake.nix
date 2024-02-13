@@ -51,7 +51,7 @@
           self.overlays.default
           webact.overlays.default
           ds4e.overlays.default
-          #          dsc.overlays.default <- this makes dsc compile under 23.11 and not using nixpkgs from dsc flake
+          #dsc.overlays.default <- this makes dsc compile under 23.11 and not using nixpkgs from dsc flake
           (final: prev: {
             dsc = dsc.packages.${final.system}.default;
           })

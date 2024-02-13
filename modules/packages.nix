@@ -3,7 +3,11 @@
     # legacy
     import ../pkgs/modules.nix ++
     # flakes
-    [ dsc.nixosModules.default agenix.nixosModules.default webact.nixosModules.default ];
+    [
+      dsc.nixosModules.default
+      agenix.nixosModules.default
+      webact.nixosModules.default
+    ];
 
   environment.systemPackages = with pkgs; [
     bandwhich
