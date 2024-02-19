@@ -5,7 +5,6 @@ let
   custom = {
     attentive = callPackage ./attentive { };
     chee = callPackage ./chee { };
-    gossa = callPackage ./gossa { };
     mc2425ppd = callPackage ./mc2425ppd { };
     meth = callPackage ./meth { };
     mpc4s = callPackage ./mpc4s { };
