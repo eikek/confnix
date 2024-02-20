@@ -4,6 +4,6 @@
   hardware.keyboard.zsa.enable = true;
 
   environment.systemPackages = [
-    pkgs.wally-cli
+    pkgs.wally-cli pkgs.keymapp
   ];
 }
