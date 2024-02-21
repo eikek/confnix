@@ -5,7 +5,8 @@ let
   };
   machines = {
     kalamos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO+827p9t8sfeogQpE5uX/OY7h2/yuEmuTGvSQg2qjgp";
-    poros = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdBVWc3Y6DElS2urnfC5l0gwLX+dSheIQhkZI6Q3Jjk";
+    poros_old = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdBVWc3Y6DElS2urnfC5l0gwLX+dSheIQhkZI6Q3Jjk";
+    poros = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILuI6EAuBvZwS45tUk0+QmqQyVt4MRX4xWp2yQTPAywD";
     limnos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJN+u9NtD+TQpK22raOl9dUtbQZH8xBPSXokCicMrXZf";
   };
 

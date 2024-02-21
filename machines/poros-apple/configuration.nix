@@ -1,15 +1,17 @@
-{ config, lib, pkgs, ... }:
+{ config, nixos-hardware, lib, pkgs, ... }:
 let
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix { username = "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" ];
+  macOsFirmware = import ./firmware.nix;
   dscwatchmod = import ../../modules/dsc-watch.nix "eike";
 in
 {
   imports =
     [
       ./hw-config.nix
-      ../../modules/bluetooth.nix
+      nixos-hardware.nixosModules.apple-t2
+      ./bluetooth.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
       ../../modules/flakes.nix
@@ -28,13 +30,14 @@ in
       usermod
       dscwatchmod
       dockermod
+      macOsFirmware
     ];
 
   boot = {
     tmp.cleanOnBoot = true;
     initrd.luks.devices = {
       crootfs = {
-        device = "/dev/nvme0n1p1";
+        device = "/dev/nvme0n1p4";
         preLVM = true;
       };
     };
@@ -48,6 +51,7 @@ in
 
   hardware = {
     enableAllFirmware = false;
+    apple-t2.enableAppleSetOsLoader = true;
   };
 
   networking = {
