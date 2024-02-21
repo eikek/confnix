@@ -1,5 +1,15 @@
-{ stdenvNoCC, buildFHSEnv, fetchurl, libusb1, libudev-zero, webkitgtk, gtk3
-, gdk-pixbuf, glib, libstdcxx5, libgcc }:
+{ stdenvNoCC
+, buildFHSEnv
+, fetchurl
+, libusb1
+, libudev-zero
+, webkitgtk
+, gtk3
+, gdk-pixbuf
+, glib
+, libstdcxx5
+, libgcc
+}:
 let
   keymappbin = stdenvNoCC.mkDerivation {
     name = "keymapbin";
@@ -18,7 +28,8 @@ let
       chmod 755 $out/bin/keymapp
     '';
   };
-in buildFHSEnv {
+in
+buildFHSEnv {
   name = "keymapp";
   runScript = "${keymappbin}/bin/keymapp";
   targetPkgs = p:
