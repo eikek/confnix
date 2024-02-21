@@ -23,6 +23,7 @@
       terminus_font
       ttf_bitstream_vera
       roboto-mono
+      siji
       quivira
       nerdfonts
     ];
