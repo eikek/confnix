@@ -206,12 +206,9 @@ let
           ansible
           fish-mode
           treemacs
-          #    dap-mode
-          #    eglot
           vterm
           vterm-toggle
           solaire-mode
-          #    gif-screencast
           clipetty
           exec-path-from-shell
           fish-completion
@@ -243,9 +240,11 @@ let
           poly-R
           direnv
           envrc
-          thrift
           imenu-list
           imenu-extra
+          rfc-mode
+          ement
+          burly
 
         ]) ++
         (with epkgs.melpaStablePackages; [
