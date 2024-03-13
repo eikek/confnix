@@ -80,11 +80,20 @@ let
           company-auctex
           company-nixos-options
           company-quickhelp
+          orderless
 
-          ivy
-          ivy-hydra
-          counsel
-          swiper
+          consult
+          consult-dir
+          consult-company
+          consult-flycheck
+          consult-projectile
+          consult-yasnippet
+          consult-lsp
+          embark
+          embark-consult
+          marginalia
+          vertico
+          wgrep
 
           which-key
           golden-ratio
@@ -238,7 +247,6 @@ let
           polymode
           poly-markdown
           poly-R
-          direnv
           envrc
           imenu-list
           imenu-extra
