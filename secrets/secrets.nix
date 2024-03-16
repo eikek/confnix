@@ -18,6 +18,7 @@ in
 {
   "dsc-watch-config.age".publicKeys = users ++ systems;
   "dsc-watch-int.age".publicKeys = users ++ systems;
+  "proxy.age".publicKeys = users ++ systems;
 
   "eike.age".publicKeys = systems ++ [ sshkeys.eike sshkeys.eike-nopw ];
 }

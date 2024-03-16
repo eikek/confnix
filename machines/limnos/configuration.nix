@@ -2,6 +2,7 @@ let
   username = "linda";
   usermod = import ../../modules/user.nix { inherit username; };
   printer = import ../../modules/printer.nix;
+  chromiummod = import ../../modules/chromium-proxy.nix username;
 in
 { config, pkgs, ... }:
 {
@@ -22,6 +23,7 @@ in
       usermod
       (import ../../modules/user.nix { username = "eike"; uid = 1020; })
       printer.home
+      chromiummod
     ] ++
     (import ../../pkgs/modules.nix);
 

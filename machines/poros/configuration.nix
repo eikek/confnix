@@ -4,6 +4,7 @@ let
   usermod = import ../../modules/user.nix { username = "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" ];
   dscwatchmod = import ../../modules/dsc-watch.nix "eike";
+  chromiummod = import ../../modules/chromium-proxy.nix "eike";
 in
 {
   imports =
@@ -28,6 +29,7 @@ in
       usermod
       dscwatchmod
       dockermod
+      chromiummod
     ];
 
   boot = {

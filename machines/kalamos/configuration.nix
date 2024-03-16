@@ -5,6 +5,7 @@ let
   usermod = import ../../modules/user.nix { username = "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
   dscwatchmod = import ../../modules/dsc-watch.nix "eike";
+  chromiummod = import ../../modules/chromium-proxy.nix "eike";
 in
 {
   # note: one of monitor-int or monitor-ext modules is required
@@ -32,6 +33,7 @@ in
     dscwatchmod
     usermod
     dockermod
+    chromiummod
   ] ++ (import ../../pkgs/modules.nix);
 
   age.secrets.eike.file = ../../secrets/eike.age;
