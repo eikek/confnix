@@ -17,7 +17,7 @@ in
     home = "/home/${username}";
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [ sshkeys.eike ];
-    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" ];
+    extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" "keys" ];
     packages =
       with pkgs;
       [

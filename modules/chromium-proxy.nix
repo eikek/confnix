@@ -4,6 +4,7 @@ user: { config, pkgs, ...}:
   age.secrets.proxy = {
     file = ../secrets/proxy.age;
     mode = "440";
+    group = "keys";
   };
 
   users.users.${user} = {
