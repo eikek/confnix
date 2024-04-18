@@ -142,6 +142,7 @@ in
 
   services.webact = {
     app-name = "Webact " + config.networking.hostName;
+    package = pkgs.webact-bin;
     enable = true;
     userService = true;
     extra-packages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.scala-cli ];

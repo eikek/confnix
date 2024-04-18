@@ -1,11 +1,12 @@
 let
   username = "sdsc";
   sshkeys = import ../../secrets/ssh-keys.nix;
+  chromiummod = import ../../modules/chromium-proxy.nix username;
 in
 { config, pkgs, ... }:
 {
   imports =
-    [
+    [ chromiummod
     ];
 
   users.users.${username} = {
