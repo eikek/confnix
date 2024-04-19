@@ -26,6 +26,7 @@ in
       ../../modules/xserver.nix
       ../../modules/zsa.nix
       printer.home
+      printer.sdsc
       usermod
       dscwatchmod
       dockermod

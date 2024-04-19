@@ -20,43 +20,23 @@
       };
     };
 
-  work =
-    { config, pkgs, ... }:
-    let
-      acc = config.accounts."bluecare/login";
-    in
+  sdsc = { config, pkgs, ... }:
     {
-      hardware.printers =
-        let
-          credentials = "${acc.domain}\\${acc.username}:${acc.password}";
-          printserver = "bluecare-s20";
-          location = "BlueCare";
-          description = "Kyocera TASKalfa 300ci";
-          model = "Kyocera/Kyocera_TASKalfa_300ci.ppd";
-        in
-        {
-          ensurePrinters = [
-            {
-              name = "FollowMe";
-              location = location;
-              description = description;
-              deviceUri = "smb://${credentials}@${printserver}/FollowMe";
-              model = model;
-            }
-            {
-              name = "FollowMe_Color";
-              location = location;
-              description = "${description} Color";
-              deviceUri = "smb://${credentials}@${printserver}/FollowMe%20Color";
-              model = model;
-            }
-          ];
-          ensureDefaultPrinter = "FollowMe";
-        };
-
+      hardware.printers = {
+        ensurePrinters = [
+          {
+            name = "ETHZCard";
+            #deviceUri = "ipps://pia01.d.ethz.ch:9164/printers/card-ethz";
+            deviceUri = "smb://pia01.d.ethz.ch/card-ethz";
+            location = "ETH Cloud";
+            description = "Card-ethz IPP";
+            model = "ricoh/mp_c3003ps.ppd";
+          }
+        ];
+      };
       services.printing = {
         enable = true;
-        drivers = [ pkgs.cups-kyodialog3 ];
+        drivers = [ pkgs.mc3ppd ];
       };
     };
 }

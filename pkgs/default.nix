@@ -7,6 +7,7 @@ let
     chee = callPackage ./chee { };
     keymapp = callPackage ./keymapp { };
     mc2425ppd = callPackage ./mc2425ppd { };
+    mc3ppd = callPackage ./mc3ppd {};
     meth = callPackage ./meth { };
     mpc4s = callPackage ./mpc4s { };
     msgconvert = callPackage ./msgconvert { };
