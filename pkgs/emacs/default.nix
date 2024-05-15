@@ -253,6 +253,7 @@ let
           rfc-mode
           ement
           burly
+          kubernetes
 
         ]) ++
         (with epkgs.melpaStablePackages; [
