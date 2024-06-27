@@ -53,7 +53,9 @@ let
   binPackages = eaf.binaryPackages ++ [ pkgs.multimarkdown ];
 
   # additional env variables to set
-  envVars = eaf.env;
+  envVars = eaf.env // {
+    JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";
+  };
 
   myEmacsWithPkgs =
     emacsWithPackages

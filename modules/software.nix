@@ -96,43 +96,21 @@ with pkgs.lib;
             type = types.listOf types.package;
             default = with pkgs; [
               myR
-              ammonite
               nodePackages.bash-language-server
               bloop
-              cargo
-              clippy
-              clojure
               coursier
-              elmPackages.elm
-              elmPackages.elm-analyse
-              elmPackages.elm-format
-              elmPackages.elm-language-server
-              elmPackages.elm-live
-              elmPackages.elm-test
-              elmPackages.elm-xref
               global
               guile
               gradle
               nodejs
               jetbrains.idea-community
               inotify-tools
-              leiningen
-              nodejs
-              mariadb
-              maven
               openscad
               postgresql
-              purescript
               python3
               ripgrep
-              rust-analyzer
-              rustfmt
-              rustup
               sbcl
-              sbt
-              sbt8
-              sbt11
-              scala
+              scala-cli
               silver-searcher
               visualvm
               yarn
