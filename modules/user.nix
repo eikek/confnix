@@ -4,6 +4,8 @@ in
 { username, uid ? 1000 }: { pkgs, config, ... }:
 {
 
+  nix.settings.trusted-users = [ username ];
+
   users.users.${username} = {
     name = username;
     isNormalUser = true;
@@ -15,5 +17,4 @@ in
       if sshkeys.${username} != null then [ sshkeys.${username} ] else [ ];
     extraGroups = [ "wheel" "disk" "adm" "systemd-journal" "vboxusers" "adbusers" "networkmanager" "camera" "keys" ];
   };
-
 }
