@@ -42,7 +42,7 @@ let
   };
 
   myEmacs = pkgs.emacs29;
-  emacsPackages = (pkgs.emacsPackagesFor myEmacs).overrideScope' emacsOverrides;
+  emacsPackages = (pkgs.emacsPackagesFor myEmacs).overrideScope emacsOverrides;
   emacsWithPackages = emacsPackages.emacsWithPackages;
 
   eaf = import ./eaf.nix { inherit pkgs emacsPackages; };

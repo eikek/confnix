@@ -94,7 +94,7 @@ in
   #  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   security = {
-    pam.enableSSHAgentAuth = true;
+    pam.sshAgentAuth.enable = true;
     wrappers = {
       "mount.cifs" = {
         source = "${pkgs.cifs-utils}/bin/mount.cifs";

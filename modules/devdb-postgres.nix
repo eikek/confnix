@@ -2,7 +2,7 @@
 
 {
   boot.isContainer = true;
-  networking.firewall.allowedTCPPorts = [ config.services.postgresql.port ];
+  networking.firewall.allowedTCPPorts = [ config.services.postgresql.settings.port ];
 
   services.postgresql =
     let
@@ -17,6 +17,6 @@
       package = pkgs.postgresql;
       enableTCPIP = true;
       initialScript = pginit;
-      port = 5432;
+      settings.port = 5432;
     };
 }

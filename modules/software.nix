@@ -138,7 +138,7 @@ with pkgs.lib;
           unpaper
           python3Packages.weasyprint
           unoconv
-          youtube-dl
+          yt-dlp
           zathura
           ocrmypdf
           q-text-as-data

@@ -70,7 +70,7 @@ in
       package = pkgs.postgresql_12;
       enableTCPIP = true;
       initialScript = pginit;
-      port = 5432;
+      settings.port = 5432;
       authentication = ''
         host  all  all 0.0.0.0/0 md5
       '';

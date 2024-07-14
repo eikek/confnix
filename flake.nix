@@ -2,7 +2,7 @@
   description = "NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     #    flake-compat.url = "github:edolstra/flake-compat";
 
@@ -85,7 +85,7 @@
             packages = (import ./pkgs) pkgs;
 
             devShells.default = with pkgs;
-              mkShell { buildInputs = [ nixfmt pkgs.agenix ]; };
+              mkShell { buildInputs = [ pkgs.agenix ]; };
 
             formatter = pkgs.nixpkgs-fmt;
           };

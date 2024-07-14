@@ -57,7 +57,7 @@
     "${pkgs.fish}/bin/fish"
   ];
 
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
 
   programs = {
     direnv.enable = true;

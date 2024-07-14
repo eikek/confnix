@@ -64,7 +64,7 @@ in
         }) [ "data" "linda" ]));
 
   security = {
-    pam.enableSSHAgentAuth = true;
+    pam.sshAgentAuth.enable = true;
     wrappers = {
       "mount.cifs" = {
         source = "${pkgs.cifs-utils}/bin/mount.cifs";
@@ -219,7 +219,7 @@ in
       virtualbox
       vlc
       wpsoffice
-      youtube-dl
+      yd-dlp
       zathura
       zoom-us
     ];

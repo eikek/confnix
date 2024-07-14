@@ -1,11 +1,11 @@
 { config, pkgs, ... }:
 {
+  services.libinput.enable = true;
   services.xserver = {
     enable = true;
     autorun = true;
-    layout = "de";
+    xkb.layout = "de";
     exportConfiguration = true;
-    libinput.enable = true;
     #    xkbVariant = "neo";
 
     desktopManager = {
@@ -33,6 +33,9 @@
       ];
       defaultSession = "herbstluft";
     };
+  };
+  services.displayManager = {
+    defaultSession = "herbstluft";
   };
 
   services.picom = {
