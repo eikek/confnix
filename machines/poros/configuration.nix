@@ -70,17 +70,6 @@ in
     #settings.PermitRootLogin = "yes";
   };
 
-  containers.dbpostgres =
-    {
-      config = import ../../modules/devdb-postgres.nix;
-      autoStart = false;
-    };
-  containers.dbsolr =
-    {
-      config = import ../../modules/devdb-solr.nix;
-      autoStart = false;
-    };
-
   environment.systemPackages = with pkgs; [
     libreoffice
     slack
@@ -96,5 +85,5 @@ in
     sops
   ];
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }

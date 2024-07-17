@@ -107,7 +107,6 @@ with pkgs.lib;
               inotify-tools
               openscad
               postgresql
-              python3
               ripgrep
               sbcl
               scala-cli
