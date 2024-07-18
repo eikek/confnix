@@ -151,9 +151,6 @@ let
           ob-rust
           ox-asciidoc
           ox-gfm
-          #ox-jira
-          #ox-pandoc
-          #ox-twbs
           counsel-org-clock
 
           projectile
@@ -256,6 +253,7 @@ let
           ement
           burly
           kubernetes
+          pdf-tools
 
         ]) ++
         (with epkgs.melpaStablePackages; [
