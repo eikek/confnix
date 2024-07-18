@@ -43,11 +43,15 @@
     activeOpacity = 1.0;
     inactiveOpacity = 0.9;
     shadow = false;
+    # get window class via:
+    #   xprop WM_CLASS
     opacityRules = [
       "100:fullscreen"
       "100:class_g = 'dmenu'"
       "100:name *= 'i3lock'"
       "100:name *= 'Teams'"
+      "100:class_g = 'Toolkit'"
+      "100:name *= 'Picture-in-Picture'"
       "95:class_g = 'Alacritty' && focused"
     ];
   };
