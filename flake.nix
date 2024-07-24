@@ -112,6 +112,10 @@
           nixosConfigurations.limnos = mkNixos [
             ./machines/limnos/configuration.nix
           ];
+
+          nixosConfigurations.icaria = mkNixos [
+            ./machines/icaria/configuration.nix
+          ];
         };
       });
 }
