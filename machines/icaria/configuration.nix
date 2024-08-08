@@ -125,7 +125,7 @@ in
   };
 
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
-  services.logind.lidSwitch = "hibernate";
+  services.logind.lidSwitch = "suspend";
 
   services.udisks2 = { enable = true; };
 
