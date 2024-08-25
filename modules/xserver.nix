@@ -17,6 +17,11 @@
     displayManager = {
       lightdm = {
         enable = true;
+        greeters = {
+          gtk = {
+            cursorTheme.size = 32;
+          };
+        };
       };
       startx = {
         enable = true;
@@ -26,6 +31,9 @@
           manage = "desktop";
           name = "herbstluft";
           start = ''
+            if test -e "$HOME/.Xresources"; then
+              ${pkgs.xorg.xrdb}/bin/xrdb -merge $HOME/.Xresources
+            fi
             ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
             waitPID=$!
           '';
@@ -34,6 +42,11 @@
       defaultSession = "herbstluft";
     };
   };
+
+  environment.systemPackages = [
+    pkgs.xorg.xcursorthemes
+  ];
+
   services.displayManager = {
     defaultSession = "herbstluft";
   };
