@@ -238,7 +238,11 @@ let
           lsp-java
           lsp-ui
           lsp-treemacs
-          lsp-ivy
+          lsp-pyright
+          lsp-bridge
+          poetry
+          # ruff-format
+          # lazy-ruff
           dashboard
           visual-fill-column
           fill-column-indicator
