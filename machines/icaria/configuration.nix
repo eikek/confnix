@@ -29,6 +29,7 @@ in
     ../../modules/vbox-host.nix
     ../../modules/xserver.nix
     ../../modules/zsa.nix
+    ../../modules/arduino-nano.nix
     printer.home
     printer.sdsc
     dscwatchmod

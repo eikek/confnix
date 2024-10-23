@@ -29,6 +29,7 @@ in
     ../../modules/vbox-host.nix
     ../../modules/xserver.nix
     ../../modules/zsa.nix
+    ./arduino-geburi.nix
     printer.home
     printer.sdsc
     dscwatchmod

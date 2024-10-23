@@ -35,6 +35,5 @@ nixos-rebuild build-vm --flake .#kalamos
 
 To deploy at some machine:
 ```
-nixos-rebuild switch --flake .#icaria \
-  --target-host root@192.168.1.228 --build-host localhost --verbose
+nixos-rebuild --flake .#icaria --target-host root@192.168.1.228 --fast switch
 ```
