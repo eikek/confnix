@@ -95,6 +95,10 @@
             { config, ... }: config.packages
           );
 
+          nixosConfigurations.kythira = mkNixos [
+            ./machines/kythira/configuration.nix
+          ];
+
           nixosConfigurations.kalamos = mkNixos [
             ./machines/kalamos/configuration.nix
             ./machines/kalamos/monitor-ext.nix
