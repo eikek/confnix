@@ -1,4 +1,4 @@
-user: { config, pkgs, ...}:
+user: { config, pkgs, ... }:
 
 {
   age.secrets.proxy = {

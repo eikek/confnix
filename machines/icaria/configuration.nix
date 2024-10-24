@@ -63,7 +63,7 @@ in
 
   fileSystems =
     let
-      mounts = {};
+      mounts = { };
     in
     mounts // (builtins.listToAttrs (map
       (mp: {

@@ -18,25 +18,30 @@
       xfce.enable = true;
     };
   };
-#  services.displayManager.defaultSession = "xfce";
+  #  services.displayManager.defaultSession = "xfce";
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "de";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.alice = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "disk" "camera" "keys" "dialout" ];
-    packages = with pkgs; [
-      firefox
+  users.users.alice =
+    let
+      sshkeys = import ../../secrets/ssh-keys.nix;
+    in
+    {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "disk" "camera" "keys" "dialout" ];
+      openssh.authorizedKeys.keys = [ sshkeys.eike ];
+      packages = with pkgs; [
+        firefox
 
-      arduino-core
-      arduino-cli
-      arduino-mk
-      arduino-ide
-      fritzing
-      dfu-util
-    ];
-  };
+        arduino-core
+        arduino-cli
+        arduino-mk
+        arduino-ide
+        fritzing
+        dfu-util
+      ];
+    };
 }

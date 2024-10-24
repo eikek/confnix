@@ -16,7 +16,7 @@ let
     src = fetchurl {
       url =
         "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz";
-      sha256 = "sha256-9umi9QWWSG0W3w9d7eRwtZHUraqInkqJbE+Lkdn3TU8=";
+      sha256 = "sha256-KJZ6KlsMmKal4gRzDKh7E8fulphCx2eviJMiyypbagY=";
     };
     unpackPhase = ''
       tar xf $src

@@ -6,7 +6,8 @@ in
 { config, pkgs, ... }:
 {
   imports =
-    [ chromiummod
+    [
+      chromiummod
     ];
 
   nix.settings.trusted-users = [ username ];
