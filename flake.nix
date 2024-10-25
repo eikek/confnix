@@ -30,7 +30,7 @@
     };
   };
 
-  outputs = inputs@{ self, flake-parts, nixpkgs, agenix, dsc, ds4e, webact, ... }:
+  outputs = inputs@{ self, flake-parts, nixpkgs, nixos-hardware, agenix, dsc, ds4e, webact, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }:
       let
         defaultSystem = "x86_64-linux";
@@ -111,6 +111,7 @@
 
           nixosConfigurations.poros = mkNixos [
             ./machines/poros/configuration.nix
+            nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
           ];
 
           nixosConfigurations.limnos = mkNixos [
