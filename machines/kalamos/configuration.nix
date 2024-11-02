@@ -12,7 +12,6 @@ in
   imports = [
     ./hw-kalamos.nix
     ./vpn.nix
-    ./work.nix
     ../../modules/androiddev.nix
     ../../modules/bluetooth.nix
     ../../modules/emacs.nix
