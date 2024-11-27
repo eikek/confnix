@@ -258,6 +258,10 @@ let
           burly
           kubernetes
           pdf-tools
+          arduino-cli-mode
+          arduino-mode
+          company-arduino
+          platformio-mode
 
         ]) ++
         (with epkgs.melpaStablePackages; [
