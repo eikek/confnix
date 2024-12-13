@@ -2,7 +2,7 @@
   description = "NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     #    flake-compat.url = "github:edolstra/flake-compat";
 
@@ -22,6 +22,7 @@
     dsc = {
       #url = "path:///home/eike/workspace/projects/dsc";
       url = "github:docspell/dsc";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     ds4e.url = "github:docspell/ds4e";
     webact = {

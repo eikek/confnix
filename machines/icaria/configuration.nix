@@ -159,7 +159,7 @@ in
   hardware = {
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true; # needs unfree
-    opengl.driSupport32Bit = true;
+    graphics.enable32Bit = true;
   };
 
   system.stateVersion = "24.05";

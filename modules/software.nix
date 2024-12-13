@@ -45,7 +45,7 @@ with pkgs.lib;
       multimedia = mkOption {
         type = types.listOf types.package;
         default = with pkgs; [
-          alsaUtils
+          alsa-utils
           cdparanoia
           ffmpeg
           flac

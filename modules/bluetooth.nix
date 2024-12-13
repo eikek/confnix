@@ -5,6 +5,7 @@
 
   environment.systemPackages = [
     pkgs.pavucontrol
+    pkgs.pwvucontrol
   ];
 
   hardware = {
@@ -24,4 +25,5 @@
     };
   };
 
+  services.pipewire.enable = false;
 }
