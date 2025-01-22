@@ -25,6 +25,7 @@ in
       with pkgs;
       [
         libreoffice
+        devcontainer
         slack
         zoom-us
         squirrel-sql
