@@ -16,7 +16,7 @@ let
     src = fetchurl {
       url =
         "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz";
-      sha256 = "sha256-KJZ6KlsMmKal4gRzDKh7E8fulphCx2eviJMiyypbagY=";
+      sha256 = "sha256-tav8W8e2ELoY29TcluUfW11d/YgdOdvjI7HgqYYdToY=";
     };
     unpackPhase = ''
       tar xf $src
@@ -36,7 +36,7 @@ buildFHSEnv {
     with p; [
       libusb1
       libudev-zero
-      webkitgtk
+      webkitgtk_4_1
       gtk3
       gdk-pixbuf
       glib

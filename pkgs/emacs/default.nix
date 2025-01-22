@@ -240,6 +240,8 @@ let
           lsp-treemacs
           lsp-pyright
           lsp-bridge
+          elpy
+          python-pytest
           poetry
           # ruff-format
           # lazy-ruff
