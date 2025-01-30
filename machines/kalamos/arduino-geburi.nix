@@ -46,15 +46,15 @@
         thonny
         (python3.withPackages (p: [
           p.jedi
-        p.pyserial
-        p.tkinter
-        p.docutils
-        p.pylint
-        p.mypy
-        p.pyperclip
-        p.asttokens
-        p.send2trash
-      ]  ))
+          p.pyserial
+          p.tkinter
+          p.docutils
+          p.pylint
+          p.mypy
+          p.pyperclip
+          p.asttokens
+          p.send2trash
+        ]))
         dfu-util
         dfu-programmer
       ];

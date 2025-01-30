@@ -243,7 +243,8 @@ let
           elpy
           python-pytest
           poetry
-          # ruff-format
+          ruff-format
+          elpy
           # lazy-ruff
           dashboard
           visual-fill-column

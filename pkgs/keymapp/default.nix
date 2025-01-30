@@ -2,6 +2,7 @@
 , buildFHSEnv
 , fetchurl
 , libusb1
+, libsoup_3
 , libudev-zero
 , webkitgtk
 , gtk3
@@ -40,5 +41,6 @@ buildFHSEnv {
       gtk3
       gdk-pixbuf
       glib
+      libsoup_3
     ];
 }
