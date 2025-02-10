@@ -97,7 +97,6 @@ with pkgs.lib;
             default = with pkgs; [
               myR
               nodePackages.bash-language-server
-              bloop
               coursier
               global
               guile

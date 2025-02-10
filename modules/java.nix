@@ -3,9 +3,9 @@ let
   p = import ../nixversions.nix config;
 in
 {
-  services.bloop = {
-    install = true;
-  };
+  # services.bloop = {
+  #   install = true;
+  # };
 
   programs.java.package = pkgs.openjdk;
 
