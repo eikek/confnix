@@ -149,8 +149,6 @@ in
   #   };
   # };
 
-  #  nixpkgs.config = { allowUnfree = true; };
-
   nix = {
     sshServe.enable = true;
     sshServe.keys = [ sshkeys.eike ];
