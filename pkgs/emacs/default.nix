@@ -151,6 +151,7 @@ let
           ob-rust
           ox-asciidoc
           ox-gfm
+          ox-reveal
           counsel-org-clock
 
           projectile
