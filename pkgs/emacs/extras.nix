@@ -4,4 +4,5 @@
   (import ./swagger-mode.nix { inherit pkgs emacsPackages; })
   (import ./emacs-avro.nix { inherit pkgs emacsPackages; })
   (import ./scala-ts-mode.nix { inherit pkgs emacsPackages; })
+  (import ./ekg.nix { inherit pkgs emacsPackages; })
 ]
