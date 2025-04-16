@@ -41,7 +41,7 @@ let
     # };
   };
 
-  myEmacs = pkgs.emacs29;
+  myEmacs = pkgs.emacs;
   emacsPackages = (pkgs.emacsPackagesFor myEmacs).overrideScope emacsOverrides;
   emacsWithPackages = emacsPackages.emacsWithPackages;
 
@@ -54,7 +54,7 @@ let
 
   # additional env variables to set
   envVars = eaf.env // {
-    JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";
+    JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
   };
 
   myEmacsWithPkgs =

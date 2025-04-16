@@ -112,7 +112,7 @@ in
       '';
     };
 
-    nativeBuildInputs = [ pkgs.emacs29 ];
+    nativeBuildInputs = [ pkgs.emacs ];
 
     # the other files don't compile
     buildPhase = ''
