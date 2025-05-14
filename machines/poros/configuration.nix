@@ -10,6 +10,7 @@ in
   imports =
     [
       ./hw-config.nix
+      ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
