@@ -17,12 +17,12 @@
         };
       };
     };
+  };
 
-    pulseaudio = {
-      enable = true;
-      package = pkgs.pulseaudioFull;
-      extraModules = [ ];
-    };
+  services.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+    extraModules = [ ];
   };
 
   services.pipewire.enable = false;

@@ -31,7 +31,6 @@ in
     ../../modules/zsa.nix
     ../../modules/arduino-nano.nix
     printer.home
-    printer.sdsc
     dscwatchmod
     usermod
     dockermod

@@ -25,7 +25,10 @@
       roboto-mono
       siji
       quivira
-      nerdfonts
+      nerd-fonts.iosevka
+      nerd-fonts.inconsolata
+      nerd-fonts.hack
+      nerd-fonts._0xproto
     ];
   };
 
