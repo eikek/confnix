@@ -4,12 +4,12 @@ let
   triples =
     emacsPackages.trivialBuild rec {
       pname = "triples";
-      version = "20250409";
+      version = "20250620";
       src = pkgs.fetchFromGitHub {
         owner = "ahyatt";
         repo = pname;
-        rev = "3c42e4b3c891cfbc2dd32fe10d7fa82047027bc6";
-        sha256 = "sha256-lAd2rAH1721Dgj4XpMF5kzxfnNZfO/RGME8iVk95Qds=";
+        rev = "5e17182a5374a1656761bb26832fd21c6f168685";
+        sha256 = "sha256-E0SFEabHYA0PmamClLh6XmxlzhpBd41+Mkdo+04lcYs=";
       };
       packageRequires = with emacsPackages; [
         seq
@@ -19,12 +19,12 @@ let
   llm =
     emacsPackages.trivialBuild rec {
       pname = "llm";
-      version = "20250409";
+      version = "20250620";
       src = pkgs.fetchFromGitHub {
         owner = "ahyatt";
         repo = pname;
-        rev = "037b00e81bd470ba1f1cf77ea521cf231ffcb8f7";
-        sha256 = "sha256-fal5BulMLdQ6M9F0rEZl2i2ohrLiB+LUMBz+ef5fmfk=";
+        rev = "7f11ee2d61e7ff24b3895851854a2b3856ac83f2";
+        sha256 = "sha256-K5SjKs6nv7wVY8jLmbw1rN3YX3d/xgtTEplTm4PzrnY=";
       };
       packageRequires = with emacsPackages; [
         plz
@@ -37,13 +37,13 @@ emacsPackages.trivialBuild rec {
 
   pname = "ekg";
 
-  version = "0.7.0";
+  version = "0.7.1";
 
   src = pkgs.fetchFromGitHub {
     owner = "ahyatt";
     repo = "${pname}";
-    rev = "0.7.0";
-    sha256 = "sha256-2ZtU57iqpYXDpINvV+0ahM+4eTq4KEROCAYiXjGuJs8=";
+    rev = "0.7.1";
+    sha256 = "sha256-06Nr/v39IhMMLry/5wJUNhpCYJQU+g0zTnLa5qVzw6Y=";
   };
 
   packageRequires = [ triples llm emacsPackages.denote emacsPackages.markdown-mode ];
