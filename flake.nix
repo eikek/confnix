@@ -86,7 +86,7 @@
             packages = (import ./pkgs) pkgs;
 
             devShells.default = with pkgs;
-              mkShell { buildInputs = [ pkgs.agenix ]; };
+              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild ]; };
 
             formatter = pkgs.nixpkgs-fmt;
           };
@@ -113,6 +113,11 @@
           nixosConfigurations.poros = mkNixos [
             ./machines/poros/configuration.nix
             nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
+          ];
+
+          nixosConfigurations.xps = mkNixos [
+            ./machines/xps/configuration.nix
+            nixos-hardware.nixosModules.dell-xps-13-9310
           ];
 
           nixosConfigurations.limnos = mkNixos [
