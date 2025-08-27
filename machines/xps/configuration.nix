@@ -36,12 +36,12 @@ in
 
   boot = {
     tmp.cleanOnBoot = true;
-    #    initrd.luks.devices = {
-    #      crootfs = {
-    #        device = "/dev/nvme0n1p1";
-    #        preLVM = true;
-    #      };
-    #    };
+    initrd.luks.devices = {
+      crootfs = {
+        device = "/dev/nvme0n1p6";
+        preLVM = true;
+      };
+    };
 
     # Use the systemd-boot EFI boot loader.
     loader = {
