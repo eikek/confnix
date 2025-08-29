@@ -52,7 +52,16 @@ in
 
   hardware = {
     enableAllFirmware = false;
+    bluetooth = {
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+          ControllerMode = "bredr";
+        };
+      };
+    };
   };
+
 
   networking = {
     hostName = "xps";
