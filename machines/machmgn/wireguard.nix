@@ -53,6 +53,11 @@ in
           publicKey = "dmYGFAQYuYp0sf76hgXtdDpRNqu2aW6F+0iINQjMERw=";
           allowedIPs = [ "10.100.0.2/32" ];
         }
+        {
+          name = "tablet";
+          publicKey = "x05uO7lp03Fw6tX1adwOyk0kVFpmDtSNT0IzPCKHrRk=";
+          allowedIPs = [ "10.100.0.4/32" ];
+        }
       ];
     };
   };

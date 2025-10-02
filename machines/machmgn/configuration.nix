@@ -36,7 +36,10 @@ in
   services.openssh = {
     enable = true;
     ports = [ 22 21301 ];
-    settings.X11Forwarding = true;
+    settings = {
+      X11Forwarding = true;
+      PasswordAuthentication = false;
+    };
   };
 
   environment.systemPackages = [ pkgs.noip pkgs.tcpdump ];
