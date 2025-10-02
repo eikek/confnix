@@ -46,7 +46,7 @@
           })
           # pick packages from unstable
           (final: prev: {
-            inherit (final.unstable) jetbrains scala-cli quivira;
+            inherit (final.unstable) jetbrains scala-cli quivira noip;
           }
           )
           self.overlays.default
@@ -91,7 +91,7 @@
             packages = (import ./pkgs) pkgs;
 
             devShells.default = with pkgs;
-              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild pkgs.qemu]; };
+              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild pkgs.qemu pkgs.openvpn]; };
 
             formatter = pkgs.nixpkgs-fmt;
           };
@@ -136,6 +136,10 @@
           nixosConfigurations.rpi4wch = mkNixosArm [
             ./machines/rnspi4/configuration.nix
 #            nixos-hardware.nixosModules.raspberry-pi-4
+          ];
+
+          nixosConfigurations.machmgn = mkNixos [
+            ./machines/machmgn/configuration.nix
           ];
         };
       });
