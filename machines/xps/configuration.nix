@@ -29,7 +29,7 @@ in
       #      printer.home
       #      printer.sdsc
       usermod
-      dscwatchmod
+      #dscwatchmod
       dockermod
       chromiummod
     ];

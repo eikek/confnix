@@ -149,6 +149,6 @@ in
     pyDeps
     wmctrl
     xdotool
-    aria
+    aria2
   ];
 }

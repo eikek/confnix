@@ -14,7 +14,7 @@ with pkgs.lib;
           mr
           nix-prefetch-scripts
           pass
-          pinentry
+          pinentry-gnome3
           recutils
           rlwrap
           sqlite
@@ -102,7 +102,7 @@ with pkgs.lib;
               guile
               gradle
               nodejs
-              jetbrains.idea-community
+              jetbrains.idea-oss
               inotify-tools
               openscad
               postgresql
@@ -118,12 +118,12 @@ with pkgs.lib;
       tools = mkOption {
         type = types.listOf types.package;
         default = with pkgs; [
-          dsc
+          #dsc
           ghostscript
-          (hunspellWithDicts [ "de_DE" "de_CH" "en_US-large" "en_GB-large" ])
-          hunspellDicts."de_DE"
-          hunspellDicts."en_GB-large"
-          hunspellDicts."en_US-large"
+          (hunspell.withDicts (d: [ d."de_DE" d."de_CH" d."en_US-large" d."en_GB-large" ]))
+          # hunspellDicts."de_DE"
+          # hunspellDicts."en_GB-large"
+          # hunspellDicts."en_US-large"
           localsend
           mu
           mu.mu4e

@@ -8,7 +8,7 @@
 , gtk3
 , gdk-pixbuf
 , glib
-, libstdcxx5
+, libcxx
 , libgcc
 }:
 let

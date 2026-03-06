@@ -4,7 +4,7 @@ let
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix { username = "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
-  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
+#  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
   chromiummod = import ../../modules/chromium-proxy.nix "eike";
 in
 {
@@ -26,12 +26,11 @@ in
     ../../modules/region-neo.nix
     ../../modules/software.nix
     ../../modules/vbox-host.nix
-    ../../modules/xserver.nix
+#    ../../modules/xserver.nix
     ../../modules/zsa.nix
-    ./arduino-geburi.nix
+#    ./arduino-geburi.nix
     printer.home
-    printer.sdsc
-    dscwatchmod
+#    dscwatchmod
     usermod
     dockermod
     chromiummod
@@ -132,7 +131,7 @@ in
   };
 
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
-  services.logind.lidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
 
   services.udisks2 = { enable = true; };
 
@@ -163,7 +162,7 @@ in
   hardware = {
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true; # needs unfree
-    opengl.driSupport32Bit = true;
+    graphics.enable32Bit = true;
   };
 
   system.stateVersion = "24.05";

@@ -2,7 +2,7 @@
   description = "NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     #    flake-compat.url = "github:edolstra/flake-compat";
 
@@ -102,7 +102,7 @@
 
           nixosConfigurations.kalamos = mkNixos [
             ./machines/kalamos/configuration.nix
-            ./machines/kalamos/monitor-ext.nix
+            ./machines/kalamos/monitor-int.nix
           ];
 
           nixosConfigurations.kalamos-amd = mkNixos [

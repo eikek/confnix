@@ -31,7 +31,7 @@ in
     ../../modules/zsa.nix
     ../../modules/arduino-nano.nix
     printer.home
-    dscwatchmod
+    #dscwatchmod
     usermod
     dockermod
     chromiummod
@@ -125,7 +125,7 @@ in
   };
 
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
-  services.logind.lidSwitch = "suspend";
+  services.logind.settings.Login.HandleLidSwitch = "suspend";
 
   services.udisks2 = { enable = true; };
 
@@ -133,20 +133,6 @@ in
     enable = true;
     settings.X11Forwarding = true;
   };
-
-  # services.webact = {
-  #   app-name = "Webact " + config.networking.hostName;
-  #   package = pkgs.webact-bin;
-  #   enable = true;
-  #   userService = true;
-  #   extra-packages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.scala-cli ];
-  #   extra-path = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
-  #   env = { "DISPLAY" = ":0"; };
-  #   bind = {
-  #     address = "localhost";
-  #     port = 8011;
-  #   };
-  # };
 
   nix = {
     sshServe.enable = true;

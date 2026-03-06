@@ -25,6 +25,9 @@ in
     logFile = null;
     defaultDepth = 24;
   };
+  hardware.nvidia = {
+    open = true;
+  };
 
   hardware.nvidia.prime = {
     offload.enable = true;

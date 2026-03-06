@@ -14,42 +14,33 @@
     windowManager = {
       herbstluftwm.enable = true;
     };
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeters = {
-          gtk = {
-            cursorTheme.size = 32;
-          };
-        };
-      };
-      startx = {
-        enable = true;
-      };
-      session = [
-        {
-          manage = "desktop";
-          name = "herbstluft";
-          start = ''
-            if test -e "$HOME/.Xresources"; then
-              ${pkgs.xorg.xrdb}/bin/xrdb -merge $HOME/.Xresources
-            fi
-            ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
-            waitPID=$!
-          '';
-        }
-      ];
-      defaultSession = "herbstluft";
+  };
+  services.displayManager = {
+    sddm = {
+      enable = true;
     };
+    # startx = {
+    #   enable = true;
+    # };
+    # session = [
+    #   {
+    #     manage = "desktop";
+    #     name = "herbstluft";
+    #     start = ''
+    #       if test -e "$HOME/.Xresources"; then
+    #         ${pkgs.xorg.xrdb}/bin/xrdb -merge $HOME/.Xresources
+    #       fi
+    #       ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
+    #       waitPID=$!
+    #     '';
+    #   }
+    # ];
+    defaultSession = "none+herbstluftwm";
   };
 
   environment.systemPackages = [
     pkgs.xorg.xcursorthemes
   ];
-
-  services.displayManager = {
-    defaultSession = "herbstluft";
-  };
 
   services.picom = {
     enable = true;
