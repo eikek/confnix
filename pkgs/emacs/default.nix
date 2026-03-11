@@ -152,10 +152,14 @@ let
           ox-asciidoc
           ox-gfm
           ox-reveal
+          orgtbl-ascii-plot
           counsel-org-clock
 
           projectile
           counsel-projectile
+
+          gnuplot
+          gnuplot-mode
 
           dired-subtree
           dired-rainbow

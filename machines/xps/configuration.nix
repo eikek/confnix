@@ -51,7 +51,7 @@ in
   };
 
   hardware = {
-    enableAllFirmware = false;
+    enableAllFirmware = true;
     bluetooth = {
       settings = {
         General = {
