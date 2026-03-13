@@ -38,6 +38,10 @@
     defaultSession = "none+herbstluftwm";
   };
 
+  programs.xwayland = {
+    enable = true;
+  };
+
   environment.systemPackages = [
     pkgs.xorg.xcursorthemes
   ];
