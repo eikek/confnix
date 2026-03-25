@@ -38,6 +38,11 @@ To deploy at some machine:
 nixos-rebuild --flake .#icaria --target-host root@192.168.1.228 --fast switch
 ```
 
+Set a different ssh port via an env variable (then without sudo):
+```
+set -x NIX_SSHOPTS "-p 21301"
+```
+
 To cross build and sd card image to aarch64 (RaspberryPi):
 ```
 nix build --system aarch64-linux --print-build-logs .#nixosConfigurations.rpi4wch.config.system.build.images.sd-card
