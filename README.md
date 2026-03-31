@@ -37,3 +37,8 @@ To deploy at some machine:
 ```
 nixos-rebuild --flake .#icaria --target-host root@192.168.1.228 --fast switch
 ```
+
+To cross build and sd card image to aarch64 (RaspberryPi):
+```
+nix build --system aarch64-linux --print-build-logs .#nixosConfigurations.rpi4wch.config.system.build.images.sd-card
+```

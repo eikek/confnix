@@ -11,7 +11,7 @@
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = false;
-      address = [ "10.100.0.3/32"  ];
+      address = [ "10.100.0.3/32" ];
       #dns = [ "10.100.0.1" ];
       privateKeyFile = "/root/wireguard/myself.key";
 

@@ -69,6 +69,11 @@
           specialArgs = inputs;
           modules = [{ nixpkgs.pkgs = pkgsBySystem defaultSystem; }] ++ modules;
         };
+        mkNixosArm = modules: nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = inputs;
+          modules = [{ nixpkgs.pkgs = pkgsBySystem "aarch64-linux"; }] ++ modules;
+        };
       in
       {
         systems = [ defaultSystem "i686-linux" ];
@@ -86,7 +91,7 @@
             packages = (import ./pkgs) pkgs;
 
             devShells.default = with pkgs;
-              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild ]; };
+              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild pkgs.qemu]; };
 
             formatter = pkgs.nixpkgs-fmt;
           };
@@ -126,6 +131,11 @@
 
           nixosConfigurations.icaria = mkNixos [
             ./machines/icaria/configuration.nix
+          ];
+
+          nixosConfigurations.rpi4wch = mkNixosArm [
+            ./machines/rnspi4/configuration.nix
+#            nixos-hardware.nixosModules.raspberry-pi-4
           ];
         };
       });

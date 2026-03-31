@@ -17,7 +17,6 @@
     cryptsetup
     curl
     dmidecode
-    elvish
     eza
     fd
     file

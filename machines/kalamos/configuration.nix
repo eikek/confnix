@@ -4,7 +4,7 @@ let
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix { username = "eike"; };
   dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
-#  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
+  #  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
   chromiummod = import ../../modules/chromium-proxy.nix "eike";
 in
 {
@@ -26,11 +26,11 @@ in
     ../../modules/region-neo.nix
     ../../modules/software.nix
     ../../modules/vbox-host.nix
-#    ../../modules/xserver.nix
+    #    ../../modules/xserver.nix
     ../../modules/zsa.nix
-#    ./arduino-geburi.nix
+    #    ./arduino-geburi.nix
     printer.home
-#    dscwatchmod
+    #    dscwatchmod
     usermod
     dockermod
     chromiummod
