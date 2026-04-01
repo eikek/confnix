@@ -125,6 +125,11 @@
             nixos-hardware.nixosModules.dell-xps-13-9310
           ];
 
+          nixosConfigurations.psara = mkNixos [
+            ./machines/psara/configuration.nix
+
+          ];
+
           nixosConfigurations.limnos = mkNixos [
             ./machines/limnos/configuration.nix
           ];
