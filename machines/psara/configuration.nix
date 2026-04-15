@@ -44,6 +44,8 @@ in
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
   };
 
   hardware = {
@@ -60,7 +62,7 @@ in
 
 
   networking = {
-    hostName = "xps";
+    hostName = "psara";
     wireless.enable = true; # Enables wireless support via wpa_supplicant.
     useDHCP = true;
   };
@@ -91,5 +93,5 @@ in
     sops
   ];
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

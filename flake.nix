@@ -127,7 +127,7 @@
 
           nixosConfigurations.psara = mkNixos [
             ./machines/psara/configuration.nix
-
+            #nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
           ];
 
           nixosConfigurations.limnos = mkNixos [
