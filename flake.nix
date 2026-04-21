@@ -91,7 +91,7 @@
             packages = (import ./pkgs) pkgs;
 
             devShells.default = with pkgs;
-              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild pkgs.qemu]; };
+              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild pkgs.qemu ]; };
 
             formatter = pkgs.nixpkgs-fmt;
           };
@@ -140,7 +140,7 @@
 
           nixosConfigurations.rpi4wch = mkNixosArm [
             ./machines/rnspi4/configuration.nix
-#            nixos-hardware.nixosModules.raspberry-pi-4
+            #            nixos-hardware.nixosModules.raspberry-pi-4
           ];
         };
       });
