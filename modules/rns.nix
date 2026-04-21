@@ -54,9 +54,8 @@ in
       enable = true;
       description = "Reticulum RNSd";
       wantedBy = [ "lmxd.target" ];
-      path = [  ];
-      environment = {
-      };
+      path = [ ];
+      environment = { };
       serviceConfig = {
         ExecStart = "${cfg.rns-pkg}/bin/rnsd -s";
         User = "rns";
@@ -68,9 +67,8 @@ in
       enable = true;
       description = "Reticulum LXMDd";
       wantedBy = [ "multi-user.target" ];
-      path = [  ];
-      environment = {
-      };
+      path = [ ];
+      environment = { };
       serviceConfig = {
         ExecStart = "${cfg.lxmd-pkg}/bin/lxmd -s";
         User = "rns";

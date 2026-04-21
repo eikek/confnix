@@ -1,7 +1,6 @@
-{
-  modulesPath,
-  config,
-  ...
+{ modulesPath
+, config
+, ...
 }: {
   imports = [
     (modulesPath + "/virtualisation/qemu-vm.nix")

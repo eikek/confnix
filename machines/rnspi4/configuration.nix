@@ -17,14 +17,14 @@ in
   # note: one of monitor-int or monitor-ext modules is required
   imports = [
     ./hw-pi4.nix
-#    ../../modules/emacs.nix
+    #    ../../modules/emacs.nix
     ../../modules/flakes.nix
     ../../modules/fonts.nix
     ../../modules/ids.nix
     ../../modules/packages.nix
     ../../modules/region-neo.nix
     ../../modules/rns.nix
-#    ./vm.nix  # add for testing. ssh -p 11222 root@localhost
+    #    ./vm.nix  # add for testing. ssh -p 11222 root@localhost
     usermod
   ] ++ (import ../../pkgs/modules.nix);
 
@@ -56,7 +56,8 @@ in
 
 
   users.users.eike.packages = with pkgs.unstable; [
-    python3Packages.pipx python3Packages.nomadnet
+    python3Packages.pipx
+    python3Packages.nomadnet
   ];
 
   system.stateVersion = "25.11";
