@@ -20,6 +20,7 @@ in
       usermod
       dockermod
       ./llm.nix
+      ./photoprism.nix
     ] ++
     (import ../../pkgs/modules.nix);
 
