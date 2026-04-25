@@ -94,6 +94,9 @@ in
   
   environment.systemPackages = [ pkgs.photoprism manage ];
 
+  networking.firewall.allowedTCPPorts = [2342];
+
+
   system.activationScripts = {
     photoprism-directory = ''
       chown -R photoprism /mnt/data1/photoprism 
