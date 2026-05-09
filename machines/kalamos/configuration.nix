@@ -3,6 +3,7 @@ let
   sshkeys = import ../../secrets/ssh-keys.nix;
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix { username = "eike"; };
+  usermod2 = import ../../modules/user.nix { username = "kjartan"; uid = 1001; };
   dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
   #  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
   chromiummod = import ../../modules/chromium-proxy.nix "eike";
@@ -20,20 +21,19 @@ in
     ../../modules/fonts.nix
     ../../modules/ids.nix
     ../../modules/java.nix
-    ../../modules/latex.nix
+#    ../../modules/latex.nix
     ../../modules/packages.nix
     ../../modules/redshift.nix
     ../../modules/region-neo.nix
     ../../modules/software.nix
     ../../modules/vbox-host.nix
-    #    ../../modules/xserver.nix
+    ../../modules/xserver.nix
     ../../modules/zsa.nix
-    #    ./arduino-geburi.nix
+    ./arduino.nix
     printer.home
-    #    dscwatchmod
     usermod
+    usermod2
     dockermod
-    chromiummod
   ] ++ (import ../../pkgs/modules.nix);
 
   age.secrets.eike.file = ../../secrets/eike.age;
@@ -59,35 +59,14 @@ in
     cpuFreqGovernor = "ondemand";
   };
 
-  fileSystems =
-    let
-      mounts = {
-        "/mnt/data" = {
-          device = "/dev/disk/by-label/data";
-          fsType = "xfs";
-          options = [ "noauto" "user" "rw" "exec" "suid" "async" ];
-          noCheck = true;
-        };
-      };
-    in
-    mounts // (builtins.listToAttrs (map
-      (mp: {
-        name = "/mnt/nas/" + mp;
-        value = {
-          device = "//files.home/" + mp;
-          fsType = "cifs";
-          options = [
-            "noauto"
-            "user"
-            "username=eike"
-            "password=eike"
-            "uid=1000"
-            "gid=100"
-            "vers=2.0"
-          ];
-          noCheck = true;
-        };
-      }) [ "data" "eike" ]));
+  fileSystems = {
+    "/mnt/data" = {
+      device = "/dev/disk/by-label/data";
+      fsType = "xfs";
+      options = [ "noauto" "user" "rw" "exec" "suid" "async" ];
+      noCheck = true;
+    };
+  };
 
   #Requires recompile of virtualbox
   #  virtualisation.virtualbox.host.enableExtensionPack = true;
@@ -165,5 +144,5 @@ in
     graphics.enable32Bit = true;
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.11";
 }
