@@ -161,6 +161,9 @@ let
           gnuplot
           gnuplot-mode
 
+          gptel
+          gptel-magit
+
           dired-subtree
           dired-rainbow
           dired-filter
