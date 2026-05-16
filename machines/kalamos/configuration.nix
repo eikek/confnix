@@ -4,32 +4,25 @@ let
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix { username = "eike"; };
   usermod2 = import ../../modules/user.nix { username = "kjartan"; uid = 1001; };
-  dockermod = import ../../modules/docker.nix [ "eike" "sdsc" ];
-  #  dscwatchmod = import ../../modules/dsc-watch.nix "eike";
-  chromiummod = import ../../modules/chromium-proxy.nix "eike";
+  dockermod = import ../../modules/docker.nix [ "eike" "kjartan" ];
 in
 {
   # note: one of monitor-int or monitor-ext modules is required
   imports = [
     ./hw-kalamos.nix
-    ./vpn.nix
-    ../../modules/androiddev.nix
     ../../modules/bluetooth.nix
     ../../modules/emacs.nix
-    ../../modules/ergodox.nix
     ../../modules/flakes.nix
     ../../modules/fonts.nix
     ../../modules/ids.nix
     ../../modules/java.nix
-#    ../../modules/latex.nix
     ../../modules/packages.nix
     ../../modules/redshift.nix
     ../../modules/region-neo.nix
     ../../modules/software.nix
     ../../modules/vbox-host.nix
-    ../../modules/xserver.nix
-    ../../modules/zsa.nix
     ./arduino.nix
+    ./xserver.nix
     printer.home
     usermod
     usermod2
@@ -41,12 +34,6 @@ in
 
   boot = {
     tmp.cleanOnBoot = true;
-    initrd.luks.devices = {
-      crootfs = {
-        device = "/dev/nvme0n1p1";
-        preLVM = true;
-      };
-    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -62,11 +49,13 @@ in
   fileSystems = {
     "/mnt/data" = {
       device = "/dev/disk/by-label/data";
-      fsType = "xfs";
-      options = [ "noauto" "user" "rw" "exec" "suid" "async" ];
+      fsType = "ext4";
+      options = [ "auto" "user" "rw" "exec" "suid" "async" ];
       noCheck = true;
     };
   };
+
+  i18n.defaultLocale = pkgs.lib.mkForce "de_DE.UTF-8";
 
   #Requires recompile of virtualbox
   #  virtualisation.virtualbox.host.enableExtensionPack = true;
@@ -87,7 +76,7 @@ in
     interval = "13:00";
   };
 
-  users.groups.kvm = { members = [ "eike" ]; };
+  users.groups.kvm = { members = [ "eike" "kjartan" ]; };
 
   networking = {
     hostName = "kalamos";
@@ -119,20 +108,6 @@ in
     settings.X11Forwarding = true;
   };
 
-  services.webact = {
-    app-name = "Webact " + config.networking.hostName;
-    package = pkgs.webact-bin;
-    enable = true;
-    userService = true;
-    extra-packages = [ pkgs.bash pkgs.ammonite pkgs.coreutils pkgs.scala-cli ];
-    extra-path = [ "/home/eike/bin" "/run/current-system/sw/bin" ];
-    env = { "DISPLAY" = ":0"; };
-    bind = {
-      address = "localhost";
-      port = 8011;
-    };
-  };
-
   nix = {
     sshServe.enable = true;
     sshServe.keys = [ sshkeys.eike ];
@@ -143,6 +118,12 @@ in
     cpu.amd.updateMicrocode = true; # needs unfree
     graphics.enable32Bit = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    libreoffice
+    blueman
+    drawing
+  ];
 
   system.stateVersion = "25.11";
 }

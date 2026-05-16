@@ -25,7 +25,7 @@ let
     exec ${pkgs.util-linux}/bin/nsenter \
       -t $MainPID -m -S $ServiceUID -G $ServiceUID --wdns=${cfg.storagePath} \
       ${cfg.package}/bin/photoprism "$@"
-  '';  
+  '';
 in
 {
 
@@ -34,12 +34,12 @@ in
     dataDir = "/mnt/data1/mariadb";
     package = pkgs.mariadb;
     ensureDatabases = [ "photoprism" ];
-    ensureUsers = [ {
+    ensureUsers = [{
       name = "photoprism";
       ensurePermissions = {
         "photoprism.*" = "ALL PRIVILEGES";
       };
-    } ];
+    }];
   };
 
   users.users.photoprism = {
@@ -69,7 +69,7 @@ in
       PHOTOPRISM_DATABASE_SERVER = "/run/mysqld/mysqld.sock";
       PHOTOPRISM_DATABASE_USER = "photoprism";
       PHOTOPRISM_LOG_LEVEL = "info";
-      PHOTOPRISM_ADMIN_PASSWORD_FILE= "/mnt/data1/photoprism/password";
+      PHOTOPRISM_ADMIN_PASSWORD_FILE = "/mnt/data1/photoprism/password";
     };
   };
 
@@ -91,10 +91,10 @@ in
       ];
     };
   };
-  
+
   environment.systemPackages = [ pkgs.photoprism manage ];
 
-  networking.firewall.allowedTCPPorts = [2342];
+  networking.firewall.allowedTCPPorts = [ 2342 ];
 
 
   system.activationScripts = {
