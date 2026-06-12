@@ -273,6 +273,7 @@ let
           arduino-mode
           company-arduino
           platformio-mode
+          treesit-fold
 
         ]) ++
         (with epkgs.melpaStablePackages; [
