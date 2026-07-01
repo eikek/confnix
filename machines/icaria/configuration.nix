@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, dsc, ... }:
+{ config, pkgs, lib, nixpkgs, dsc, ... }:
 let
   sshkeys = import ../../secrets/ssh-keys.nix;
   printer = import ../../modules/printer.nix;
@@ -93,7 +93,7 @@ in
     pam.sshAgentAuth.enable = true;
     wrappers = {
       "mount.cifs" = {
-        source = "${pkgs.cifs-utils}/bin/mount.cifs";
+        source = "${lib.getBin pkgs.cifs-utils}/bin/mount.cifs";
         owner = "root";
         group = "root";
       };

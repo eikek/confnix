@@ -46,8 +46,8 @@
     xfce.xfce4-whiskermenu-plugin
     xfce.xfce4-xkb-plugin
     xfce.xfdashboard
-    xorg.xcursorthemes
-    xorg.xev
+    xcursor-themes
+    xev
     elementary-xfce-icon-theme
     amber-theme
     font-manager

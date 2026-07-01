@@ -43,7 +43,7 @@
   };
 
   environment.systemPackages = [
-    pkgs.xorg.xcursorthemes
+    pkgs.xcursor-themes
   ];
 
   services.picom = {

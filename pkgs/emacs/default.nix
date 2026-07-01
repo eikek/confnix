@@ -260,7 +260,7 @@ let
           edit-server
           polymode
           poly-markdown
-          poly-R
+          #poly-R
           envrc
           imenu-list
           imenu-extra

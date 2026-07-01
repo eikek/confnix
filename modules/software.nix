@@ -73,11 +73,11 @@ with pkgs.lib;
           threema-desktop
           xclip
           xdotool
-          xorg.xdpyinfo
-          xorg.xmodmap
-          xorg.xrandr
-          xorg.xwd
-          xorg.xwininfo
+          xdpyinfo
+          xmodmap
+          xrandr
+          xwd
+          xwininfo
           xsel
         ];
       };
@@ -96,7 +96,7 @@ with pkgs.lib;
             type = types.listOf types.package;
             default = with pkgs; [
               myR
-              nodePackages.bash-language-server
+              bash-language-server
               coursier
               global
               guile
