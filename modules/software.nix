@@ -63,6 +63,7 @@ with pkgs.lib;
           autorandr
           chromium
           dmenu
+          rofi
           firefox
           i3lock
           i3lock-fancy
