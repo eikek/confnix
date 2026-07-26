@@ -20,6 +20,7 @@ with pkgs.lib;
           sqlite
           tmuxinator
           wpa_supplicant
+          iw
           stow
         ];
       };

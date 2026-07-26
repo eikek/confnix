@@ -146,7 +146,8 @@ in
     enableAllFirmware = true;
     cpu.amd.updateMicrocode = true; # needs unfree
     graphics.enable32Bit = true;
+    firmware = [ pkgs.wireless-regdb ];
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
 }
