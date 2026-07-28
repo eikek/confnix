@@ -20,7 +20,8 @@ in
       usermod
       dockermod
       ./llm.nix
-      ./photoprism.nix
+#      ./photoprism.nix
+      ./immich.nix
     ] ++
     (import ../../pkgs/modules.nix);
 
@@ -70,7 +71,7 @@ in
     pam.sshAgentAuth.enable = true;
     wrappers = {
       "mount.cifs" = {
-        source = "${pkgs.cifs-utils}/bin/mount.cifs";
+        source = "${pkgs.cifs-utils.bin}/bin/mount.cifs";
         owner = "root";
         group = "root";
       };
@@ -151,5 +152,5 @@ in
   #   '';
   # };
 
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 }
