@@ -104,7 +104,6 @@ with pkgs.lib;
               guile
               gradle
               nodejs
-              jetbrains.idea-oss
               inotify-tools
               openscad
               postgresql
@@ -123,9 +122,6 @@ with pkgs.lib;
           #dsc
           ghostscript
           (hunspell.withDicts (d: [ d."de_DE" d."de_CH" d."en_US-large" d."en_GB-large" ]))
-          # hunspellDicts."de_DE"
-          # hunspellDicts."en_GB-large"
-          # hunspellDicts."en_US-large"
           localsend
           mu
           mu.mu4e
