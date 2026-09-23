@@ -62,7 +62,7 @@ in
       "/mnt/data1" = {
         device = "/dev/disk/by-label/data1";
         fsType = "ext4";
-        options = [ "noauto" "user" "rw" "exec" "suid" "async" ];
+        options = [ "auto" "user" "rw" "exec" "suid" "async" ];
         noCheck = true;
       };
     };
