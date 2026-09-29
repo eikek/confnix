@@ -65,6 +65,18 @@ in
         options = [ "auto" "user" "rw" "exec" "suid" "async" ];
         noCheck = true;
       };
+      "/mnt/data2" = {
+        device = "/dev/disk/by-label/data2";
+        fsType = "ext4";
+        options = [ "auto" "user" "rw" "exec" "suid" "async" ];
+        noCheck = true;
+      };
+      "/mnt/nas/data" = {
+        device = "//files.home/data";
+        fsType = "cifs";
+        options = ["auto" "user" "username=eike" "password=eike" "uid=1000" "gid=100" "vers=2.0"];
+        noCheck = true;
+      };
     };
 
   security = {

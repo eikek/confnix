@@ -1,12 +1,10 @@
-{ config, pkgs, nixpkgs-unstable, ... }:
+{ config, pkgs, ... }:
 {
-  services.immich = let
-    unstable = nixpkgs-unstable.legacyPackages.${pkgs.stdenv.system};
-  in {
+  services.immich = {
     enable = true;
     host = "0.0.0.0";
     openFirewall = true;
-    package = unstable.immich;
+    package = pkgs.immich;
     mediaLocation = "/mnt/data1/immich";
     database = {
       enable = true;
@@ -18,5 +16,5 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.immich-cli ];
+  environment.systemPackages = [ pkgs.immich-go ];
 }

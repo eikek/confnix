@@ -46,7 +46,7 @@
           })
           # pick packages from unstable
           (final: prev: {
-            inherit (final.unstable) jetbrains scala-cli quivira;
+            inherit (final.unstable) jetbrains scala-cli quivira immich;
           }
           )
           self.overlays.default
@@ -85,7 +85,7 @@
               overlays = [
                 agenix.overlays.default
                 (final: prev: { ds4e = ds4e.packages.${system}.default; })
-              ];
+              ] ++ overlays;
             };
 
             packages = (import ./pkgs) pkgs;
