@@ -19,6 +19,7 @@ with pkgs.lib;
           rlwrap
           sqlite
           tmuxinator
+          vaultwarden-cli
           wpa_supplicant
           iw
           stow

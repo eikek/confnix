@@ -502,6 +502,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "vaultwarden-cli": "vaultwarden-cli",
         "webact": "webact"
       }
     },
@@ -613,6 +614,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "vaultwarden-cli": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790659979,
+        "narHash": "sha256-EfwaJFL1acVksIUgSCFtHtFyKw+80exS709pV2Y/0xo=",
+        "owner": "haydonryan",
+        "repo": "vaultwarden-cli",
+        "rev": "9a4b81a6990df5fcef6456797730f1859b22f217",
+        "type": "github"
+      },
+      "original": {
+        "owner": "haydonryan",
+        "repo": "vaultwarden-cli",
         "type": "github"
       }
     },

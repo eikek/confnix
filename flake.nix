@@ -14,6 +14,11 @@
       #inputs.darwin.follows = "";
     };
 
+    vaultwarden-cli = {
+      url = "github:haydonryan/vaultwarden-cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +60,9 @@
           #dsc.overlays.default <- this makes dsc compile under 23.11 and not using nixpkgs from dsc flake
           (final: prev: {
             dsc = dsc.packages.${final.system}.default;
+          })
+          (final: prev: {
+            vaultwarden-cli = inputs.vaultwarden-cli.packages.${final.system}.app-bin;
           })
         ];
 
