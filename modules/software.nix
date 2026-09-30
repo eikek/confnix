@@ -102,17 +102,15 @@ with pkgs.lib;
               coursier
               global
               guile
-              gradle
-              nodejs
               inotify-tools
               openscad
               postgresql
               ripgrep
-              sbcl
               scala-cli
               silver-searcher
               visualvm
-              yarn
+              git-spice
+              git-branchless
             ];
           };
 
