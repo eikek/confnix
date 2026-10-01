@@ -16,5 +16,5 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.immich-go ];
+  environment.systemPackages = [ pkgs.immich-go pkgs.immich-cli ];
 }
