@@ -27,6 +27,7 @@ in
     ../../modules/region-neo.nix
     ../../modules/software.nix
     ../../modules/vbox-host.nix
+    ../../modules/containers.nix
     ../../modules/xserver.nix
     ../../modules/zsa.nix
     ../../modules/arduino-nano.nix
@@ -117,6 +118,10 @@ in
       externalInterface = "enp1s0f0";
       internalInterfaces = [ "ve-+" ];
     };
+
+    extraHosts = ''
+      127.0.0.1 dev.local
+    '';
 
     localCommands = ''
       ${pkgs.vde2}/bin/vde_switch -tap tap0 -mod 660 -group kvm -daemon
