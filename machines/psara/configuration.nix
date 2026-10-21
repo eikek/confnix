@@ -11,6 +11,7 @@ in
       ./hw-x1gen13.nix
       ../../modules/androiddev.nix
       ../../modules/bluetooth.nix
+      ../../modules/containers.nix
       ../../modules/emacs.nix
       ../../modules/ergodox.nix
       ../../modules/flakes.nix
@@ -65,6 +66,9 @@ in
     hostName = "psara";
     wireless.enable = true; # Enables wireless support via wpa_supplicant.
     useDHCP = true;
+    extraHosts = ''
+      127.0.0.1 dev.local
+    '';
   };
 
   services.udisks2 = {
