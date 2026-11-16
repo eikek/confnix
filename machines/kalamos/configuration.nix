@@ -19,6 +19,8 @@ in
     ../../modules/region-neo.nix
     ./immich.nix
     ./postgres.nix
+    ./wireguard.nix
+    ./ventoux.nix
     usermod
     dockermod
   ] ++ (import ../../pkgs/modules.nix);
@@ -70,6 +72,10 @@ in
     interval = "13:00";
   };
 
+  services.atd = {
+    enable = true;
+  };
+
   users.groups.kvm = { members = [ "eike" ]; };
 
   networking = {
@@ -88,6 +94,7 @@ in
     flac
     mediainfo
     mpv
+    fzf
   ];
 
   services.openssh = {
