@@ -3,8 +3,7 @@ let
   sshkeys = import ../../secrets/ssh-keys.nix;
   printer = import ../../modules/printer.nix;
   usermod = import ../../modules/user.nix { username = "eike"; };
-  usermod2 = import ../../modules/user.nix { username = "kjartan"; uid = 1001; };
-  dockermod = import ../../modules/docker.nix [ "eike" "kjartan" ];
+  dockermod = import ../../modules/docker.nix [ "eike" ];
 in
 {
   # note: one of monitor-int or monitor-ext modules is required
@@ -17,15 +16,10 @@ in
     ../../modules/ids.nix
     ../../modules/java.nix
     ../../modules/packages.nix
-    ../../modules/redshift.nix
     ../../modules/region-neo.nix
-    ../../modules/software.nix
-    ../../modules/vbox-host.nix
-    ./arduino.nix
-    ./xserver.nix
-    printer.home
+    ./immich.nix
+    ./postgres.nix
     usermod
-    usermod2
     dockermod
   ] ++ (import ../../pkgs/modules.nix);
 
@@ -64,7 +58,7 @@ in
     pam.sshAgentAuth.enable = true;
     wrappers = {
       "mount.cifs" = {
-        source = "${pkgs.cifs-utils}/bin/mount.cifs";
+        source = "${pkgs.cifs-utils.bin}/bin/mount.cifs";
         owner = "root";
         group = "root";
       };
@@ -76,32 +70,25 @@ in
     interval = "13:00";
   };
 
-  users.groups.kvm = { members = [ "eike" "kjartan" ]; };
+  users.groups.kvm = { members = [ "eike" ]; };
 
   networking = {
     hostName = "kalamos";
     wireless = { enable = true; };
     useDHCP = true;
-
-    nat = {
-      enable = true;
-      externalInterface = "enp2s0";
-      internalInterfaces = [ "ve-+" ];
-    };
-
-    localCommands = ''
-      ${pkgs.vde2}/bin/vde_switch -tap tap0 -mod 660 -group kvm -daemon
-      ip addr add 10.0.2.1/24 dev tap0
-      ip link set dev tap0 up
-      ${pkgs.procps}/sbin/sysctl -w net.ipv4.ip_forward=1
-      ${pkgs.iptables}/sbin/iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -j MASQUERADE
-    '';
   };
 
   # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "lock"
   services.logind.settings.Login.HandleLidSwitch = "ignore";
 
   services.udisks2 = { enable = true; };
+
+  environment.systemPackages = with pkgs; [
+    ffmpeg
+    flac
+    mediainfo
+    mpv
+  ];
 
   services.openssh = {
     enable = true;
@@ -119,11 +106,5 @@ in
     graphics.enable32Bit = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    libreoffice
-    blueman
-    drawing
-  ];
-
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }
