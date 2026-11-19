@@ -109,6 +109,8 @@ let
           boron-theme
           darktooth-theme
           doom-themes
+          doric-themes
+          ef-themes
           darcula-theme
           doom-modeline
           gruvbox-theme
