@@ -113,6 +113,7 @@ let
           doom-modeline
           gruvbox-theme
           leuven-theme
+          nano-theme
           reykjavik-theme
           sexy-monochrome-theme
           soft-charcoal-theme
