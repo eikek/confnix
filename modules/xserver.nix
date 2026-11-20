@@ -38,6 +38,10 @@
     defaultSession = "none+herbstluftwm";
   };
 
+  programs.i3lock.enable = true;
+  security.pam.services.i3lock.enable = true;
+  security.pam.services.slock.enable = true;
+
   programs.xwayland = {
     enable = true;
   };
