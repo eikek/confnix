@@ -4,7 +4,7 @@ let
     poros = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMRKSE0djYyRnHhMfjzVxM/zHRT53Qq8SsIj1gmmLPG2";
   };
   machines = {
-    kalamos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO+827p9t8sfeogQpE5uX/OY7h2/yuEmuTGvSQg2qjgp";
+    kalamos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIr4L3YzKx+ANQTuHr83wboZtyt5qG1RySO0+Ac4miJF";
     poros_old = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdBVWc3Y6DElS2urnfC5l0gwLX+dSheIQhkZI6Q3Jjk";
     poros = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILuI6EAuBvZwS45tUk0+QmqQyVt4MRX4xWp2yQTPAywD";
     limnos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJN+u9NtD+TQpK22raOl9dUtbQZH8xBPSXokCicMrXZf";
@@ -22,4 +22,7 @@ in
   "proxy.age".publicKeys = users ++ systems;
 
   "eike.age".publicKeys = systems ++ [ sshkeys.eike sshkeys.eike-nopw ];
+
+  "ventouxdemo-pg.age".publicKeys = [ machines.kalamos sshkeys.eike ];
+  "ventouxdemo-serversecret.age".publicKeys = [ machines.kalamos sshkeys.eike ];
 }

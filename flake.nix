@@ -34,9 +34,13 @@
       url = "github:eikek/webact";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ventoux = {
+      url = "git+https://codeberg.org/eikek/ventoux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, flake-parts, nixpkgs, nixos-hardware, agenix, dsc, ds4e, webact, ... }:
+  outputs = inputs@{ self, flake-parts, nixpkgs, nixos-hardware, agenix, dsc, ds4e, webact, ventoux, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }:
       let
         defaultSystem = "x86_64-linux";
@@ -57,6 +61,7 @@
           self.overlays.default
           webact.overlays.default
           ds4e.overlays.default
+          ventoux.overlays.default
           #dsc.overlays.default <- this makes dsc compile under 23.11 and not using nixpkgs from dsc flake
           (final: prev: {
             dsc = dsc.packages.${final.system}.default;
@@ -72,10 +77,15 @@
           config = { allowUnfree = true; };
         };
 
+        moreModules = [
+#          ventoux.nixosModules.default
+          ((import (ventoux + "/nix/module.nix")) "ventouxdemo")
+        ];
+
         mkNixos = modules: nixpkgs.lib.nixosSystem {
           system = defaultSystem;
           specialArgs = inputs;
-          modules = [{ nixpkgs.pkgs = pkgsBySystem defaultSystem; }] ++ modules;
+          modules = [{ nixpkgs.pkgs = pkgsBySystem defaultSystem; }] ++ moreModules ++ modules;
         };
         mkNixosArm = modules: nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
@@ -99,7 +109,10 @@
             packages = (import ./pkgs) pkgs;
 
             devShells.default = with pkgs;
-              mkShell { buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild pkgs.qemu ]; };
+              mkShell {
+                buildInputs = [ pkgs.agenix pkgs.nix pkgs.nixos-rebuild pkgs.qemu ];
+                env.AGENIX_RULES = "./secrets.nix";
+              };
 
             formatter = pkgs.nixpkgs-fmt;
           };
