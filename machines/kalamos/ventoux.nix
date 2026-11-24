@@ -62,6 +62,12 @@ in
       VENTOUX_SIGNUP_MODE = "open";
       VENTOUX_FEDERATION_ENABLED = "true";
       VENTOUX_WEBAPP_GRAVATAR_DEFAULT_IMAGE = "robohash";
+      VENTOUX_WEBAPP_LANDING_PAGE_MESSAGE = ''
+        # Hi there 👋!
+
+        This is just a demo instance. You can register and test the app. *All data will eventually reset, though!*
+      '';
+      VENTOUX_WEBAPP_LANDING_PAGE_MESSAGE_STYLE = "danger";
     };
   };
 
